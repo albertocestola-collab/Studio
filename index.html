@@ -191,6 +191,20 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
 .msg ul{margin:6px 0 0;padding-left:1.2em}
 .msg li{margin:4px 0;overflow-wrap:anywhere}
 .msg pre{margin:8px 0 0;padding:8px 10px;border-radius:8px;background:var(--surface);font-size:12.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+.lbl{display:flex;flex-direction:column;gap:6px;font-weight:700}
+.field[type=date]{min-height:48px;-webkit-appearance:none;appearance:none}
+.check{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px}
+.check input{width:24px;height:24px;margin:2px 0 0;flex:none;accent-color:var(--accent)}
+.batch li{display:flex;gap:8px;align-items:baseline;list-style:none}
+.batch ul{padding-left:0}
+.batch .ico{flex:none;font-weight:800}
+
+/* esami: totale ore e ordine */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.card.tot{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card.tot b{font-family:var(--f-display);font-size:24px;font-weight:800}
+.sortbtns{display:flex;gap:6px;flex:none}
+.sortbtns .btn{min-width:44px;padding:0;font-size:18px}
 .seg{display:inline-flex;background:var(--surface-2);border-radius:12px;padding:4px;flex-wrap:wrap}
 .seg button{padding:6px 12px;border-radius:9px;font-weight:700;color:var(--muted);min-height:38px}
 .seg button[aria-pressed="true"]{background:var(--surface);color:var(--accent);box-shadow:var(--shadow)}
@@ -227,7 +241,7 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
 </div>
 <div id="backdrop" class="backdrop" hidden><div id="sheet" class="sheet" role="dialog" aria-modal="true"></div></div>
 <div id="toast" class="toast" role="status" hidden></div>
-<input type="file" id="file-in" accept=".json,.txt,application/json,text/plain" hidden>
+<input type="file" id="file-in" accept=".json,.txt,application/json,text/plain" multiple hidden>
 
 <script src="katex/katex.min.js"></script>
 <script>
@@ -370,7 +384,26 @@ const sortedSections=a=>arr(a.sezioni).map((s,i)=>[s,i]).sort((x,y)=>{const lx=L
 function examTopics(e){
   return arr(e.programma).map((p,i)=>[p,i]).sort((x,y)=>((+x[0].capitolo||0)-(+y[0].capitolo||0))||((+x[0].ordine||0)-(+y[0].ordine||0))||x[1]-y[1]).map(x=>x[0]);
 }
-const examsSorted=()=>[...S.esami.values()].sort((a,b)=>String(a.data_esame).localeCompare(String(b.data_esame)));
+/* Le scelte dell'utente su data, ore, pausa e ordine stanno a parte (impostazioni) e vincono sui valori dei pacchetti:
+   un nuovo import di Claude non le cancella. */
+const scelte=()=>obj(S.imp.scelte_esami);
+const effExam=e=>e&&{...e,...obj(scelte()[e.id])};
+const byDate=(a,b)=>String(a.data_esame).localeCompare(String(b.data_esame));
+function examsSorted(){
+  const all=[...S.esami.values()].map(effExam),ord=arr(S.imp.ordine_esami);
+  const rank=e=>{const i=ord.indexOf(e.id);return i<0?1e6:i};
+  const act=all.filter(e=>!e.pausa).sort((a,b)=>rank(a)-rank(b)||byDate(a,b));
+  return act.concat(all.filter(e=>e.pausa).sort(byDate));
+}
+const activeExams=()=>examsSorted().filter(e=>!e.pausa);
+const weeklyHours=()=>activeExams().reduce((s,e)=>s+(+e.ore_settimanali||0),0);
+const fmtH=n=>(+n).toLocaleString('it-IT',{maximumFractionDigits:1});
+async function saveScelte(id,v){
+  const all={...scelte()};
+  if(Object.keys(v).length)all[id]=v;else delete all[id];
+  await setImp('scelte_esami',all);await setImp('scelte_ts',Date.now());
+}
+async function saveOrder(ids){await setImp('ordine_esami',ids);await setImp('scelte_ts',Date.now())}
 
 /* ---------- validazione dei pacchetti ---------- */
 const ID_RE=/^[a-z0-9][a-z0-9._-]*$/;
@@ -617,6 +650,10 @@ function buildPlan(p){
     esami.set(p.esame_id,{id:p.esame_id,nome:n.nome,cfu:n.cfu,data_esame:n.data_esame,ore_settimanali:n.ore_settimanali,
       perche_mi_serve:n.perche_mi_serve||(old&&old.perche_mi_serve)||'',programma:mergeById(old&&old.programma,n.programma),simulazioni:arr(old&&old.simulazioni)});
     tE.add(p.esame_id);
+    const mine=obj(scelte()[p.esame_id]),kept=[];
+    if('data_esame' in mine)kept.push('la data ('+esc(shortDate(mine.data_esame))+')');
+    if('ore_settimanali' in mine)kept.push('le ore ('+fmtH(mine.ore_settimanali)+' a settimana)');
+    if(kept.length)warns.push(`Per questo esame hai scelto tu ${listIt(kept)}: tengo le tue. Puoi cambiarle da Esami → Modifica.`);
     lines.push(`${old?'Aggiorno':'Aggiungo'} l'esame <b>${esc(n.nome)}</b> (${esc(n.cfu)} CFU, esame il ${esc(shortDate(n.data_esame))}) con ${pl(n.programma.length,'argomento','argomenti')} nel programma.`);
   }
   if(p.tipo==='contenuti'){
@@ -668,11 +705,15 @@ function buildExport(all){
   const recs=[...S.prog.values()].filter(r=>r.ts>since).sort((a,b)=>a.ts-b.ts);
   const dates=recs.map(r=>r.data).sort();
   const al=todayKey(),dal=!all&&last?last.data:(dates[0]||al);
-  const o={progressi:1,dal,al,pacchetti:Object.keys(pacchetti()),
+  /* le scelte su date, ore, ordine e pausa vanno sempre: sono poche righe e Claude ne ha bisogno per il piano */
+  const act=activeExams();
+  const esami=examsSorted().map(e=>({id:e.id,data_esame:e.data_esame,ore_settimanali:+e.ore_settimanali,priorita:e.pausa?null:act.findIndex(x=>x.id===e.id)+1,pausa:!!e.pausa}));
+  const o={progressi:1,dal,al,pacchetti:Object.keys(pacchetti()),esami,
     sessioni:[],esercizi:[],quiz:[],
     letture:recs.filter(r=>r.tipo==='lettura').map(r=>[r.rif,r.data]),
     scarico:[],jolly:[],minuti:{},note:[]};
-  return {text:`PROGRESSI STUDIO v1 · dal ${dal} al ${al}\n`+JSON.stringify(o),count:recs.length};
+  const changed=(S.imp.scelte_ts||0)>since?1:0;
+  return {text:`PROGRESSI STUDIO v1 · dal ${dal} al ${al}\n`+JSON.stringify(o),count:recs.length+changed};
 }
 async function markExported(){await setImp('ultimo_export',{ts:Date.now(),data:todayKey()});render()}
 async function copyText(text,ta){
@@ -689,8 +730,9 @@ function limited(key,items,fn,n){
 }
 function topicStats(a){const s=arr(a.sezioni);return {tot:s.length,read:s.filter(x=>isRead(x.id)).length}}
 function resumeTopic(){
-  const last=S.imp.ultimo;if(last&&S.arg.has(last))return S.arg.get(last);
-  for(const e of examsSorted())for(const t of examTopics(e))if(S.arg.has(t.id)){const a=S.arg.get(t.id),st=topicStats(a);if(st.read<st.tot||!st.tot)return a}
+  const paused=id=>{const e=S.esami.get(id);return !!(e&&effExam(e).pausa)};
+  const last=S.imp.ultimo;if(last&&S.arg.has(last)&&!paused(S.arg.get(last).esame_id))return S.arg.get(last);
+  for(const e of activeExams())for(const t of examTopics(e))if(S.arg.has(t.id)){const a=S.arg.get(t.id),st=topicStats(a);if(st.read<st.tot||!st.tot)return a}
   return null;
 }
 
@@ -717,8 +759,10 @@ function renderAdesso(){
       <p class="muted" style="margin:0">L'esame c'è: chiedi a Claude i contenuti del primo argomento.</p>
       <button class="btn primary big" data-act="import">Importa</button></section>`;
   }
-  h+=`<section class="card"><div class="eyebrow" style="margin-bottom:8px">Esami</div>${examsSorted().slice(0,5).map(e=>
-    `<div class="examrow"><b>${esc(e.nome)}</b><span class="muted small num">${esc(shortDate(e.data_esame))} · ${untilText(e.data_esame)}</span></div>`).join('')}</section>
+  const act=activeExams();
+  h+=`<section class="card"><div class="eyebrow" style="margin-bottom:8px">Esami in corso · ${fmtH(weeklyHours())} h a settimana</div>${act.length?act.slice(0,5).map(e=>
+    `<div class="examrow"><b>${esc(e.nome)}</b><span class="muted small num">${esc(shortDate(e.data_esame))} · ${untilText(e.data_esame)}</span></div>`).join('')
+    :'<div class="muted">Tutti gli esami sono in pausa.</div>'}</section>
     <p class="note">Il piano del giorno, il timer e il semaforo arrivano con il prossimo aggiornamento.</p>`;
   v.innerHTML=h;
 }
@@ -728,18 +772,33 @@ function renderEsami(){
   if(r.arg&&S.arg.has(r.arg))return renderTopic(v,S.arg.get(r.arg));
   if(r.esame&&S.esami.has(r.esame))return renderExam(v,S.esami.get(r.esame));
   S.route={esame:null,arg:null};
-  const list=examsSorted();
-  v.innerHTML=`<h1 class="page-h">Esami</h1>`+(list.length?`<div class="stack-s">${limited('esami',list,e=>{
-    const tops=examTopics(e),withC=tops.filter(t=>S.arg.has(t.id)).length;
-    return `<button class="row" data-act="open-exam" data-id="${esc(e.id)}"><span class="txt"><span class="t">${esc(e.nome)}</span>
-      <span class="m"><span class="num">${esc(shortDate(e.data_esame))}</span><span>${untilText(e.data_esame)}</span><span>${withC}/${tops.length} argomenti pronti</span></span></span>${IC.right}</button>`})}</div>`
+  const list=examsSorted(),act=list.filter(e=>!e.pausa),paused=list.filter(e=>e.pausa);
+  if(act.length<2)S.sorting=false;
+  const info=e=>{const tops=examTopics(e),withC=tops.filter(t=>S.arg.has(t.id)).length;
+    return `<span class="t">${esc(e.nome)}</span>
+      <span class="m"><span class="num">${esc(shortDate(e.data_esame))}</span><span>${untilText(e.data_esame)}</span><span>${fmtH(e.ore_settimanali)} h/sett.</span><span>${withC}/${tops.length} argomenti pronti</span></span>`};
+  const row=(e,i)=>S.sorting
+    ?`<div class="row"><span class="n">${i+1}</span><span class="txt">${info(e)}</span><span class="sortbtns">
+        <button class="btn" data-act="move" data-id="${esc(e.id)}" data-d="-1" aria-label="Sposta su"${i?'':' disabled'}>↑</button>
+        <button class="btn" data-act="move" data-id="${esc(e.id)}" data-d="1" aria-label="Sposta giù"${i<act.length-1?'':' disabled'}>↓</button></span></div>`
+    :`<button class="row" data-act="open-exam" data-id="${esc(e.id)}"><span class="n">${i+1}</span><span class="txt">${info(e)}</span>${IC.right}</button>`;
+  v.innerHTML=`<h1 class="page-h">Esami</h1>`+(list.length?`
+    <section class="card tot"><div><b class="num">${fmtH(weeklyHours())} h</b> a settimana<div class="muted small">${act.length?'somma degli esami in corso':'tutti gli esami sono in pausa'}</div></div>
+      ${act.length>1?`<button class="btn${S.sorting?' primary':''}" data-act="sort-toggle">${S.sorting?'Fatto':'Cambia ordine'}</button>`:''}</section>
+    ${S.sorting?'<p class="note">Il numero 1 è l\'esame più importante adesso. Usa le frecce per spostare.</p>':''}
+    <div class="stack-s">${act.map(row).join('')}</div>
+    ${paused.length?`<div class="eyebrow" style="margin-top:8px">In pausa</div><div class="stack-s">${paused.map(e=>
+      `<button class="row" data-act="open-exam" data-id="${esc(e.id)}"><span class="n">–</span><span class="txt">${info(e)}</span>${IC.right}</button>`).join('')}</div>`:''}`
     :`<div class="empty">Nessun esame ancora.<br><button class="btn primary" style="margin-top:10px" data-act="import">Importa</button></div>`);
 }
 function renderExam(v,e){
-  const tops=examTopics(e);
+  e=effExam(e);
+  const tops=examTopics(e),mine=obj(scelte()[e.id]),pos=activeExams().findIndex(x=>x.id===e.id);
   v.innerHTML=`<div><button class="back" data-act="back">${IC.left}Esami</button></div>
   <div><h1 class="page-h">${esc(e.nome)}</h1>
-    <div class="muted" style="margin-top:4px">${esc(e.cfu)} CFU · esame il ${esc(shortDate(e.data_esame))} (${untilText(e.data_esame)}) · ${esc(e.ore_settimanali)} h a settimana</div></div>
+    <div class="muted" style="margin-top:4px">${esc(e.cfu)} CFU · esame il ${esc(shortDate(e.data_esame))} (${untilText(e.data_esame)}) · ${fmtH(e.ore_settimanali)} h a settimana</div>
+    <div class="chips" style="margin-top:8px">${e.pausa?'<span class="chip">In pausa</span>':`<span class="chip">Priorità ${pos+1} di ${activeExams().length}</span>`}${'data_esame' in mine||'ore_settimanali' in mine?'<span class="chip">Data e ore scelte da te</span>':''}</div>
+    <button class="btn" style="margin-top:10px" data-act="edit-exam" data-id="${esc(e.id)}">Modifica data, ore e pausa</button></div>
   <div class="stack-s">${limited('prog:'+e.id,tops,t=>{
     const a=S.arg.get(t.id);
     if(!a)return `<div class="row off"><span class="n">${esc(t.capitolo!=null&&t.capitolo!==999?t.capitolo:'·')}</span><span class="txt"><span class="t">${esc(t.titolo)}</span><span class="m">Contenuti non ancora importati</span></span></div>`;
@@ -849,7 +908,7 @@ function closeSheet(){$('#backdrop').hidden=true;$('#sheet').innerHTML='';S.chec
 function importSheet(){
   openSheet(`<h2>Importa</h2><div class="stack-s">
     <textarea id="imp-ta" class="code" placeholder="Incolla qui il JSON che ti ha dato Claude" autocapitalize="off" autocorrect="off" spellcheck="false">${esc(S.draft)}</textarea>
-    <button class="btn" data-act="pick-file">Oppure scegli un file</button>
+    <button class="btn" data-act="pick-file">Oppure scegli uno o più file</button>
     <div class="foot"><button class="btn ghost" data-act="close">Annulla</button><button class="btn primary" data-act="check">Controlla</button></div></div>`);
 }
 function previewSheet(res){
@@ -871,6 +930,48 @@ function previewSheet(res){
     ${plan.prev?`<div class="msg wrn"><div class="eyebrow">Già importato</div>Questo pacchetto l'hai già importato il ${esc(shortDate(plan.prev.importato_il))}. Se vai avanti lo sovrascrivo. I tuoi progressi restano.</div>`:''}
     ${warns.length?`<div class="msg wrn"><div class="eyebrow">Da sapere</div><ul>${warns.slice(0,5).map(x=>`<li>${x}</li>`).join('')}${warns.length>5?`<li>…e altri ${warns.length-5}.</li>`:''}</ul></div>`:''}
     <div class="foot"><button class="btn ghost" data-act="import">Indietro</button><button class="btn primary" data-act="apply">${plan.prev?'Sovrascrivi':'Importa'}</button></div></div>`);
+}
+function editExamSheet(id){
+  const base=S.esami.get(id);if(!base)return;
+  const e=effExam(base),mine=obj(scelte()[id]),changed='data_esame' in mine||'ore_settimanali' in mine;
+  openSheet(`<h2>Modifica l'esame</h2><div class="stack-s">
+    <div class="muted">${esc(e.nome)}</div>
+    <label class="lbl">Data dell'esame<input class="field" type="date" id="ed-data" value="${esc(e.data_esame)}"></label>
+    <label class="lbl">Ore di studio a settimana<input class="field" type="text" id="ed-ore" inputmode="decimal" autocomplete="off" value="${esc(fmtH(e.ore_settimanali))}"></label>
+    <label class="check"><input type="checkbox" id="ed-pausa"${e.pausa?' checked':''}><span><b>In pausa</b><br><span class="muted small">Resta nell'app con i tuoi progressi, ma non conta nelle ore e non compare in Adesso.</span></span></label>
+    ${changed?`<p class="note">Claude aveva messo: esame il ${esc(shortDate(base.data_esame))}, ${fmtH(base.ore_settimanali)} h a settimana. <button class="btn small ghost" data-act="reset-exam" data-id="${esc(id)}">Rimetti questi</button></p>`:''}
+    <p class="note">Le tue scelte restano anche se importi un nuovo pacchetto dell'esame, e vanno a Claude con l'export dei progressi.</p>
+    <div class="foot"><button class="btn ghost" data-act="close">Annulla</button><button class="btn primary" data-act="save-exam" data-id="${esc(id)}">Salva</button></div></div>`);
+}
+/* Più file insieme: prima gli esami, poi gli altri in ordine di nome (1di4, 2di4…).
+   Ognuno si controlla come se i precedenti fossero già importati, così un esame e i suoi contenuti possono arrivare insieme. */
+function batchCheck(files){
+  const pre=files.map(f=>{let d=null;try{d=JSON.parse(cleanInput(f.text))}catch(_){}return {...f,d:obj(d)}});
+  const rk=f=>f.d.tipo==='nuovo_esame'?0:1,nm=f=>String(f.d.id_pacchetto||f.name);
+  pre.sort((a,b)=>rk(a)-rk(b)||nm(a).localeCompare(nm(b),'it',{numeric:true}));
+  const keepE=S.esami,keepA=S.arg,out=[];
+  try{
+    for(const f of pre){
+      const res=parsePackage(f.text);
+      if(res.errs&&res.errs.length){out.push({name:f.name,errs:res.errs});continue}
+      const plan=buildPlan(res.data);
+      out.push({name:f.name,data:res.data,lines:plan.lines,warns:res.warns.concat(plan.warns),prev:plan.prev});
+      S.esami=plan.esami;S.arg=plan.arg;
+    }
+  }finally{S.esami=keepE;S.arg=keepA}
+  return out;
+}
+function batchSheet(items){
+  const ok=items.filter(x=>x.data),bad=items.filter(x=>!x.data),warns=[].concat(...ok.map(x=>x.warns));
+  S.checked={batch:ok.map(x=>x.data),errText:bad.map(x=>x.name+': '+x.errs.join(' ')).join('\n').replace(/<[^>]+>/g,'')};
+  openSheet(`<h2>Anteprima · ${pl(items.length,'file','file')}</h2><div class="stack-s">
+    ${ok.length?`<div class="msg okk batch"><div class="eyebrow">Pronti da importare: ${ok.length}</div><ul>${ok.map(x=>
+      `<li><span class="ico">✓</span><span><b>${esc(x.data.id_pacchetto)}</b>${x.prev?' <span class="chip warn">già importato: lo sovrascrivo</span>':''}<br><span class="small">${x.lines.join(' ')}</span></span></li>`).join('')}</ul></div>`:''}
+    ${bad.length?`<div class="msg err batch"><div class="eyebrow">Non si importano: ${bad.length}</div><ul>${bad.map(x=>
+      `<li><span class="ico">✗</span><span><b>${esc(x.name)}</b><br><span class="small">${x.errs[0]}</span></span></li>`).join('')}</ul></div>`:''}
+    ${warns.length?`<div class="msg wrn"><div class="eyebrow">Da sapere</div><ul>${warns.slice(0,5).map(x=>`<li>${x}</li>`).join('')}${warns.length>5?`<li>…e altri ${warns.length-5}.</li>`:''}</ul></div>`:''}
+    ${ok.length?'<p class="note">I tuoi progressi restano.</p>':''}
+    <div class="foot"><button class="btn ghost" data-act="import">Indietro</button>${bad.length?'<button class="btn" data-act="copy-err">Copia gli errori</button>':''}${ok.length?`<button class="btn primary" data-act="apply-batch">Importa ${ok.length}</button>`:''}</div></div>`);
 }
 function exportSheet(){
   const ex=buildExport(S.exportAll);
@@ -899,6 +1000,15 @@ const ACT={
     if(!S.esami.has(plan.p.esame_id))S.route={esame:null,arg:null};
     go('esami');
   },
+  'apply-batch':async b=>{
+    const list=S.checked&&S.checked.batch;if(!list)return;b.disabled=true;
+    let n=0,last=null;
+    try{for(const d of list){await applyPlan(buildPlan(d));n++;last=d.esame_id}}
+    catch(e){closeSheet();toast(`Mi sono fermato dopo ${pl(n,'pacchetto','pacchetti')}: ${e&&e.message||e}`);render();return}
+    S.draft='';closeSheet();toast(`Importati ${pl(n,'pacchetto','pacchetti')}`);
+    S.route={esame:S.esami.has(last)?last:null,arg:null};S.open=null;
+    go('esami');
+  },
   export:()=>{S.exportAll=false;exportSheet()},
   'exp-mode':b=>{S.exportAll=b.dataset.all==='1';exportSheet()},
   'copy-exp':async()=>{const ex=buildExport(S.exportAll);
@@ -924,7 +1034,27 @@ const ACT={
   'ex-try':b=>{S.ex[b.dataset.id]=1;render()},
   'ex-step':b=>{S.ex[b.dataset.id]=(S.ex[b.dataset.id]||0)+1;render()},
   'ex-sol':b=>{S.ex[b.dataset.id]=+b.dataset.n;render()},
-  'dismiss-tip':()=>{lsSet(LS_TIP,'1');$('#banner').hidden=true}
+  'dismiss-tip':()=>{lsSet(LS_TIP,'1');$('#banner').hidden=true},
+  'edit-exam':b=>editExamSheet(b.dataset.id),
+  'save-exam':async b=>{
+    const id=b.dataset.id,base=S.esami.get(id);if(!base)return;
+    const raw=$('#ed-ore').value.trim().replace(',','.'),data=$('#ed-data').value,ore=Number(raw),pausa=$('#ed-pausa').checked;
+    if(!isDate(data)){toast('Scegli una data valida');return}
+    if(!/^\d+(\.\d+)?$/.test(raw)||ore>60){toast('Le ore devono essere un numero da 0 a 60, per esempio 4 o 4,5');return}
+    const v={};
+    if(data!==base.data_esame)v.data_esame=data;
+    if(ore!==+base.ore_settimanali)v.ore_settimanali=ore;
+    if(pausa)v.pausa=true;
+    await saveScelte(id,v);closeSheet();toast('Salvato');render()},
+  'reset-exam':async b=>{const id=b.dataset.id,p=obj(scelte()[id]).pausa;
+    await saveScelte(id,p?{pausa:true}:{});editExamSheet(id);render();toast('Rimessi i valori di Claude')},
+  'sort-toggle':()=>{S.sorting=!S.sorting;render()},
+  move:async b=>{
+    const ids=activeExams().map(e=>e.id),i=ids.indexOf(b.dataset.id),j=i+(+b.dataset.d);
+    if(i<0||j<0||j>=ids.length)return;
+    [ids[i],ids[j]]=[ids[j],ids[i]];
+    /* gli esami in pausa tengono il loro posto, per quando tornano attivi */
+    await saveOrder(ids.concat(arr(S.imp.ordine_esami).filter(x=>!ids.includes(x))));render()}
 };
 document.addEventListener('click',e=>{
   const tab=e.target.closest('.nav [data-tab]');
@@ -935,9 +1065,14 @@ document.addEventListener('click',e=>{
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#backdrop').hidden)closeSheet()});
 $('#file-in').addEventListener('change',async e=>{
-  const f=e.target.files&&e.target.files[0];if(!f)return;
-  try{S.draft=await f.text()}catch(_){toast('Non riesco a leggere il file');return}
-  previewSheet(parsePackage(S.draft));
+  const fs=[...(e.target.files||[])];if(!fs.length)return;
+  if(fs.length===1){
+    try{S.draft=await fs[0].text()}catch(_){toast('Non riesco a leggere il file');return}
+    previewSheet(parsePackage(S.draft));return;
+  }
+  let files;
+  try{files=await Promise.all(fs.map(async f=>({name:f.name,text:await f.text()})))}catch(_){toast('Non riesco a leggere i file');return}
+  batchSheet(batchCheck(files));
 });
 
 function renderBanner(){
