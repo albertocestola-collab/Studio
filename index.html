@@ -626,7 +626,7 @@ function buildPlan(p){
   const arg=new Map([...S.arg].map(([k,v])=>[k,clone(v)]));
   const tE=new Set(),tA=new Set(),dE=new Set(),dA=new Set(),warns=[],lines=[];
   /* 1. rimuovi */
-  let removed=0;
+  let removed=0,missing=0;
   for(const id of arr(p.rimuovi)){
     let found=false;
     if(esami.has(id)){esami.delete(id);dE.add(id);tE.delete(id);found=true;
@@ -642,8 +642,11 @@ function buildPlan(p){
       const v=obj(a.verifica),n=arr(v.quiz).length;a.verifica={spiegalo:arr(v.spiegalo),quiz:arr(v.quiz).filter(x=>x.id!==id)};
       if(a.verifica.quiz.length!==n)ch=true;
       if(ch){tA.add(k);found=true}}
-    if(found)removed++;else warns.push(`Non ho trovato ${esc(id)} da rimuovere: lo ignoro.`);
+    if(found)removed++;else missing++;
   }
+  /* una riga sola: di solito vuol dire che la versione vecchia non era mai stata importata, e va bene così */
+  if(missing)warns.push(removed?`${pl(missing,'parte vecchia','parti vecchie')} da togliere non ${missing===1?'c\'era':'c\'erano'}: va bene così.`
+    :'Non avevi la versione vecchia di questi argomenti: non c\'è niente da togliere, va bene così.');
   /* 2. aggiungi o sostituisci */
   if(p.tipo==='nuovo_esame'){
     const n=p.esame,old=esami.get(p.esame_id);
@@ -662,7 +665,7 @@ function buildPlan(p){
     for(const a of arr(p.argomenti)){
       const old=arg.get(a.id);
       arg.set(a.id,old?mergeTopic(old,a,p.esame_id):normTopic(a,p.esame_id));tA.add(a.id);
-      old?nUpd++:nNew++;titles.push(a.titolo);
+      if(old)nUpd++;else{nNew++;titles.push(a.titolo)}
       cs+=arr(a.sezioni).length;ct+=arr(a.tecniche).length;ce+=arr(a.esercizi).length;cq+=arr(obj(a.verifica).quiz).length;
       if(e&&!arr(e.programma).some(x=>x.id===a.id)){
         e.programma=arr(e.programma).concat([{id:a.id,titolo:a.titolo,capitolo:999,ordine:999}]);tE.add(e.id);
@@ -962,7 +965,7 @@ function batchCheck(files){
   return out;
 }
 function batchSheet(items){
-  const ok=items.filter(x=>x.data),bad=items.filter(x=>!x.data),warns=[].concat(...ok.map(x=>x.warns));
+  const ok=items.filter(x=>x.data),bad=items.filter(x=>!x.data),warns=dedupe([].concat(...ok.map(x=>x.warns)));
   S.checked={batch:ok.map(x=>x.data),errText:bad.map(x=>x.name+': '+x.errs.join(' ')).join('\n').replace(/<[^>]+>/g,'')};
   openSheet(`<h2>Anteprima · ${pl(items.length,'file','file')}</h2><div class="stack-s">
     ${ok.length?`<div class="msg okk batch"><div class="eyebrow">Pronti da importare: ${ok.length}</div><ul>${ok.map(x=>
