@@ -163,7 +163,10 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 .md .katex-error{color:var(--urgent)}
 .md code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:0 .3em;overflow-wrap:anywhere}
 .md pre.codeblock{margin:.3em 0 .8em;padding:10px 12px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;line-height:1.45;tab-size:4}
-.md pre.codeblock code{display:block;width:max-content;min-width:100%;background:none;border:0;padding:0;font-size:13.5px;white-space:pre;overflow-wrap:normal}
+.md pre.codeblock code{display:block;width:max-content;min-width:100%;background:none;border:0;padding:0;font-size:clamp(11.5px,3vw,13.5px);white-space:pre;overflow-wrap:normal}
+/* sul telefono (375 px) il codice scende a 11,5 px e il riquadro ha margini più stretti:
+   così righe di C fino a 46 caratteri stanno nello schermo senza scorrere di lato */
+@media (max-width:420px){.md pre.codeblock{padding:10px 9px}}
 
 /* vittorie e dati */
 .kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
