@@ -161,6 +161,9 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 .md .mathblock{display:block;overflow-x:auto;overflow-y:hidden;padding:4px 0;margin:.3em 0;-webkit-overflow-scrolling:touch}
 .md .katex{font-size:1.08em}
 .md .katex-error{color:var(--urgent)}
+.md code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:0 .3em;overflow-wrap:anywhere}
+.md pre.codeblock{margin:.3em 0 .8em;padding:10px 12px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;line-height:1.45;tab-size:4}
+.md pre.codeblock code{display:block;width:max-content;min-width:100%;background:none;border:0;padding:0;font-size:13.5px;white-space:pre;overflow-wrap:normal}
 
 /* vittorie e dati */
 .kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -270,9 +273,13 @@ function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTi
 function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 
-/* ---------- Markdown minimale con formule KaTeX ----------
-   Prima si tolgono le formule, poi si fa l'escape di tutto il resto: nessun HTML del pacchetto arriva alla pagina. */
+/* ---------- Markdown minimale con formule KaTeX e codice ----------
+   Prima si tolgono codice e formule, poi si fa l'escape di tutto il resto: nessun HTML del pacchetto arriva alla pagina.
+   Il codice (```...``` su righe proprie, oppure `...` in linea) resta com'è: niente corsivi, titoli o formule dentro. */
 const mdCache=new Map();
+const CODE_BLOCK=/^[ \t]*```[^\n`]*\n([\s\S]*?)^[ \t]*```[ \t]*$/gm, CODE_INLINE=/`([^`\n]+)`/g;
+/* il testo senza il codice: serve ai controlli sulle formule, che dentro il codice non valgono */
+function stripCode(s){return String(s).replace(/\r\n?/g,'\n').replace(CODE_BLOCK,'').replace(CODE_INLINE,'')}
 function tex(src,display){
   if(!window.katex)return '<code>'+esc(src)+'</code>';
   try{return katex.renderToString(src,{displayMode:display,throwOnError:false,strict:'ignore',output:'htmlAndMathml'})}
@@ -281,14 +288,19 @@ function tex(src,display){
 function md(src){
   src=String(src==null?'':src);
   if(mdCache.has(src))return mdCache.get(src);
-  const math=[];
-  let s=src.replace(/\u0000/g,'').replace(/\\\$/g,'\u0000D\u0000');
+  const math=[],code=[];
+  let s=src.replace(/\u0000/g,'').replace(/\r\n?/g,'\n');
+  s=s.replace(CODE_BLOCK,(m,t)=>{code.push(t.replace(/\n$/,''));return '\u0000C'+(code.length-1)+'\u0000'});
+  s=s.replace(CODE_INLINE,(m,t)=>{code.push(t);return '\u0000K'+(code.length-1)+'\u0000'});
+  s=s.replace(/\\\$/g,'\u0000D\u0000');
   s=s.replace(/\$\$([\s\S]+?)\$\$/g,(m,t)=>{math.push([t,true]);return '\u0000M'+(math.length-1)+'\u0000'});
   s=s.replace(/\$([^$\n]+?)\$/g,(m,t)=>{math.push([t,false]);return '\u0000M'+(math.length-1)+'\u0000'});
   const inline=t=>esc(t)
     .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
     .replace(/(^|[^*])\*([^*\n]+?)\*/g,'$1<em>$2</em>')
     .replace(/\u0000M(\d+)\u0000/g,(m,i)=>{const [t,d]=math[+i];return d?'<span class="mathblock">'+tex(t,true)+'</span>':tex(t,false)})
+    .replace(/\u0000K(\d+)\u0000/g,(m,i)=>'<code>'+esc(code[+i])+'</code>')
+    .replace(/\u0000C(\d+)\u0000/g,(m,i)=>'<code>'+esc(code[+i])+'</code>')
     .replace(/\u0000D\u0000/g,'$');
   const out=[];let para=[],list=null;
   const flushP=()=>{if(para.length){out.push('<p>'+para.map(inline).join('<br>')+'</p>');para=[]}};
@@ -296,6 +308,7 @@ function md(src){
   for(const raw of s.split(/\r?\n/)){
     const line=raw.trimEnd();let m;
     if(!line.trim()){flushP();flushL();continue}
+    if((m=/^\s*\u0000C(\d+)\u0000$/.exec(line))){flushP();flushL();out.push('<pre class="codeblock"><code>'+esc(code[+m[1]])+'</code></pre>');continue}
     if((m=/^\s*#{1,6}\s+(.*)$/.exec(line))){flushP();flushL();out.push('<div class="mh">'+inline(m[1])+'</div>');continue}
     if((m=/^\s*[-*]\s+(.*)$/.exec(line))){flushP();if(!list||list.tag!=='ul'){flushL();list={tag:'ul',items:[]}}list.items.push(m[1]);continue}
     if((m=/^\s*\d+[.)]\s+(.*)$/.exec(line))){flushP();if(!list||list.tag!=='ol'){flushL();list={tag:'ol',items:[]}}list.items.push(m[1]);continue}
@@ -542,6 +555,7 @@ function validate(p,bytes){
   }
   /* barre rovesciate singole che il JSON accetta ma che rompono le formule (\frac diventa un carattere invisibile) */
   walkStrings(p,(s,where)=>{
+    s=stripCode(s);
     const bad=/[\b\f\t\v]/.exec(s);
     const hint={'\b':'\\\\beta','\f':'\\\\frac','\t':'\\\\theta o \\\\to','\v':'\\\\varepsilon'};
     if(bad){E(`${where} c'è una barra rovesciata singola (forse ${hint[bad[0]]} scritto con una sola barra). Nel JSON le barre di LaTeX vanno doppie: chiedi a Claude di correggerlo.`);return}
