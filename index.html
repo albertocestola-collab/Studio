@@ -151,6 +151,13 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 .steps li{display:flex;gap:10px;background:var(--surface-2);border-radius:12px;padding:10px 12px;counter-increment:st;animation:up .2s ease}
 .steps li::before{content:counter(st);flex:none;width:24px;height:24px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:13px}
 .steps li>div{min-width:0;flex:1}
+/* «Mettiti alla prova»: esercizi dentro la sezione, subito dopo la teoria che serve */
+.tryit{margin-top:14px;padding:12px;border-radius:14px;background:var(--ok-soft)}
+.tryit>.eyebrow{color:var(--ok);margin-bottom:8px}
+.tryit .card.ex{box-shadow:none}
+.toc .tx{font-weight:400;color:var(--muted);font-size:12.5px}
+/* sul telefono il riquadro dentro il riquadro ruba spazio al codice: margini più stretti */
+@media (max-width:420px){.tryit{padding:8px;margin-left:-8px;margin-right:-8px}.tryit .card.ex{padding:12px 10px}}
 
 /* testo di studio (Markdown) */
 .md{overflow-wrap:break-word;min-width:0}
@@ -619,6 +626,9 @@ function validate(p,bytes){
           const w=isStr(x.id)?`Nell'esercizio ${esc(x.id)}`:`${wa}, nell'esercizio ${j+1},`;
           idOk(x.id,w,tid);need(x,'testo',w,'str');need(x,'soluzione',w,'str');opt(x,'suggerimento',w,'str');strArr(x,'passi',w);
           if(need(x,'livello',w,'str')&&!EX_LEVELS[x.livello])E(`${w} il livello «${esc(x.livello)}» non esiste. Quelli possibili: base, medio, difficile.`);
+          /* dopo_sezione: l'esercizio compare anche subito dopo quella sezione («Mettiti alla prova») */
+          if(opt(x,'dopo_sezione',w,'str')&&isStr(x.dopo_sezione)&&!arr(a.sezioni).some(s=>s&&s.id===x.dopo_sezione))
+            W(`${w} il campo dopo_sezione indica ${esc(x.dopo_sezione)}, che non è una sezione di questo argomento: l'esercizio resta solo in fondo.`);
         });
         if(opt(a,'verifica',wa,'obj')&&a.verifica){
           strArr(a.verifica,'spiegalo',wa+', nella verifica,');
@@ -904,6 +914,24 @@ function renderExam(v,e){
       <span class="m">${st.tot?`${st.read}/${st.tot} sezioni lette`:''}${arr(a.esercizi).length?`<span>${pl(arr(a.esercizi).length,'esercizio','esercizi')}</span>`:''}</span>
       ${st.tot?`<span class="bar"><b style="width:${Math.round(st.read/st.tot*100)}%"></b></span>`:''}</span>${IC.right}</button>`},8)}</div>`;
 }
+/* un esercizio con i suoi aiuti che si scoprono uno alla volta (usato dentro la sezione e nell'elenco in fondo) */
+function exCard(x){
+  const items=[];
+  if(x.suggerimento)items.push(['Suggerimento',x.suggerimento,'']);
+  arr(x.passi).forEach((p,i)=>items.push(['Passo '+(i+1),p,'']));
+  items.push(['Soluzione',x.soluzione,'sol']);
+  const k=S.ex[x.id]==null?-1:S.ex[x.id];
+  let b='';
+  if(k<0)b=`<button class="btn primary" data-act="ex-try" data-id="${esc(x.id)}">Ho provato</button>`;
+  else{
+    b=items.slice(0,k).map(([t,m,c])=>`<div class="box ${c}"><span class="eyebrow">${t}</span>${md(m)}</div>`).join('');
+    if(k<items.length){const nx=items[k][0];
+      b+=`<div class="btnrow" style="margin-top:10px"><button class="btn primary" data-act="ex-step" data-id="${esc(x.id)}">Mostra ${nx==='Soluzione'?'la soluzione':nx.toLowerCase()}</button>
+        ${nx!=='Soluzione'?`<button class="btn ghost" data-act="ex-sol" data-id="${esc(x.id)}" data-n="${items.length}">Soluzione subito</button>`:''}</div>`}
+  }
+  return `<section class="card ex"><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:6px"><span class="chip ${x.livello==='difficile'?'red':x.livello==='medio'?'warn':'ok'}">${esc(EX_LEVELS[x.livello]||x.livello)}</span><span class="muted small">${esc(x.id.split('.').pop())}</span></div>
+    ${md(x.testo)}<div style="margin-top:10px">${b}</div></section>`;
+}
 function renderTopic(v,a){
   const e=S.esami.get(a.esame_id),secs=sortedSections(a);
   if(S.open===null||!secs.some(s=>s.id===S.open)){const u=secs.find(s=>!isRead(s.id));S.open=u?u.id:'';}
@@ -911,12 +939,18 @@ function renderTopic(v,a){
   <div><h1 class="page-h">${esc(a.titolo)}</h1>${a.fonte?`<div class="muted small" style="margin-top:4px">Fonte: ${esc(a.fonte)}</div>`:''}</div>`;
   if(a.prossimo_passo)h+=`<div class="nextstep"><div class="eyebrow">Prossimo passo</div>${md(a.prossimo_passo)}</div>`;
   if(arr(a.incerto).length)h+=`<div class="incerto"><div class="eyebrow">Da verificare</div>${md(arr(a.incerto).map(x=>'- '+x.replace(/\n/g,' ')).join('\n'))}</div>`;
+  const exs=arr(a.esercizi),secIds=new Set(secs.map(s=>s.id));
+  /* esercizi da fare subito dopo una sezione: teoria e pratica si alternano */
+  const after={};for(const x of exs)if(x.dopo_sezione&&secIds.has(x.dopo_sezione))(after[x.dopo_sezione]=after[x.dopo_sezione]||[]).push(x);
   if(secs.length){
-    h+=`<h2 class="sec-h">Spiegazione</h2><div class="stack-s">`+limited('sez:'+a.id,secs,s=>{
-      const open=S.open===s.id,read=isRead(s.id);
+    h+=`<h2 class="sec-h">Spiegazione</h2><div class="stack-s">`+limited('sez:'+a.id,secs,(s,i)=>{
+      const open=S.open===s.id,read=isRead(s.id),mine=after[s.id]||[];
       return `<div class="acc${open?' open':''}"><button class="acc-h" data-act="toggle-sec" data-id="${esc(s.id)}" aria-expanded="${open}">
-        <span class="dot${read?' on':''}">${IC.check}</span><span class="txt"><span class="eyebrow">${esc(LEVELS[s.livello]||s.livello)}</span><span class="t">${esc(s.titolo)}</span></span>${IC.chev}</button>
-        ${open?`<div class="acc-b">${md(s.testo)}<button class="btn readbtn${read?' on':''}" style="margin-top:12px;width:100%" data-act="read" data-id="${esc(s.id)}">${read?'Letto ✓':'Ho letto'}</button></div>`:''}</div>`},6)+`</div>`;
+        <span class="dot${read?' on':''}">${IC.check}</span><span class="txt"><span class="eyebrow">Sezione ${i+1} di ${secs.length} · ${esc(LEVELS[s.livello]||s.livello)}</span><span class="t">${esc(s.titolo)}</span>
+        ${mine.length?`<span class="m">${pl(mine.length,'esercizio','esercizi')} dopo questa sezione</span>`:''}</span>${IC.chev}</button>
+        ${open?`<div class="acc-b">${md(s.testo)}
+          ${mine.length?`<div class="tryit"><div class="eyebrow">Mettiti alla prova</div><div class="stack-s">${mine.map(x=>exCard(x)).join('')}</div></div>`:''}
+          <button class="btn readbtn${read?' on':''}" style="margin-top:12px;width:100%" data-act="read" data-id="${esc(s.id)}">${read?'Letto ✓':'Ho letto'}</button></div>`:''}</div>`},6)+`</div>`;
   }
   const techs=arr(a.tecniche);
   if(techs.length){
@@ -929,24 +963,11 @@ function renderTopic(v,a){
           ${k<passi.length?`<button class="btn primary" data-act="tech-step" data-id="${esc(t.id)}">${k?'Passo successivo':'Primo passo'} (${k+1} di ${passi.length})</button>`:''}`:''}
       </section>`})+`</div>`;
   }
-  const exs=arr(a.esercizi);
   if(exs.length){
-    h+=`<h2 class="sec-h" id="h-ese">Esercizi</h2><div class="stack-s">`+limited('ese:'+a.id,exs,x=>{
-      const items=[];
-      if(x.suggerimento)items.push(['Suggerimento',x.suggerimento,'']);
-      arr(x.passi).forEach((p,i)=>items.push(['Passo '+(i+1),p,'']));
-      items.push(['Soluzione',x.soluzione,'sol']);
-      const k=S.ex[x.id]==null?-1:S.ex[x.id];
-      let b='';
-      if(k<0)b=`<button class="btn primary" data-act="ex-try" data-id="${esc(x.id)}">Ho provato</button>`;
-      else{
-        b=items.slice(0,k).map(([t,m,c])=>`<div class="box ${c}"><span class="eyebrow">${t}</span>${md(m)}</div>`).join('');
-        if(k<items.length){const nx=items[k][0];
-          b+=`<div class="btnrow" style="margin-top:10px"><button class="btn primary" data-act="ex-step" data-id="${esc(x.id)}">Mostra ${nx==='Soluzione'?'la soluzione':nx.toLowerCase()}</button>
-            ${nx!=='Soluzione'?`<button class="btn ghost" data-act="ex-sol" data-id="${esc(x.id)}" data-n="${items.length}">Soluzione subito</button>`:''}</div>`}
-      }
-      return `<section class="card"><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:6px"><span class="chip ${x.livello==='difficile'?'red':x.livello==='medio'?'warn':'ok'}">${esc(EX_LEVELS[x.livello]||x.livello)}</span><span class="muted small">${esc(x.id.split('.').pop())}</span></div>
-        ${md(x.testo)}<div style="margin-top:10px">${b}</div></section>`})+`</div>`;
+    const placed=exs.some(x=>after[x.dopo_sezione]);
+    h+=`<h2 class="sec-h" id="h-ese">${placed?'Tutti gli esercizi':'Esercizi'}</h2>
+      ${placed?'<p class="note" style="margin:0">Li trovi anche dentro la spiegazione, subito dopo la sezione che serve per farli. Qui sono tutti insieme, per ripassare.</p>':''}
+      <div class="stack-s">`+limited('ese:'+a.id,exs,x=>exCard(x))+`</div>`;
   }
   const nq=arr(obj(a.verifica).quiz).length,ns=arr(obj(a.verifica).spiegalo).length;
   if(nq||ns)h+=`<p class="note">${listIt([nq?pl(nq,'domanda di quiz','domande di quiz'):'',ns?pl(ns,'domanda «spiegalo»','domande «spiegalo»'):''])} pronte: arrivano con l'aggiornamento degli esercizi.</p>`;
@@ -954,7 +975,7 @@ function renderTopic(v,a){
   let toc='';
   if(secs.length>1||techs.length||exs.length){
     toc=`<aside class="toc" aria-label="Indice dell'argomento"><div class="eyebrow">Indice</div><ol>${secs.map(s=>
-      `<li><button data-act="goto-sec" data-id="${esc(s.id)}"${S.open===s.id?' aria-current="true"':''}><span class="dot${isRead(s.id)?' on':''}">${IC.check}</span><span>${esc(s.titolo)}</span></button></li>`).join('')}</ol>
+      `<li><button data-act="goto-sec" data-id="${esc(s.id)}"${S.open===s.id?' aria-current="true"':''}><span class="dot${isRead(s.id)?' on':''}">${IC.check}</span><span>${esc(s.titolo)}${after[s.id]?` <span class="tx">· ${pl(after[s.id].length,'esercizio','esercizi')}</span>`:''}</span></button></li>`).join('')}</ol>
       ${techs.length||exs.length?`<div class="jump">${techs.length?'<button data-act="goto" data-to="h-tec">Tecniche</button>':''}${exs.length?'<button data-act="goto" data-to="h-ese">Esercizi</button>':''}</div>`:''}</aside>`;
   }
   /* l'indice viene ridisegnato: resta dove l'avevi fatto scorrere */

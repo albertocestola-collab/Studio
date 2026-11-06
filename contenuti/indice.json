@@ -55,7 +55,7 @@
    "id_pacchetto": "prg-cap1-v2-1di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "41f91c9751671cc8",
+   "hash": "658c6431bec84b76",
    "kb": 71
   },
   {
@@ -63,7 +63,7 @@
    "id_pacchetto": "prg-cap1-v2-2di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "91d9cfc75e1e3c11",
+   "hash": "fdac9f232493ab1a",
    "kb": 72
   },
   {
@@ -71,7 +71,7 @@
    "id_pacchetto": "prg-cap1-v2-3di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "3b975fa4b763ddce",
+   "hash": "66665dcdaeaa8571",
    "kb": 72
   },
   {
@@ -79,7 +79,7 @@
    "id_pacchetto": "prg-cap1-v2-4di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "ec0870edca7a9fcc",
+   "hash": "456284371b228478",
    "kb": 70
   },
   {
@@ -87,23 +87,23 @@
    "id_pacchetto": "prg-cap1-v2-5di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "ebe71d56460b69a2",
-   "kb": 69
+   "hash": "eed7915641c2e6f4",
+   "kb": 70
   },
   {
    "file": "programmazione/cap2/prg-cap2-1di5.json",
    "id_pacchetto": "prg-cap2-1di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "252a90185d3dee2f",
-   "kb": 71
+   "hash": "8c605e7d207a7e05",
+   "kb": 72
   },
   {
    "file": "programmazione/cap2/prg-cap2-2di5.json",
    "id_pacchetto": "prg-cap2-2di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "65b1617365727393",
+   "hash": "984b39518134b47a",
    "kb": 71
   },
   {
@@ -111,15 +111,15 @@
    "id_pacchetto": "prg-cap2-3di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "c5de68a8cc6efcb1",
-   "kb": 71
+   "hash": "df8ddbe983dbcf22",
+   "kb": 72
   },
   {
    "file": "programmazione/cap2/prg-cap2-4di5.json",
    "id_pacchetto": "prg-cap2-4di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "8e75fbce4aceb4fa",
+   "hash": "9fba5575fca10af6",
    "kb": 72
   },
   {
@@ -127,8 +127,8 @@
    "id_pacchetto": "prg-cap2-5di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "307661236bf84305",
-   "kb": 71
+   "hash": "fc438856c3bbe641",
+   "kb": 72
   }
  ]
 }
