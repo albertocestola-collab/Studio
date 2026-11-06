@@ -108,6 +108,8 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 
 /* adesso */
 .now{border-left:6px solid var(--accent)}
+.upd{border-left:6px solid var(--ok)}
+.upd .eyebrow{color:var(--ok)}
 .now .what{font-family:var(--f-display);font-size:clamp(23px,6vw,30px);font-weight:800;line-height:1.15;margin:4px 0 6px;overflow-wrap:anywhere}
 .examrow{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:8px 0;border-top:1px solid var(--line)}
 .examrow:first-child{border-top:0;padding-top:0}
@@ -249,7 +251,7 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
   .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .grid2>.more-btn{grid-column:1/-1}
   #v-adesso,#v-dati{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
-  #v-adesso>.page-h,#v-adesso>.note,#v-adesso>section:only-of-type,#v-dati>.page-h,#v-dati>.note{grid-column:1/-1}
+  #v-adesso>.page-h,#v-adesso>.note,#v-adesso>section:only-of-type,#v-adesso>.upd,#v-dati>.page-h,#v-dati>.note{grid-column:1/-1}
   /* in Dati l'elenco dei pacchetti è lungo: va in fondo, largo quanto la pagina */
   #v-dati>.pk{grid-column:1/-1;order:1}
   #v-dati>.note{order:2}
@@ -413,7 +415,9 @@ const del=(store,key)=>tx([store],t=>t.objectStore(store).delete(key));
 /* ---------- stato ---------- */
 const S={esami:new Map(),arg:new Map(),prog:new Map(),imp:{},
   tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},more:new Set(),
-  draft:'',checked:null,exportAll:false};
+  draft:'',checked:null,exportAll:false,
+  /* contenuti sul sito: elenco letto da contenuti/indice.json; remoteHash vale solo durante un «Aggiorna» */
+  remote:{list:[],ts:0,err:'',busy:false},remoteHash:null};
 async function loadAll(){
   const [e,a,p,i]=await Promise.all(['esami','argomenti','progressi','impostazioni'].map(getAll));
   S.esami=new Map(e.map(x=>[x.id,x]));S.arg=new Map(a.map(x=>[x.id,x]));
@@ -740,7 +744,9 @@ function buildPlan(p){
     putE:[...tE].map(k=>esami.get(k)).filter(Boolean),putA:[...tA].map(k=>arg.get(k)).filter(Boolean),delE:[...dE],delA:[...dA],esami,arg};
 }
 async function applyPlan(plan){
-  const pk={...pacchetti(),[plan.p.id_pacchetto]:{tipo:plan.p.tipo,esame_id:plan.p.esame_id,generato_il:plan.p.generato_il,importato_il:todayKey()}};
+  /* se arriva dal sito, si salva anche l'impronta: così l'app sa che questa versione c'è già */
+  const h=S.remoteHash&&S.remoteHash[plan.p.id_pacchetto];
+  const pk={...pacchetti(),[plan.p.id_pacchetto]:{tipo:plan.p.tipo,esame_id:plan.p.esame_id,generato_il:plan.p.generato_il,importato_il:todayKey(),...(h?{hash:h}:{})}};
   await tx(['esami','argomenti','impostazioni'],t=>{
     const se=t.objectStore('esami'),sa=t.objectStore('argomenti');
     plan.delE.forEach(k=>se.delete(k));plan.delA.forEach(k=>sa.delete(k));
@@ -749,6 +755,43 @@ async function applyPlan(plan){
   });
   S.esami=plan.esami;S.arg=plan.arg;S.imp.pacchetti=pk;mdCache.clear();
 }
+
+/* ---------- contenuti dal sito ----------
+   Claude mette i pacchetti nella cartella contenuti/ del sito dell'app, con un elenco (indice.json)
+   che per ogni pacchetto ha un'impronta. L'app confronta le impronte con quelle salvate all'import
+   e propone «Aggiorna». Legge solo file del suo stesso sito: niente account, password o chiavi.
+   I progressi non escono mai dal dispositivo. */
+const REMOTE='contenuti/';
+const SAFE_FILE=/^[a-z0-9][a-z0-9-]*(\/[a-z0-9][a-z0-9-]*)*\.json$/, SAFE_HASH=/^[0-9a-f]{8,64}$/;
+async function checkRemote(){
+  if(S.remote.busy)return;S.remote.busy=true;
+  try{
+    const r=await fetch(REMOTE+'indice.json',{cache:'no-cache'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const ix=obj(await r.json());
+    const list=arr(ix.pacchetti).filter(v=>v&&SAFE_FILE.test(String(v.file))&&SAFE_HASH.test(String(v.hash))&&typeof v.id_pacchetto==='string'&&v.id_pacchetto);
+    S.remote={list,ts:Date.now(),err:'',busy:false};
+  }catch(e){S.remote={...S.remote,ts:Date.now(),err:navigator.onLine===false?'offline':'errore',busy:false}}
+}
+/* i pacchetti del sito non ancora importati, o importati in una versione diversa */
+function remotePending(){const pk=pacchetti();return arr(S.remote.list).filter(v=>!pk[v.id_pacchetto]||pk[v.id_pacchetto].hash!==v.hash)}
+function remoteStatus(){
+  const n=remotePending().length,r=S.remote;
+  if(!r.ts)return 'Controllo se ci sono novità…';
+  if(r.err==='offline')return 'Sei senza internet: controllo quando torni in rete.';
+  if(r.err)return 'Non riesco a leggere l\'elenco dei contenuti. Riprova tra poco.';
+  const ora=new Date(r.ts),hh=pad(ora.getHours())+':'+pad(ora.getMinutes());
+  return n?`${pl(n,'pacchetto nuovo o corretto','pacchetti nuovi o corretti')} da Claude.`:`Tutto aggiornato: hai tutti i ${r.list.length} pacchetti. Controllato alle ${hh}.`;
+}
+function updCard(){
+  const todo=remotePending();if(!todo.length)return '';
+  const names=[...new Set(todo.map(v=>{const e=S.esami.get(v.esame_id);return e?e.nome:''}).filter(Boolean))];
+  return `<section class="card upd stack-s"><div class="eyebrow">Novità da Claude</div>
+    <div><b>${pl(todo.length,'pacchetto nuovo','pacchetti nuovi')}</b>${names.length?' per '+esc(listIt(names)):''}. Li scarico e ti mostro cosa cambia prima di importarli.</div>
+    <button class="btn primary big" data-act="remote-update">Aggiorna</button></section>`;
+}
+/* dopo un controllo ridisegna solo le pagine che mostrano le novità */
+async function checkAndShow(){await checkRemote();if(S.tab==='adesso'||S.tab==='dati'||(S.tab==='esami'&&!S.esami.size))render()}
 
 /* ---------- export dei progressi ---------- */
 function buildExport(all){
@@ -789,15 +832,16 @@ function resumeTopic(){
 
 function renderAdesso(){
   const v=$('#v-adesso');
+  const upd=updCard();
   if(!S.esami.size){
-    v.innerHTML=`<h1 class="page-h">Adesso</h1>
+    v.innerHTML=`<h1 class="page-h">Adesso</h1>`+(upd||`
     <section class="card now stack-s"><div class="eyebrow">Si comincia</div>
       <div class="what">Importa il primo pacchetto</div>
       <p class="muted" style="margin:0">Incolla il JSON che ti ha preparato Claude: prima l'esame, poi i contenuti.</p>
-      <button class="btn primary big" data-act="import">Importa</button></section>`;
+      <button class="btn primary big" data-act="import">Importa</button></section>`);
     return;
   }
-  const a=resumeTopic();let h='<h1 class="page-h">Adesso</h1>';
+  const a=resumeTopic();let h='<h1 class="page-h">Adesso</h1>'+upd;
   if(a){const e=S.esami.get(a.esame_id),st=topicStats(a);
     h+=`<section class="card now stack-s"><div class="eyebrow">Riprendi · ${esc(e?e.nome:'')}</div>
       <div class="what">${esc(a.titolo)}</div>
@@ -840,7 +884,7 @@ function renderEsami(){
     <div class="stack-s${S.sorting?'':' grid2'}">${act.map(row).join('')}</div>
     ${paused.length?`<div class="eyebrow" style="margin-top:8px">In pausa</div><div class="stack-s grid2">${paused.map(e=>
       `<button class="row" data-act="open-exam" data-id="${esc(e.id)}"><span class="n">–</span><span class="txt">${info(e)}</span>${IC.right}</button>`).join('')}</div>`:''}`
-    :`<div class="empty">Nessun esame ancora.<br><button class="btn primary" style="margin-top:10px" data-act="import">Importa</button></div>`);
+    :`<div class="empty">Nessun esame ancora.<br>${remotePending().length?'<button class="btn primary" style="margin-top:10px" data-act="remote-update">Scarica i contenuti</button>':'<button class="btn primary" style="margin-top:10px" data-act="import">Importa</button>'}</div>`);
 }
 function renderExam(v,e){
   e=effExam(e);
@@ -939,7 +983,10 @@ function renderDati(){
   const last=S.imp.ultimo_export,pending=buildExport(false).count;
   v.innerHTML=`<h1 class="page-h">Dati</h1>
   <section class="card stack-s"><div class="eyebrow">Da Claude all'app</div>
-    <button class="btn primary big" data-act="import">Importa un pacchetto</button></section>
+    <div class="muted small">${esc(remoteStatus())}</div>
+    ${remotePending().length?`<button class="btn primary big" data-act="remote-update">Aggiorna (${remotePending().length})</button>`
+      :`<button class="btn big" data-act="remote-check"${S.remote.busy?' disabled':''}>Controlla se ci sono novità</button>`}
+    <button class="btn ghost small" data-act="import">Importa a mano (file o testo)</button></section>
   <section class="card stack-s"><div class="eyebrow">Dall'app a Claude</div>
     <div class="muted small">${last?`Ultimo export il ${esc(shortDate(last.data))}. `:''}${pending?pl(pending,'novità','novità')+' da mandare.':'Nessuna novità dall\'ultimo export.'}</div>
     <button class="btn big${pending?' primary':''}" data-act="export">Esporta i progressi</button></section>
@@ -967,8 +1014,9 @@ function go(tab){S.tab=tab;lsSet(LS_TAB,tab);render();window.scrollTo(0,0)}
 
 /* ---------- pannelli ---------- */
 function openSheet(html){$('#sheet').innerHTML=html;$('#backdrop').hidden=false;$('#sheet').scrollTop=0}
-function closeSheet(){$('#backdrop').hidden=true;$('#sheet').innerHTML='';S.checked=null}
+function closeSheet(){$('#backdrop').hidden=true;$('#sheet').innerHTML='';S.checked=null;S.remoteHash=null}
 function importSheet(){
+  S.remoteHash=null;/* import a mano: niente impronta, la versione la conosce solo il sito */
   openSheet(`<h2>Importa</h2><div class="stack-s">
     <textarea id="imp-ta" class="code" placeholder="Incolla qui il JSON che ti ha dato Claude" autocapitalize="off" autocorrect="off" spellcheck="false">${esc(S.draft)}</textarea>
     <button class="btn" data-act="pick-file">Oppure scegli uno o più file</button>
@@ -1024,17 +1072,17 @@ function batchCheck(files){
   }finally{S.esami=keepE;S.arg=keepA}
   return out;
 }
-function batchSheet(items){
+function batchSheet(items,remote){
   const ok=items.filter(x=>x.data),bad=items.filter(x=>!x.data),warns=dedupe([].concat(...ok.map(x=>x.warns)));
   S.checked={batch:ok.map(x=>x.data),errText:bad.map(x=>x.name+': '+x.errs.join(' ')).join('\n').replace(/<[^>]+>/g,'')};
-  openSheet(`<h2>Anteprima · ${pl(items.length,'file','file')}</h2><div class="stack-s">
+  openSheet(`<h2>${remote?'Novità da Claude':'Anteprima'} · ${pl(items.length,'pacchetto','pacchetti')}</h2><div class="stack-s">
     ${ok.length?`<div class="msg okk batch"><div class="eyebrow">Pronti da importare: ${ok.length}</div><ul>${ok.map(x=>
-      `<li><span class="ico">✓</span><span><b>${esc(x.data.id_pacchetto)}</b>${x.prev?' <span class="chip warn">già importato: lo sovrascrivo</span>':''}<br><span class="small">${x.lines.join(' ')}</span></span></li>`).join('')}</ul></div>`:''}
+      `<li><span class="ico">✓</span><span><b>${esc(x.data.id_pacchetto)}</b>${x.prev?` <span class="chip warn">${remote?'c\'era già: lo aggiorno':'già importato: lo sovrascrivo'}</span>`:''}<br><span class="small">${x.lines.join(' ')}</span></span></li>`).join('')}</ul></div>`:''}
     ${bad.length?`<div class="msg err batch"><div class="eyebrow">Non si importano: ${bad.length}</div><ul>${bad.map(x=>
       `<li><span class="ico">✗</span><span><b>${esc(x.name)}</b><br><span class="small">${x.errs[0]}</span></span></li>`).join('')}</ul></div>`:''}
     ${warns.length?`<div class="msg wrn"><div class="eyebrow">Da sapere</div><ul>${warns.slice(0,5).map(x=>`<li>${x}</li>`).join('')}${warns.length>5?`<li>…e altri ${warns.length-5}.</li>`:''}</ul></div>`:''}
     ${ok.length?'<p class="note">I tuoi progressi restano.</p>':''}
-    <div class="foot"><button class="btn ghost" data-act="import">Indietro</button>${bad.length?'<button class="btn" data-act="copy-err">Copia gli errori</button>':''}${ok.length?`<button class="btn primary" data-act="apply-batch">Importa ${ok.length}</button>`:''}</div></div>`);
+    <div class="foot"><button class="btn ghost" data-act="${remote?'close':'import'}">${remote?'Non ora':'Indietro'}</button>${bad.length?'<button class="btn" data-act="copy-err">Copia gli errori</button>':''}${ok.length?`<button class="btn primary" data-act="apply-batch">Importa ${ok.length}</button>`:''}</div></div>`);
 }
 function exportSheet(){
   const ex=buildExport(S.exportAll);
@@ -1051,6 +1099,19 @@ function exportSheet(){
 const ACT={
   more:b=>{S.more.add(b.dataset.k);render()},
   import:()=>{const ta=$('#imp-ta');if(ta)S.draft=ta.value;importSheet()},
+  'remote-check':async b=>{b.disabled=true;await checkRemote();render();
+    const n=remotePending().length;toast(S.remote.err?'Non riesco a controllare adesso':n?pl(n,'novità','novità')+' da scaricare':'Tutto aggiornato')},
+  'remote-update':async b=>{
+    const todo=remotePending();if(!todo.length){toast('Tutto aggiornato');return}
+    const label=b.textContent;b.disabled=true;b.textContent='Scarico…';
+    let files;
+    try{files=await Promise.all(todo.map(async v=>{const r=await fetch(REMOTE+v.file,{cache:'no-cache'});
+      if(!r.ok)throw new Error(v.file);return {name:v.file,text:await r.text()}}))}
+    catch(e){b.disabled=false;b.textContent=label;toast('Non riesco a scaricare: controlla la connessione e riprova');return}
+    b.disabled=false;b.textContent=label;
+    batchSheet(batchCheck(files),true);
+    S.remoteHash=Object.fromEntries(todo.map(v=>[v.id_pacchetto,v.hash]));/* dopo openSheet: serve ad apply-batch */
+  },
   close:()=>closeSheet(),
   'pick-file':()=>{const ta=$('#imp-ta');if(ta)S.draft=ta.value;$('#file-in').value='';$('#file-in').click()},
   check:()=>{const ta=$('#imp-ta');S.draft=ta?ta.value:S.draft;previewSheet(parsePackage(S.draft))},
@@ -1161,6 +1222,10 @@ async function start(){
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
   const t=lsGet(LS_TAB);if(TABS.includes(t))S.tab=t;
   render();
+  /* novità da Claude: all'apertura, quando torni sull'app (al massimo ogni 15 minuti) e quando torna internet */
+  checkAndShow();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()-S.remote.ts>15*60*1000)checkAndShow()});
+  window.addEventListener('online',()=>checkAndShow());
 }
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 start();

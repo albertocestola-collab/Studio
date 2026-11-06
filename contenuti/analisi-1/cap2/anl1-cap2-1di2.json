@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "tipo": "contenuti",
+  "id_pacchetto": "anl1-cap2-1di2",
+  "generato_il": "2026-10-29",
+  "esame_id": "anl1",
+  "argomenti": [
+    {
+      "id": "anl1.fun",
+      "titolo": "Funzioni: definizione e proprietà",
+      "fonte": "Programma Mercatorum, videolezione 4",
+      "prossimo_passo": "Leggi le due definizioni, poi prova la tecnica dell'inversa e l'esercizio e03.",
+      "sezioni": [
+        {
+          "id": "anl1.fun.s1",
+          "livello": "intuizione",
+          "titolo": "Una macchina con una sola risposta",
+          "testo": "Una funzione è una **macchina**: metti dentro un numero $x$ e ne esce **uno e un solo** numero $f(x)$.\n\n- L'insieme dei numeri che puoi mettere dentro è il **dominio**.\n- L'insieme in cui cadono i risultati si dichiara prima ed è il **codominio**.\n- I risultati che escono davvero formano l'**immagine**, che può essere più piccola del codominio.\n\nLa regola d'oro è «una sola risposta». Una macchina che per lo stesso $x$ desse due risultati diversi non sarebbe una funzione. Due $x$ diversi che danno lo stesso risultato, invece, vanno benissimo: per esempio $(-2)^2 = 2^2 = 4$."
+        },
+        {
+          "id": "anl1.fun.s2",
+          "livello": "definizione",
+          "titolo": "Funzione, iniettiva, suriettiva, biettiva",
+          "testo": "Una **funzione** $f : A \\to B$ associa a **ogni** $x \\in A$ **un unico** $y \\in B$, che si scrive $y = f(x)$. $A$ è il dominio, $B$ il codominio, e l'**immagine** è $f(A) = \\{f(x) : x \\in A\\}$. Il **grafico** è l'insieme dei punti $(x, f(x))$ del piano.\n\n- **Iniettiva**: input diversi danno output diversi. In simboli: $f(x_1) = f(x_2) \\Rightarrow x_1 = x_2$. *Test grafico:* ogni retta orizzontale taglia il grafico **al massimo una volta**.\n- **Suriettiva**: ogni elemento del codominio viene raggiunto, cioè $f(A) = B$. *Dipende dal codominio scelto*: $x^2$ non è suriettiva da $\\mathbb{R}$ in $\\mathbb{R}$ (i negativi non escono mai), ma lo è da $\\mathbb{R}$ in $[0, +\\infty)$.\n- **Biettiva**: iniettiva e suriettiva insieme. Solo allora esiste l'**inversa** $f^{-1} : B \\to A$, definita da $f^{-1}(y) = x \\iff f(x) = y$.\n\n**Composizione.** $(g \\circ f)(x) = g(f(x))$: prima applichi $f$, poi $g$ al risultato. Ha senso solo se i valori di $f$ stanno nel dominio di $g$. In generale $g \\circ f \\neq f \\circ g$."
+        },
+        {
+          "id": "anl1.fun.s3",
+          "livello": "definizione",
+          "titolo": "Monotonia, simmetrie, periodicità",
+          "testo": "Sia $f$ definita su un insieme $D$.\n\n- **Crescente** se $x_1 < x_2 \\Rightarrow f(x_1) \\le f(x_2)$; **strettamente crescente** se $x_1 < x_2 \\Rightarrow f(x_1) < f(x_2)$. Allo stesso modo **decrescente** e **strettamente decrescente**, con il verso ribaltato. Monotona = crescente oppure decrescente.\n- **Pari** se $f(-x) = f(x)$ per ogni $x \\in D$: il grafico è simmetrico rispetto all'asse $y$. Esempio: $x^2$.\n- **Dispari** se $f(-x) = -f(x)$: il grafico è simmetrico rispetto all'origine. Esempio: $x^3$. Per parlare di pari e dispari il dominio deve essere simmetrico: se $x \\in D$, anche $-x \\in D$.\n- **Periodica** di periodo $T > 0$ se $f(x + T) = f(x)$ per ogni $x$. Esempio: $\\sin x$, con $T = 2\\pi$.\n- **Limitata** se esiste $M$ con $|f(x)| \\le M$ per ogni $x$, cioè se l'immagine è un insieme limitato."
+        },
+        {
+          "id": "anl1.fun.s4",
+          "livello": "ragionamento",
+          "titolo": "Due fatti da saper dimostrare",
+          "testo": "**Fatto 1: strettamente monotona ⇒ iniettiva.**\nSia $f$ strettamente crescente e prendi $x_1 \\neq x_2$. Allora uno dei due è più piccolo, diciamo $x_1 < x_2$. Per la stretta crescenza $f(x_1) < f(x_2)$, quindi $f(x_1) \\neq f(x_2)$. Input diversi danno output diversi: è la definizione di iniettiva. Per le decrescenti è uguale, con il verso ribaltato. $\\blacksquare$\n*Il contrario non vale sempre:* esistono funzioni iniettive non monotone, per esempio una funzione che vale $x$ su $[0, 1]$ e $5 - x$ su $(2, 3]$.\n\n**Fatto 2: il grafico dell'inversa è il simmetrico rispetto alla retta $y = x$.**\nIl punto $(a, b)$ sta sul grafico di $f$ $\\iff b = f(a)$ $\\iff a = f^{-1}(b)$ $\\iff$ il punto $(b, a)$ sta sul grafico di $f^{-1}$.\nScambiare le coordinate di un punto vuol dire specchiarlo rispetto alla retta $y = x$. Quindi tutto il grafico si specchia. $\\blacksquare$"
+        },
+        {
+          "id": "anl1.fun.s5",
+          "livello": "errori_comuni",
+          "titolo": "Dove si sbaglia di solito",
+          "testo": "- **Confondere codominio e immagine.** Il codominio lo dichiari tu; l'immagine è quello che esce davvero.\n- **Leggere $f^{-1}(x)$ come $\\frac{1}{f(x)}$.** Sono cose diverse: l'inversa «disfa» la funzione, il reciproco divide $1$ per il risultato.\n- **Credere che $g \\circ f = f \\circ g$.** Con $f(x) = x^2$ e $g(x) = x + 1$: $g(f(x)) = x^2 + 1$, mentre $f(g(x)) = (x+1)^2$.\n- **Dire «pari» o «dispari» su un dominio non simmetrico.** Su $[0, 5]$ la domanda non ha senso.\n- **Pensare che ogni funzione sia pari o dispari.** $x^2 + x$ non è né l'una né l'altra.\n- **Dimenticare il dominio quando si cerca l'inversa.** $x^2$ è invertibile solo se la restringi, per esempio a $[0, +\\infty)$: l'inversa è $\\sqrt{x}$."
+        },
+        {
+          "id": "anl1.fun.s6",
+          "livello": "riepilogo",
+          "titolo": "In cinque righe",
+          "testo": "- Funzione: a ogni $x$ del dominio un solo $f(x)$. Immagine = valori che escono davvero.\n- Iniettiva: $f(x_1) = f(x_2) \\Rightarrow x_1 = x_2$. Suriettiva: immagine = codominio. Biettiva: entrambe, e allora c'è l'inversa.\n- Strettamente monotona ⇒ iniettiva. Grafico di $f^{-1}$ = grafico di $f$ specchiato su $y = x$.\n- Pari: $f(-x) = f(x)$. Dispari: $f(-x) = -f(x)$. Servono domini simmetrici.\n- $(g \\circ f)(x) = g(f(x))$, e l'ordine conta."
+        }
+      ],
+      "tecniche": [
+        {
+          "id": "anl1.fun.t1",
+          "nome": "Trovare l'inversa (e capire se esiste)",
+          "quando": "Quando chiedono se una funzione è invertibile, o di scriverne l'inversa.",
+          "esempio": {
+            "testo": "$f(x) = 2x + 3$, da $\\mathbb{R}$ in $\\mathbb{R}$.",
+            "passi": [
+              "Scrivo $y = 2x + 3$ e provo a ricavare $x$ in funzione di $y$.",
+              "$2x = y - 3$, quindi $x = \\frac{y - 3}{2}$.",
+              "Per **ogni** $y$ reale ho trovato **una e una sola** $x$: quindi $f$ è suriettiva (una $x$ c'è sempre) e iniettiva (ce n'è una sola).",
+              "L'inversa è $f^{-1}(y) = \\frac{y - 3}{2}$. Rinominando la variabile: $f^{-1}(x) = \\frac{x - 3}{2}$.",
+              "Controllo: $f^{-1}(f(x)) = \\frac{(2x + 3) - 3}{2} = x$. Torna."
+            ]
+          }
+        },
+        {
+          "id": "anl1.fun.t2",
+          "nome": "Pari, dispari o nessuna delle due",
+          "quando": "Per capire subito se un grafico ha simmetrie, cosa che dimezza il lavoro negli studi di funzione.",
+          "esempio": {
+            "testo": "$f(x) = x^3 - x$",
+            "passi": [
+              "Controllo che il dominio sia simmetrico: è $\\mathbb{R}$, va bene.",
+              "Calcolo $f(-x)$ sostituendo $-x$ **ovunque** compaia $x$: $f(-x) = (-x)^3 - (-x) = -x^3 + x$.",
+              "Confronto con $f(x) = x^3 - x$: non è uguale, quindi non è pari.",
+              "Confronto con $-f(x) = -x^3 + x$: è uguale, quindi $f$ è **dispari**.",
+              "Se nessuno dei due confronti torna, basta un controesempio numerico per dire «né pari né dispari», per esempio $f(1) \\neq f(-1)$ e $f(-1) \\neq -f(1)$."
+            ]
+          }
+        }
+      ],
+      "esercizi": [
+        {
+          "id": "anl1.fun.e01",
+          "livello": "base",
+          "testo": "Con $f(x) = x^2$ e $g(x) = x + 1$ calcola $g \\circ f$ e $f \\circ g$, e verifica che sono diverse in $x = 1$.",
+          "suggerimento": "$g \\circ f$ vuol dire «prima $f$, poi $g$».",
+          "passi": [
+            "$(g \\circ f)(x) = g(x^2) = x^2 + 1$.",
+            "$(f \\circ g)(x) = f(x + 1) = (x + 1)^2$.",
+            "In $x = 1$: $g(f(1)) = 2$, mentre $f(g(1)) = 4$. Sono diverse."
+          ],
+          "soluzione": "$g \\circ f = x^2 + 1$, $f \\circ g = (x+1)^2$; in $1$ valgono $2$ e $4$."
+        },
+        {
+          "id": "anl1.fun.e02",
+          "livello": "base",
+          "testo": "Di' se sono pari, dispari o nessuna delle due: (a) $x^4 + x^2$; (b) $x^3$; (c) $x^2 + x$.",
+          "suggerimento": "Calcola $f(-x)$ e confrontalo con $f(x)$ e con $-f(x)$.",
+          "passi": [
+            "(a) $(-x)^4 + (-x)^2 = x^4 + x^2$: uguale a $f(x)$, quindi pari.",
+            "(b) $(-x)^3 = -x^3$: uguale a $-f(x)$, quindi dispari.",
+            "(c) $f(1) = 2$ e $f(-1) = 0$: non è $f(-1) = f(1)$, quindi non è pari; non è $f(-1) = -f(1) = -2$, quindi non è dispari."
+          ],
+          "soluzione": "(a) pari, (b) dispari, (c) né pari né dispari."
+        },
+        {
+          "id": "anl1.fun.e03",
+          "livello": "medio",
+          "testo": "Trova l'inversa di $f(x) = \\frac{x - 1}{x + 2}$, definita per $x \\neq -2$, e l'immagine di $f$.",
+          "suggerimento": "Ricava $x$ da $y = \\frac{x-1}{x+2}$: moltiplica per $(x + 2)$ e porta i termini con $x$ da una parte.",
+          "passi": [
+            "$y(x + 2) = x - 1$, cioè $yx + 2y = x - 1$.",
+            "Porto le $x$ a sinistra: $yx - x = -1 - 2y$, cioè $x(y - 1) = -(1 + 2y)$.",
+            "Se $y \\neq 1$: $x = \\frac{1 + 2y}{1 - y}$. Se $y = 1$ l'equazione diventa $0 = -3$: impossibile, quindi $1$ non è un valore di $f$.",
+            "Immagine: $\\mathbb{R} \\setminus \\{1\\}$. Inversa: $f^{-1}(x) = \\frac{1 + 2x}{1 - x}$.",
+            "Controllo: $f(0) = -\\frac{1}{2}$ e $f^{-1}\\left(-\\frac{1}{2}\\right) = \\frac{1 - 1}{3/2} = 0$. Torna."
+          ],
+          "soluzione": "$f^{-1}(x) = \\frac{1 + 2x}{1 - x}$; immagine $\\mathbb{R} \\setminus \\{1\\}$."
+        },
+        {
+          "id": "anl1.fun.e04",
+          "livello": "medio",
+          "testo": "$f(x) = x^2$ è iniettiva su $\\mathbb{R}$? E su $[0, +\\infty)$? Dimostralo.",
+          "suggerimento": "Su $\\mathbb{R}$ basta un controesempio. Su $[0, +\\infty)$ scrivi $x_1^2 = x_2^2$ come $(x_1 - x_2)(x_1 + x_2) = 0$.",
+          "passi": [
+            "Su $\\mathbb{R}$: $f(1) = f(-1) = 1$ con $1 \\neq -1$. Non è iniettiva.",
+            "Su $[0, +\\infty)$: supponiamo $x_1^2 = x_2^2$, cioè $(x_1 - x_2)(x_1 + x_2) = 0$.",
+            "Un prodotto è zero se uno dei fattori è zero. Se $x_1 + x_2 = 0$ con entrambi $\\ge 0$, sono entrambi $0$, quindi uguali.",
+            "Altrimenti $x_1 - x_2 = 0$. In ogni caso $x_1 = x_2$: è iniettiva."
+          ],
+          "soluzione": "Su $\\mathbb{R}$ no ($f(1) = f(-1)$); su $[0, +\\infty)$ sì."
+        },
+        {
+          "id": "anl1.fun.e05",
+          "livello": "difficile",
+          "testo": "Dimostra che la composizione di due funzioni iniettive è iniettiva.",
+          "suggerimento": "Parti da $g(f(x_1)) = g(f(x_2))$ e usa l'iniettività una funzione alla volta, partendo da quella più esterna.",
+          "passi": [
+            "Siano $f$ e $g$ iniettive e supponiamo $g(f(x_1)) = g(f(x_2))$.",
+            "$g$ è iniettiva e qui ha lo stesso valore nei punti $f(x_1)$ e $f(x_2)$: quindi $f(x_1) = f(x_2)$.",
+            "$f$ è iniettiva: quindi $x_1 = x_2$.",
+            "Abbiamo mostrato $g(f(x_1)) = g(f(x_2)) \\Rightarrow x_1 = x_2$, cioè $g \\circ f$ è iniettiva."
+          ],
+          "soluzione": "Da $g(f(x_1)) = g(f(x_2))$ segue $f(x_1) = f(x_2)$ (iniettività di $g$) e poi $x_1 = x_2$ (iniettività di $f$)."
+        }
+      ],
+      "verifica": {
+        "spiegalo": [
+          "Spiega perché $x^2$ può essere suriettiva o no a seconda del codominio che scegli.",
+          "Perché il grafico dell'inversa si ottiene specchiando rispetto alla retta $y = x$?"
+        ],
+        "quiz": [
+          {
+            "id": "anl1.fun.q1",
+            "domanda": "$f(x) = x^2$, da $\\mathbb{R}$ in $\\mathbb{R}$, è:",
+            "opzioni": [
+              "iniettiva ma non suriettiva",
+              "né iniettiva né suriettiva",
+              "suriettiva ma non iniettiva"
+            ],
+            "corretta": 1,
+            "spiegazione": "$f(1) = f(-1)$, quindi non è iniettiva; i negativi non escono mai, quindi non è suriettiva su $\\mathbb{R}$."
+          },
+          {
+            "id": "anl1.fun.q2",
+            "domanda": "Il simbolo $f^{-1}(x)$ indica:",
+            "opzioni": [
+              "il reciproco $\\frac{1}{f(x)}$",
+              "la derivata di $f$",
+              "la funzione inversa di $f$"
+            ],
+            "corretta": 2,
+            "spiegazione": "È l'inversa, cioè la funzione che «disfa» $f$. Il reciproco si scrive $\\frac{1}{f(x)}$ oppure $[f(x)]^{-1}$."
+          },
+          {
+            "id": "anl1.fun.q3",
+            "domanda": "Il grafico di $f^{-1}$ si ottiene da quello di $f$ con una simmetria rispetto:",
+            "opzioni": [
+              "alla retta $y = x$",
+              "all'asse $x$",
+              "all'origine"
+            ],
+            "corretta": 0,
+            "spiegazione": "Ogni punto $(a, b)$ diventa $(b, a)$: è lo specchio rispetto alla bisettrice $y = x$."
+          },
+          {
+            "id": "anl1.fun.q4",
+            "domanda": "Se $f$ è strettamente crescente, allora è sicuramente:",
+            "opzioni": [
+              "suriettiva",
+              "limitata",
+              "iniettiva"
+            ],
+            "corretta": 2,
+            "spiegazione": "Input diversi danno output in ordine stretto, quindi diversi. Suriettiva e limitata non sono garantite: pensa a $e^x$ e a $x$."
+          },
+          {
+            "id": "anl1.fun.q5",
+            "domanda": "$f(x) = x^3 - x$ è:",
+            "opzioni": [
+              "dispari",
+              "pari",
+              "né pari né dispari"
+            ],
+            "corretta": 0,
+            "spiegazione": "$f(-x) = -x^3 + x = -f(x)$."
+          }
+        ]
+      }
+    },
+    {
+      "id": "anl1.pol",
+      "titolo": "Rette, potenze, radici e polinomi",
+      "fonte": "Programma Mercatorum, videolezione 5",
+      "prossimo_passo": "Rileggi la formula delle equazioni di secondo grado dimostrata passo per passo, poi fai le tecniche t1 e t2.",
+      "sezioni": [
+        {
+          "id": "anl1.pol.s1",
+          "livello": "intuizione",
+          "titolo": "I mattoni di base",
+          "testo": "Rette, potenze, radici e polinomi sono i **mattoni** con cui si costruiscono quasi tutte le funzioni dell'esame. Conoscerne a memoria la forma del grafico fa risparmiare un sacco di calcoli.\n\n- La **retta** $y = mx + q$: $m$ dice di quanto sale (o scende) la retta per ogni passo di $1$ verso destra; $q$ è dove taglia l'asse $y$.\n- Le **potenze** $x^n$: con $n$ pari hanno la forma a «U» (come $x^2$), con $n$ dispari quella a «S» (come $x^3$).\n- Le **radici** sono le inverse delle potenze.\n- I **polinomi** sono somme di potenze. Il punto chiave sono le **radici del polinomio** (i punti dove vale zero), perché permettono di scomporlo e di studiarne il segno."
+        },
+        {
+          "id": "anl1.pol.s2",
+          "livello": "definizione",
+          "titolo": "Le rette",
+          "testo": "- **Equazione:** $y = mx + q$. $m$ è il **coefficiente angolare** (pendenza), $q$ l'**intercetta** sull'asse $y$.\n- **Pendenza da due punti:** passando per $(x_1, y_1)$ e $(x_2, y_2)$ con $x_1 \\neq x_2$, $\\ m = \\frac{y_2 - y_1}{x_2 - x_1}$, cioè quanto sale diviso quanto ti sposti.\n- **Retta per un punto con pendenza data:** $y - y_1 = m(x - x_1)$.\n- $m > 0$: retta crescente; $m < 0$: decrescente; $m = 0$: orizzontale.\n- **Parallele:** stessa $m$. **Perpendicolari:** $m_1 \\cdot m_2 = -1$, cioè $m_2 = -\\frac{1}{m_1}$.\n- Le rette **verticali** $x = k$ non sono grafici di funzioni: a $x = k$ corrisponderebbero infiniti valori di $y$."
+        },
+        {
+          "id": "anl1.pol.s3",
+          "livello": "definizione",
+          "titolo": "Potenze e radici",
+          "testo": "**Potenze $x^n$, con $n \\ge 1$ naturale.**\n\n- $n$ **pari**: funzione pari, immagine $[0, +\\infty)$, decrescente su $(-\\infty, 0]$ e crescente su $[0, +\\infty)$. Non è iniettiva su $\\mathbb{R}$.\n- $n$ **dispari**: funzione dispari, strettamente crescente, biettiva da $\\mathbb{R}$ in $\\mathbb{R}$.\n- Esponente negativo: $x^{-n} = \\frac{1}{x^n}$, definita per $x \\neq 0$.\n\n**Radici $\\sqrt[n]{x}$: le inverse delle potenze.**\n\n- $n$ **dispari**: $x^n$ è biettiva, quindi la radice è definita su tutto $\\mathbb{R}$. Esempio: $\\sqrt[3]{-8} = -2$.\n- $n$ **pari**: $x^n$ non è iniettiva, quindi la si restringe a $[0, +\\infty)$. La radice è definita **solo per $x \\ge 0$** e dà **sempre un risultato $\\ge 0$**. Per questo $\\sqrt{4} = 2$, non $\\pm 2$.\n\n**Esponenti razionali.** Per $x > 0$: $x^{m/n} = \\sqrt[n]{x^m}$. Valgono le solite regole: $x^a x^b = x^{a+b}$, $(x^a)^b = x^{ab}$."
+        },
+        {
+          "id": "anl1.pol.s4",
+          "livello": "definizione",
+          "titolo": "Polinomi, radici e Ruffini",
+          "testo": "Un **polinomio** di grado $n$ è $p(x) = a_n x^n + \\dots + a_1 x + a_0$ con $a_n \\neq 0$. Una **radice** (o zero) è un numero $a$ con $p(a) = 0$.\n\n- **Teorema di Ruffini:** $p(a) = 0 \\iff (x - a)$ divide $p(x)$, cioè $p(x) = (x - a) \\cdot q(x)$ con $q$ di grado $n - 1$.\n- Di conseguenza un polinomio di grado $n$ ha **al massimo $n$** radici reali.\n- **Dove cercare le radici intere:** se i coefficienti sono interi, le radici intere vanno cercate tra i divisori del termine noto $a_0$.\n\n**Secondo grado.** Per $ax^2 + bx + c$ con $a \\neq 0$ e $\\Delta = b^2 - 4ac$:\n\n- $\\Delta > 0$: due radici distinte $x_{1,2} = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}$, e $ax^2 + bx + c = a(x - x_1)(x - x_2)$;\n- $\\Delta = 0$: una radice doppia $x = -\\frac{b}{2a}$;\n- $\\Delta < 0$: nessuna radice reale, e il trinomio ha **sempre il segno di $a$**.\n\nIl grafico è una **parabola** con vertice in $x_V = -\\frac{b}{2a}$, rivolta verso l'alto se $a > 0$."
+        },
+        {
+          "id": "anl1.pol.s5",
+          "livello": "ragionamento",
+          "titolo": "Da dove viene la formula del secondo grado",
+          "testo": "**Obiettivo:** risolvere $ax^2 + bx + c = 0$ con $a \\neq 0$. L'idea è **completare il quadrato**, cioè far comparire un $(x + \\text{qualcosa})^2$.\n\n**Passo 1.** Divido per $a$, che posso fare perché $a \\neq 0$: $x^2 + \\frac{b}{a}x + \\frac{c}{a} = 0$.\n\n**Passo 2.** Ricordo che $\\left(x + \\frac{b}{2a}\\right)^2 = x^2 + \\frac{b}{a}x + \\frac{b^2}{4a^2}$. I primi due termini sono già nell'equazione: mi manca $\\frac{b^2}{4a^2}$, quindi lo aggiungo e lo tolgo:\n$$\\left(x + \\frac{b}{2a}\\right)^2 - \\frac{b^2}{4a^2} + \\frac{c}{a} = 0.$$\n\n**Passo 3.** Porto a destra i termini senza $x$, con denominatore comune $4a^2$:\n$$\\left(x + \\frac{b}{2a}\\right)^2 = \\frac{b^2 - 4ac}{4a^2} = \\frac{\\Delta}{4a^2}.$$\n\n**Passo 4: discussione.** A sinistra c'è un quadrato, quindi un numero $\\ge 0$. Se $\\Delta < 0$ la destra è negativa: nessuna soluzione reale. Se $\\Delta \\ge 0$ posso estrarre la radice, ricordando che un numero ha **due** radici quadrate opposte:\n$$x + \\frac{b}{2a} = \\pm \\frac{\\sqrt{\\Delta}}{2a}.$$\n*Perché $2a$ e non $|2a|$:* il $\\pm$ prende già entrambi i segni, quindi il segno di $a$ non cambia l'insieme delle soluzioni.\n\n**Passo 5.** Isolo $x$: $\\ x = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}$. $\\blacksquare$"
+        },
+        {
+          "id": "anl1.pol.s6",
+          "livello": "errori_comuni",
+          "titolo": "Dove si sbaglia di solito",
+          "testo": "- **$\\sqrt{x^2} = x$.** Falso per $x < 0$: $\\sqrt{(-3)^2} = \\sqrt{9} = 3$. La regola giusta è $\\sqrt{x^2} = |x|$, cioè la distanza da zero.\n- **$\\sqrt{a + b} = \\sqrt{a} + \\sqrt{b}$.** Falso: $\\sqrt{9 + 16} = 5$, ma $3 + 4 = 7$. Lo stesso vale per $(a + b)^2 \\neq a^2 + b^2$, perché manca il doppio prodotto $2ab$.\n- **$x^{-1} = -x$.** No: $x^{-1} = \\frac{1}{x}$.\n- **Elevare al quadrato un'equazione con le radici senza controllare.** Elevando al quadrato possono comparire soluzioni false: vanno sempre verificate, oppure va imposto che entrambi i lati siano $\\ge 0$.\n- **Studiare il segno di un trinomio ignorando $a$.** Con $\\Delta > 0$ il trinomio ha il segno di $a$ **fuori** dalle radici e il segno opposto **tra** le radici."
+        },
+        {
+          "id": "anl1.pol.s7",
+          "livello": "riepilogo",
+          "titolo": "In cinque righe",
+          "testo": "- Retta: $y = mx + q$, $m = \\frac{\\Delta y}{\\Delta x}$; parallele stessa $m$, perpendicolari $m_1 m_2 = -1$.\n- $x^n$ pari = forma a U, non iniettiva; $x^n$ dispari = forma a S, biettiva.\n- Radice di indice pari: solo per $x \\ge 0$ e sempre $\\ge 0$. $\\sqrt{x^2} = |x|$.\n- Ruffini: $p(a) = 0 \\iff (x - a)$ divide $p$. Radici intere tra i divisori del termine noto.\n- $x = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}$; con $\\Delta < 0$ il trinomio ha sempre il segno di $a$."
+        }
+      ],
+      "tecniche": [
+        {
+          "id": "anl1.pol.t1",
+          "nome": "Segno di un trinomio di secondo grado",
+          "quando": "Disequazioni di secondo grado, domini, studio del segno di una funzione.",
+          "esempio": {
+            "testo": "Risolvi $x^2 - 5x + 6 > 0$.",
+            "passi": [
+              "Trovo le radici: $\\Delta = 25 - 24 = 1$, quindi $x = \\frac{5 \\pm 1}{2}$, cioè $2$ e $3$.",
+              "Guardo $a = 1 > 0$: la parabola è rivolta verso l'alto.",
+              "Una parabola verso l'alto è **sotto** l'asse tra le radici e **sopra** fuori dalle radici.",
+              "Voglio $> 0$, cioè fuori: $x < 2$ oppure $x > 3$.",
+              "Controllo con un numero: $x = 0$ dà $6 > 0$, vero; $x = 2{,}5$ dà $-0{,}25$, negativo. Torna."
+            ]
+          }
+        },
+        {
+          "id": "anl1.pol.t2",
+          "nome": "Scomporre un polinomio con Ruffini",
+          "quando": "Polinomi di grado 3 o più, quando serve trovarne le radici o il segno.",
+          "esempio": {
+            "testo": "Scomponi $p(x) = x^3 - 6x^2 + 11x - 6$.",
+            "passi": [
+              "Cerco una radice tra i divisori del termine noto $-6$: $\\pm 1, \\pm 2, \\pm 3, \\pm 6$.",
+              "Provo $x = 1$: $1 - 6 + 11 - 6 = 0$. È una radice, quindi $(x - 1)$ divide $p$.",
+              "Divido con lo schema di Ruffini, coefficienti $1, -6, 11, -6$ e radice $1$: abbasso $1$; $1 \\cdot 1 - 6 = -5$; $-5 \\cdot 1 + 11 = 6$; $6 \\cdot 1 - 6 = 0$, il resto, che deve venire zero.",
+              "Il quoziente è $x^2 - 5x + 6$, che si scompone in $(x - 2)(x - 3)$.",
+              "Risultato: $p(x) = (x - 1)(x - 2)(x - 3)$."
+            ]
+          }
+        }
+      ],
+      "esercizi": [
+        {
+          "id": "anl1.pol.e01",
+          "livello": "base",
+          "testo": "Trova la retta che passa per $(1, 2)$ e $(3, 8)$.",
+          "suggerimento": "Prima la pendenza $m = \\frac{y_2 - y_1}{x_2 - x_1}$, poi $q$ imponendo il passaggio per uno dei punti.",
+          "passi": [
+            "$m = \\frac{8 - 2}{3 - 1} = 3$.",
+            "$y = 3x + q$ passa per $(1, 2)$: $2 = 3 + q$, quindi $q = -1$.",
+            "Controllo con l'altro punto: $3 \\cdot 3 - 1 = 8$. Torna."
+          ],
+          "soluzione": "$y = 3x - 1$"
+        },
+        {
+          "id": "anl1.pol.e02",
+          "livello": "base",
+          "testo": "Risolvi $2x^2 - 3x - 2 = 0$.",
+          "suggerimento": "$a = 2$, $b = -3$, $c = -2$.",
+          "passi": [
+            "$\\Delta = 9 + 16 = 25$.",
+            "$x = \\frac{3 \\pm 5}{4}$: $x_1 = 2$ e $x_2 = -\\frac{1}{2}$.",
+            "Controllo $x = 2$: $8 - 6 - 2 = 0$. Torna."
+          ],
+          "soluzione": "$x = 2$ oppure $x = -\\frac{1}{2}$"
+        },
+        {
+          "id": "anl1.pol.e03",
+          "livello": "medio",
+          "testo": "Risolvi $x^4 - 5x^2 + 4 = 0$.",
+          "suggerimento": "È un'equazione **biquadratica**: poni $t = x^2$.",
+          "passi": [
+            "Con $t = x^2$ diventa $t^2 - 5t + 4 = 0$, con soluzioni $t = 1$ e $t = 4$.",
+            "Torno a $x$: $x^2 = 1$ dà $x = \\pm 1$; $x^2 = 4$ dà $x = \\pm 2$.",
+            "Sono 4 soluzioni: è il massimo per un polinomio di grado 4."
+          ],
+          "soluzione": "$x = \\pm 1,\\ \\pm 2$"
+        },
+        {
+          "id": "anl1.pol.e04",
+          "livello": "medio",
+          "testo": "Risolvi $\\sqrt{x + 3} = x - 3$.",
+          "suggerimento": "Prima delle condizioni: il radicando deve essere $\\ge 0$ e anche il lato destro, perché una radice quadrata non è mai negativa.",
+          "passi": [
+            "Condizioni: $x + 3 \\ge 0$ e $x - 3 \\ge 0$, cioè $x \\ge 3$.",
+            "Elevo al quadrato: $x + 3 = x^2 - 6x + 9$, cioè $x^2 - 7x + 6 = 0$.",
+            "Soluzioni dell'equazione elevata: $x = 1$ e $x = 6$.",
+            "$x = 1$ non rispetta $x \\ge 3$: è una soluzione falsa nata dall'elevamento al quadrato. Infatti $\\sqrt{4} = 2 \\neq -2$.",
+            "$x = 6$: $\\sqrt{9} = 3 = 6 - 3$. Torna."
+          ],
+          "soluzione": "$x = 6$"
+        },
+        {
+          "id": "anl1.pol.e05",
+          "livello": "difficile",
+          "testo": "Risolvi $x^3 - 2x^2 - x + 2 \\ge 0$.",
+          "suggerimento": "Scomponi con Ruffini (prova $x = 1$), poi studia il segno di ogni fattore e mettili insieme.",
+          "passi": [
+            "$x = 1$: $1 - 2 - 1 + 2 = 0$. Divido per $(x - 1)$: coefficienti $1, -2, -1, 2$ danno il quoziente $x^2 - x - 2$.",
+            "$x^2 - x - 2 = (x - 2)(x + 1)$. Quindi $p(x) = (x + 1)(x - 1)(x - 2)$.",
+            "Le radici $-1, 1, 2$ dividono la retta in 4 zone. Per $x > 2$ tutti i fattori sono positivi, quindi $p > 0$.",
+            "Ogni volta che si passa una radice semplice il segno cambia: $(1, 2)$ negativo, $(-1, 1)$ positivo, $(-\\infty, -1)$ negativo.",
+            "Voglio $\\ge 0$: le zone positive più le radici stesse."
+          ],
+          "soluzione": "$x \\in [-1, 1] \\cup [2, +\\infty)$"
+        }
+      ],
+      "verifica": {
+        "spiegalo": [
+          "Perché $\\sqrt{4} = 2$ e non $\\pm 2$, mentre l'equazione $x^2 = 4$ ha due soluzioni?",
+          "Racconta a parole il «completamento del quadrato»: cosa aggiungi, e perché?"
+        ],
+        "quiz": [
+          {
+            "id": "anl1.pol.q1",
+            "domanda": "Per ogni $x$ reale, $\\sqrt{x^2}$ è uguale a:",
+            "opzioni": [
+              "$x$",
+              "$|x|$",
+              "$\\pm x$"
+            ],
+            "corretta": 1,
+            "spiegazione": "La radice quadrata dà sempre un numero $\\ge 0$: per $x = -3$ viene $3$, cioè $|x|$."
+          },
+          {
+            "id": "anl1.pol.q2",
+            "domanda": "Una retta perpendicolare a $y = 2x + 1$ ha coefficiente angolare:",
+            "opzioni": [
+              "$-2$",
+              "$\\frac{1}{2}$",
+              "$-\\frac{1}{2}$"
+            ],
+            "corretta": 2,
+            "spiegazione": "Perpendicolari: $m_1 m_2 = -1$, quindi $m_2 = -\\frac{1}{2}$."
+          },
+          {
+            "id": "anl1.pol.q3",
+            "domanda": "Il trinomio $x^2 + x + 1$:",
+            "opzioni": [
+              "è sempre positivo",
+              "ha due radici reali",
+              "è sempre negativo"
+            ],
+            "corretta": 0,
+            "spiegazione": "$\\Delta = 1 - 4 = -3 < 0$: nessuna radice, e il segno è sempre quello di $a = 1$."
+          },
+          {
+            "id": "anl1.pol.q4",
+            "domanda": "$f(x) = x^5$, da $\\mathbb{R}$ in $\\mathbb{R}$, è:",
+            "opzioni": [
+              "pari",
+              "biettiva",
+              "iniettiva ma non suriettiva"
+            ],
+            "corretta": 1,
+            "spiegazione": "Le potenze con esponente dispari sono strettamente crescenti e assumono tutti i valori reali."
+          },
+          {
+            "id": "anl1.pol.q5",
+            "domanda": "Se per un polinomio $p(2) = 0$, allora:",
+            "opzioni": [
+              "$(x + 2)$ divide $p(x)$",
+              "$p$ ha grado $2$",
+              "$(x - 2)$ divide $p(x)$"
+            ],
+            "corretta": 2,
+            "spiegazione": "È il teorema di Ruffini: radice $a$ ⇒ fattore $(x - a)$."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,443 @@
+{
+  "schema_version": 1,
+  "tipo": "contenuti",
+  "id_pacchetto": "anl1-cap1-v1",
+  "generato_il": "2026-10-29",
+  "esame_id": "anl1",
+  "argomenti": [
+    {
+      "id": "anl1.sup",
+      "titolo": "Massimo, minimo, estremo superiore e inferiore",
+      "fonte": "Programma Mercatorum, videolezione 2",
+      "prossimo_passo": "Leggi la definizione e la caratterizzazione con ε, poi prova la tecnica t1 e l'esercizio e03.",
+      "sezioni": [
+        {
+          "id": "anl1.sup.s1",
+          "livello": "intuizione",
+          "titolo": "Il tetto più basso",
+          "testo": "Immagina un insieme di numeri come una fila di persone di altezze diverse, e un soffitto sopra di loro.\n\n- Un **maggiorante** è un soffitto sotto cui stanno tutti: nessuno lo sfonda. Se ce n'è uno, ce ne sono infiniti, perché qualunque soffitto più alto va bene lo stesso.\n- Il **massimo** è la persona più alta della fila. Attenzione: a volte non esiste.\n- L'**estremo superiore** (sup) è il **soffitto più basso possibile**, quello che sfiora la testa del gruppo.\n\nEsempio chiave: i numeri strettamente tra $0$ e $1$. Nessuno di loro è il più alto: qualunque numero prendi, per esempio $0{,}99$, ce n'è uno più grande, $0{,}999$. Quindi **il massimo non esiste**. Però il soffitto più basso esiste ed è $1$, che non fa parte dell'insieme.\n\nEcco a cosa serve il sup: dà un \"tetto esatto\" anche quando il massimo non c'è."
+        },
+        {
+          "id": "anl1.sup.s2",
+          "livello": "definizione",
+          "titolo": "Le definizioni precise",
+          "testo": "Sia $A \\subseteq \\mathbb{R}$ un insieme non vuoto.\n\n- $M$ è un **maggiorante** di $A$ se $\\forall a \\in A,\\ a \\le M$. Se $A$ ha almeno un maggiorante si dice **limitato superiormente**.\n- $M$ è il **massimo** di $A$, e si scrive $M = \\max A$, se è un maggiorante **e** appartiene ad $A$.\n- $s$ è l'**estremo superiore** di $A$, e si scrive $s = \\sup A$, se è il **più piccolo dei maggioranti**. Cioè: $s$ è un maggiorante, e ogni altro maggiorante $M$ soddisfa $s \\le M$.\n- Se $A$ non è limitato superiormente si scrive $\\sup A = +\\infty$.\n\nTutto si ribalta per il basso: **minorante** ($m \\le a$ per ogni $a$), **minimo** (un minorante che sta in $A$), **estremo inferiore** $\\inf A$ (il più grande dei minoranti), e $\\inf A = -\\infty$ se non ci sono minoranti.\n\n**Legame tra max e sup.** Se il massimo esiste, coincide con il sup. Il sup però può esistere anche quando il massimo non c'è: il massimo è semplicemente un sup che appartiene all'insieme."
+        },
+        {
+          "id": "anl1.sup.s3",
+          "livello": "definizione",
+          "titolo": "La caratterizzazione con ε (quella che si usa davvero)",
+          "testo": "Per dimostrare che un numero $s$ è il sup di $A$ si controllano **due condizioni**:\n\n1. $\\forall a \\in A,\\ a \\le s$. *Significato:* $s$ è un soffitto, nessuno lo supera.\n2. $\\forall \\varepsilon > 0\\ \\exists a \\in A : a > s - \\varepsilon$. *Significato:* se abbassi il soffitto anche di pochissimo ($\\varepsilon$ è una quantità positiva piccola a piacere), qualcuno lo sfonda. Quindi nessun soffitto più basso di $s$ funziona.\n\nLa condizione 2 è il modo pratico di dire \"è il **più piccolo** dei maggioranti\": qualunque numero più piccolo di $s$ si scrive $s - \\varepsilon$ per qualche $\\varepsilon > 0$, e la condizione dice che non è un maggiorante.\n\nPer l'inf è uguale, ribaltato: (1) $\\forall a \\in A,\\ a \\ge i$; (2) $\\forall \\varepsilon > 0\\ \\exists a \\in A : a < i + \\varepsilon$."
+        },
+        {
+          "id": "anl1.sup.s4",
+          "livello": "definizione",
+          "titolo": "La completezza: cosa ha ℝ che ℚ non ha",
+          "testo": "**Assioma di completezza.** Ogni sottoinsieme di $\\mathbb{R}$ non vuoto e limitato superiormente ha un estremo superiore **in $\\mathbb{R}$**.\n\nÈ questa la proprietà che distingue i reali dai razionali, e quella che fa funzionare quasi tutta l'Analisi: limiti, continuità, integrali.\n\n**Perché in $\\mathbb{Q}$ non vale.** Prendi $A = \\{q \\in \\mathbb{Q} : q > 0,\\ q^2 < 2\\}$. È non vuoto (contiene $1$) e limitato superiormente (per esempio da $2$). I suoi elementi si avvicinano a $\\sqrt{2}$ quanto vuoi. Quindi il soffitto più basso dovrebbe essere $\\sqrt{2}$, che però **non è razionale**. Restando dentro $\\mathbb{Q}$, il sup non esiste: c'è un buco proprio lì. In $\\mathbb{R}$ invece $\\sup A = \\sqrt{2}$."
+        },
+        {
+          "id": "anl1.sup.s5",
+          "livello": "ragionamento",
+          "titolo": "Esempio completo: sup e inf di {1 − 1/n}",
+          "testo": "Sia $A = \\left\\{ 1 - \\frac{1}{n} : n \\in \\mathbb{N},\\ n \\ge 1 \\right\\}$.\n\n**Passo 0: scrivo i primi elementi.** $n = 1, 2, 3, 4$ danno $0,\\ \\frac{1}{2},\\ \\frac{2}{3},\\ \\frac{3}{4}, \\dots$ Crescono e si avvicinano a $1$. Candidati: $\\inf A = 0$ e $\\sup A = 1$.\n\n**Il minimo è $0$.** Per $n = 1$ ottengo $0 \\in A$. Ed è un minorante: $n \\ge 1 \\Rightarrow \\frac{1}{n} \\le 1 \\Rightarrow 1 - \\frac{1}{n} \\ge 0$. Un minorante che sta in $A$ è il minimo, quindi $\\min A = \\inf A = 0$.\n\n**Il sup è $1$: condizione 1.** Per ogni $n$, $\\frac{1}{n} > 0$, quindi $1 - \\frac{1}{n} < 1$. $1$ è un maggiorante.\n\n**Il sup è $1$: condizione 2.** Fisso $\\varepsilon > 0$. Devo trovare un elemento più grande di $1 - \\varepsilon$, cioè un $n$ con $1 - \\frac{1}{n} > 1 - \\varepsilon$. Semplifico: $-\\frac{1}{n} > -\\varepsilon$, cioè $\\frac{1}{n} < \\varepsilon$, cioè $n > \\frac{1}{\\varepsilon}$. Un naturale così esiste sempre (i naturali non hanno un massimo e superano qualunque numero reale). Quindi la condizione 2 vale e $\\sup A = 1$.\n\n**Il massimo non esiste.** Se esistesse, sarebbe uguale al sup, cioè $1$. Ma $1 - \\frac{1}{n} = 1$ richiederebbe $\\frac{1}{n} = 0$, impossibile. $\\blacksquare$"
+        },
+        {
+          "id": "anl1.sup.s6",
+          "livello": "errori_comuni",
+          "titolo": "Dove si sbaglia di solito",
+          "testo": "- **Pensare che il sup stia sempre nell'insieme.** Il sup di $\\{x : 0 < x < 1\\}$ è $1$, che non ci sta.\n- **Confondere \"limitato\" con \"ha il massimo\".** $\\{x : 0 < x < 1\\}$ è limitato ma non ha massimo.\n- **Dire \"il sup è il più grande elemento\".** No: quello è il massimo. Il sup è il più piccolo **maggiorante**.\n- **Sbagliare il verso nella condizione 2.** Per il sup: $a > s - \\varepsilon$ (qualcuno sta sopra il soffitto abbassato). Per l'inf: $a < i + \\varepsilon$.\n- **Scegliere $\\varepsilon$ invece di prenderlo qualunque.** Nella condizione 2, $\\varepsilon$ te lo dà \"l'avversario\": devi trovare un elemento che funzioni per **ogni** $\\varepsilon > 0$, anche piccolissimo. Non puoi sceglierlo comodo.\n- **Dimenticare i casi infiniti.** Se l'insieme non è limitato sopra, $\\sup = +\\infty$: non si dice \"non esiste\"."
+        },
+        {
+          "id": "anl1.sup.s7",
+          "livello": "riepilogo",
+          "titolo": "In cinque righe",
+          "testo": "- Maggiorante = soffitto; massimo = elemento più alto (può mancare); sup = soffitto più basso.\n- Se il massimo esiste, è il sup. Il sup può esistere senza massimo.\n- Per dimostrare $s = \\sup A$: (1) nessuno supera $s$; (2) per ogni $\\varepsilon > 0$ qualcuno supera $s - \\varepsilon$.\n- Completezza: in $\\mathbb{R}$ ogni insieme non vuoto e limitato sopra ha il sup. In $\\mathbb{Q}$ no.\n- Insieme non limitato sopra: $\\sup = +\\infty$."
+        }
+      ],
+      "tecniche": [
+        {
+          "id": "anl1.sup.t1",
+          "nome": "Trovare sup, inf, max e min di un insieme",
+          "quando": "Esercizi del tipo «determina estremo superiore e inferiore e di' se sono massimo e minimo».",
+          "esempio": {
+            "testo": "$A = \\left\\{ \\frac{1}{n} : n \\in \\mathbb{N},\\ n \\ge 1 \\right\\}$",
+            "passi": [
+              "Scrivo i primi elementi: $1,\\ \\frac{1}{2},\\ \\frac{1}{3},\\ \\frac{1}{4}, \\dots$ Decrescono verso $0$.",
+              "Candidati: il più grande è $1$ (per $n = 1$); in basso si avvicinano a $0$.",
+              "$\\max A = 1$: sta in $A$ e $\\frac{1}{n} \\le 1$ per ogni $n \\ge 1$. Quindi anche $\\sup A = 1$.",
+              "$\\inf A = 0$, condizione 1: $\\frac{1}{n} > 0$ per ogni $n$, quindi $0$ è un minorante.",
+              "Condizione 2: dato $\\varepsilon > 0$ cerco $\\frac{1}{n} < 0 + \\varepsilon$, cioè $n > \\frac{1}{\\varepsilon}$. Un tale $n$ esiste sempre.",
+              "Il minimo non esiste: dovrebbe essere $0$, ma $\\frac{1}{n} = 0$ non succede mai."
+            ]
+          }
+        }
+      ],
+      "esercizi": [
+        {
+          "id": "anl1.sup.e01",
+          "livello": "base",
+          "testo": "Trova sup, inf, max e min (se esistono) di $A = \\{x \\in \\mathbb{R} : 0 < x \\le 5\\}$.",
+          "suggerimento": "Guarda i due simboli: $<$ esclude l'estremo, $\\le$ lo include.",
+          "passi": [
+            "Sopra: $5$ è un maggiorante e appartiene ad $A$ (c'è $\\le$), quindi $\\max A = \\sup A = 5$.",
+            "Sotto: $0$ è un minorante e i numeri di $A$ si avvicinano a $0$ quanto vuoi, quindi $\\inf A = 0$.",
+            "$0 \\notin A$ (c'è $<$), quindi il minimo non esiste."
+          ],
+          "soluzione": "$\\sup A = \\max A = 5$; $\\inf A = 0$; il minimo non esiste."
+        },
+        {
+          "id": "anl1.sup.e02",
+          "livello": "base",
+          "testo": "Trova sup e inf di $A = \\{(-1)^n : n \\in \\mathbb{N}\\}$. Sono massimo e minimo?",
+          "suggerimento": "Calcola $(-1)^n$ per $n = 0, 1, 2, 3$: quanti valori diversi escono?",
+          "passi": [
+            "$(-1)^0 = 1$, $(-1)^1 = -1$, $(-1)^2 = 1$, e così via: i valori si alternano.",
+            "Quindi $A = \\{-1, 1\\}$: un insieme con due soli elementi.",
+            "Un insieme finito ha sempre massimo e minimo: $\\max A = 1$, $\\min A = -1$."
+          ],
+          "soluzione": "$\\sup A = \\max A = 1$, $\\inf A = \\min A = -1$."
+        },
+        {
+          "id": "anl1.sup.e03",
+          "livello": "medio",
+          "testo": "Trova sup e inf di $A = \\{x \\in \\mathbb{R} : x^2 < 4\\}$, e di' se sono massimo e minimo.",
+          "suggerimento": "Prima riscrivi la condizione $x^2 < 4$ senza il quadrato.",
+          "passi": [
+            "$x^2 < 4 \\iff -2 < x < 2$. *Perché:* $x^2 < 4$ vuol dire che la distanza di $x$ da $0$ è meno di $2$, sia a destra sia a sinistra.",
+            "Quindi $A$ è l'insieme dei numeri strettamente tra $-2$ e $2$.",
+            "$\\sup A = 2$ e $\\inf A = -2$, ma nessuno dei due appartiene ad $A$: per $x = \\pm 2$ viene $x^2 = 4$, non $< 4$.",
+            "Quindi massimo e minimo non esistono."
+          ],
+          "soluzione": "$\\sup A = 2$, $\\inf A = -2$; né massimo né minimo."
+        },
+        {
+          "id": "anl1.sup.e04",
+          "livello": "medio",
+          "testo": "Sia $A = \\left\\{ \\frac{n}{n+1} : n \\in \\mathbb{N} \\right\\}$. Dimostra che $\\min A = 0$ e $\\sup A = 1$, e che il massimo non esiste.",
+          "suggerimento": "Riscrivi $\\frac{n}{n+1} = 1 - \\frac{1}{n+1}$: diventa simile all'esempio svolto nel ragionamento.",
+          "passi": [
+            "Riscrivo: $\\frac{n}{n+1} = \\frac{(n+1) - 1}{n+1} = 1 - \\frac{1}{n+1}$.",
+            "Minimo: per $n = 0$ viene $0 \\in A$; e $\\frac{n}{n+1} \\ge 0$ perché numeratore e denominatore sono $\\ge 0$. Quindi $\\min A = 0$.",
+            "Condizione 1 per il sup: $\\frac{1}{n+1} > 0 \\Rightarrow 1 - \\frac{1}{n+1} < 1$.",
+            "Condizione 2: dato $\\varepsilon > 0$ voglio $1 - \\frac{1}{n+1} > 1 - \\varepsilon$, cioè $\\frac{1}{n+1} < \\varepsilon$, cioè $n + 1 > \\frac{1}{\\varepsilon}$. Esiste sempre un tale $n$.",
+            "Niente massimo: dovrebbe valere $\\frac{1}{n+1} = 0$, impossibile."
+          ],
+          "soluzione": "$\\min A = 0$, $\\sup A = 1$, nessun massimo."
+        },
+        {
+          "id": "anl1.sup.e05",
+          "livello": "difficile",
+          "testo": "Trova sup e inf di $A = \\left\\{ (-1)^n \\frac{n}{n+1} : n \\in \\mathbb{N},\\ n \\ge 1 \\right\\}$.",
+          "suggerimento": "Separa $n$ pari e $n$ dispari: ottieni due insiemi più semplici, uno di numeri positivi e uno di numeri negativi.",
+          "passi": [
+            "Primi valori: $n=1$: $-\\frac{1}{2}$; $n=2$: $\\frac{2}{3}$; $n=3$: $-\\frac{3}{4}$; $n=4$: $\\frac{4}{5}$.",
+            "$n$ pari: valori positivi $\\frac{n}{n+1} = 1 - \\frac{1}{n+1}$, che si avvicinano a $1$ senza mai arrivarci.",
+            "$n$ dispari: valori negativi $-\\frac{n}{n+1} = -1 + \\frac{1}{n+1}$, che si avvicinano a $-1$ senza mai arrivarci.",
+            "Ogni elemento sta tra $-1$ e $1$ (estremi esclusi), perché $\\frac{n}{n+1} < 1$.",
+            "Sup $= 1$: dato $\\varepsilon > 0$, prendo $n$ **pari** con $n + 1 > \\frac{1}{\\varepsilon}$; allora l'elemento vale $1 - \\frac{1}{n+1} > 1 - \\varepsilon$.",
+            "Inf $= -1$: allo stesso modo, prendo $n$ **dispari** con $n + 1 > \\frac{1}{\\varepsilon}$; l'elemento vale $-1 + \\frac{1}{n+1} < -1 + \\varepsilon$.",
+            "Né $1$ né $-1$ si raggiungono, quindi massimo e minimo non esistono."
+          ],
+          "soluzione": "$\\sup A = 1$, $\\inf A = -1$; né massimo né minimo."
+        }
+      ],
+      "verifica": {
+        "spiegalo": [
+          "Spiega con un esempio tuo la differenza tra massimo ed estremo superiore.",
+          "Perché la condizione con $\\varepsilon$ dice proprio che $s$ è il **più piccolo** dei maggioranti?"
+        ],
+        "quiz": [
+          {
+            "id": "anl1.sup.q1",
+            "domanda": "Quanto vale il sup di $\\{x \\in \\mathbb{R} : 0 < x < 1\\}$?",
+            "opzioni": [
+              "$0$",
+              "$1$",
+              "Non esiste, perché non c'è massimo"
+            ],
+            "corretta": 1,
+            "spiegazione": "$1$ è il più piccolo maggiorante. Non c'è massimo, ma il sup esiste lo stesso."
+          },
+          {
+            "id": "anl1.sup.q2",
+            "domanda": "Quale di questi insiemi ha un massimo?",
+            "opzioni": [
+              "$\\left\\{ \\frac{1}{n} : n \\ge 1 \\right\\}$",
+              "$\\{x : 0 < x < 1\\}$",
+              "$\\left\\{ 1 - \\frac{1}{n} : n \\ge 1 \\right\\}$"
+            ],
+            "corretta": 0,
+            "spiegazione": "$\\frac{1}{n}$ vale $1$ per $n = 1$ ed è il valore più grande. Negli altri due casi il sup è $1$ ma non si raggiunge."
+          },
+          {
+            "id": "anl1.sup.q3",
+            "domanda": "Se $s = \\sup A$, quale affermazione è **sempre** vera?",
+            "opzioni": [
+              "$s \\in A$",
+              "$\\forall \\varepsilon > 0\\ \\exists a \\in A : a > s - \\varepsilon$",
+              "$s$ è l'elemento più grande di $A$"
+            ],
+            "corretta": 1,
+            "spiegazione": "È la seconda condizione della caratterizzazione. Le altre due valgono solo quando il sup è anche massimo."
+          },
+          {
+            "id": "anl1.sup.q4",
+            "domanda": "Quanto vale $\\inf \\left\\{ \\frac{1}{n} : n \\ge 1 \\right\\}$?",
+            "opzioni": [
+              "$0$, ed è anche il minimo",
+              "$0$, ma non è il minimo",
+              "$1$"
+            ],
+            "corretta": 1,
+            "spiegazione": "Gli elementi si avvicinano a $0$ quanto vuoi, ma $\\frac{1}{n}$ non vale mai $0$."
+          },
+          {
+            "id": "anl1.sup.q5",
+            "domanda": "L'insieme $\\{q \\in \\mathbb{Q} : q > 0,\\ q^2 < 2\\}$ ha un estremo superiore **dentro** $\\mathbb{Q}$?",
+            "opzioni": [
+              "Sì, è $\\sqrt{2}$",
+              "No: il candidato sarebbe $\\sqrt{2}$, che non è razionale",
+              "Sì, è $1{,}5$"
+            ],
+            "corretta": 1,
+            "spiegazione": "È l'esempio che mostra che $\\mathbb{Q}$ non è completo. $1{,}5$ è un maggiorante, ma non il più piccolo: anche $1{,}42$ lo è."
+          }
+        ]
+      }
+    },
+    {
+      "id": "anl1.top",
+      "titolo": "Intervalli, intorni e principio di induzione",
+      "fonte": "Programma Mercatorum, videolezione 3",
+      "incerto": [
+        "Nella definizione di intorno uso $|x - x_0|$, cioè la distanza. Il valore assoluto nel corso arriva alla lezione 6: qui basta leggerlo come «distanza tra $x$ e $x_0$»."
+      ],
+      "prossimo_passo": "Leggi intorni e punti di accumulazione (servono per i limiti), poi fai l'esercizio e03 sull'induzione.",
+      "sezioni": [
+        {
+          "id": "anl1.top.s1",
+          "livello": "intuizione",
+          "titolo": "Pezzi di retta, zone attorno a un punto, domino",
+          "testo": "Questo argomento mette insieme tre attrezzi che useremo continuamente.\n\n- **Intervallo**: un pezzo di retta **senza buchi**, come un segmento o una semiretta.\n- **Intorno**: una zona piccola **attorno a un punto**, larga quanto vuoi tu. È il mattone dei limiti: «$f(x)$ si avvicina a $L$» vorrà dire «$f(x)$ entra in ogni intorno di $L$, per quanto piccolo».\n- **Induzione**: un modo per dimostrare una cosa per **tutti** i numeri naturali in due mosse. È come una fila di tessere del domino: se cade la prima, e ogni tessera che cade fa cadere la successiva, allora cadono tutte."
+        },
+        {
+          "id": "anl1.top.s2",
+          "livello": "definizione",
+          "titolo": "Gli intervalli e come si scrivono",
+          "testo": "Con $a < b$ numeri reali:\n\n- $[a, b] = \\{x : a \\le x \\le b\\}$: **chiuso**, entrambi gli estremi inclusi.\n- $(a, b) = \\{x : a < x < b\\}$: **aperto**, entrambi esclusi. Alcuni libri scrivono $]a, b[$.\n- $[a, b) = \\{x : a \\le x < b\\}$ e $(a, b] = \\{x : a < x \\le b\\}$: **semiaperti**.\n- $(a, +\\infty) = \\{x : x > a\\}$, $[a, +\\infty) = \\{x : x \\ge a\\}$, e allo stesso modo $(-\\infty, b)$, $(-\\infty, b]$.\n\nRegola per ricordarle: **quadra = incluso, tonda = escluso**. Dalla parte di $\\pm\\infty$ la parentesi è **sempre tonda**, perché $\\infty$ non è un numero reale e non può appartenere a un insieme di reali."
+        },
+        {
+          "id": "anl1.top.s3",
+          "livello": "definizione",
+          "titolo": "Intorni, punti interni, isolati e di accumulazione",
+          "testo": "**Intorno.** L'intorno di centro $x_0$ e raggio $r > 0$ è\n$$I_r(x_0) = (x_0 - r,\\ x_0 + r) = \\{x \\in \\mathbb{R} : |x - x_0| < r\\}.$$\n$|x - x_0|$ è la **distanza** tra $x$ e $x_0$: l'intorno contiene i punti che distano meno di $r$ da $x_0$. Un intorno di $+\\infty$ è una semiretta $(M, +\\infty)$; un intorno di $-\\infty$ è $(-\\infty, M)$.\n\nSia $A \\subseteq \\mathbb{R}$ e $x_0 \\in \\mathbb{R}$.\n\n- $x_0$ è **interno** ad $A$ se esiste un intorno di $x_0$ tutto contenuto in $A$: c'è un po' di spazio attorno a lui, tutto dentro $A$.\n- $x_0$ è **isolato** in $A$ se $x_0 \\in A$ ed esiste un intorno di $x_0$ che non contiene **altri** punti di $A$.\n- $x_0$ è **di accumulazione** per $A$ se **ogni** intorno di $x_0$ contiene almeno un punto di $A$ **diverso da $x_0$**. Attenzione: $x_0$ può anche non appartenere ad $A$.\n\n**Aperti e chiusi.** $A$ è **aperto** se ogni suo punto è interno. $A$ è **chiuso** se contiene tutti i suoi punti di accumulazione (equivalentemente, se il suo complementare è aperto).\n\n**Perché i punti di accumulazione contano.** Il limite di $f$ per $x \\to x_0$ ha senso solo se $x_0$ è di accumulazione per il dominio di $f$: ci devono essere punti del dominio vicini quanto vuoi a $x_0$, altrimenti non ci si può «avvicinare»."
+        },
+        {
+          "id": "anl1.top.s4",
+          "livello": "definizione",
+          "titolo": "Il principio di induzione",
+          "testo": "Sia $P(n)$ un'affermazione che dipende da un naturale $n$, per esempio «$1 + 2 + \\dots + n = \\frac{n(n+1)}{2}$». Se:\n\n1. **Base:** $P(n_0)$ è vera, cioè vale per il primo valore che ci interessa (di solito $n_0 = 0$ o $n_0 = 1$);\n2. **Passo induttivo:** per ogni $n \\ge n_0$, **supponendo** vera $P(n)$ (si chiama **ipotesi induttiva**) si dimostra $P(n+1)$;\n\nallora $P(n)$ è vera **per ogni** $n \\ge n_0$.\n\n**Perché funziona.** La base dà $P(n_0)$. Il passo con $n = n_0$ dà $P(n_0 + 1)$. Il passo con $n = n_0 + 1$ dà $P(n_0 + 2)$, e così via: non c'è nessun naturale che resti fuori.\n\n**Nel passo non stai dando per buono quello che vuoi dimostrare.** Dimostri un collegamento: «*se* vale per $n$, *allora* vale per $n+1$». È la base che mette in moto la catena."
+        },
+        {
+          "id": "anl1.top.s5",
+          "livello": "ragionamento",
+          "titolo": "Induzione svolta: la somma dei primi n numeri",
+          "testo": "**Tesi:** per ogni $n \\ge 1$, $\\ 1 + 2 + \\dots + n = \\frac{n(n+1)}{2}$.\n\n**Base ($n = 1$).** A sinistra c'è solo $1$. A destra $\\frac{1 \\cdot 2}{2} = 1$. Uguali: la base è vera.\n\n**Ipotesi induttiva.** Supponiamo vera la formula per un certo $n$: $1 + \\dots + n = \\frac{n(n+1)}{2}$.\n\n**Obiettivo.** Ottenere la formula per $n + 1$, cioè $1 + \\dots + n + (n+1) = \\frac{(n+1)(n+2)}{2}$. Conviene scrivere l'obiettivo prima di cominciare, così sai dove devi arrivare.\n\n**Passo 1.** Nella somma fino a $n+1$ riconosco la somma fino a $n$ più l'ultimo termine:\n$$1 + \\dots + n + (n+1) = \\underbrace{(1 + \\dots + n)}_{\\text{ipotesi induttiva}} + (n+1).$$\n\n**Passo 2.** Uso l'ipotesi induttiva: $= \\frac{n(n+1)}{2} + (n+1)$.\n\n**Passo 3.** Raccolgo $(n+1)$, che compare in entrambi i termini: $= (n+1)\\left(\\frac{n}{2} + 1\\right) = (n+1) \\cdot \\frac{n+2}{2}$.\n\n**Passo 4.** È esattamente $\\frac{(n+1)(n+2)}{2}$, l'obiettivo. Base e passo valgono, quindi la formula vale per ogni $n \\ge 1$. $\\blacksquare$"
+        },
+        {
+          "id": "anl1.top.s6",
+          "livello": "ragionamento",
+          "titolo": "La disuguaglianza di Bernoulli",
+          "testo": "**Tesi:** se $x \\ge -1$, allora per ogni $n \\in \\mathbb{N}$ vale $(1 + x)^n \\ge 1 + nx$.\n\nTorna spesso in Analisi, per esempio con le successioni e con il numero $e$.\n\n**Base ($n = 0$).** $(1+x)^0 = 1$ e $1 + 0 \\cdot x = 1$: vale $1 \\ge 1$.\n\n**Ipotesi induttiva.** $(1+x)^n \\ge 1 + nx$.\n\n**Passo 1.** Scrivo $(1+x)^{n+1} = (1+x)^n \\cdot (1+x)$.\n\n**Passo 2.** Moltiplico l'ipotesi induttiva per $(1+x)$: $(1+x)^n (1+x) \\ge (1 + nx)(1 + x)$.\n*Perché posso:* moltiplicare entrambi i lati di una disuguaglianza per un numero **non negativo** non cambia il verso. Qui $1 + x \\ge 0$ proprio perché $x \\ge -1$: ecco a cosa serve l'ipotesi. Con $1 + x < 0$ il verso si ribalterebbe e il passo non funzionerebbe.\n\n**Passo 3.** Sviluppo il prodotto: $(1 + nx)(1 + x) = 1 + x + nx + nx^2 = 1 + (n+1)x + nx^2$.\n\n**Passo 4.** $nx^2 \\ge 0$, perché $n \\ge 0$ e un quadrato non è mai negativo. Quindi $1 + (n+1)x + nx^2 \\ge 1 + (n+1)x$.\n\n**Conclusione.** Mettendo in fila i passi: $(1+x)^{n+1} \\ge 1 + (n+1)x$, cioè $P(n+1)$. $\\blacksquare$"
+        },
+        {
+          "id": "anl1.top.s7",
+          "livello": "errori_comuni",
+          "titolo": "Dove si sbaglia di solito",
+          "testo": "- **Mettere la parentesi quadra vicino a $\\infty$**, come in $[2, +\\infty]$: è sbagliato, va sempre tonda.\n- **Pensare che un punto di accumulazione debba stare nell'insieme.** $0$ è di accumulazione per $\\left\\{\\frac{1}{n}\\right\\}$ ma non ci appartiene.\n- **Dimenticare «diverso da $x_0$»** nella definizione di accumulazione. Senza quella condizione, ogni punto isolato sarebbe di accumulazione.\n- **Saltare la base dell'induzione.** Senza base, la catena non parte: si può «dimostrare» il passo anche per affermazioni false, come $n = n + 1$.\n- **Nel passo, partire dalla tesi per $n+1$ e trattarla come vera.** Si parte da quello che si sa (l'ipotesi induttiva) e si arriva alla tesi.\n- **Moltiplicare una disuguaglianza per un numero di cui non si conosce il segno**, come nel passo 2 di Bernoulli."
+        },
+        {
+          "id": "anl1.top.s8",
+          "livello": "riepilogo",
+          "titolo": "In cinque righe",
+          "testo": "- Intervalli: quadra = incluso, tonda = escluso; vicino a $\\infty$ sempre tonda.\n- Intorno di $x_0$: $(x_0 - r, x_0 + r)$, cioè i punti a distanza minore di $r$.\n- Accumulazione: ogni intorno contiene punti dell'insieme diversi da $x_0$; serve per parlare di limiti.\n- Induzione: base + passo «se vale per $n$ vale per $n+1$» ⇒ vale per tutti.\n- Bernoulli: $(1+x)^n \\ge 1 + nx$ per $x \\ge -1$."
+        }
+      ],
+      "tecniche": [
+        {
+          "id": "anl1.top.t1",
+          "nome": "Schema fisso per una dimostrazione per induzione",
+          "quando": "Quando una tesi deve valere «per ogni $n \\ge n_0$», soprattutto con somme, disuguaglianze e divisibilità.",
+          "esempio": {
+            "testo": "Dimostra che $2^n \\ge n + 1$ per ogni $n \\in \\mathbb{N}$.",
+            "passi": [
+              "**Base**, $n = 0$: $2^0 = 1$ e $0 + 1 = 1$. Vale $1 \\ge 1$.",
+              "**Scrivo ipotesi e obiettivo.** Ipotesi: $2^n \\ge n + 1$. Obiettivo: $2^{n+1} \\ge n + 2$.",
+              "**Riconosco il caso $n$ dentro il caso $n+1$:** $2^{n+1} = 2 \\cdot 2^n$.",
+              "**Uso l'ipotesi:** $2 \\cdot 2^n \\ge 2(n+1) = 2n + 2$. Il verso resta, perché moltiplico per $2 > 0$.",
+              "**Arrivo all'obiettivo:** $2n + 2 \\ge n + 2$, perché $n \\ge 0$. Quindi $2^{n+1} \\ge n + 2$."
+            ]
+          }
+        },
+        {
+          "id": "anl1.top.t2",
+          "nome": "Trovare i punti di accumulazione",
+          "quando": "Esercizi che chiedono punti interni, isolati e di accumulazione di un insieme.",
+          "esempio": {
+            "testo": "$A = (0, 1) \\cup \\{2\\}$",
+            "passi": [
+              "Disegno $A$ sulla retta: un segmento da $0$ a $1$ senza estremi, più il punto $2$ da solo.",
+              "Ogni punto di $[0, 1]$ ha punti del segmento vicini quanto vuoi: sono tutti di accumulazione, **anche $0$ e $1$**, che non stanno in $A$.",
+              "Il punto $2$: l'intorno $(1{,}5;\\ 2{,}5)$ non contiene altri punti di $A$, quindi $2$ è **isolato** e non di accumulazione.",
+              "Punti interni: quelli di $(0, 1)$. Il $2$ non è interno, perché attorno a lui non c'è un intervallo dentro $A$.",
+              "Conclusione: punti di accumulazione $[0, 1]$; punto isolato $2$; punti interni $(0, 1)$."
+            ]
+          }
+        }
+      ],
+      "esercizi": [
+        {
+          "id": "anl1.top.e01",
+          "livello": "base",
+          "testo": "Scrivi con la notazione degli intervalli: (a) $\\{x : -1 \\le x < 3\\}$; (b) $\\{x : x > 2\\}$; (c) $\\{x : x \\le 0\\}$.",
+          "suggerimento": "Quadra = incluso, tonda = escluso, vicino a ∞ sempre tonda.",
+          "passi": [
+            "(a) $-1$ è incluso ($\\le$), $3$ escluso ($<$): $[-1, 3)$.",
+            "(b) Da $2$ escluso fino all'infinito: $(2, +\\infty)$.",
+            "(c) Da $-\\infty$ fino a $0$ incluso: $(-\\infty, 0]$."
+          ],
+          "soluzione": "(a) $[-1, 3)$; (b) $(2, +\\infty)$; (c) $(-\\infty, 0]$."
+        },
+        {
+          "id": "anl1.top.e02",
+          "livello": "base",
+          "testo": "Scrivi l'intorno di $3$ di raggio $\\frac{1}{2}$. Contiene $3{,}4$? E $2{,}5$?",
+          "suggerimento": "$I_r(x_0) = (x_0 - r, x_0 + r)$, con gli estremi esclusi.",
+          "passi": [
+            "$I_{1/2}(3) = (3 - 0{,}5;\\ 3 + 0{,}5) = (2{,}5;\\ 3{,}5)$.",
+            "$3{,}4$: sta tra $2{,}5$ e $3{,}5$, quindi sì.",
+            "$2{,}5$: è un estremo, escluso perché l'intervallo è aperto (distanza da $3$ uguale a $0{,}5$, non minore). Quindi no."
+          ],
+          "soluzione": "$(2{,}5;\\ 3{,}5)$; contiene $3{,}4$ ma non $2{,}5$."
+        },
+        {
+          "id": "anl1.top.e03",
+          "livello": "medio",
+          "testo": "Dimostra per induzione che $1 + 3 + 5 + \\dots + (2n - 1) = n^2$ per ogni $n \\ge 1$.",
+          "suggerimento": "Il termine numero $n+1$ della somma è $2(n+1) - 1 = 2n + 1$.",
+          "passi": [
+            "Base, $n = 1$: a sinistra $1$, a destra $1^2 = 1$. Vale.",
+            "Ipotesi: $1 + 3 + \\dots + (2n-1) = n^2$. Obiettivo: $1 + 3 + \\dots + (2n+1) = (n+1)^2$.",
+            "La somma fino al termine $n+1$ è la somma fino a $n$ più $(2n + 1)$: per l'ipotesi vale $n^2 + 2n + 1$.",
+            "$n^2 + 2n + 1 = (n+1)^2$, che è l'obiettivo."
+          ],
+          "soluzione": "Base vera; nel passo $n^2 + (2n+1) = (n+1)^2$."
+        },
+        {
+          "id": "anl1.top.e04",
+          "livello": "medio",
+          "testo": "Trova i punti di accumulazione di $A = \\left\\{ \\frac{1}{n} : n \\ge 1 \\right\\}$ e dimostra che ogni elemento di $A$ è isolato.",
+          "suggerimento": "Per un elemento $\\frac{1}{n}$, l'elemento più vicino a lui è $\\frac{1}{n+1}$: quanto distano?",
+          "passi": [
+            "Candidato: $0$, perché gli elementi si ammucchiano lì.",
+            "$0$ è di accumulazione: dato un intorno $(-r, r)$, scelgo $n > \\frac{1}{r}$; allora $0 < \\frac{1}{n} < r$, e $\\frac{1}{n} \\ne 0$.",
+            "Ogni $\\frac{1}{n}$ è isolato: i vicini sono $\\frac{1}{n+1}$ e (se $n \\ge 2$) $\\frac{1}{n-1}$. La distanza dal più vicino è $\\frac{1}{n} - \\frac{1}{n+1} = \\frac{1}{n(n+1)}$.",
+            "Con raggio $r = \\frac{1}{n(n+1)}$, l'intorno di $\\frac{1}{n}$ non contiene altri elementi di $A$.",
+            "Altri punti di accumulazione non ce ne sono: lontano da $0$ gli elementi sono separati da distanze fisse."
+          ],
+          "soluzione": "L'unico punto di accumulazione è $0$, che non appartiene ad $A$; tutti gli elementi di $A$ sono isolati."
+        },
+        {
+          "id": "anl1.top.e05",
+          "livello": "difficile",
+          "testo": "Dimostra per induzione che $n! \\ge 2^{n-1}$ per ogni $n \\ge 1$.",
+          "suggerimento": "$(n+1)! = (n+1) \\cdot n!$, e per $n \\ge 1$ vale $n + 1 \\ge 2$.",
+          "passi": [
+            "Base, $n = 1$: $1! = 1$ e $2^0 = 1$. Vale $1 \\ge 1$.",
+            "Ipotesi: $n! \\ge 2^{n-1}$. Obiettivo: $(n+1)! \\ge 2^n$.",
+            "$(n+1)! = (n+1) \\cdot n! \\ge (n+1) \\cdot 2^{n-1}$, usando l'ipotesi e moltiplicando per $n + 1 > 0$.",
+            "Poiché $n \\ge 1$, vale $n + 1 \\ge 2$, quindi $(n+1) \\cdot 2^{n-1} \\ge 2 \\cdot 2^{n-1} = 2^n$."
+          ],
+          "soluzione": "Base vera; nel passo $(n+1)! \\ge (n+1)\\,2^{n-1} \\ge 2^n$."
+        },
+        {
+          "id": "anl1.top.e06",
+          "livello": "difficile",
+          "testo": "Dimostra per induzione che $n^3 - n$ è divisibile per $6$ per ogni $n \\in \\mathbb{N}$.",
+          "suggerimento": "Sviluppa $(n+1)^3 - (n+1)$ e cerca dentro $n^3 - n$. Ti servirà che il prodotto di due interi consecutivi è sempre pari.",
+          "passi": [
+            "Base, $n = 0$: $0 - 0 = 0$, divisibile per $6$.",
+            "Sviluppo: $(n+1)^3 - (n+1) = n^3 + 3n^2 + 3n + 1 - n - 1 = (n^3 - n) + 3n^2 + 3n$.",
+            "Raccolgo: $3n^2 + 3n = 3n(n+1)$.",
+            "$n(n+1)$ è pari: dei due interi consecutivi $n$ e $n+1$, uno è pari. Quindi $3n(n+1) = 3 \\cdot 2k = 6k$.",
+            "$(n^3 - n)$ è multiplo di $6$ per ipotesi, $6k$ lo è: la somma è multiplo di $6$."
+          ],
+          "soluzione": "$(n+1)^3 - (n+1) = (n^3 - n) + 3n(n+1)$: entrambi i pezzi sono multipli di $6$."
+        }
+      ],
+      "verifica": {
+        "spiegalo": [
+          "Spiega con le tessere del domino perché base e passo bastano a dimostrare una cosa per tutti i naturali.",
+          "Perché nella disuguaglianza di Bernoulli serve l'ipotesi $x \\ge -1$?"
+        ],
+        "quiz": [
+          {
+            "id": "anl1.top.q1",
+            "domanda": "L'intervallo $[2, 5)$ contiene:",
+            "opzioni": [
+              "sia $2$ sia $5$",
+              "$2$ ma non $5$",
+              "$5$ ma non $2$"
+            ],
+            "corretta": 1,
+            "spiegazione": "La parentesi quadra include l'estremo, quella tonda lo esclude."
+          },
+          {
+            "id": "anl1.top.q2",
+            "domanda": "Per l'insieme $\\left\\{ \\frac{1}{n} : n \\ge 1 \\right\\}$, il punto $0$ è:",
+            "opzioni": [
+              "un punto di accumulazione che non appartiene all'insieme",
+              "un punto isolato",
+              "il minimo dell'insieme"
+            ],
+            "corretta": 0,
+            "spiegazione": "Ogni intorno di $0$ contiene qualche $\\frac{1}{n}$, ma $0$ non è uno degli elementi."
+          },
+          {
+            "id": "anl1.top.q3",
+            "domanda": "Nel passo induttivo bisogna:",
+            "opzioni": [
+              "dimostrare $P(n+1)$ supponendo vera $P(n)$",
+              "verificare $P(1)$ e $P(2)$",
+              "dimostrare $P(n)$ direttamente per ogni $n$"
+            ],
+            "corretta": 0,
+            "spiegazione": "Il passo è il collegamento tra un caso e il successivo. La verifica di un caso iniziale è la base, non il passo."
+          },
+          {
+            "id": "anl1.top.q4",
+            "domanda": "Nella dimostrazione di Bernoulli, l'ipotesi $x \\ge -1$ serve per:",
+            "opzioni": [
+              "far funzionare la base",
+              "moltiplicare la disuguaglianza per $1+x$ senza cambiarne il verso",
+              "è solo una convenzione"
+            ],
+            "corretta": 1,
+            "spiegazione": "Con $x \\ge -1$ si ha $1 + x \\ge 0$, e moltiplicare per un numero non negativo conserva il verso."
+          },
+          {
+            "id": "anl1.top.q5",
+            "domanda": "L'intorno di $0$ di raggio $1$ è:",
+            "opzioni": [
+              "$(-1, 1)$",
+              "$[-1, 1]$",
+              "$(0, 1)$"
+            ],
+            "corretta": 0,
+            "spiegazione": "Sono i punti a distanza **minore** di $1$ da $0$, su entrambi i lati: estremi esclusi."
+          }
+        ]
+      }
+    }
+  ]
+}

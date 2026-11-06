@@ -1,6 +1,6 @@
 // Fa funzionare l'app anche senza connessione: tiene una copia dei file (KaTeX e font compresi)
 // e la aggiorna in background quando c'è rete. I tuoi dati stanno in IndexedDB e non passano da qui.
-const CACHE = 'studio-v7';
+const CACHE = 'studio-v8';
 const FILES = [
   './', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './apple-touch-icon.png',
@@ -50,6 +50,9 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  // i pacchetti dei contenuti vanno sempre presi dal sito, mai da una copia:
+  // l'app li salva già nel suo database quando li importi
+  if (new URL(e.request.url).pathname.includes('/contenuti/')) return;
   e.respondWith(
     caches.match(e.request, { ignoreSearch: true }).then(hit => {
       // 'no-cache' chiede sempre al server se il file è cambiato (se non lo è, risponde in un attimo)

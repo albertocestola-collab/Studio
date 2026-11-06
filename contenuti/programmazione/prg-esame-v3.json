@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "tipo": "nuovo_esame",
+  "id_pacchetto": "prg-esame-v3",
+  "generato_il": "2026-11-04",
+  "esame_id": "prg",
+  "esame": {
+    "nome": "Programmazione",
+    "cfu": 12,
+    "data_esame": "2027-06-25",
+    "ore_settimanali": 3,
+    "perche_mi_serve": "",
+    "programma": [
+      {
+        "id": "prg.stor",
+        "titolo": "Introduzione, storia ed evoluzione dei calcolatori",
+        "capitolo": 1,
+        "ordine": 1
+      },
+      {
+        "id": "prg.bin",
+        "titolo": "Rappresentazione binaria dell'informazione e codifiche",
+        "capitolo": 1,
+        "ordine": 2
+      },
+      {
+        "id": "prg.bool",
+        "titolo": "Logica booleana",
+        "capitolo": 1,
+        "ordine": 3
+      },
+      {
+        "id": "prg.arch",
+        "titolo": "Architetture dei calcolatori",
+        "capitolo": 1,
+        "ordine": 4
+      },
+      {
+        "id": "prg.mem",
+        "titolo": "La memoria",
+        "capitolo": 1,
+        "ordine": 5
+      },
+      {
+        "id": "prg.gmem",
+        "titolo": "Gestione della memoria e file system",
+        "capitolo": 1,
+        "ordine": 6
+      },
+      {
+        "id": "prg.cpu",
+        "titolo": "La CPU: struttura interna e ciclo fetch-decode-execute",
+        "capitolo": 1,
+        "ordine": 7
+      },
+      {
+        "id": "prg.so",
+        "titolo": "Introduzione ai sistemi operativi",
+        "capitolo": 1,
+        "ordine": 8
+      },
+      {
+        "id": "prg.proc",
+        "titolo": "Processi, thread e concorrenza",
+        "capitolo": 1,
+        "ordine": 9
+      },
+      {
+        "id": "prg.reti",
+        "titolo": "Introduzione alle reti di calcolatori",
+        "capitolo": 1,
+        "ordine": 10
+      },
+      {
+        "id": "prg.alg",
+        "titolo": "Cos'è un algoritmo e come si rappresenta",
+        "capitolo": 2,
+        "ordine": 11
+      },
+      {
+        "id": "prg.ling",
+        "titolo": "Tipologie di linguaggi di programmazione",
+        "capitolo": 2,
+        "ordine": 12
+      },
+      {
+        "id": "prg.cintro",
+        "titolo": "Introduzione al linguaggio C: storia, compilatore, IDE",
+        "capitolo": 2,
+        "ordine": 13
+      },
+      {
+        "id": "prg.tipi",
+        "titolo": "Tipi di dato primitivi, variabili e costanti",
+        "capitolo": 2,
+        "ordine": 14
+      },
+      {
+        "id": "prg.fun",
+        "titolo": "Funzioni, operatori e precedenza",
+        "capitolo": 2,
+        "ordine": 15
+      },
+      {
+        "id": "prg.io",
+        "titolo": "Input/output",
+        "capitolo": 2,
+        "ordine": 16
+      },
+      {
+        "id": "prg.flux",
+        "titolo": "Controllo del flusso e cicli",
+        "capitolo": 2,
+        "ordine": 17
+      },
+      {
+        "id": "prg.lib",
+        "titolo": "Librerie e raccolte di funzioni",
+        "capitolo": 2,
+        "ordine": 18
+      },
+      {
+        "id": "prg.file",
+        "titolo": "Scrittura e lettura da file",
+        "capitolo": 2,
+        "ordine": 19
+      },
+      {
+        "id": "prg.uml",
+        "titolo": "UML, Unified Modelling Language",
+        "capitolo": 2,
+        "ordine": 20
+      },
+      {
+        "id": "prg.sd",
+        "titolo": "Strutture dati e array",
+        "capitolo": 3,
+        "ordine": 21
+      },
+      {
+        "id": "prg.pila",
+        "titolo": "Stack e queue",
+        "capitolo": 3,
+        "ordine": 22
+      },
+      {
+        "id": "prg.lista",
+        "titolo": "Liste concatenate",
+        "capitolo": 3,
+        "ordine": 23
+      },
+      {
+        "id": "prg.ord",
+        "titolo": "Ordinamenti semplici: bubble, selection, insertion sort",
+        "capitolo": 3,
+        "ordine": 24
+      },
+      {
+        "id": "prg.ordav",
+        "titolo": "Ordinamenti avanzati: quicksort e mergesort",
+        "capitolo": 3,
+        "ordine": 25
+      },
+      {
+        "id": "prg.ric",
+        "titolo": "Ricerca lineare e binaria",
+        "capitolo": 3,
+        "ordine": 26
+      },
+      {
+        "id": "prg.graf",
+        "titolo": "Grafi e alberi e la ricerca su di essi",
+        "capitolo": 3,
+        "ordine": 27
+      },
+      {
+        "id": "prg.compl",
+        "titolo": "Analisi della complessità computazionale",
+        "capitolo": 3,
+        "ordine": 28
+      },
+      {
+        "id": "prg.cpp",
+        "titolo": "Da C a C++ e introduzione alla programmazione a oggetti",
+        "capitolo": 4,
+        "ordine": 29
+      },
+      {
+        "id": "prg.cla",
+        "titolo": "Classi, oggetti e incapsulamento",
+        "capitolo": 4,
+        "ordine": 30
+      },
+      {
+        "id": "prg.costr",
+        "titolo": "Costruttori e distruttori",
+        "capitolo": 4,
+        "ordine": 31
+      },
+      {
+        "id": "prg.poli",
+        "titolo": "Polimorfismo e overloading",
+        "capitolo": 4,
+        "ordine": 32
+      },
+      {
+        "id": "prg.ered",
+        "titolo": "Ereditarietà semplice e multipla",
+        "capitolo": 4,
+        "ordine": 33
+      },
+      {
+        "id": "prg.thr",
+        "titolo": "Multithreading e thread in C++",
+        "capitolo": 4,
+        "ordine": 34
+      },
+      {
+        "id": "prg.link",
+        "titolo": "Compilazione e linking",
+        "capitolo": 4,
+        "ordine": 35
+      },
+      {
+        "id": "prg.punt",
+        "titolo": "Puntatori e funzioni con puntatori",
+        "capitolo": 5,
+        "ordine": 36
+      },
+      {
+        "id": "prg.din",
+        "titolo": "Memoria dinamica e allocazione in C++",
+        "capitolo": 5,
+        "ordine": 37
+      },
+      {
+        "id": "prg.smart",
+        "titolo": "Gestione automatica della memoria",
+        "capitolo": 5,
+        "ordine": 38
+      },
+      {
+        "id": "prg.tmpl",
+        "titolo": "Template e programmazione generica",
+        "capitolo": 5,
+        "ordine": 39
+      },
+      {
+        "id": "prg.ev",
+        "titolo": "Programmazione e gestione degli eventi",
+        "capitolo": 5,
+        "ordine": 40
+      },
+      {
+        "id": "prg.exc",
+        "titolo": "Eccezioni in C++",
+        "capitolo": 5,
+        "ordine": 41
+      },
+      {
+        "id": "prg.java",
+        "titolo": "Introduzione a Java: strumenti e sintassi base",
+        "capitolo": 6,
+        "ordine": 42
+      },
+      {
+        "id": "prg.jtipi",
+        "titolo": "Java: tipi di dato, array, operatori e flusso",
+        "capitolo": 6,
+        "ordine": 43
+      },
+      {
+        "id": "prg.jinc",
+        "titolo": "Java: incapsulamento e visibilità",
+        "capitolo": 6,
+        "ordine": 44
+      },
+      {
+        "id": "prg.jered",
+        "titolo": "Java: ereditarietà e interfacce",
+        "capitolo": 6,
+        "ordine": 45
+      },
+      {
+        "id": "prg.jpoli",
+        "titolo": "Java: polimorfismo",
+        "capitolo": 6,
+        "ordine": 46
+      },
+      {
+        "id": "prg.jexc",
+        "titolo": "Java: eccezioni",
+        "capitolo": 6,
+        "ordine": 47
+      },
+      {
+        "id": "prg.jenum",
+        "titolo": "Java: enumerazioni e record",
+        "capitolo": 6,
+        "ordine": 48
+      },
+      {
+        "id": "prg.jgen",
+        "titolo": "Java: tipi generici e collezioni",
+        "capitolo": 6,
+        "ordine": 49
+      }
+    ]
+  }
+}

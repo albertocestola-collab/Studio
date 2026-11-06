@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "tipo": "contenuti",
+  "id_pacchetto": "anl1-ins-v1",
+  "generato_il": "2026-10-29",
+  "esame_id": "anl1",
+  "argomenti": [
+    {
+      "id": "anl1.ins",
+      "titolo": "Insiemi e numeri: naturali, interi, razionali, reali",
+      "fonte": "Programma Mercatorum, videolezione 1",
+      "incerto": [
+        "Ho incluso lo $0$ nei naturali. Alcuni docenti non lo fanno: controlla nella dispensa della lezione 1 quale convenzione usa il corso."
+      ],
+      "prossimo_passo": "Leggi l'intuizione e i due vocabolari (insiemi e logica), poi prova l'esercizio e01.",
+      "sezioni": [
+        {
+          "id": "anl1.ins.s1",
+          "livello": "intuizione",
+          "titolo": "Perché esistono tanti insiemi di numeri",
+          "testo": "Pensa agli insiemi di numeri come a **cassette degli attrezzi** sempre più grandi. Ogni volta che un'operazione \"si inceppa\", si costruisce una cassetta nuova che la fa funzionare.\n\n1. Con i **naturali** $0, 1, 2, 3, \\dots$ puoi sempre sommare e moltiplicare. Ma $3 - 5$ non ha risposta: non esiste un naturale che faccia $-2$.\n2. Allora si aggiungono i negativi e nascono gli **interi**: $\\dots, -2, -1, 0, 1, 2, \\dots$. Ora la sottrazione funziona sempre. Ma $1 : 3$ non è un intero.\n3. Allora si aggiungono le frazioni e nascono i **razionali**. Ora anche la divisione funziona sempre, tranne quella per zero.\n4. Ma c'è ancora un buco: la diagonale di un quadrato di lato $1$ misura $\\sqrt{2}$, e $\\sqrt{2}$ **non è una frazione** (lo dimostriamo più avanti). Per riempire tutti i buchi della retta si costruiscono i **reali**.\n\nL'idea da tenere: ogni insieme **contiene** il precedente e ne ripara un difetto."
+        },
+        {
+          "id": "anl1.ins.s2",
+          "livello": "definizione",
+          "titolo": "Il vocabolario degli insiemi",
+          "testo": "Un **insieme** è una collezione di oggetti, detti **elementi**. Conta solo *chi* c'è dentro: l'ordine non conta e i doppioni non contano. Quindi $\\{1,2\\} = \\{2,1\\} = \\{1,1,2\\}$.\n\nEcco ogni simbolo, letto a voce:\n\n- $a \\in A$: \"$a$ **appartiene** ad $A$\", cioè $a$ è uno degli elementi di $A$. Il contrario si scrive $a \\notin A$.\n- $A \\subseteq B$: \"$A$ è **contenuto** in $B$\", cioè **ogni** elemento di $A$ è anche in $B$. Se in più $A \\neq B$, si scrive $A \\subset B$ (contenuto strettamente). Attenzione: alcuni libri usano $\\subset$ per entrambi i casi.\n- $\\emptyset$: l'**insieme vuoto**, che non ha elementi. È contenuto in qualunque insieme.\n- $A \\cup B$: l'**unione**, cioè gli elementi che stanno in $A$ **oppure** in $B$ (o in tutti e due).\n- $A \\cap B$: l'**intersezione**, cioè gli elementi che stanno in $A$ **e** in $B$ contemporaneamente.\n- $A \\setminus B$: la **differenza**, cioè gli elementi di $A$ che **non** stanno in $B$.\n\nUn insieme si può scrivere in due modi:\n\n- **per elenco**: $A = \\{1, 2, 3\\}$;\n- **con una proprietà**: $A = \\{x \\in \\mathbb{N} : 1 \\le x \\le 3\\}$. Si legge: \"gli $x$ naturali **tali che** $1 \\le x \\le 3$\". I due punti (a volte una barra $|$) significano \"tali che\"."
+        },
+        {
+          "id": "anl1.ins.s3",
+          "livello": "definizione",
+          "titolo": "I simboli della logica",
+          "testo": "Nelle definizioni di Analisi questi simboli compaiono ovunque. Se non li leggi fluentemente, ti perdi tutto il resto: vale la pena fissarli adesso.\n\n- $\\forall$: \"**per ogni**\". Esempio: $\\forall x \\in \\mathbb{R},\\ x^2 \\ge 0$ significa \"ogni numero reale al quadrato è maggiore o uguale a zero\".\n- $\\exists$: \"**esiste almeno un**\". Esempio: $\\exists x \\in \\mathbb{N} : x > 100$ significa \"c'è almeno un naturale più grande di $100$\".\n- $\\Rightarrow$: \"**implica**\". $P \\Rightarrow Q$ vuol dire: se è vera $P$, allora è vera anche $Q$. Non dice niente sul caso in cui $P$ è falsa.\n- $\\iff$: \"**se e solo se**\". $P \\iff Q$ vuol dire che valgono sia $P \\Rightarrow Q$ sia $Q \\Rightarrow P$: le due frasi sono vere o false sempre insieme.\n\n**L'ordine dei quantificatori conta.** Confronta:\n\n- $\\forall n \\in \\mathbb{N}\\ \\exists m \\in \\mathbb{N} : m > n$: \"per ogni naturale ce n'è uno più grande\". È **vera**: basta $m = n + 1$, e $m$ può cambiare a seconda di $n$.\n- $\\exists m \\in \\mathbb{N}\\ \\forall n \\in \\mathbb{N} : m > n$: \"c'è un naturale più grande di tutti\". È **falsa**: qui lo stesso $m$ dovrebbe funzionare per ogni $n$, anche per $n = m$, e $m > m$ è impossibile."
+        },
+        {
+          "id": "anl1.ins.s4",
+          "livello": "definizione",
+          "titolo": "Gli insiemi numerici, uno per uno",
+          "testo": "- $\\mathbb{N} = \\{0, 1, 2, 3, \\dots\\}$: i **naturali**. Si usa anche $\\mathbb{N}^* = \\mathbb{N} \\setminus \\{0\\}$, cioè i naturali senza lo zero.\n- $\\mathbb{Z} = \\{\\dots, -2, -1, 0, 1, 2, \\dots\\}$: gli **interi** (la Z viene dal tedesco *Zahlen*, \"numeri\").\n- $\\mathbb{Q} = \\left\\{ \\frac{p}{q} : p \\in \\mathbb{Z},\\ q \\in \\mathbb{Z},\\ q \\neq 0 \\right\\}$: i **razionali**, cioè le frazioni. Due frazioni diverse possono indicare lo stesso numero: $\\frac{1}{2} = \\frac{2}{4}$. Si dice che la frazione è **ridotta ai minimi termini** quando $p$ e $q$ non hanno divisori comuni oltre a $1$ (e $q > 0$).\n- $\\mathbb{R}$: i **reali**, cioè tutti i punti della retta. Comprendono i razionali e gli **irrazionali**, come $\\sqrt{2}$, $\\pi$ ed $e$.\n\nValgono le inclusioni $\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$. Per esempio $3 \\in \\mathbb{N}$ ma anche $3 = \\frac{3}{1} \\in \\mathbb{Q}$.\n\n**Razionali e numeri decimali.** Un numero è razionale **se e solo se** il suo sviluppo decimale è **finito** (come $1{,}25$) oppure **periodico** (come $0{,}\\overline{3} = 0{,}333\\dots$). Gli irrazionali hanno uno sviluppo infinito e **non periodico**: $\\sqrt{2} = 1{,}41421356\\dots$ non si ripete mai.\n\nChe cosa distingua davvero $\\mathbb{R}$ da $\\mathbb{Q}$ (la **completezza**) lo vediamo nel prossimo argomento, con l'estremo superiore."
+        },
+        {
+          "id": "anl1.ins.s5",
+          "livello": "ragionamento",
+          "titolo": "Dimostrazione: √2 non è razionale",
+          "testo": "**Che cosa dimostriamo:** non esiste nessuna frazione $\\frac{p}{q}$ con $\\left(\\frac{p}{q}\\right)^2 = 2$.\n\n**Strategia: per assurdo.** Supponiamo che la frazione esista e mostriamo che questo porta a una contraddizione. Se l'ipotesi porta a qualcosa di impossibile, l'ipotesi è falsa.\n\n**Un fatto che ci serve prima.** Se $p^2$ è pari, allora $p$ è pari.\n*Perché:* un intero è pari ($p = 2k$) oppure dispari ($p = 2k+1$). Se fosse dispari, $p^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1$, che è dispari. Quindi se $p^2$ è pari, $p$ non può essere dispari: è pari.\n\n**Passo 1.** Supponiamo $\\sqrt{2} = \\frac{p}{q}$ con la frazione **ridotta ai minimi termini**, cioè $p$ e $q$ senza divisori comuni.\n*Perché possiamo farlo:* ogni frazione si può semplificare finché non è ridotta, e il valore non cambia.\n\n**Passo 2.** Elevo al quadrato: $2 = \\frac{p^2}{q^2}$, quindi $p^2 = 2q^2$.\n*Perché:* moltiplico entrambi i lati per $q^2$, che non è zero.\n\n**Passo 3.** $p^2 = 2q^2$ è il doppio di un intero, quindi è **pari**. Per il fatto di prima, anche $p$ è pari: $p = 2k$ per qualche intero $k$.\n\n**Passo 4.** Sostituisco $p = 2k$: $(2k)^2 = 2q^2$, cioè $4k^2 = 2q^2$, cioè $q^2 = 2k^2$. Quindi anche $q^2$ è pari e, per lo stesso fatto, **anche $q$ è pari**.\n\n**Passo 5: la contraddizione.** $p$ e $q$ sono entrambi pari, quindi hanno il divisore comune $2$. Ma al passo 1 avevamo detto che non hanno divisori comuni. Le due cose non possono essere vere insieme.\n\n**Conclusione.** L'unica cosa che avevamo supposto è che $\\sqrt{2}$ fosse una frazione: quindi è falsa. $\\sqrt{2}$ è **irrazionale**. $\\blacksquare$"
+        },
+        {
+          "id": "anl1.ins.s6",
+          "livello": "ragionamento",
+          "titolo": "Tra due razionali ce n'è sempre un altro",
+          "testo": "**Che cosa dimostriamo:** se $a, b \\in \\mathbb{Q}$ e $a < b$, esiste un razionale $c$ con $a < c < b$.\n\n**Idea:** prendo il punto di mezzo, $c = \\frac{a+b}{2}$.\n\n**Passo 1: $c$ è razionale.** Somma e divisione per $2$ di frazioni danno ancora una frazione: se $a = \\frac{p}{q}$ e $b = \\frac{r}{s}$, allora $c = \\frac{ps + rq}{2qs}$, con numeratore e denominatore interi e $2qs \\neq 0$.\n\n**Passo 2: $a < c$.** Parto da $a < b$ e aggiungo $a$ a entrambi i lati: $2a < a + b$. Divido per $2$, che è positivo e non cambia il verso: $a < \\frac{a+b}{2} = c$.\n\n**Passo 3: $c < b$.** Parto da $a < b$ e aggiungo $b$: $a + b < 2b$. Divido per $2$: $c < b$. $\\blacksquare$\n\n**Conseguenza che sembra strana.** Ripetendo il ragionamento tra $a$ e $c$, poi tra $a$ e il nuovo punto, e così via, trovi **infiniti** razionali tra $a$ e $b$, per quanto vicini siano. Si dice che $\\mathbb{Q}$ è **denso**. Eppure, come abbiamo visto con $\\sqrt{2}$, la retta ha ancora dei buchi: densa non vuol dire \"senza buchi\"."
+        },
+        {
+          "id": "anl1.ins.s7",
+          "livello": "errori_comuni",
+          "titolo": "Dove si sbaglia di solito",
+          "testo": "- **Confondere $\\in$ e $\\subseteq$.** $2 \\in \\{1,2,3\\}$ è giusto, perché $2$ è un elemento. $\\{2\\} \\subseteq \\{1,2,3\\}$ è giusto, perché $\\{2\\}$ è un insieme. Invece $2 \\subseteq \\{1,2,3\\}$ e $\\{2\\} \\in \\{1,2,3\\}$ sono **sbagliati**.\n- **Pensare che $\\sqrt{2} = 1{,}414$.** $1{,}414$ è un'approssimazione razionale: $1{,}414^2 = 1{,}999396$, non $2$.\n- **Credere che $0{,}\\overline{9}$ sia \"un pochino meno\" di $1$.** È esattamente $1$. Se $x = 0{,}999\\dots$, allora $10x = 9{,}999\\dots$; sottraendo, $9x = 9$, cioè $x = 1$.\n- **Dimenticare che gli interi sono anche razionali.** $-4 = \\frac{-4}{1} \\in \\mathbb{Q}$.\n- **Invertire l'ordine di $\\forall$ ed $\\exists$**: cambia completamente il significato, come visto nella sezione sui simboli della logica.\n- **Lo zero nei naturali.** Alcuni testi includono lo $0$ in $\\mathbb{N}$, altri no. Controlla la convenzione del corso prima dell'esame."
+        },
+        {
+          "id": "anl1.ins.s8",
+          "livello": "riepilogo",
+          "titolo": "In cinque righe",
+          "testo": "- $\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$: ogni insieme ripara un difetto del precedente.\n- $\\in$ lega un elemento a un insieme; $\\subseteq$ lega due insiemi.\n- $\\cup$ = \"oppure\", $\\cap$ = \"e\", $\\setminus$ = \"tranne\". $\\forall$ = \"per ogni\", $\\exists$ = \"esiste\".\n- Razionale $\\iff$ decimale finito o periodico. $\\sqrt{2}$ è irrazionale (dimostrazione per assurdo con pari e dispari).\n- Tra due razionali ce n'è sempre un altro, ma la retta dei razionali ha comunque dei buchi."
+        }
+      ],
+      "tecniche": [
+        {
+          "id": "anl1.ins.t1",
+          "nome": "Leggere una formula con i quantificatori",
+          "quando": "Ogni volta che una definizione o un teorema contiene $\\forall$, $\\exists$ o $\\Rightarrow$.",
+          "esempio": {
+            "testo": "Traduci in italiano: $\\forall x \\in \\mathbb{R}\\ \\exists n \\in \\mathbb{N} : n > x$.",
+            "passi": [
+              "Leggi da sinistra a destra, un simbolo alla volta: «per ogni $x$ reale».",
+              "Poi: «esiste un $n$ naturale». Ricorda che $n$ viene **dopo** $x$, quindi può dipendere da $x$.",
+              "I due punti si leggono «tale che»: «tale che $n > x$».",
+              "Rimetti insieme in italiano normale: «qualunque numero reale prendi, c'è un naturale più grande di lui».",
+              "Controlla con un caso concreto: se $x = 7{,}3$ va bene $n = 8$. La frase è vera."
+            ]
+          }
+        },
+        {
+          "id": "anl1.ins.t2",
+          "nome": "Dimostrazione per assurdo",
+          "quando": "Quando devi dimostrare che qualcosa **non** esiste o **non** è possibile.",
+          "esempio": {
+            "testo": "Dimostra che non esiste un numero naturale più grande di tutti gli altri.",
+            "passi": [
+              "Scrivi l'ipotesi contraria: supponiamo che esista $M \\in \\mathbb{N}$ con $M \\ge n$ per ogni $n \\in \\mathbb{N}$.",
+              "Cerca un caso che la mette in difficoltà: $M + 1$ è un naturale, quindi dovrebbe valere $M \\ge M + 1$.",
+              "Semplifica: sottraendo $M$ da entrambi i lati viene $0 \\ge 1$, che è falso.",
+              "Concludi: l'ipotesi porta a una cosa falsa, quindi l'ipotesi è falsa e un tale $M$ non esiste."
+            ]
+          }
+        },
+        {
+          "id": "anl1.ins.t3",
+          "nome": "Da decimale periodico a frazione",
+          "quando": "Quando devi scrivere un numero decimale periodico come frazione, cioè mostrare che è razionale.",
+          "esempio": {
+            "testo": "Scrivi $x = 0{,}1\\overline{6} = 0{,}1666\\dots$ come frazione.",
+            "passi": [
+              "Moltiplica per $10$ per portare l'antiperiodo (la cifra $1$ che non si ripete) prima della virgola: $10x = 1{,}666\\dots$",
+              "Moltiplica ancora per $10$ per spostare anche un periodo intero: $100x = 16{,}666\\dots$",
+              "Sottrai le due righe: le parti dopo la virgola sono identiche e si cancellano. $100x - 10x = 16 - 1$, cioè $90x = 15$.",
+              "Dividi: $x = \\frac{15}{90} = \\frac{1}{6}$.",
+              "Controlla: $1 : 6 = 0{,}1666\\dots$ Torna."
+            ]
+          }
+        }
+      ],
+      "esercizi": [
+        {
+          "id": "anl1.ins.e01",
+          "livello": "base",
+          "testo": "Siano $A = \\{1, 2, 3, 4\\}$ e $B = \\{3, 4, 5\\}$. Calcola $A \\cup B$, $A \\cap B$ e $A \\setminus B$.",
+          "suggerimento": "Unione = sta in almeno uno dei due. Intersezione = sta in tutti e due. Differenza = sta in $A$ ma non in $B$.",
+          "passi": [
+            "$A \\cup B$: metto tutti gli elementi, senza ripetere quelli comuni: $\\{1,2,3,4,5\\}$.",
+            "$A \\cap B$: guardo quali elementi di $A$ sono anche in $B$: il $3$ e il $4$.",
+            "$A \\setminus B$: tolgo da $A$ quelli che stanno in $B$, cioè $3$ e $4$. Restano $1$ e $2$."
+          ],
+          "soluzione": "$A \\cup B = \\{1,2,3,4,5\\}$, $A \\cap B = \\{3,4\\}$, $A \\setminus B = \\{1,2\\}$."
+        },
+        {
+          "id": "anl1.ins.e02",
+          "livello": "base",
+          "testo": "Vero o falso? (a) $-3 \\in \\mathbb{N}$; (b) $0{,}5 \\in \\mathbb{Q}$; (c) $\\sqrt{9} \\in \\mathbb{Q}$; (d) $\\sqrt{2} \\in \\mathbb{Q}$.",
+          "suggerimento": "Prima di decidere, semplifica il numero quando puoi.",
+          "passi": [
+            "(a) I naturali non hanno segno meno, quindi falso. Però $-3 \\in \\mathbb{Z}$.",
+            "(b) $0{,}5 = \\frac{1}{2}$ è una frazione di interi, quindi vero.",
+            "(c) $\\sqrt{9} = 3 = \\frac{3}{1}$: sembra una radice, ma è un intero. Vero.",
+            "(d) Lo abbiamo dimostrato nella sezione di ragionamento: falso."
+          ],
+          "soluzione": "(a) falso, (b) vero, (c) vero, (d) falso."
+        },
+        {
+          "id": "anl1.ins.e03",
+          "livello": "base",
+          "testo": "Scrivi come frazioni ridotte ai minimi termini: $1{,}25$ e $0{,}\\overline{3}$.",
+          "suggerimento": "Per il decimale finito usa una potenza di $10$ al denominatore. Per quello periodico usa la tecnica «da decimale periodico a frazione».",
+          "passi": [
+            "$1{,}25 = \\frac{125}{100}$. Divido sopra e sotto per $25$: $\\frac{5}{4}$.",
+            "Per $x = 0{,}333\\dots$: $10x = 3{,}333\\dots$",
+            "Sottraggo: $10x - x = 3$, cioè $9x = 3$, quindi $x = \\frac{3}{9} = \\frac{1}{3}$."
+          ],
+          "soluzione": "$1{,}25 = \\frac{5}{4}$ e $0{,}\\overline{3} = \\frac{1}{3}$."
+        },
+        {
+          "id": "anl1.ins.e04",
+          "livello": "medio",
+          "testo": "Scrivi per elenco l'insieme $C = \\{x \\in \\mathbb{Z} : -2 < x \\le 3\\}$. Poi di' se $C \\subseteq \\mathbb{N}$.",
+          "suggerimento": "Attenzione ai due simboli diversi: $<$ esclude l'estremo, $\\le$ lo include.",
+          "passi": [
+            "Cerco gli interi più grandi di $-2$: il $-2$ è **escluso** (c'è $<$), quindi parto da $-1$.",
+            "Arrivo fino a $3$ **compreso** (c'è $\\le$): $C = \\{-1, 0, 1, 2, 3\\}$.",
+            "$C \\subseteq \\mathbb{N}$ vorrebbe dire che **ogni** elemento di $C$ è naturale. Basta un controesempio: $-1 \\in C$ ma $-1 \\notin \\mathbb{N}$."
+          ],
+          "soluzione": "$C = \\{-1, 0, 1, 2, 3\\}$ e $C \\not\\subseteq \\mathbb{N}$, perché contiene $-1$."
+        },
+        {
+          "id": "anl1.ins.e05",
+          "livello": "medio",
+          "testo": "Scrivi $0{,}\\overline{12} = 0{,}121212\\dots$ come frazione ridotta.",
+          "suggerimento": "Il periodo è lungo due cifre: moltiplica per $100$, non per $10$.",
+          "passi": [
+            "Sia $x = 0{,}1212\\dots$ Allora $100x = 12{,}1212\\dots$",
+            "Sottraggo: $100x - x = 12$, cioè $99x = 12$.",
+            "$x = \\frac{12}{99}$. Divido sopra e sotto per $3$: $\\frac{4}{33}$.",
+            "Controllo: $4 : 33 = 0{,}1212\\dots$ Torna."
+          ],
+          "soluzione": "$\\frac{4}{33}$"
+        },
+        {
+          "id": "anl1.ins.e06",
+          "livello": "medio",
+          "testo": "Dimostra che se $q \\in \\mathbb{Q}$ e $r$ è irrazionale, allora $q + r$ è irrazionale.",
+          "suggerimento": "Per assurdo: supponi che $q + r$ sia razionale e isola $r$.",
+          "passi": [
+            "Supponiamo per assurdo che $q + r = s$ con $s \\in \\mathbb{Q}$.",
+            "Isolo $r$: $r = s - q$.",
+            "La differenza di due razionali è razionale: se $s = \\frac{a}{b}$ e $q = \\frac{c}{d}$, allora $s - q = \\frac{ad - cb}{bd}$, con $bd \\neq 0$.",
+            "Quindi $r$ sarebbe razionale, ma per ipotesi è irrazionale: contraddizione. Quindi $q + r$ è irrazionale."
+          ],
+          "soluzione": "Per assurdo: da $q + r = s \\in \\mathbb{Q}$ seguirebbe $r = s - q \\in \\mathbb{Q}$, contro l'ipotesi."
+        },
+        {
+          "id": "anl1.ins.e07",
+          "livello": "difficile",
+          "testo": "Dimostra che $\\sqrt{3}$ è irrazionale.",
+          "suggerimento": "Segui la dimostrazione per $\\sqrt{2}$. Al posto di «pari» ti serve «divisibile per $3$»: prima dimostra che se $3$ divide $p^2$ allora $3$ divide $p$, guardando i resti della divisione per $3$.",
+          "passi": [
+            "**Fatto preliminare.** Ogni intero si scrive come $p = 3k$, $p = 3k+1$ oppure $p = 3k+2$ (resto $0$, $1$ o $2$).",
+            "Ne calcolo i quadrati: $(3k)^2 = 3 \\cdot 3k^2$; $(3k+1)^2 = 3(3k^2+2k) + 1$; $(3k+2)^2 = 3(3k^2+4k+1) + 1$.",
+            "Solo nel primo caso $p^2$ è divisibile per $3$. Quindi se $3$ divide $p^2$, allora $p = 3k$, cioè $3$ divide $p$.",
+            "**Assurdo.** Supponiamo $\\sqrt{3} = \\frac{p}{q}$ ridotta ai minimi termini. Elevando al quadrato: $p^2 = 3q^2$.",
+            "Quindi $3$ divide $p^2$ e, per il fatto preliminare, $p = 3k$.",
+            "Sostituisco: $9k^2 = 3q^2$, cioè $q^2 = 3k^2$. Quindi $3$ divide $q^2$ e anche $q$.",
+            "$p$ e $q$ hanno il divisore comune $3$, ma la frazione era ridotta: contraddizione. $\\sqrt{3}$ è irrazionale."
+          ],
+          "soluzione": "Come per $\\sqrt{2}$, usando la divisibilità per $3$ al posto della parità: si arriva a $p$ e $q$ entrambi multipli di $3$, contro l'ipotesi di frazione ridotta."
+        },
+        {
+          "id": "anl1.ins.e08",
+          "livello": "difficile",
+          "testo": "Trova un numero razionale compreso tra $\\sqrt{2}$ e $1{,}5$, e **dimostra** che sta davvero in mezzo, senza usare la calcolatrice per $\\sqrt{2}$.",
+          "suggerimento": "Per numeri positivi vale $a < b \\iff a^2 < b^2$. Quindi confronta i quadrati invece delle radici.",
+          "passi": [
+            "Provo $c = 1{,}42 = \\frac{142}{100} = \\frac{71}{50}$, che è razionale.",
+            "$c < 1{,}5$ è evidente confrontando i decimali.",
+            "Per confrontare $c$ con $\\sqrt{2}$ confronto i quadrati: $c^2 = 1{,}42^2 = 2{,}0164$, mentre $(\\sqrt{2})^2 = 2$.",
+            "$2{,}0164 > 2$, e i due numeri sono positivi, quindi $c > \\sqrt{2}$.",
+            "*Perché posso confrontare i quadrati:* per $a, b > 0$, $b^2 - a^2 = (b-a)(b+a)$ e $b + a > 0$. Quindi $b^2 - a^2$ e $b - a$ hanno lo stesso segno."
+          ],
+          "soluzione": "Per esempio $\\frac{71}{50} = 1{,}42$: si ha $1{,}42^2 = 2{,}0164 > 2$, quindi $\\sqrt{2} < 1{,}42 < 1{,}5$."
+        }
+      ],
+      "verifica": {
+        "spiegalo": [
+          "Spiega a parole tue perché, dopo gli interi, è servito costruire anche i razionali, e poi i reali.",
+          "Racconta la dimostrazione che $\\sqrt{2}$ è irrazionale senza scrivere formule: qual è l'idea, e dove salta fuori la contraddizione?",
+          "Che differenza c'è tra «per ogni $n$ esiste $m$» ed «esiste $m$ per ogni $n$»?"
+        ],
+        "quiz": [
+          {
+            "id": "anl1.ins.q1",
+            "domanda": "Quale catena di inclusioni è corretta?",
+            "opzioni": [
+              "$\\mathbb{Z} \\subset \\mathbb{N} \\subset \\mathbb{Q} \\subset \\mathbb{R}$",
+              "$\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$",
+              "$\\mathbb{N} \\subset \\mathbb{Q} \\subset \\mathbb{Z} \\subset \\mathbb{R}$"
+            ],
+            "corretta": 1,
+            "spiegazione": "Ogni naturale è un intero, ogni intero è una frazione (con denominatore 1), ogni frazione è un punto della retta reale."
+          },
+          {
+            "id": "anl1.ins.q2",
+            "domanda": "Quale scrittura è corretta?",
+            "opzioni": [
+              "$2 \\subseteq \\{1,2,3\\}$",
+              "$\\{2\\} \\subseteq \\{1,2,3\\}$",
+              "$\\{2\\} \\in \\{1,2,3\\}$"
+            ],
+            "corretta": 1,
+            "spiegazione": "$\\{2\\}$ è un insieme e tutti i suoi elementi (solo il $2$) stanno in $\\{1,2,3\\}$, quindi è contenuto. Il numero $2$ invece si lega con $\\in$, non con $\\subseteq$."
+          },
+          {
+            "id": "anl1.ins.q3",
+            "domanda": "Quanto vale $0{,}\\overline{9}$?",
+            "opzioni": [
+              "Un po' meno di $1$",
+              "Esattamente $1$",
+              "Non è un numero reale"
+            ],
+            "corretta": 1,
+            "spiegazione": "Con $x = 0{,}999\\dots$ si ha $10x - x = 9$, quindi $x = 1$."
+          },
+          {
+            "id": "anl1.ins.q4",
+            "domanda": "Se $A$ è l'insieme dei naturali pari e $B$ quello dei multipli di $3$, che cos'è $A \\cap B$?",
+            "opzioni": [
+              "I multipli di $6$",
+              "I multipli di $3$",
+              "L'insieme vuoto"
+            ],
+            "corretta": 0,
+            "spiegazione": "Servono i numeri che sono **sia** pari **sia** multipli di $3$: sono esattamente i multipli di $6$ ($0, 6, 12, \\dots$)."
+          }
+        ]
+      }
+    }
+  ]
+}

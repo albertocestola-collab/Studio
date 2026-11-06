@@ -1,0 +1,134 @@
+{
+ "schema_version": 1,
+ "generato_il": "2026-11-06",
+ "pacchetti": [
+  {
+   "file": "analisi-1/anl1-esame-v2.json",
+   "id_pacchetto": "anl1-esame-v2",
+   "tipo": "nuovo_esame",
+   "esame_id": "anl1",
+   "hash": "d3a901ab66f5e87e",
+   "kb": 4
+  },
+  {
+   "file": "programmazione/prg-esame-v3.json",
+   "id_pacchetto": "prg-esame-v3",
+   "tipo": "nuovo_esame",
+   "esame_id": "prg",
+   "hash": "53bd06e475ef905b",
+   "kb": 7
+  },
+  {
+   "file": "analisi-1/cap1/anl1-cap1-v1.json",
+   "id_pacchetto": "anl1-cap1-v1",
+   "tipo": "contenuti",
+   "esame_id": "anl1",
+   "hash": "88e9687fb5e83d18",
+   "kb": 33
+  },
+  {
+   "file": "analisi-1/cap2/anl1-cap2-1di2.json",
+   "id_pacchetto": "anl1-cap2-1di2",
+   "tipo": "contenuti",
+   "esame_id": "anl1",
+   "hash": "1937d58e3b203e25",
+   "kb": 28
+  },
+  {
+   "file": "analisi-1/cap2/anl1-cap2-2di2.json",
+   "id_pacchetto": "anl1-cap2-2di2",
+   "tipo": "contenuti",
+   "esame_id": "anl1",
+   "hash": "fcc5ed6da24ea5ac",
+   "kb": 39
+  },
+  {
+   "file": "analisi-1/cap1/anl1-ins-v1.json",
+   "id_pacchetto": "anl1-ins-v1",
+   "tipo": "contenuti",
+   "esame_id": "anl1",
+   "hash": "89480eaeda82dfa4",
+   "kb": 23
+  },
+  {
+   "file": "programmazione/cap1/prg-cap1-v2-1di5.json",
+   "id_pacchetto": "prg-cap1-v2-1di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "41f91c9751671cc8",
+   "kb": 71
+  },
+  {
+   "file": "programmazione/cap1/prg-cap1-v2-2di5.json",
+   "id_pacchetto": "prg-cap1-v2-2di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "91d9cfc75e1e3c11",
+   "kb": 72
+  },
+  {
+   "file": "programmazione/cap1/prg-cap1-v2-3di5.json",
+   "id_pacchetto": "prg-cap1-v2-3di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "3b975fa4b763ddce",
+   "kb": 72
+  },
+  {
+   "file": "programmazione/cap1/prg-cap1-v2-4di5.json",
+   "id_pacchetto": "prg-cap1-v2-4di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "ec0870edca7a9fcc",
+   "kb": 70
+  },
+  {
+   "file": "programmazione/cap1/prg-cap1-v2-5di5.json",
+   "id_pacchetto": "prg-cap1-v2-5di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "ebe71d56460b69a2",
+   "kb": 69
+  },
+  {
+   "file": "programmazione/cap2/prg-cap2-1di5.json",
+   "id_pacchetto": "prg-cap2-1di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "252a90185d3dee2f",
+   "kb": 71
+  },
+  {
+   "file": "programmazione/cap2/prg-cap2-2di5.json",
+   "id_pacchetto": "prg-cap2-2di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "65b1617365727393",
+   "kb": 71
+  },
+  {
+   "file": "programmazione/cap2/prg-cap2-3di5.json",
+   "id_pacchetto": "prg-cap2-3di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "c5de68a8cc6efcb1",
+   "kb": 71
+  },
+  {
+   "file": "programmazione/cap2/prg-cap2-4di5.json",
+   "id_pacchetto": "prg-cap2-4di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "8e75fbce4aceb4fa",
+   "kb": 72
+  },
+  {
+   "file": "programmazione/cap2/prg-cap2-5di5.json",
+   "id_pacchetto": "prg-cap2-5di5",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "307661236bf84305",
+   "kb": 71
+  }
+ ]
+}

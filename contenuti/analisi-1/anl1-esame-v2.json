@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "tipo": "nuovo_esame",
+  "id_pacchetto": "anl1-esame-v2",
+  "generato_il": "2026-10-29",
+  "esame_id": "anl1",
+  "esame": {
+    "nome": "Analisi Matematica I e geometria",
+    "cfu": 12,
+    "data_esame": "2027-02-26",
+    "ore_settimanali": 7,
+    "perche_mi_serve": "",
+    "programma": [
+      {
+        "id": "anl1.ins",
+        "titolo": "Insiemi e numeri: naturali, interi, razionali, reali",
+        "capitolo": 1,
+        "ordine": 1
+      },
+      {
+        "id": "anl1.sup",
+        "titolo": "Massimo, minimo, estremo superiore e inferiore",
+        "capitolo": 1,
+        "ordine": 2
+      },
+      {
+        "id": "anl1.top",
+        "titolo": "Intervalli, intorni e principio di induzione",
+        "capitolo": 1,
+        "ordine": 3
+      },
+      {
+        "id": "anl1.fun",
+        "titolo": "Funzioni: definizione e proprietà",
+        "capitolo": 2,
+        "ordine": 4
+      },
+      {
+        "id": "anl1.pol",
+        "titolo": "Rette, potenze, radici e polinomi",
+        "capitolo": 2,
+        "ordine": 5
+      },
+      {
+        "id": "anl1.exp",
+        "titolo": "Esponenziali, logaritmi e valore assoluto",
+        "capitolo": 2,
+        "ordine": 6
+      },
+      {
+        "id": "anl1.trig",
+        "titolo": "Trigonometria",
+        "capitolo": 2,
+        "ordine": 7
+      },
+      {
+        "id": "anl1.graf",
+        "titolo": "Grafici di funzioni composte",
+        "capitolo": 2,
+        "ordine": 8
+      },
+      {
+        "id": "anl1.suc",
+        "titolo": "Limiti di successioni",
+        "capitolo": 3,
+        "ordine": 9
+      },
+      {
+        "id": "anl1.nep",
+        "titolo": "Il numero di Nepero e le successioni di Cauchy",
+        "capitolo": 3,
+        "ordine": 10
+      },
+      {
+        "id": "anl1.lim",
+        "titolo": "Limiti di funzioni e funzioni continue",
+        "capitolo": 3,
+        "ordine": 11
+      },
+      {
+        "id": "anl1.limn",
+        "titolo": "Limiti notevoli",
+        "capitolo": 3,
+        "ordine": 12
+      },
+      {
+        "id": "anl1.ser",
+        "titolo": "Serie numeriche",
+        "capitolo": 4,
+        "ordine": 13
+      },
+      {
+        "id": "anl1.cont",
+        "titolo": "Discontinuità e teoremi sulle funzioni continue",
+        "capitolo": 5,
+        "ordine": 14
+      },
+      {
+        "id": "anl1.der",
+        "titolo": "La derivata e le regole di calcolo",
+        "capitolo": 6,
+        "ordine": 15
+      },
+      {
+        "id": "anl1.teo",
+        "titolo": "Teoremi di Fermat, Rolle e Lagrange",
+        "capitolo": 6,
+        "ordine": 16
+      },
+      {
+        "id": "anl1.mon",
+        "titolo": "Monotonia e convessità",
+        "capitolo": 6,
+        "ordine": 17
+      },
+      {
+        "id": "anl1.hop",
+        "titolo": "Limiti con le derivate: de l'Hôpital",
+        "capitolo": 6,
+        "ordine": 18
+      },
+      {
+        "id": "anl1.tay",
+        "titolo": "La formula di Taylor",
+        "capitolo": 6,
+        "ordine": 19
+      },
+      {
+        "id": "anl1.stu",
+        "titolo": "Studio di funzione",
+        "capitolo": 6,
+        "ordine": 20
+      },
+      {
+        "id": "anl1.int",
+        "titolo": "L'integrale di Riemann e le sue proprietà",
+        "capitolo": 7,
+        "ordine": 21
+      },
+      {
+        "id": "anl1.tfc",
+        "titolo": "Teorema fondamentale e integrale indefinito",
+        "capitolo": 7,
+        "ordine": 22
+      },
+      {
+        "id": "anl1.tecint",
+        "titolo": "Tecniche di integrazione",
+        "capitolo": 7,
+        "ordine": 23
+      },
+      {
+        "id": "anl1.imp",
+        "titolo": "Integrali impropri",
+        "capitolo": 7,
+        "ordine": 24
+      },
+      {
+        "id": "anl1.vet",
+        "titolo": "Vettori e spazi vettoriali",
+        "capitolo": 8,
+        "ordine": 25
+      },
+      {
+        "id": "anl1.base",
+        "titolo": "Dipendenza lineare, basi e dimensione",
+        "capitolo": 8,
+        "ordine": 26
+      },
+      {
+        "id": "anl1.sis",
+        "titolo": "Sistemi lineari, rango e metodo di Gauss",
+        "capitolo": 8,
+        "ordine": 27
+      },
+      {
+        "id": "anl1.mat",
+        "titolo": "Applicazioni lineari e matrici",
+        "capitolo": 8,
+        "ordine": 28
+      },
+      {
+        "id": "anl1.det",
+        "titolo": "Il determinante",
+        "capitolo": 8,
+        "ordine": 29
+      }
+    ]
+  }
+}
