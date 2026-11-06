@@ -432,7 +432,9 @@ async function toggleRead(id){
   const r={id:key,tipo:'lettura',rif:id,data:todayKey(),ts:Date.now()};
   S.prog.set(key,r);await put('progressi',r);return true;
 }
-const sortedSections=a=>arr(a.sezioni).map((s,i)=>[s,i]).sort((x,y)=>{const lx=LVL_ORDER.indexOf(x[0].livello),ly=LVL_ORDER.indexOf(y[0].livello);return lx-ly||x[1]-y[1]}).map(x=>x[0]);
+/* le sezioni restano nell'ordine in cui Claude le ha scritte: sono un percorso, ognuna parte dalla precedente.
+   Il livello (intuizione, definizione…) è solo un'etichetta. Prima si riordinavano per livello e il filo si spezzava. */
+const sortedSections=a=>arr(a.sezioni);
 function examTopics(e){
   return arr(e.programma).map((p,i)=>[p,i]).sort((x,y)=>((+x[0].capitolo||0)-(+y[0].capitolo||0))||((+x[0].ordine||0)-(+y[0].ordine||0))||x[1]-y[1]).map(x=>x[0]);
 }
