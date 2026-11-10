@@ -1514,6 +1514,7 @@ const ACT={
   'ex-step':b=>{S.ex[b.dataset.id]=(S.ex[b.dataset.id]||0)+1;render()},
   'ex-sol':b=>{S.ex[b.dataset.id]=+b.dataset.n;render()},
   'dismiss-tip':()=>{lsSet(LS_TIP,'1');$('#banner').hidden=true},
+  'reload-app':()=>location.reload(),
   'edit-exam':b=>editExamSheet(b.dataset.id),
   'save-exam':async b=>{
     const id=b.dataset.id,base=S.esami.get(id);if(!base)return;
@@ -1577,7 +1578,14 @@ async function start(){
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()-S.remote.ts>15*60*1000)checkAndShow()});
   window.addEventListener('online',()=>checkAndShow());
 }
-if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+/* versione nuova dell'app: il service worker nuovo prende il controllo mentre l'app è già aperta con la versione vecchia.
+   Lo diciamo, con un pulsante per ricaricare (i dati sono nel database e restano). Alla prima installazione non serve. */
+if('serviceWorker' in navigator){
+  const hadCtrl=!!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!hadCtrl)return;const bn=$('#banner');
+    bn.innerHTML='<span><b>C\'è una versione nuova dell\'app.</b> Tocca «Ricarica» per usarla: i tuoi dati restano.</span><button data-act="reload-app">Ricarica</button>';bn.hidden=false});
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
 start();
 })();
 </script>
