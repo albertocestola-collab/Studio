@@ -95,40 +95,40 @@
    "id_pacchetto": "prg-cap2-1di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "8c605e7d207a7e05",
-   "kb": 72
+   "hash": "007f078f65226f8d",
+   "kb": 90
   },
   {
    "file": "programmazione/cap2/prg-cap2-2di5.json",
    "id_pacchetto": "prg-cap2-2di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "984b39518134b47a",
-   "kb": 71
+   "hash": "e08bd5ad386938cb",
+   "kb": 94
   },
   {
    "file": "programmazione/cap2/prg-cap2-3di5.json",
    "id_pacchetto": "prg-cap2-3di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "df8ddbe983dbcf22",
-   "kb": 72
+   "hash": "1cd21d09b085de68",
+   "kb": 95
   },
   {
    "file": "programmazione/cap2/prg-cap2-4di5.json",
    "id_pacchetto": "prg-cap2-4di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "9fba5575fca10af6",
-   "kb": 72
+   "hash": "930df3aa4dc352d2",
+   "kb": 101
   },
   {
    "file": "programmazione/cap2/prg-cap2-5di5.json",
    "id_pacchetto": "prg-cap2-5di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "fc438856c3bbe641",
-   "kb": 72
+   "hash": "5ddd412dfbf8fa26",
+   "kb": 108
   }
  ]
 }
