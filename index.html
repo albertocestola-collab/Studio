@@ -176,6 +176,8 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 /* sul telefono (375 px) il codice scende a 11,5 px e il riquadro ha margini più stretti:
    così righe di C fino a 46 caratteri stanno nello schermo senza scorrere di lato */
 @media (max-width:420px){.md pre.codeblock{padding:10px 9px}}
+/* disegni (```text): righe più vicine, così le linee verticali │ dei riquadri si toccano e non sembrano tratteggiate */
+.md pre.codeblock.diagram{line-height:1.2}
 
 /* vittorie e dati */
 .kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -309,7 +311,7 @@ const LEVELS={intuizione:'Intuizione',definizione:'Definizione',ragionamento:'Ra
 const LVL_ORDER=Object.keys(LEVELS);
 const EX_LEVELS={base:'Base',medio:'Medio',difficile:'Difficile'};
 const TIPI=['nuovo_esame','contenuti','aggiornamento_piano','ripasso'];
-const MAX_KB=80;
+const MAX_KB=120;/* sopra si avvisa soltanto; era 80 quando i pacchetti si incollavano a mano sul telefono */
 const MSH=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
 const IC={
   right:'<svg class="go" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>',
@@ -348,7 +350,7 @@ function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
    Prima si tolgono codice e formule, poi si fa l'escape di tutto il resto: nessun HTML del pacchetto arriva alla pagina.
    Il codice (```...``` su righe proprie, oppure `...` in linea) resta com'è: niente corsivi, titoli o formule dentro. */
 const mdCache=new Map();
-const CODE_BLOCK=/^[ \t]*```[^\n`]*\n([\s\S]*?)^[ \t]*```[ \t]*$/gm, CODE_INLINE=/`([^`\n]+)`/g;
+const CODE_BLOCK=/^[ \t]*```([^\n`]*)\n([\s\S]*?)^[ \t]*```[ \t]*$/gm, CODE_INLINE=/`([^`\n]+)`/g;
 /* il testo senza il codice: serve ai controlli sulle formule, che dentro il codice non valgono */
 function stripCode(s){return String(s).replace(/\r\n?/g,'\n').replace(CODE_BLOCK,'').replace(CODE_INLINE,'')}
 function tex(src,display){
@@ -359,9 +361,9 @@ function tex(src,display){
 function md(src){
   src=String(src==null?'':src);
   if(mdCache.has(src))return mdCache.get(src);
-  const math=[],code=[];
+  const math=[],code=[],lang=[];
   let s=src.replace(/\u0000/g,'').replace(/\r\n?/g,'\n');
-  s=s.replace(CODE_BLOCK,(m,t)=>{code.push(t.replace(/\n$/,''));return '\u0000C'+(code.length-1)+'\u0000'});
+  s=s.replace(CODE_BLOCK,(m,l,t)=>{code.push(t.replace(/\n$/,''));lang[code.length-1]=l.trim().toLowerCase();return '\u0000C'+(code.length-1)+'\u0000'});
   s=s.replace(CODE_INLINE,(m,t)=>{code.push(t);return '\u0000K'+(code.length-1)+'\u0000'});
   s=s.replace(/\\\$/g,'\u0000D\u0000');
   s=s.replace(/\$\$([\s\S]+?)\$\$/g,(m,t)=>{math.push([t,true]);return '\u0000M'+(math.length-1)+'\u0000'});
@@ -379,7 +381,7 @@ function md(src){
   for(const raw of s.split(/\r?\n/)){
     const line=raw.trimEnd();let m;
     if(!line.trim()){flushP();flushL();continue}
-    if((m=/^\s*\u0000C(\d+)\u0000$/.exec(line))){flushP();flushL();out.push('<pre class="codeblock"><code>'+esc(code[+m[1]])+'</code></pre>');continue}
+    if((m=/^\s*\u0000C(\d+)\u0000$/.exec(line))){flushP();flushL();out.push('<pre class="codeblock'+(lang[+m[1]]==='text'?' diagram':'')+'"><code>'+esc(code[+m[1]])+'</code></pre>');continue}
     if((m=/^\s*#{1,6}\s+(.*)$/.exec(line))){flushP();flushL();out.push('<div class="mh">'+inline(m[1])+'</div>');continue}
     if((m=/^\s*[-*]\s+(.*)$/.exec(line))){flushP();if(!list||list.tag!=='ul'){flushL();list={tag:'ul',items:[]}}list.items.push(m[1]);continue}
     if((m=/^\s*\d+[.)]\s+(.*)$/.exec(line))){flushP();if(!list||list.tag!=='ol'){flushL();list={tag:'ol',items:[]}}list.items.push(m[1]);continue}

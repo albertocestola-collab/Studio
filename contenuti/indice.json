@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generato_il": "2026-11-06",
+ "generato_il": "2026-11-10",
  "pacchetti": [
   {
    "file": "analisi-1/anl1-esame-v2.json",
@@ -55,40 +55,40 @@
    "id_pacchetto": "prg-cap1-v2-1di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "658c6431bec84b76",
-   "kb": 71
+   "hash": "914f9f054a90f1ba",
+   "kb": 83
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-2di5.json",
    "id_pacchetto": "prg-cap1-v2-2di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "fdac9f232493ab1a",
-   "kb": 72
+   "hash": "7babf80451ddf4dd",
+   "kb": 83
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-3di5.json",
    "id_pacchetto": "prg-cap1-v2-3di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "66665dcdaeaa8571",
-   "kb": 72
+   "hash": "69c75dbe21e1dca5",
+   "kb": 81
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-4di5.json",
    "id_pacchetto": "prg-cap1-v2-4di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "456284371b228478",
-   "kb": 70
+   "hash": "b6d0910128a52a99",
+   "kb": 81
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-5di5.json",
    "id_pacchetto": "prg-cap1-v2-5di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "eed7915641c2e6f4",
-   "kb": 70
+   "hash": "a6b8168dfe922c4b",
+   "kb": 82
   },
   {
    "file": "programmazione/cap2/prg-cap2-1di5.json",
