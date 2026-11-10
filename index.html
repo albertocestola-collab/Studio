@@ -234,6 +234,77 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
 
 .toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;max-width:calc(100% - 32px);box-shadow:var(--shadow)}
 
+/* collegamenti interni, riquadro di ripasso, glossario, «Prima di iniziare», mappa */
+.xref{display:inline;font-weight:650;color:var(--accent);text-decoration:underline;text-decoration-style:dotted;text-decoration-thickness:2px;text-underline-offset:3px;text-align:left}
+.xref:hover{text-decoration-style:solid}
+.xref.miss{color:var(--muted)}
+.prereq{background:var(--surface);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);border-left:6px solid var(--accent)}
+.prereq .eyebrow{color:var(--accent)}
+.prereq ul{margin:6px 0 8px;padding-left:1.1em}
+.prereq li{margin:7px 0}
+.prereq .why{color:var(--muted);font-size:15px}
+.prereq .why .md p{margin:2px 0 0}
+.mappa .acc-h .t{font-weight:600}
+.sheet .refbody{margin-bottom:12px}
+.sheet .refbody .box:first-child{margin-top:0}
+.en{font-weight:500;font-size:.78em}
+.box.bad{background:var(--urgent-soft)}
+.box.bad .eyebrow{color:var(--urgent)}
+.gl[hidden]{display:none}
+/* strumenti interattivi */
+.tool{margin:14px 0 18px;border:2px solid var(--accent-soft);border-radius:16px;padding:12px;background:var(--surface);font-size:16px}
+.tool-h{display:flex;flex-direction:column;gap:2px;margin-bottom:8px}
+.tool-h .eyebrow{color:var(--accent)}
+.tool-h b{font-size:1.08em}
+.tool-help{display:grid;gap:8px;margin-bottom:10px;font-size:15px}
+.tool-help>div{background:var(--surface-2);border-radius:10px;padding:8px 12px}
+.tool-help .md p{margin:2px 0}
+.tool-ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.tool-ctrl .btn{min-height:42px;padding:0 14px}
+.tool-ctrl .btn:disabled{opacity:.45;cursor:default}
+.tic{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.tic.f{fill:currentColor;stroke:none}
+.tool-ctrl .btn{gap:6px}
+.tool-ctrl .num{font-weight:800;color:var(--muted);margin:0 4px;font-variant-numeric:tabular-nums}
+.tool-nota{background:var(--accent-soft);border-radius:10px;padding:8px 12px;margin-bottom:10px;min-height:3.2em}
+.tool-nota .md p{margin:2px 0}
+.tool-cols{display:grid;gap:12px}
+.tool-col{min-width:0;display:flex;flex-direction:column;gap:8px}
+.tool-colh{font-weight:800;color:var(--accent);text-transform:uppercase;font-size:13px;letter-spacing:.06em;border-bottom:2px solid var(--accent-soft);padding-bottom:3px}
+.tool-cnote{font-size:15px;color:var(--muted)}
+.tool-cnote .md p{margin:0}
+.tool-panel .eyebrow{display:block;margin-bottom:3px}
+.tool-pre{margin:0;padding:6px 0;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.5}
+.tool-pre .ln{display:block;white-space:pre;padding:0 10px;border-left:4px solid transparent;min-width:max-content;transition:background .25s}
+.tool-pre .ln.chg{background:var(--ok-soft)}
+.tool-pre .ln.cur{background:var(--accent-soft);border-left-color:var(--accent);font-weight:700}
+.tool-sch-wrap{display:grid;gap:12px}
+.tool-schema{display:flex;flex-direction:column}
+.tool-node{display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;padding:9px 12px;border:2px solid var(--line);border-radius:12px;background:var(--surface-2);font-weight:700;min-height:46px}
+.tool-node small{font-weight:500;color:var(--muted);font-size:13.5px}
+.tool-node.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.tool-tra{text-align:center;color:var(--muted);font-size:13px;padding:2px 6px;line-height:1.3}
+.tool-detail{background:var(--surface-2);border-radius:12px;padding:10px 14px;min-height:80px;min-width:0}
+.tool-detail>.eyebrow{display:block;margin-bottom:2px;color:var(--accent)}
+.tool-opts{display:grid;gap:8px;margin:8px 0}
+.tool-opt{text-align:left;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:var(--surface);font-weight:600;min-height:46px;overflow-wrap:anywhere}
+.tool-opt code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
+.tool-opt.ok{border-color:var(--ok);background:var(--ok-soft)}
+.tool-opt.no{border-color:var(--urgent);background:var(--urgent-soft)}
+.tool-opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.tool-opt.tried{opacity:.55}
+.tool-opt:disabled{cursor:default}
+.tool-match{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.tool-match>div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.tool-ok{color:var(--ok);font-weight:700}
+.tool-no{color:var(--urgent);font-weight:700}
+.tool-err{background:var(--urgent-soft);border-radius:10px;padding:8px 12px;margin:8px 0}
+@media (min-width:700px){.tool-help{grid-template-columns:1fr 1fr}.tool-cols.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.tool-cols.c3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:900px){.tool-sch-wrap{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:start}.tool-detail{position:sticky;top:90px}}
+/* nel riquadro di ripasso lo spazio è stretto: una colonna sola */
+.sheet .tool-cols,.sheet .tool-sch-wrap,.sheet .tool-help{grid-template-columns:1fr}
+.sheet .tool-detail{position:static}
+
 /* indice dell'argomento: si vede solo sugli schermi larghi (PC) */
 .toc{display:none}
 
@@ -358,13 +429,17 @@ function tex(src,display){
   try{return katex.renderToString(src,{displayMode:display,throwOnError:false,strict:'ignore',output:'htmlAndMathml'})}
   catch(e){return '<code class="katex-error">'+esc(src)+'</code>'}
 }
+/* collegamenti interni: [[id]] oppure [[id|testo]]. Diventano pulsanti che aprono il riquadro di ripasso.
+   Si tolgono prima dell'escape, come codice e formule: l'id è controllato con ID_RE, il testo passa da esc(). */
+const XREF=/\[\[([a-z0-9][a-z0-9._-]*)(?:\|([^\]\n]{1,160}))?\]\]/g;
 function md(src){
   src=String(src==null?'':src);
   if(mdCache.has(src))return mdCache.get(src);
-  const math=[],code=[],lang=[];
+  const math=[],code=[],lang=[],refs=[];let hasTool=false;
   let s=src.replace(/\u0000/g,'').replace(/\r\n?/g,'\n');
-  s=s.replace(CODE_BLOCK,(m,l,t)=>{code.push(t.replace(/\n$/,''));lang[code.length-1]=l.trim().toLowerCase();return '\u0000C'+(code.length-1)+'\u0000'});
+  s=s.replace(CODE_BLOCK,(m,l,t)=>{code.push(t.replace(/\n$/,''));const lg=l.trim().toLowerCase();lang[code.length-1]=lg;if(lg==='strumento')hasTool=true;return '\u0000C'+(code.length-1)+'\u0000'});
   s=s.replace(CODE_INLINE,(m,t)=>{code.push(t);return '\u0000K'+(code.length-1)+'\u0000'});
+  s=s.replace(XREF,(m,id,t)=>{refs.push([id,t||'']);return '\u0000R'+(refs.length-1)+'\u0000'});
   s=s.replace(/\\\$/g,'\u0000D\u0000');
   s=s.replace(/\$\$([\s\S]+?)\$\$/g,(m,t)=>{math.push([t,true]);return '\u0000M'+(math.length-1)+'\u0000'});
   s=s.replace(/\$([^$\n]+?)\$/g,(m,t)=>{math.push([t,false]);return '\u0000M'+(math.length-1)+'\u0000'});
@@ -374,6 +449,7 @@ function md(src){
     .replace(/\u0000M(\d+)\u0000/g,(m,i)=>{const [t,d]=math[+i];return d?'<span class="mathblock">'+tex(t,true)+'</span>':tex(t,false)})
     .replace(/\u0000K(\d+)\u0000/g,(m,i)=>'<code>'+esc(code[+i])+'</code>')
     .replace(/\u0000C(\d+)\u0000/g,(m,i)=>'<code>'+esc(code[+i])+'</code>')
+    .replace(/\u0000R(\d+)\u0000/g,(m,i)=>xrefBtn(refs[+i][0],refs[+i][1]))
     .replace(/\u0000D\u0000/g,'$');
   const out=[];let para=[],list=null;
   const flushP=()=>{if(para.length){out.push('<p>'+para.map(inline).join('<br>')+'</p>');para=[]}};
@@ -381,7 +457,8 @@ function md(src){
   for(const raw of s.split(/\r?\n/)){
     const line=raw.trimEnd();let m;
     if(!line.trim()){flushP();flushL();continue}
-    if((m=/^\s*\u0000C(\d+)\u0000$/.exec(line))){flushP();flushL();out.push('<pre class="codeblock'+(lang[+m[1]]==='text'?' diagram':'')+'"><code>'+esc(code[+m[1]])+'</code></pre>');continue}
+    if((m=/^\s*\u0000C(\d+)\u0000$/.exec(line))){flushP();flushL();
+      out.push(lang[+m[1]]==='strumento'?toolHTML(code[+m[1]]):'<pre class="codeblock'+(lang[+m[1]]==='text'?' diagram':'')+'"><code>'+esc(code[+m[1]])+'</code></pre>');continue}
     if((m=/^\s*#{1,6}\s+(.*)$/.exec(line))){flushP();flushL();out.push('<div class="mh">'+inline(m[1])+'</div>');continue}
     if((m=/^\s*[-*]\s+(.*)$/.exec(line))){flushP();if(!list||list.tag!=='ul'){flushL();list={tag:'ul',items:[]}}list.items.push(m[1]);continue}
     if((m=/^\s*\d+[.)]\s+(.*)$/.exec(line))){flushP();if(!list||list.tag!=='ol'){flushL();list={tag:'ol',items:[]}}list.items.push(m[1]);continue}
@@ -390,9 +467,186 @@ function md(src){
   }
   flushP();flushL();
   const html='<div class="md">'+out.join('')+'</div>';
-  if(mdCache.size>800)mdCache.clear();
-  mdCache.set(src,html);
+  /* uno strumento cambia a ogni passo: quel testo non si tiene in memoria */
+  if(!hasTool){if(mdCache.size>800)mdCache.clear();mdCache.set(src,html)}
   return html;
+}
+/* testo breve su una riga (opzioni delle domande): solo grassetto e codice in linea */
+const mdInline=t=>esc(t).replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+
+/* ---------- collegamenti interni e glossario ---------- */
+const TERM_TIPI={ufficiale:'Termine ufficiale',uso_comune:'Termine d\'uso comune',semplificazione:'Semplificazione didattica'};
+/* trova a cosa punta un id: un argomento, una sua sezione, un termine, una tecnica o un esercizio */
+function refFind(id){
+  const a0=S.arg.get(id);if(a0)return {k:'arg',a:a0,item:a0};
+  for(const a of S.arg.values()){
+    if(!id.startsWith(a.id+'.'))continue;
+    const secs=sortedSections(a),i=secs.findIndex(s=>s.id===id);
+    if(i>=0)return {k:'sez',a,item:secs[i],i,n:secs.length};
+    let x=arr(a.termini).find(g=>g&&g.id===id);if(x)return {k:'term',a,item:x};
+    x=arr(a.tecniche).find(t=>t&&t.id===id);if(x)return {k:'tec',a,item:x};
+    x=arr(a.esercizi).find(t=>t&&t.id===id);if(x)return {k:'ese',a,item:x};
+  }
+  return null;
+}
+function refLabel(id){const r=refFind(id);if(!r)return id;
+  return r.k==='arg'?r.a.titolo:r.k==='term'?r.item.termine:r.k==='tec'?r.item.nome:r.k==='ese'?'esercizio '+id.split('.').pop():r.item.titolo}
+const xrefBtn=(id,t)=>`<button type="button" class="xref${refFind(id)?'':' miss'}" data-act="xref" data-id="${esc(id)}">${esc(t||refLabel(id))}</button>`;
+function termHTML(g){
+  return `${g.tipo&&TERM_TIPI[g.tipo]?`<div class="chips"><span class="chip acc">${TERM_TIPI[g.tipo]}</span></div>`:''}
+    ${arr(g.accezioni).length?`<div class="box"><span class="eyebrow">Significati della parola</span>${md(arr(g.accezioni).map(x=>'- '+String(x).replace(/\n/g,' ')).join('\n'))}</div>`:''}
+    ${g.docente?`<div class="box"><span class="eyebrow">Definizione del docente</span>${md(g.docente)}</div>`:''}
+    ${g.ufficiale?`<div class="box"><span class="eyebrow">Definizione ufficiale</span>${md(g.ufficiale)}${g.fonte?`<div class="muted small">Fonte: ${esc(g.fonte)}</div>`:''}</div>`:''}
+    ${g.nota?`<div style="margin-top:10px">${md(g.nota)}</div>`:''}
+    ${g.spiegato_in?`<p class="small" style="margin-top:10px">Lo spieghiamo in: ${xrefBtn(g.spiegato_in)}</p>`:''}`;
+}
+/* il riquadro di ripasso: mostra la cosa collegata senza lasciare la pagina; «Indietro» se ci arrivi da un altro collegamento */
+function refSheetHTML(id){
+  const r=refFind(id),back=S.refStack.length>1?`<button class="back" data-act="ref-back">${IC.left}Indietro</button>`:'';
+  if(!r)return `${back}<h2>Non lo trovo</h2><p class="muted">Il collegamento porta a «${esc(id)}», che non è tra i contenuti che hai importato. Forse arriva con un pacchetto che non hai ancora scaricato: prova Dati → Aggiorna.</p><div class="foot"><button class="btn" data-act="close">Chiudi</button></div>`;
+  let head='',body='',go='',extra='';
+  if(r.k==='sez'){head=`<div class="eyebrow">Ripasso · ${esc(r.a.titolo)} · sezione ${r.i+1} di ${r.n}</div><h2>${esc(r.item.titolo)}</h2>`;body=md(r.item.testo);go='Vai alla sezione'}
+  else if(r.k==='term'){const g=r.item;
+    head=`<div class="eyebrow">Glossario · ${esc(r.a.titolo)}</div><h2>${esc(g.termine)}${g.inglese?` <span class="muted en">(${esc(g.inglese)})</span>`:''}</h2>`;
+    body=termHTML(g);extra=`<button class="btn" data-act="open-gloss" data-id="${esc(r.a.esame_id)}">Tutto il glossario</button>`}
+  else if(r.k==='arg'){head=`<div class="eyebrow">Argomento</div><h2>${esc(r.a.titolo)}</h2>`;
+    body=r.a.mappa?md(r.a.mappa):`<p class="muted">${pl(arr(r.a.sezioni).length,'sezione','sezioni')}.</p>`;go='Apri l\'argomento'}
+  else if(r.k==='tec'){const ex=obj(r.item.esempio);
+    head=`<div class="eyebrow">Tecnica · ${esc(r.a.titolo)}</div><h2>${esc(r.item.nome)}</h2>`;
+    body=(r.item.quando?md(r.item.quando):'')+(ex.testo?`<div class="box"><span class="eyebrow">Esempio</span>${md(ex.testo)}</div>`:'');go='Vai alla tecnica'}
+  else{head=`<div class="eyebrow">Esercizio · ${esc(r.a.titolo)}</div><h2>${esc(EX_LEVELS[r.item.livello]||'Esercizio')} · ${esc(id.split('.').pop())}</h2>`;body=md(r.item.testo);go='Vai all\'esercizio'}
+  return `${back}${head}<div class="refbody">${body}</div><div class="foot">${go?`<button class="btn primary" data-act="goto-ref" data-id="${esc(id)}">${go}</button>`:''}${extra}<button class="btn" data-act="close">Chiudi</button></div>`;
+}
+function examTerms(eid){const out=[];
+  for(const a of S.arg.values())if(a.esame_id===eid)for(const g of arr(a.termini))if(g&&g.id&&g.termine)out.push({g,a});
+  return out.sort((x,y)=>String(x.g.termine).localeCompare(String(y.g.termine),'it',{sensitivity:'base'}))}
+
+/* ---------- strumenti interattivi ----------
+   Una raccolta fissa di strumenti scritti qui. Il pacchetto non contiene codice: in un blocco ```strumento
+   mette solo dati (JSON) che dicono quale strumento usare e cosa mostrare. Tutti i testi passano da esc() o md(). */
+/* icone dei pulsanti degli strumenti (i caratteri ◄ ► ▶ non ci sono nel font dell'app) */
+const TIC={l:'<svg class="tic" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',r:'<svg class="tic" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>',
+  play:'<svg class="tic f" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',pause:'<svg class="tic f" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'};
+const TOOL_TIPI={passi:'Passo passo',schema:'Schema da esplorare',domanda:'Mettiti alla prova',collega:'Collega'};
+const toolCache=new Map(),toolReg=new Map();
+const strHash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)};
+function toolParse(raw){
+  if(toolCache.has(raw))return toolCache.get(raw);
+  const r=toolCheck(raw);if(toolCache.size>200)toolCache.clear();toolCache.set(raw,r);return r;
+}
+function toolCheck(raw){
+  let t;try{t=JSON.parse(raw)}catch(e){return {err:'il blocco strumento non è JSON valido ('+e.message+')'}}
+  if(!t||typeof t!=='object'||Array.isArray(t))return {err:'il blocco strumento deve essere un oggetto JSON'};
+  const S_=v=>typeof v==='string'&&v.trim()!=='',SA=v=>Array.isArray(v)&&v.every(x=>typeof x==='string');
+  if(!TOOL_TIPI[t.tipo])return {err:`tipo di strumento «${String(t.tipo)}» sconosciuto (possibili: ${Object.keys(TOOL_TIPI).join(', ')})`};
+  if(t.id!==undefined&&!(typeof t.id==='string'&&ID_RE.test(t.id)))return {err:'id dello strumento non valido'};
+  for(const f of ['titolo','come_si_usa','cosa_osservare'])if(t[f]!==undefined&&typeof t[f]!=='string')return {err:`il campo ${f} deve essere un testo`};
+  if((t.tipo==='passi'||t.tipo==='schema')&&!(S_(t.come_si_usa)&&S_(t.cosa_osservare)))return {err:'servono «come_si_usa» e «cosa_osservare»'};
+  if(t.tipo==='passi'){
+    if(!Array.isArray(t.passi)||!t.passi.length||t.passi.length>300)return {err:'«passi» deve essere un elenco da 1 a 300 passi'};
+    if(t.colonne!==undefined&&!SA(t.colonne))return {err:'«colonne» deve essere un elenco di titoli'};
+    for(let i=0;i<t.passi.length;i++){const p=t.passi[i];
+      if(!p||typeof p!=='object')return {err:`il passo ${i+1} non è un oggetto`};
+      if(p.nota!==undefined&&typeof p.nota!=='string')return {err:`passo ${i+1}: «nota» deve essere un testo`};
+      if(p.note!==undefined&&!SA(p.note))return {err:`passo ${i+1}: «note» deve essere un elenco di testi`};
+      const cols=p.colonne||(p.pannelli?[p.pannelli]:null);
+      if(!Array.isArray(cols)||!cols.length||cols.length>3)return {err:`passo ${i+1}: servono «pannelli» oppure «colonne» (da 1 a 3)`};
+      for(const c of cols){if(!Array.isArray(c)||c.length>5)return {err:`passo ${i+1}: ogni colonna è un elenco di al massimo 5 pannelli`};
+        for(const q of c){if(!q||typeof q!=='object'||!SA(q.righe)||q.righe.length>80)return {err:`passo ${i+1}: ogni pannello ha «righe», un elenco di al massimo 80 testi`};
+          if(q.titolo!==undefined&&typeof q.titolo!=='string')return {err:`passo ${i+1}: il titolo di un pannello deve essere un testo`};
+          for(const f of ['evidenzia','cambiate'])if(q[f]!==undefined&&!(Array.isArray(q[f])&&q[f].every(n=>Number.isInteger(n))))return {err:`passo ${i+1}: «${f}» deve essere un elenco di numeri di riga (da 0)`}}}
+    }
+  }
+  if(t.tipo==='schema'){
+    if(!Array.isArray(t.nodi)||t.nodi.length<2||t.nodi.length>14)return {err:'«nodi» deve avere da 2 a 14 elementi'};
+    if(t.nodi.some(n=>!n||!S_(n.etichetta)||!S_(n.dettaglio)||(n.sotto!==undefined&&typeof n.sotto!=='string')))return {err:'ogni nodo ha «etichetta» e «dettaglio» (e facoltativo «sotto»)'};
+    if(t.tra!==undefined&&!SA(t.tra))return {err:'«tra» deve essere un elenco di testi'};
+  }
+  if(t.tipo==='domanda'){
+    if(!S_(t.domanda))return {err:'manca «domanda»'};
+    if(!Array.isArray(t.opzioni)||t.opzioni.length<2||t.opzioni.length>6)return {err:'«opzioni» deve avere da 2 a 6 elementi'};
+    if(t.opzioni.some(o=>!o||!S_(o.testo)||typeof o.giusta!=='boolean'||!S_(o.perche)))return {err:'ogni opzione ha «testo», «giusta» (true o false) e «perche»'};
+    if(!t.opzioni.some(o=>o.giusta))return {err:'almeno un\'opzione deve essere giusta'};
+  }
+  if(t.tipo==='collega'){
+    if(!Array.isArray(t.coppie)||t.coppie.length<2||t.coppie.length>10)return {err:'«coppie» deve avere da 2 a 10 elementi'};
+    if(t.coppie.some(c=>!c||!S_(c.a)||!S_(c.b)))return {err:'ogni coppia ha «a» e «b»'};
+  }
+  return {t,key:t.id||('h'+strHash(raw))};
+}
+/* mescola sempre allo stesso modo per lo stesso strumento (così il disegno non cambia a ogni tocco) */
+function seededPerm(n,seed){let h=0;for(const c of seed)h=(h*31+c.charCodeAt(0))|0;
+  const rnd=()=>{h=(h+0x6D2B79F5)|0;let x=Math.imul(h^h>>>15,1|h);x=x+Math.imul(x^x>>>7,61|x)^x;return ((x^x>>>14)>>>0)/4294967296};
+  const p=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[p[i],p[j]]=[p[j],p[i]]}
+  if(n>1&&p.every((v,i)=>v===i))p.push(p.shift());return p}
+function toolHTML(raw){
+  const r=toolParse(raw);
+  if(r.err)return `<div class="tool-err"><b>Questo strumento non si può mostrare:</b> ${esc(r.err)}. Chiedi a Claude di correggerlo.</div>`;
+  const t=r.t,key=r.key,st=S.tool[key]||{};toolReg.set(key,t);
+  const bt=(op,label,cls,extra)=>`<button class="btn${cls?' '+cls:''}" data-act="tool" data-key="${key}" data-op="${op}"${extra||''}>${label}</button>`;
+  let body='';
+  if(t.tipo==='passi'){
+    const n=t.passi.length,k=Math.min(st.k||0,n-1),P=t.passi[k],cols=P.colonne||[P.pannelli],heads=arr(t.colonne),notes=arr(P.note);
+    const playing=S.play&&S.play.key===key;
+    const panel=q=>{const ev=new Set(arr(q.evidenzia)),ch=new Set(arr(q.cambiate));
+      return `<div class="tool-panel">${q.titolo?`<span class="eyebrow">${esc(q.titolo)}</span>`:''}<pre class="tool-pre">${q.righe.map((x,i)=>`<span class="ln${ev.has(i)?' cur':''}${ch.has(i)?' chg':''}">${esc(x)||' '}</span>`).join('')}</pre></div>`};
+    body=`<div class="tool-ctrl">${bt('prev',TIC.l+'Indietro','',k?'':' disabled')}<span class="num">Passo ${k+1} di ${n}</span>${bt('next',k<n-1?'Passo successivo'+TIC.r:'Fine','primary',k<n-1?'':' disabled')}
+        ${bt('play',playing?TIC.pause+'Pausa':TIC.play+'Riproduci','ghost')}${k?bt('reset','Ricomincia','ghost'):''}</div>
+      ${P.nota?`<div class="tool-nota">${md(P.nota)}</div>`:''}
+      <div class="tool-cols c${cols.length}">${cols.map((c,ci)=>`<div class="tool-col">${heads[ci]?`<div class="tool-colh">${esc(heads[ci])}</div>`:''}${notes[ci]?`<div class="tool-cnote">${md(notes[ci])}</div>`:''}${c.map(panel).join('')}</div>`).join('')}</div>`;
+  }
+  if(t.tipo==='schema'){
+    const sel=Number.isInteger(st.k)?st.k:null,tra=arr(t.tra);
+    body=`<div class="tool-sch-wrap"><div class="tool-schema">${t.nodi.map((nd,i)=>`${i?`<div class="tool-tra">${tra[i-1]?esc(tra[i-1]):'│'}</div>`:''}<button class="tool-node${sel===i?' on':''}" data-act="tool" data-key="${key}" data-op="pick" data-n="${i}" aria-pressed="${sel===i}">${esc(nd.etichetta)}${nd.sotto?`<small>${esc(nd.sotto)}</small>`:''}</button>`).join('')}</div>
+      <div class="tool-detail">${sel==null?'<p class="muted" style="margin:0">Tocca un riquadro per vedere i dettagli.</p>':`<span class="eyebrow">${esc(t.nodi[sel].etichetta)}</span>${md(t.nodi[sel].dettaglio)}
+        <div class="tool-ctrl" style="margin:8px 0 0">${sel>0?bt('pick',TIC.l+esc(t.nodi[sel-1].etichetta),'small',' data-n="'+(sel-1)+'"'):''}${sel<t.nodi.length-1?bt('pick',esc(t.nodi[sel+1].etichetta)+TIC.r,'small',' data-n="'+(sel+1)+'"'):''}</div>`}</div></div>`;
+  }
+  if(t.tipo==='domanda'){
+    const ch=Number.isInteger(st.k)?st.k:null,tried=new Set(arr(st.tried)),o=ch!=null?t.opzioni[ch]:null;
+    body=`${md(t.domanda)}<div class="tool-opts">${t.opzioni.map((op,i)=>`<button class="tool-opt${ch===i?(op.giusta?' ok':' no'):tried.has(i)?' tried':''}" data-act="tool" data-key="${key}" data-op="pick" data-n="${i}">${mdInline(op.testo)}</button>`).join('')}</div>
+      ${o?`<div class="box ${o.giusta?'sol':'bad'}"><span class="eyebrow">${o.giusta?'Giusto':'Non proprio'}</span>${md(o.perche)}</div>${o.giusta?'':'<p class="muted small" style="margin:6px 0 0">Prova un\'altra risposta: anche la spiegazione di quelle sbagliate insegna qualcosa.</p>'}`:''}`;
+  }
+  if(t.tipo==='collega'){
+    const n=t.coppie.length,perm=seededPerm(n,key),done=new Set(arr(st.done)),sel=Number.isInteger(st.sel)?st.sel:null;
+    body=`${t.istruzioni?md(t.istruzioni):'<p class="muted" style="margin:0 0 8px">Tocca un elemento a sinistra, poi quello che gli corrisponde a destra.</p>'}
+      <div class="tool-match"><div>${t.coppie.map((c,i)=>`<button class="tool-opt${done.has(i)?' ok':sel===i?' sel':''}" data-act="tool" data-key="${key}" data-op="left" data-n="${i}"${done.has(i)?' disabled':''}>${mdInline(c.a)}</button>`).join('')}</div>
+      <div>${perm.map(i=>`<button class="tool-opt${done.has(i)?' ok':st.bad===i?' no':''}" data-act="tool" data-key="${key}" data-op="right" data-n="${i}"${done.has(i)?' disabled':''}>${mdInline(t.coppie[i].b)}</button>`).join('')}</div></div>
+      ${done.size===n?`<div class="box sol"><span class="eyebrow">Fatto</span>Hai collegato tutto. ${bt('reset','Ricomincia','small ghost')}</div>`:st.msg?`<p class="small ${st.bad!=null?'tool-no':'tool-ok'}" style="margin:8px 0 0">${esc(st.msg)}</p>`:''}`;
+  }
+  return `<div class="tool" data-key="${key}"><div class="tool-h"><span class="eyebrow">${TOOL_TIPI[t.tipo]}</span>${t.titolo?`<b>${esc(t.titolo)}</b>`:''}</div>
+    ${t.come_si_usa||t.cosa_osservare?`<div class="tool-help">${t.come_si_usa?`<div><span class="eyebrow">Come si usa</span>${md(t.come_si_usa)}</div>`:''}${t.cosa_osservare?`<div><span class="eyebrow">Cosa osservare</span>${md(t.cosa_osservare)}</div>`:''}</div>`:''}
+    ${body}</div>`;
+}
+function stopPlay(){if(S.play){clearInterval(S.play.timer);S.play=null}}
+/* dopo un tocco su uno strumento: ridisegna la pagina e, se è aperto, il riquadro di ripasso (senza farlo tornare in cima) */
+function rerender(){render();if(!$('#backdrop').hidden&&S.refStack.length){const sh=$('#sheet'),y=sh.scrollTop;sh.innerHTML=refSheetHTML(S.refStack[S.refStack.length-1]);sh.scrollTop=y}}
+function toolAct(b){
+  const key=b.dataset.key,op=b.dataset.op,t=toolReg.get(key);if(!t)return;
+  const st=S.tool[key]=S.tool[key]||{},n=+b.dataset.n;
+  if(t.tipo==='passi'){
+    const last=t.passi.length-1;
+    if(op==='play'){if(S.play&&S.play.key===key){stopPlay();rerender();return}
+      stopPlay();if((st.k||0)>=last)st.k=0;
+      S.play={key,timer:setInterval(()=>{const s2=S.tool[key];
+        if(!document.querySelector(`.tool[data-key="${key}"]`)||(s2.k||0)>=last){stopPlay();rerender();return}
+        s2.k=(s2.k||0)+1;rerender()},1800)};rerender();return}
+    stopPlay();
+    if(op==='next')st.k=Math.min((st.k||0)+1,last);
+    if(op==='prev')st.k=Math.max((st.k||0)-1,0);
+    if(op==='reset')st.k=0;
+  }
+  if(t.tipo==='schema'&&op==='pick'&&n>=0&&n<t.nodi.length)st.k=st.k===n&&b.classList.contains('tool-node')?null:n;
+  if(t.tipo==='domanda'&&op==='pick'&&n>=0&&n<t.opzioni.length){st.k=n;if(!t.opzioni[n].giusta)st.tried=[...new Set(arr(st.tried).concat(n))]}
+  if(t.tipo==='collega'){
+    if(op==='reset'){S.tool[key]={};rerender();return}
+    if(op==='left'){st.sel=n;st.msg='';st.bad=null}
+    if(op==='right'){
+      if(!Number.isInteger(st.sel)){st.msg='Prima tocca un elemento a sinistra.';st.bad=null}
+      else if(st.sel===n){st.done=[...new Set(arr(st.done).concat(n))];st.msg='Giusto.';st.sel=null;st.bad=null}
+      else{st.bad=n;st.msg='Non vanno insieme: riprova.'}
+    }
+  }
+  rerender();
 }
 
 /* ---------- IndexedDB ----------
@@ -425,6 +679,8 @@ const del=(store,key)=>tx([store],t=>t.objectStore(store).delete(key));
 const S={esami:new Map(),arg:new Map(),prog:new Map(),imp:{},
   tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},more:new Set(),
   draft:'',checked:null,exportAll:false,
+  /* collegamenti (pila del riquadro di ripasso), mappe aperte, ricerca nel glossario, stato degli strumenti interattivi */
+  refStack:[],maps:new Set(),glq:'',tool:{},play:null,
   /* contenuti sul sito: elenco letto da contenuti/indice.json; remoteHash vale solo durante un «Aggiorna» */
   remote:{list:[],ts:0,err:'',busy:false},remoteHash:null};
 async function loadAll(){
@@ -611,6 +867,20 @@ function validate(p,bytes){
         const wa=isStr(a.id)?`Nell'argomento ${esc(a.id)}`:`Nell'argomento ${i+1}`;
         idOk(a.id,wa,eid);need(a,'titolo',wa,'str');opt(a,'fonte',wa,'str');strArr(a,'incerto',wa);opt(a,'prossimo_passo',wa,'str');
         const tid=isStr(a.id)?a.id:null;
+        /* mappa, «Prima di iniziare ti servono» e glossario (facoltativi) */
+        opt(a,'mappa',wa,'str');
+        if(opt(a,'prerequisiti',wa,'arr'))arr(a.prerequisiti).forEach((q,j)=>{const w=`${wa}, nel prerequisito ${j+1},`;
+          if(!q||typeof q!=='object'||Array.isArray(q)){E(`${w} serve un oggetto con rif e perche.`);return}
+          if(need(q,'rif',w,'str')&&!ID_RE.test(q.rif))E(`${w} rif non è un ID valido.`);opt(q,'perche',w,'str');opt(q,'testo',w,'str')});
+        if(opt(a,'termini',wa,'arr'))arr(a.termini).forEach((g,j)=>{
+          if(!g||typeof g!=='object'){E(`${wa}, il termine ${j+1} non è un oggetto.`);return}
+          const w=isStr(g.id)?`Nel termine ${esc(g.id)}`:`${wa}, nel termine ${j+1},`;
+          idOk(g.id,w,tid);need(g,'termine',w,'str');['inglese','docente','ufficiale','fonte','nota'].forEach(f=>opt(g,f,w,'str'));strArr(g,'accezioni',w);
+          if(opt(g,'spiegato_in',w,'str')&&isStr(g.spiegato_in)&&!ID_RE.test(g.spiegato_in))E(`${w} spiegato_in non è un ID valido.`);
+          if(g.tipo!==undefined&&!TERM_TIPI[g.tipo])W(`${w} il tipo «${esc(g.tipo)}» non lo conosco (ufficiale, uso_comune, semplificazione): lo ignoro.`);
+          if(!isStr(g.docente)&&!isStr(g.ufficiale))W(`${w} non c'è nessuna definizione (né del docente né ufficiale).`);
+          if(isStr(g.ufficiale)&&!isStr(g.fonte))W(`${w} la definizione ufficiale non dice la fonte.`);
+        });
         if(opt(a,'sezioni',wa,'arr'))arr(a.sezioni).forEach((s,j)=>{
           if(!s||typeof s!=='object'){E(`${wa}, la sezione ${j+1} non è un oggetto.`);return}
           const w=isStr(s.id)?`Nella sezione ${esc(s.id)}`:`${wa}, nella sezione ${j+1},`;
@@ -661,6 +931,20 @@ function validate(p,bytes){
     const inMath=s.match(/\$[^$]*\$/g)||[];
     if(inMath.some(x=>/[\n\r]/.test(x)))E(`${where} una formula va a capo: probabilmente c'è \\\\neq, \\\\nabla o \\\\rightarrow con una sola barra. Chiedi a Claude di correggerlo.`);
   });
+  /* strumenti interattivi (blocchi ```strumento) e collegamenti [[id]] */
+  if(!errs.length){
+    const known=id=>seen.has(id)||!!refFind(id);
+    walkStrings(p,(s,where)=>{
+      for(const m of String(s).replace(/\r\n?/g,'\n').matchAll(CODE_BLOCK))
+        if(m[1].trim().toLowerCase()==='strumento'){const r=toolCheck(m[2]);if(r.err)E(`${where} uno strumento interattivo non va: ${esc(r.err)}.`)}
+      for(const m of stripCode(s).matchAll(XREF))
+        if(!known(m[1]))W(`${where} c'è un collegamento a ${esc(m[1])}, che non trovo: lo mostro lo stesso, e funzionerà quando importerai quel contenuto.`);
+    });
+    if(p.tipo==='contenuti')for(const a of arr(p.argomenti)){
+      for(const q of arr(a&&a.prerequisiti))if(q&&isStr(q.rif)&&ID_RE.test(q.rif)&&!known(q.rif))W(`In ${esc(a.id)} il prerequisito ${esc(q.rif)} non lo trovo: lo mostro lo stesso.`);
+      for(const g of arr(a&&a.termini))if(g&&isStr(g.spiegato_in)&&ID_RE.test(g.spiegato_in)&&!known(g.spiegato_in))W(`Nel termine ${esc(g.id)} spiegato_in indica ${esc(g.spiegato_in)}, che non trovo.`);
+    }
+  }
   if(bytes>MAX_KB*1024)W(`Il pacchetto è grande (${fmtBytes(bytes)}): lo importo, ma la prossima volta chiedi a Claude di dividerlo in parti più piccole.`);
   return {errs:dedupe(errs),warns:dedupe(warns),data:errs.length?null:p};
 }
@@ -678,12 +962,15 @@ function walkStrings(o,fn,where){
 /* ---------- fusione per ID e anteprima ---------- */
 function mergeById(oldA,newA){const out=arr(oldA).slice();for(const n of arr(newA)){const i=out.findIndex(o=>o.id===n.id);if(i>=0)out[i]=n;else out.push(n)}return out}
 function normTopic(a,eid){return {id:a.id,esame_id:eid,titolo:a.titolo,fonte:a.fonte||'',incerto:arr(a.incerto),prossimo_passo:a.prossimo_passo||'',
+  mappa:a.mappa||'',prerequisiti:arr(a.prerequisiti),termini:arr(a.termini),
   sezioni:arr(a.sezioni),tecniche:arr(a.tecniche),esercizi:arr(a.esercizi),verifica:{spiegalo:arr(obj(a.verifica).spiegalo),quiz:arr(obj(a.verifica).quiz)}}}
 function mergeTopic(old,a,eid){
   const n=normTopic(a,eid),v=obj(a.verifica);
   return {...old,esame_id:eid,titolo:a.titolo,
     fonte:'fonte' in a?n.fonte:old.fonte,incerto:'incerto' in a?n.incerto:arr(old.incerto),
     prossimo_passo:'prossimo_passo' in a?n.prossimo_passo:old.prossimo_passo,
+    mappa:'mappa' in a?n.mappa:(old.mappa||''),prerequisiti:'prerequisiti' in a?n.prerequisiti:arr(old.prerequisiti),
+    termini:mergeById(old.termini,n.termini),
     sezioni:mergeById(old.sezioni,n.sezioni),tecniche:mergeById(old.tecniche,n.tecniche),esercizi:mergeById(old.esercizi,n.esercizi),
     verifica:{spiegalo:'spiegalo' in v?n.verifica.spiegalo:arr(obj(old.verifica).spiegalo),quiz:mergeById(obj(old.verifica).quiz,n.verifica.quiz)}};
 }
@@ -704,7 +991,7 @@ function buildPlan(p){
       if(e.programma.length!==n1||e.simulazioni.length!==n2){tE.add(k);found=true}}
     for(const [k,a] of arg){
       let ch=false;
-      for(const f of ['sezioni','tecniche','esercizi']){const n=arr(a[f]).length;a[f]=arr(a[f]).filter(x=>x.id!==id);if(a[f].length!==n)ch=true}
+      for(const f of ['sezioni','tecniche','esercizi','termini']){const n=arr(a[f]).length;a[f]=arr(a[f]).filter(x=>x.id!==id);if(a[f].length!==n)ch=true}
       const v=obj(a.verifica),n=arr(v.quiz).length;a.verifica={spiegalo:arr(v.spiegalo),quiz:arr(v.quiz).filter(x=>x.id!==id)};
       if(a.verifica.quiz.length!==n)ch=true;
       if(ch){tA.add(k);found=true}}
@@ -727,12 +1014,12 @@ function buildPlan(p){
   }
   if(p.tipo==='contenuti'){
     const e=esami.get(p.esame_id);
-    let nNew=0,nUpd=0,cs=0,ct=0,ce=0,cq=0;const titles=[];
+    let nNew=0,nUpd=0,cs=0,ct=0,ce=0,cq=0,cg=0;const titles=[];
     for(const a of arr(p.argomenti)){
       const old=arg.get(a.id);
       arg.set(a.id,old?mergeTopic(old,a,p.esame_id):normTopic(a,p.esame_id));tA.add(a.id);
       if(old)nUpd++;else{nNew++;titles.push(a.titolo)}
-      cs+=arr(a.sezioni).length;ct+=arr(a.tecniche).length;ce+=arr(a.esercizi).length;cq+=arr(obj(a.verifica).quiz).length;
+      cs+=arr(a.sezioni).length;ct+=arr(a.tecniche).length;ce+=arr(a.esercizi).length;cq+=arr(obj(a.verifica).quiz).length;cg+=arr(a.termini).length;
       if(e&&!arr(e.programma).some(x=>x.id===a.id)){
         e.programma=arr(e.programma).concat([{id:a.id,titolo:a.titolo,capitolo:999,ordine:999}]);tE.add(e.id);
         warns.push(`L'argomento ${esc(a.id)} non è nel programma dell'esame: lo aggiungo in fondo.`);
@@ -748,6 +1035,7 @@ function buildPlan(p){
     if(nNew)parts.push(pl(nNew,'argomento','argomenti')+' ('+titles.slice(0,3).map(esc).join(', ')+(titles.length>3?'…':'')+')');
     if(cs)parts.push(pl(cs,'sezione','sezioni'));if(ct)parts.push(pl(ct,'tecnica','tecniche'));
     if(ce)parts.push(pl(ce,'esercizio','esercizi'));if(cq)parts.push(pl(cq,'quiz','quiz'));
+    if(cg)parts.push(pl(cg,'termine del glossario','termini del glossario'));
     if(sims.length)parts.push(pl(sims.length,'simulazione','simulazioni'));
     if(parts.length)lines.push((nNew?'Aggiungo ':'Aggiungo o sostituisco ')+listIt(parts)+'.');
     if(nUpd)lines.push(`Aggiorno ${pl(nUpd,'argomento già presente','argomenti già presenti')}: le parti con lo stesso ID vengono sostituite, le altre restano.`);
@@ -879,6 +1167,7 @@ function renderAdesso(){
 function renderEsami(){
   const v=$('#v-esami'),r=S.route;
   if(r.arg&&S.arg.has(r.arg))return renderTopic(v,S.arg.get(r.arg));
+  if(r.gloss&&S.esami.has(r.gloss))return renderGloss(v,S.esami.get(r.gloss));
   if(r.esame&&S.esami.has(r.esame))return renderExam(v,S.esami.get(r.esame));
   S.route={esame:null,arg:null};
   const list=examsSorted(),act=list.filter(e=>!e.pausa),paused=list.filter(e=>e.pausa);
@@ -907,7 +1196,8 @@ function renderExam(v,e){
   <div><h1 class="page-h">${esc(e.nome)}</h1>
     <div class="muted" style="margin-top:4px">${esc(e.cfu)} CFU · esame il ${esc(shortDate(e.data_esame))} (${untilText(e.data_esame)}) · ${fmtH(e.ore_settimanali)} h a settimana</div>
     <div class="chips" style="margin-top:8px">${e.pausa?'<span class="chip">In pausa</span>':`<span class="chip">Priorità ${pos+1} di ${activeExams().length}</span>`}${'data_esame' in mine||'ore_settimanali' in mine?'<span class="chip">Data e ore scelte da te</span>':''}</div>
-    <button class="btn" style="margin-top:10px" data-act="edit-exam" data-id="${esc(e.id)}">Modifica data, ore e pausa</button></div>
+    <div class="btnrow" style="margin-top:10px"><button class="btn" data-act="edit-exam" data-id="${esc(e.id)}">Modifica data, ore e pausa</button>
+      ${examTerms(e.id).length?`<button class="btn" data-act="open-gloss" data-id="${esc(e.id)}">Glossario · ${pl(examTerms(e.id).length,'termine','termini')}</button>`:''}</div></div>
   <div class="stack-s grid2">${limited('prog:'+e.id,tops,t=>{
     const a=S.arg.get(t.id);
     if(!a)return `<div class="row off"><span class="n">${esc(t.capitolo!=null&&t.capitolo!==999?t.capitolo:'·')}</span><span class="txt"><span class="t">${esc(t.titolo)}</span><span class="m">Contenuti non ancora importati</span></span></div>`;
@@ -916,6 +1206,19 @@ function renderExam(v,e){
       <span class="m">${st.tot?`${st.read}/${st.tot} sezioni lette`:''}${arr(a.esercizi).length?`<span>${pl(arr(a.esercizi).length,'esercizio','esercizi')}</span>`:''}</span>
       ${st.tot?`<span class="bar"><b style="width:${Math.round(st.read/st.tot*100)}%"></b></span>`:''}</span>${IC.right}</button>`},8)}</div>`;
 }
+/* il glossario dell'esame: tutti i termini degli argomenti importati, con la ricerca */
+function renderGloss(v,e){
+  const list=examTerms(e.id);
+  v.innerHTML=`<div><button class="back" data-act="back">${IC.left}${esc(e.nome)}</button></div>
+  <div><h1 class="page-h">Glossario</h1><div class="muted" style="margin-top:4px">${pl(list.length,'termine','termini')} degli argomenti che hai importato. Tocca un termine per la scheda completa: significati, definizione del docente, definizione ufficiale con la fonte.</div></div>
+  ${list.length?`<input class="field" id="gl-q" type="search" placeholder="Cerca un termine, anche in inglese" autocomplete="off" aria-label="Cerca nel glossario" value="${esc(S.glq)}">
+  <div class="stack-s grid2" id="gl-list">${list.map(({g,a})=>`<button class="row gl" data-act="xref" data-id="${esc(g.id)}" data-q="${esc([g.termine,g.inglese,a.titolo,g.docente].filter(Boolean).join(' ').toLowerCase().slice(0,400))}"><span class="txt"><span class="t">${esc(g.termine)}${g.inglese?` <span class="muted en">${esc(g.inglese)}</span>`:''}</span><span class="m">${esc(a.titolo)}</span></span>${IC.right}</button>`).join('')}</div>
+  <p class="note" id="gl-none" hidden>Nessun termine trovato.</p>`:'<div class="empty">Ancora nessun termine: arrivano con i pacchetti che hanno il glossario.</div>'}`;
+  filterGloss();
+}
+function filterGloss(){const q=S.glq.trim().toLowerCase();let n=0;
+  document.querySelectorAll('#gl-list .gl').forEach(b=>{const ok=!q||b.dataset.q.includes(q);b.hidden=!ok;if(ok)n++});
+  const no=$('#gl-none');if(no)no.hidden=n>0}
 /* un esercizio con i suoi aiuti che si scoprono uno alla volta (usato dentro la sezione e nell'elenco in fondo) */
 function exCard(x){
   const items=[];
@@ -939,6 +1242,12 @@ function renderTopic(v,a){
   if(S.open===null||!secs.some(s=>s.id===S.open)){const u=secs.find(s=>!isRead(s.id));S.open=u?u.id:'';}
   let h=`<div><button class="back" data-act="back">${IC.left}${esc(e?e.nome:'Esame')}</button></div>
   <div><h1 class="page-h">${esc(a.titolo)}</h1>${a.fonte?`<div class="muted small" style="margin-top:4px">Fonte: ${esc(a.fonte)}</div>`:''}</div>`;
+  /* la mappa (chiusa finché non la apri) e «Prima di iniziare ti servono»: le basi si indicano, non si rispiegano */
+  if(a.mappa){const op=S.maps.has(a.id);
+    h+=`<div class="acc mappa${op?' open':''}"><button class="acc-h" data-act="toggle-map" data-id="${esc(a.id)}" aria-expanded="${op}"><span class="txt"><span class="eyebrow">Mappa dell'argomento</span><span class="t">Di cosa fa parte, cosa si collega, dove si colloca</span></span>${IC.chev}</button>${op?`<div class="acc-b">${md(a.mappa)}</div>`:''}</div>`}
+  const pre=arr(a.prerequisiti).filter(q=>q&&typeof q.rif==='string'&&ID_RE.test(q.rif));
+  if(pre.length)h+=`<div class="prereq"><div class="eyebrow">Prima di iniziare ti servono</div><ul>${pre.map(q=>`<li>${xrefBtn(q.rif,q.testo)}${q.perche?`<div class="why">${md(q.perche)}</div>`:''}</li>`).join('')}</ul>
+    <div class="muted small">Tocca una voce per ripassarla senza lasciare questa pagina.</div></div>`;
   if(a.prossimo_passo)h+=`<div class="nextstep"><div class="eyebrow">Prossimo passo</div>${md(a.prossimo_passo)}</div>`;
   if(arr(a.incerto).length)h+=`<div class="incerto"><div class="eyebrow">Da verificare</div>${md(arr(a.incerto).map(x=>'- '+x.replace(/\n/g,' ')).join('\n'))}</div>`;
   const exs=arr(a.esercizi),secIds=new Set(secs.map(s=>s.id));
@@ -1039,7 +1348,7 @@ function go(tab){S.tab=tab;lsSet(LS_TAB,tab);render();window.scrollTo(0,0)}
 
 /* ---------- pannelli ---------- */
 function openSheet(html){$('#sheet').innerHTML=html;$('#backdrop').hidden=false;$('#sheet').scrollTop=0}
-function closeSheet(){$('#backdrop').hidden=true;$('#sheet').innerHTML='';S.checked=null;S.remoteHash=null}
+function closeSheet(){$('#backdrop').hidden=true;$('#sheet').innerHTML='';S.checked=null;S.remoteHash=null;S.refStack=[]}
 function importSheet(){
   S.remoteHash=null;/* import a mano: niente impronta, la versione la conosce solo il sito */
   openSheet(`<h2>Importa</h2><div class="stack-s">
@@ -1171,7 +1480,22 @@ const ACT={
   'open-exam':b=>{S.route={esame:b.dataset.id,arg:null};render();window.scrollTo(0,0)},
   'open-topic':b=>{const a=S.arg.get(b.dataset.id);if(!a)return;S.route={esame:a.esame_id,arg:a.id};S.open=null;S.tab='esami';lsSet(LS_TAB,'esami');
     setImp('ultimo',a.id);render();window.scrollTo(0,0)},
-  back:()=>{if(S.route.arg)S.route.arg=null;else S.route.esame=null;render();window.scrollTo(0,0)},
+  back:()=>{if(S.route.arg)S.route.arg=null;else if(S.route.gloss)S.route.gloss=null;else S.route.esame=null;render();window.scrollTo(0,0)},
+  /* collegamenti interni: si apre il riquadro di ripasso; da dentro il riquadro si va avanti e si torna «Indietro» */
+  xref:b=>{const id=b.dataset.id;if(b.closest('#sheet')&&S.refStack.length)S.refStack.push(id);else S.refStack=[id];
+    const sh=$('#sheet');sh.innerHTML=refSheetHTML(id);$('#backdrop').hidden=false;sh.scrollTop=0},
+  'ref-back':()=>{S.refStack.pop();const id=S.refStack[S.refStack.length-1];if(!id){closeSheet();return}$('#sheet').innerHTML=refSheetHTML(id);$('#sheet').scrollTop=0},
+  'goto-ref':b=>{const r=refFind(b.dataset.id);closeSheet();if(!r)return;const a=r.a;
+    S.route={esame:a.esame_id,arg:a.id};S.tab='esami';lsSet(LS_TAB,'esami');setImp('ultimo',a.id);
+    if(r.k==='sez'){if(r.i>=6)S.more.add('sez:'+a.id);S.open=r.item.id}else if(S.route.arg!==a.id)S.open=null;
+    if(r.k==='tec'&&arr(a.tecniche).indexOf(r.item)>=5)S.more.add('tec:'+a.id);
+    if(r.k==='ese'&&arr(a.esercizi).indexOf(r.item)>=5)S.more.add('ese:'+a.id);
+    render();
+    const el=r.k==='sez'?document.querySelector(`[data-act="toggle-sec"][data-id="${CSS.escape(r.item.id)}"]`):r.k==='tec'?$('#h-tec'):r.k==='ese'?$('#h-ese'):null;
+    if(el)el.scrollIntoView({block:'start',behavior:'smooth'});else window.scrollTo(0,0)},
+  'open-gloss':b=>{closeSheet();S.route={esame:b.dataset.id,arg:null,gloss:b.dataset.id};S.tab='esami';lsSet(LS_TAB,'esami');render();window.scrollTo(0,0)},
+  'toggle-map':b=>{const id=b.dataset.id;if(S.maps.has(id))S.maps.delete(id);else S.maps.add(id);render()},
+  tool:b=>toolAct(b),
   'toggle-sec':b=>{S.open=S.open===b.dataset.id?'':b.dataset.id;render();
     const el=document.querySelector(`[data-act="toggle-sec"][data-id="${CSS.escape(b.dataset.id)}"]`);if(el&&S.open)el.scrollIntoView({block:'nearest',behavior:'smooth'})},
   'goto-sec':b=>{const a=S.arg.get(S.route.arg);if(!a)return;
@@ -1219,6 +1543,7 @@ document.addEventListener('click',e=>{
   if(e.target.id==='backdrop')closeSheet();
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#backdrop').hidden)closeSheet()});
+document.addEventListener('input',e=>{if(e.target.id==='gl-q'){S.glq=e.target.value;filterGloss()}});
 $('#file-in').addEventListener('change',async e=>{
   const fs=[...(e.target.files||[])];if(!fs.length)return;
   if(fs.length===1){
