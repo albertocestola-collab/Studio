@@ -111,9 +111,26 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 .upd{border-left:6px solid var(--ok)}
 .upd .eyebrow{color:var(--ok)}
 .now .what{font-family:var(--f-display);font-size:clamp(23px,6vw,30px);font-weight:800;line-height:1.15;margin:4px 0 6px;overflow-wrap:anywhere}
+.deadline{display:flex;flex-direction:column;gap:4px;width:100%;text-align:left;border-left:6px solid var(--warn)}
+.deadline .eyebrow{color:var(--warn)}
+.dl-what{font-weight:700;font-size:17px;line-height:1.3;overflow-wrap:anywhere}
+.dl-book{font-size:14px;font-weight:600}
+.dl-book.open{color:var(--ok)}.dl-book.wait{color:var(--muted)}.dl-book.closed{color:var(--urgent)}
+.cal-p{padding:10px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
+.cal .eyebrow+.cal-p{border-top:0;padding-top:0}
+.cal-h{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.cal-d{font-size:16px}
+.cal-req{border-top:1px solid var(--line);padding-top:10px;display:flex;flex-direction:column;gap:4px}
+.req{display:flex;align-items:center;gap:10px;width:100%;text-align:left;min-height:44px;padding:6px 4px;border-radius:10px}
+.req:disabled{cursor:default;opacity:1}
+.req .req-t{flex:1;min-width:0;overflow-wrap:anywhere}
+.box-c{width:24px;height:24px;flex:none;border:2px solid var(--muted);border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent-ink)}
+.req.ok .box-c{background:var(--ok);border-color:var(--ok)}
+.req.ok .req-t{color:var(--muted);text-decoration:line-through}
 .examrow{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:8px 0;border-top:1px solid var(--line)}
 .examrow:first-child{border-top:0;padding-top:0}
-.examrow b{overflow-wrap:anywhere;min-width:0}
+.examrow{flex-wrap:wrap}
+.examrow b{overflow-wrap:break-word;min-width:0}
 
 /* righe toccabili */
 .row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;background:var(--surface);box-shadow:var(--shadow);border-radius:14px;min-height:60px}
@@ -384,6 +401,7 @@ const EX_LEVELS={base:'Base',medio:'Medio',difficile:'Difficile'};
 const TIPI=['nuovo_esame','contenuti','aggiornamento_piano','ripasso'];
 const MAX_KB=120;/* sopra si avvisa soltanto; era 80 quando i pacchetti si incollavano a mano sul telefono */
 const MSH=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+const GSH=['dom','lun','mar','mer','gio','ven','sab'];
 const IC={
   right:'<svg class="go" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>',
   chev:'<svg class="chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>',
@@ -398,6 +416,7 @@ const parseKey=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,
 const todayKey=()=>keyOf(new Date());
 const diffDays=(a,b)=>Math.round((parseKey(b)-parseKey(a))/86400000);
 const shortDate=k=>{const d=parseKey(k);return d.getDate()+' '+MSH[d.getMonth()]+(d.getFullYear()!==new Date().getFullYear()?' '+d.getFullYear():'')};
+const dayDate=k=>GSH[parseKey(k).getDay()]+' '+shortDate(k);
 function untilText(k){const n=diffDays(todayKey(),k);
   if(n===0)return 'oggi';if(n===1)return 'domani';if(n<0)return 'passato';
   return n<70?'tra '+n+' giorni':'tra '+Math.round(n/7)+' settimane'}
@@ -855,6 +874,21 @@ function validate(p,bytes){
           idOk(t.id,ww,eid);need(t,'titolo',ww,'str');opt(t,'capitolo',ww,'num');opt(t,'ordine',ww,'num');
         });
       }
+      /* calendario dell'esame (facoltativo): prove con date e prenotazione, e la lista «Cosa manca per prenotare» */
+      if(opt(e,'prove',w,'arr'))arr(e.prove).forEach((x,i)=>{
+        if(!x||typeof x!=='object'){E(`Nelle prove, la voce ${i+1} non è un oggetto.`);return}
+        const ww=isStr(x.id)?`Nella prova ${esc(x.id)},`:`Nella prova ${i+1},`;
+        idOk(x.id,ww,eid);need(x,'nome',ww,'str');opt(x,'modalita',ww,'str');opt(x,'quando',ww,'str');opt(x,'programma',ww,'str');opt(x,'nota',ww,'str');
+        if(opt(x,'date',ww,'arr'))arr(x.date).forEach(d=>{if(!isDate(d))E(`${ww} la data «${esc(d)}» deve essere scritta come AAAA-MM-GG.`)});
+        if(!arr(x.date).length&&!isStr(x.quando))E(`${ww} servono le date oppure il campo quando.`);
+        if(x.prenotazione!==undefined&&opt(x,'prenotazione',ww,'obj'))for(const f of ['dal','al'])if(!isDate(obj(x.prenotazione)[f]))E(`${ww} prenotazione.${f} deve essere una data scritta come AAAA-MM-GG.`);
+      });
+      if(opt(e,'requisiti',w,'arr'))arr(e.requisiti).forEach((x,i)=>{
+        if(!x||typeof x!=='object'){E(`Nei requisiti, la voce ${i+1} non è un oggetto.`);return}
+        const ww=isStr(x.id)?`Nel requisito ${esc(x.id)},`:`Nel requisito ${i+1},`;
+        idOk(x.id,ww,eid);need(x,'testo',ww,'str');opt(x,'valore',ww,'str');
+        if(x.fatto!==undefined&&typeof x.fatto!=='boolean')E(`${ww} il campo fatto deve valere true o false.`);
+      });
     }
   }
 
@@ -1004,7 +1038,8 @@ function buildPlan(p){
   if(p.tipo==='nuovo_esame'){
     const n=p.esame,old=esami.get(p.esame_id);
     esami.set(p.esame_id,{id:p.esame_id,nome:n.nome,cfu:n.cfu,data_esame:n.data_esame,ore_settimanali:n.ore_settimanali,
-      perche_mi_serve:n.perche_mi_serve||(old&&old.perche_mi_serve)||'',programma:mergeById(old&&old.programma,n.programma),simulazioni:arr(old&&old.simulazioni)});
+      perche_mi_serve:n.perche_mi_serve||(old&&old.perche_mi_serve)||'',programma:mergeById(old&&old.programma,n.programma),simulazioni:arr(old&&old.simulazioni),
+      prove:n.prove!==undefined?arr(n.prove):arr(old&&old.prove),requisiti:n.requisiti!==undefined?arr(n.requisiti):arr(old&&old.requisiti)});
     tE.add(p.esame_id);
     const mine=obj(scelte()[p.esame_id]),kept=[];
     if('data_esame' in mine)kept.push('la data ('+esc(shortDate(mine.data_esame))+')');
@@ -1132,6 +1167,43 @@ function resumeTopic(){
   return null;
 }
 
+/* ---------- calendario dell'esame ----------
+   Le date le porta Claude nel pacchetto nuovo_esame (prove, requisiti); l'app conta solo i giorni.
+   Le spunte dei requisiti sono dell'utente e restano sul dispositivo (impostazioni.requisiti_spunte). */
+const spunte=()=>obj(S.imp.requisiti_spunte);
+const reqKey=(eid,rid)=>eid+'|'+rid;
+const reqDone=(eid,r)=>!!r.fatto||!!spunte()[reqKey(eid,r.id)];
+const cap1=t=>t.charAt(0).toUpperCase()+t.slice(1);
+function bookText(pr){const b=obj(pr.prenotazione);if(!isDate(b.dal)||!isDate(b.al))return null;const t=todayKey();
+  if(t<b.dal)return {cls:'wait',txt:`la prenotazione si apre ${dayDate(b.dal)} (${untilText(b.dal)})`};
+  if(t<=b.al)return {cls:'open',txt:`prenotazione aperta fino a ${dayDate(b.al)}`+(diffDays(t,b.al)<=3?` (${untilText(b.al)})`:'')};
+  return {cls:'closed',txt:'prenotazione chiusa'}}
+/* la prossima prova con una data non ancora passata, tra tutti gli esami in corso */
+function nextDeadline(){let best=null;
+  for(const e of activeExams())for(const pr of arr(e.prove)){const d=arr(pr.date).filter(isDate).find(x=>x>=todayKey());
+    if(d&&(!best||d<best.d))best={e,pr,d}}
+  return best}
+function deadlineCard(){const n=nextDeadline();if(!n)return '';const b=bookText(n.pr);
+  return `<button class="card deadline" data-act="goto-exam" data-id="${esc(n.e.id)}"><span class="eyebrow">Prossima scadenza</span>
+    <span class="dl-what">${esc(n.e.nome)}: ${esc(n.pr.nome.charAt(0).toLowerCase()+n.pr.nome.slice(1))}${n.pr.modalita?' · '+esc(n.pr.modalita):''} · ${esc(dayDate(n.d))} <span class="muted">(${untilText(n.d)})</span></span>
+    ${b?`<span class="dl-book ${b.cls}">${esc(cap1(b.txt))}.</span>`:''}</button>`}
+function calendarHTML(e){const prove=arr(e.prove),req=arr(e.requisiti);if(!prove.length&&!req.length)return '';
+  const t=todayKey();
+  const prova=pr=>{const ds=arr(pr.date).filter(isDate),fut=ds.filter(d=>d>=t),b=bookText(pr);
+    return `<div class="cal-p"><div class="cal-h"><b>${esc(pr.nome)}</b>${pr.modalita?`<span class="chip">${esc(pr.modalita)}</span>`:''}</div>
+      ${ds.length?`<div class="cal-d">${fut.length?`<b>${esc(dayDate(fut[0]))}</b> <span class="muted">(${untilText(fut[0])})</span>`+(fut.length>1?`<div class="muted small">riserva: ${esc(fut.slice(1).map(dayDate).join(', '))}</div>`:''):`<span class="muted">date passate: ${esc(ds.map(shortDate).join(', '))}</span>`}</div>`:''}
+      ${pr.quando?`<div class="cal-d">${esc(pr.quando)}</div>`:''}
+      ${b?`<div class="dl-book ${b.cls}">${esc(cap1(b.txt))}</div>`:''}
+      ${pr.programma?`<div class="muted small">Programma: ${esc(pr.programma)}</div>`:''}
+      ${pr.nota?`<div class="muted small">${esc(pr.nota)}</div>`:''}</div>`};
+  const done=req.filter(r=>reqDone(e.id,r)).length;
+  return `<section class="card cal stack-s"><div class="eyebrow">Calendario</div>${prove.map(prova).join('')}
+    ${req.length?`<div class="cal-req"><div class="cal-h"><b>Cosa manca per prenotare</b><span class="muted small">${done} di ${req.length} fatte</span></div>
+      ${req.map(r=>{const ok=reqDone(e.id,r),fromC=!!r.fatto;
+        return `<button class="req${ok?' ok':''}" data-act="req-toggle" data-id="${esc(e.id)}" data-r="${esc(r.id)}"${fromC?' disabled':''} aria-pressed="${ok}">
+          <span class="box-c" aria-hidden="true">${ok?'✓':''}</span><span class="req-t">${esc(r.testo)}</span>${r.valore?`<span class="muted small num">${esc(r.valore)}</span>`:''}</button>`}).join('')}
+      <p class="note" style="margin:4px 0 0">Tocca una voce quando l'hai fatta.</p></div>`:''}</section>`}
+
 function renderAdesso(){
   const v=$('#v-adesso');
   const upd=updCard();
@@ -1143,7 +1215,7 @@ function renderAdesso(){
       <button class="btn primary big" data-act="import">Importa</button></section>`);
     return;
   }
-  const a=resumeTopic();let h='<h1 class="page-h">Adesso</h1>'+upd;
+  const a=resumeTopic();let h='<h1 class="page-h">Adesso</h1>'+upd+deadlineCard();
   if(a){const e=S.esami.get(a.esame_id),st=topicStats(a);
     h+=`<section class="card now stack-s"><div class="eyebrow">Riprendi · ${esc(e?e.nome:'')}</div>
       <div class="what">${esc(a.titolo)}</div>
@@ -1198,6 +1270,7 @@ function renderExam(v,e){
     <div class="chips" style="margin-top:8px">${e.pausa?'<span class="chip">In pausa</span>':`<span class="chip">Priorità ${pos+1} di ${activeExams().length}</span>`}${'data_esame' in mine||'ore_settimanali' in mine?'<span class="chip">Data e ore scelte da te</span>':''}</div>
     <div class="btnrow" style="margin-top:10px"><button class="btn" data-act="edit-exam" data-id="${esc(e.id)}">Modifica data, ore e pausa</button>
       ${examTerms(e.id).length?`<button class="btn" data-act="open-gloss" data-id="${esc(e.id)}">Glossario · ${pl(examTerms(e.id).length,'termine','termini')}</button>`:''}</div></div>
+  ${calendarHTML(e)}
   <div class="stack-s grid2">${limited('prog:'+e.id,tops,t=>{
     const a=S.arg.get(t.id);
     if(!a)return `<div class="row off"><span class="n">${esc(t.capitolo!=null&&t.capitolo!==999?t.capitolo:'·')}</span><span class="txt"><span class="t">${esc(t.titolo)}</span><span class="m">Contenuti non ancora importati</span></span></div>`;
@@ -1516,6 +1589,9 @@ const ACT={
   'dismiss-tip':()=>{lsSet(LS_TIP,'1');$('#banner').hidden=true},
   'reload-app':()=>location.reload(),
   'edit-exam':b=>editExamSheet(b.dataset.id),
+  'goto-exam':b=>{S.route={esame:b.dataset.id,arg:null};S.tab='esami';lsSet(LS_TAB,'esami');render();window.scrollTo(0,0)},
+  'req-toggle':async b=>{const k=reqKey(b.dataset.id,b.dataset.r),all={...spunte()};
+    if(all[k])delete all[k];else all[k]=true;await setImp('requisiti_spunte',all);render()},
   'save-exam':async b=>{
     const id=b.dataset.id,base=S.esami.get(id);if(!base)return;
     const raw=$('#ed-ore').value.trim().replace(',','.'),data=$('#ed-data').value,ore=Number(raw),pausa=$('#ed-pausa').checked;

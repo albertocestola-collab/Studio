@@ -1,22 +1,30 @@
 {
  "schema_version": 1,
- "generato_il": "2026-11-10",
+ "generato_il": "2026-11-11",
  "pacchetti": [
   {
    "file": "analisi-1/anl1-esame-v2.json",
    "id_pacchetto": "anl1-esame-v2",
    "tipo": "nuovo_esame",
    "esame_id": "anl1",
-   "hash": "d3a901ab66f5e87e",
-   "kb": 4
+   "hash": "73d5806f7404f0a7",
+   "kb": 5
   },
   {
    "file": "programmazione/prg-esame-v3.json",
    "id_pacchetto": "prg-esame-v3",
    "tipo": "nuovo_esame",
    "esame_id": "prg",
-   "hash": "53bd06e475ef905b",
+   "hash": "a6c5465cf2a1432a",
    "kb": 7
+  },
+  {
+   "file": "sicurezza-informatica/sic-esame-v1.json",
+   "id_pacchetto": "sic-esame-v1",
+   "tipo": "nuovo_esame",
+   "esame_id": "sic",
+   "hash": "a0b0b9e202033d69",
+   "kb": 5
   },
   {
    "file": "analisi-1/cap1/anl1-cap1-v1.json",
