@@ -1271,11 +1271,12 @@ function renderExam(v,e){
     <div class="btnrow" style="margin-top:10px"><button class="btn" data-act="edit-exam" data-id="${esc(e.id)}">Modifica data, ore e pausa</button>
       ${examTerms(e.id).length?`<button class="btn" data-act="open-gloss" data-id="${esc(e.id)}">Glossario · ${pl(examTerms(e.id).length,'termine','termini')}</button>`:''}</div></div>
   ${calendarHTML(e)}
-  <div class="stack-s grid2">${limited('prog:'+e.id,tops,t=>{
+  <!-- una colonna sola e il numero d'ordine (1, 2, 3…): è un percorso da fare dall'alto in basso, anche sul PC -->
+  <div class="stack-s">${limited('prog:'+e.id,tops,t=>{
     const a=S.arg.get(t.id);
-    if(!a)return `<div class="row off"><span class="n">${esc(t.capitolo!=null&&t.capitolo!==999?t.capitolo:'·')}</span><span class="txt"><span class="t">${esc(t.titolo)}</span><span class="m">Contenuti non ancora importati</span></span></div>`;
+    if(!a)return `<div class="row off"><span class="n">${esc(t.capitolo===999?'·':tops.indexOf(t)+1)}</span><span class="txt"><span class="t">${esc(t.titolo)}</span><span class="m">Contenuti non ancora importati</span></span></div>`;
     const st=topicStats(a);
-    return `<button class="row" data-act="open-topic" data-id="${esc(a.id)}"><span class="n">${esc(t.capitolo!=null&&t.capitolo!==999?t.capitolo:'·')}</span><span class="txt"><span class="t">${esc(a.titolo)}</span>
+    return `<button class="row" data-act="open-topic" data-id="${esc(a.id)}"><span class="n">${esc(t.capitolo===999?'·':tops.indexOf(t)+1)}</span><span class="txt"><span class="t">${esc(a.titolo)}</span>
       <span class="m">${st.tot?`${st.read}/${st.tot} sezioni lette`:''}${arr(a.esercizi).length?`<span>${pl(arr(a.esercizi).length,'esercizio','esercizi')}</span>`:''}</span>
       ${st.tot?`<span class="bar"><b style="width:${Math.round(st.read/st.tot*100)}%"></b></span>`:''}</span>${IC.right}</button>`},8)}</div>`;
 }
