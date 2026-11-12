@@ -177,6 +177,19 @@ button.pl-t .t{color:var(--accent)}
 .dot.on{background:var(--accent);border-color:var(--accent)}
 .dot.on svg{opacity:1}
 .readbtn.on{background:var(--accent-soft);color:var(--accent)}
+/* esercizi con le caselle (v17) */
+.ans{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.ans-row{display:flex;flex-direction:column;gap:4px}
+.ans-l{font-weight:700;font-size:14.5px}
+.ans-line{display:flex;gap:8px;align-items:center}
+.ans-in{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;max-width:420px}
+.ans-in.ok{border-color:var(--ok);background:var(--ok-soft)}
+.ans-in.bad{border-color:var(--urgent)}
+.ans-mark{font-weight:800;font-size:20px;flex:none}
+.ans-mark.ok{color:var(--ok)}.ans-mark.bad{color:var(--urgent)}
+.ans-msg{font-size:14.5px;color:var(--urgent);background:var(--urgent-soft);border-radius:10px;padding:6px 10px}
+.ans-ok{background:var(--ok-soft);color:var(--ok);border-radius:12px;padding:10px 14px;font-weight:700}
+.ans-no{font-size:14.5px;color:var(--muted)}
 .box{background:var(--surface-2);border-radius:12px;padding:10px 14px;margin-top:10px}
 .box .eyebrow{display:block;margin-bottom:2px}
 .box.sol{background:var(--ok-soft)}
@@ -713,7 +726,7 @@ const del=(store,key)=>tx([store],t=>t.objectStore(store).delete(key));
 
 /* ---------- stato ---------- */
 const S={esami:new Map(),arg:new Map(),prog:new Map(),imp:{},
-  tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},more:new Set(),planPage:false,
+  tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},exAns:{},more:new Set(),planPage:false,
   draft:'',checked:null,exportAll:false,
   /* collegamenti (pila del riquadro di ripasso), mappe aperte, ricerca nel glossario, stato degli strumenti interattivi */
   refStack:[],maps:new Set(),glq:'',tool:{},play:null,
@@ -981,6 +994,21 @@ function validate(p,bytes){
           const w=isStr(x.id)?`Nell'esercizio ${esc(x.id)}`:`${wa}, nell'esercizio ${j+1},`;
           idOk(x.id,w,tid);need(x,'testo',w,'str');need(x,'soluzione',w,'str');opt(x,'suggerimento',w,'str');strArr(x,'passi',w);
           if(need(x,'livello',w,'str')&&!EX_LEVELS[x.livello])E(`${w} il livello «${esc(x.livello)}» non esiste. Quelli possibili: base, medio, difficile.`);
+          /* risposta: le caselle che l'app controlla (v17) */
+          if(opt(x,'risposta',w,'obj')&&x.risposta&&need(x.risposta,'caselle',w+', nella risposta,','arr')){
+            if(!x.risposta.caselle.length)E(`${w} la risposta non ha nessuna casella.`);
+            x.risposta.caselle.forEach((c,i)=>{const wc=`${w}, nella casella ${i+1},`;
+              if(!c||typeof c!=='object'){E(`${wc} c'è qualcosa che non è un oggetto.`);return}
+              opt(c,'etichetta',wc,'str');opt(c,'formato',wc,'str');opt(c,'tolleranza',wc,'num');
+              if(need(c,'tipo',wc,'str')&&!ANS_TIPI.includes(c.tipo))E(`${wc} il tipo «${esc(c.tipo)}» non esiste. Quelli possibili: ${ANS_TIPI.join(', ')}.`);
+              if(c.tipo==='scelta'&&need(c,'opzioni',wc,'arr')){if(c.opzioni.length<2)E(`${wc} servono almeno 2 opzioni.`);strArr(c,'opzioni',wc)}
+              if(need(c,'accettate',wc,'arr')){if(!c.accettate.length)E(`${wc} l'elenco accettate è vuoto.`);
+                c.accettate.forEach(v=>{
+                  if(c.tipo==='numero'?!isFinite(ansNum(v)):typeof v!=='string')E(`${wc} il valore accettato «${esc(v)}» non va bene per il tipo ${esc(c.tipo)}.`);
+                  else if(c.tipo==='scelta'&&!arr(c.opzioni).includes(v))E(`${wc} «${esc(v)}» non è tra le opzioni.`)})}
+              if(opt(c,'errori',wc,'obj'))for(const k in obj(c.errori))if(typeof c.errori[k]!=='string')E(`${wc} il messaggio per «${esc(k)}» dovrebbe essere un testo.`);
+            });
+          }
           /* dopo_sezione: l'esercizio compare anche subito dopo quella sezione («Mettiti alla prova») */
           if(opt(x,'dopo_sezione',w,'str')&&isStr(x.dopo_sezione)&&!arr(a.sezioni).some(s=>s&&s.id===x.dopo_sezione))
             W(`${w} il campo dopo_sezione indica ${esc(x.dopo_sezione)}, che non è una sezione di questo argomento: l'esercizio resta solo in fondo.`);
@@ -1200,7 +1228,7 @@ function buildExport(all){
   const act=activeExams();
   const esami=examsSorted().map(e=>({id:e.id,data_esame:e.data_esame,ore_settimanali:+e.ore_settimanali,priorita:e.pausa?null:act.findIndex(x=>x.id===e.id)+1,pausa:!!e.pausa}));
   const o={progressi:1,dal,al,pacchetti:Object.keys(pacchetti()),esami,
-    sessioni:[],esercizi:[],quiz:[],
+    sessioni:[],esercizi:recs.filter(r=>r.tipo==='esercizio').map(r=>[r.rif,r.esito,r.data,'']),quiz:[],
     letture:recs.filter(r=>r.tipo==='lettura').map(r=>[r.rif,r.data]),
     attivita:recs.filter(r=>r.tipo==='attivita').map(r=>[r.rif,r.data]),
     minuti_giorno:+S.imp.piano_minuti||null,
@@ -1554,22 +1582,78 @@ function filterGloss(){const q=S.glq.trim().toLowerCase();let n=0;
   document.querySelectorAll('#gl-list .gl').forEach(b=>{const ok=!q||b.dataset.q.includes(q);b.hidden=!ok;if(ok)n++});
   const no=$('#gl-none');if(no)no.hidden=n>0}
 /* un esercizio con i suoi aiuti che si scoprono uno alla volta (usato dentro la sezione e nell'elenco in fondo) */
+/* ---------- esercizi da svolgere nell'app (v17) ----------
+   Un esercizio con il campo «risposta» ha una o più caselle: scrivi il risultato, l'app lo confronta con le risposte
+   accettate che ha scritto Claude e, se riconosce un errore tipico, dice quale. Il risultato si salva in progressi
+   (es:<id>, esito fatto o rivedere) e va nell'export. Suggerimento, passi e soluzione restano da aprire come prima. */
+const ANS_TIPI=['numero','testo','bit','scelta'];
+function ansNum(v){let s=String(v==null?'':v).trim().replace(/\s/g,'').replace(/[−–]/g,'-');
+  if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');
+  else if(/^[-+]?\d{1,3}(\.\d{3})+$/.test(s))s=s.replace(/\./g,'');
+  const fr=/^([-+]?\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/.exec(s);if(fr)return +fr[2]?+fr[1]/+fr[2]:NaN;
+  return /^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s)?Number(s):NaN}
+function ansNorm(tipo,v){let s=String(v==null?'':v).trim().toLowerCase().replace(/[−–]/g,'-').replace(/[’`]/g,"'");
+  if(tipo==='scelta')return s;
+  s=s.replace(/\s+/g,'').replace(/\.$/,'');
+  if(tipo==='bit')s=s.replace(/^\((.*)\)(_?\d+)?$/,'$1').replace(/_(2|8|10|16)$/,'').replace(/^0[xb]/,'').replace(/_/g,'').replace(/,/g,'.');
+  return s}
+function ansCheck(c,v){
+  if(c.tipo==='numero'){const n=ansNum(v);if(!isFinite(n))return [false,'Scrivi un numero, per esempio 37, -6,5 oppure 3/8.'];
+    const tol=c.tolleranza!=null?Math.abs(+c.tolleranza):0,eq=a=>Math.abs(n-a)<=tol+1e-9*Math.max(1,Math.abs(a));
+    if(arr(c.accettate).some(a=>eq(ansNum(a))))return [true,''];
+    for(const k in obj(c.errori))if(isFinite(ansNum(k))&&eq(ansNum(k)))return [false,c.errori[k]];
+    return [false,'']}
+  const nv=ansNorm(c.tipo,v);
+  if(arr(c.accettate).some(a=>ansNorm(c.tipo,a)===nv))return [true,''];
+  for(const k in obj(c.errori))if(ansNorm(c.tipo,k)===nv)return [false,c.errori[k]];
+  if(c.tipo==='bit'){const L=new Set(arr(c.accettate).map(a=>ansNorm('bit',a).length));if(!L.has(nv.length))return [false,`Controlla quante cifre hai scritto: ${nv.length}, ne servono ${[...L].join(' o ')}.`]}
+  return [false,'']}
+const exRec=id=>S.prog.get('es:'+id);
+async function saveEx(id,esito){const old=exRec(id);if(old&&old.esito==='fatto'&&esito!=='fatto')return;
+  const r={id:'es:'+id,tipo:'esercizio',rif:id,esito,data:todayKey(),ts:Date.now()};S.prog.set(r.id,r);await put('progressi',r)}
+/* soluzione aperta prima di arrivarci: l'esercizio resta «da rivedere» */
+const exSolSeenNow=id=>{const r=refFind(id);return !!r&&r.k==='ese'&&(S.ex[id]||0)>=(r.item.suggerimento?1:0)+arr(r.item.passi).length+1};
+async function exSolSeen(id){const r=refFind(id);if(!r||r.k!=='ese'||!r.item.risposta)return;
+  const st=S.exAns[id];if(st&&st.res&&st.res.every(Boolean))return;
+  if(exSolSeenNow(id))await saveEx(id,'rivedere')}
+function ansHTML(x){
+  const R=x.risposta,st=S.exAns[x.id]||{v:[],res:null,msg:[]},solved=!!st.res&&st.res.every(Boolean),many=R.caselle.length>1;
+  const rows=R.caselle.map((c,i)=>{const r=st.res?st.res[i]:null,cls=r===true?' ok':r===false?' bad':'',
+      lbl=c.etichetta||(many?'Risposta '+(i+1):'La tua risposta'),mark=r===true?'<span class="ans-mark ok" aria-label="giusto">✓</span>':r===false?'<span class="ans-mark bad" aria-label="sbagliato">✗</span>':'';
+    const field=c.tipo==='scelta'
+      ?`<div class="seg" role="group" aria-label="${esc(lbl)}">${arr(c.opzioni).map((o,j)=>`<button data-act="ans-pick" data-id="${esc(x.id)}" data-i="${i}" data-o="${j}" aria-pressed="${st.v[i]===o}"${solved?' disabled':''}>${esc(o)}</button>`).join('')}</div>`
+      :`<input class="field ans-in${cls}" data-id="${esc(x.id)}" data-i="${i}" value="${esc(st.v[i]||'')}" placeholder="${esc(c.formato||'')}" aria-label="${esc(lbl)}" inputmode="${c.tipo==='numero'?'decimal':'text'}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"${solved?' readonly':''}>`;
+    return `<div class="ans-row"><span class="ans-l">${esc(lbl)}</span><div class="ans-line">${field}${mark}</div>${st.msg[i]?`<div class="ans-msg">${esc(st.msg[i])}</div>`:''}</div>`}).join('');
+  return `<div class="ans">${rows}
+    ${solved?`<div class="ans-ok">Giusto!${st.tries>1?` Al tentativo numero ${st.tries}.`:''}</div>`
+      :`${st.res?`<div class="ans-no">Non ancora${many?': le caselle con ✗ sono da rivedere':''}. Riprova, oppure apri il suggerimento.</div>`:''}
+      <div class="btnrow"><button class="btn primary" data-act="ans-check" data-id="${esc(x.id)}">Controlla</button></div>`}</div>`;
+}
 function exCard(x){
   const items=[];
   if(x.suggerimento)items.push(['Suggerimento',x.suggerimento,'']);
   arr(x.passi).forEach((p,i)=>items.push(['Passo '+(i+1),p,'']));
   items.push(['Soluzione',x.soluzione,'sol']);
-  const k=S.ex[x.id]==null?-1:S.ex[x.id];
+  const R=x.risposta&&arr(x.risposta.caselle).length?x.risposta:null,rec=exRec(x.id);
+  const k=S.ex[x.id]==null?(R?0:-1):S.ex[x.id];
   let b='';
   if(k<0)b=`<button class="btn primary" data-act="ex-try" data-id="${esc(x.id)}">Ho provato</button>`;
+  else if(R){
+    const solved=S.exAns[x.id]&&S.exAns[x.id].res&&S.exAns[x.id].res.every(Boolean);
+    b=items.slice(0,k).map(([t,m,c])=>`<div class="box ${c}"><span class="eyebrow">${t}</span>${md(m)}</div>`).join('');
+    if(k<items.length){const nx=items[k][0];
+      b+=`<div class="btnrow" style="margin-top:10px"><button class="btn ghost" data-act="ex-step" data-id="${esc(x.id)}">${solved?(k?'Mostra ancora':'Vedi come si fa'):'Mostra '+(nx==='Soluzione'?'la soluzione':nx.toLowerCase())}</button>
+        ${nx!=='Soluzione'&&!solved?`<button class="btn ghost" data-act="ex-sol" data-id="${esc(x.id)}" data-n="${items.length}">Soluzione</button>`:''}</div>`}
+    if(rec||solved)b+=`<div class="btnrow" style="margin-top:6px"><button class="btn small ghost" data-act="ans-reset" data-id="${esc(x.id)}">Rifai l'esercizio</button></div>`;
+  }
   else{
     b=items.slice(0,k).map(([t,m,c])=>`<div class="box ${c}"><span class="eyebrow">${t}</span>${md(m)}</div>`).join('');
     if(k<items.length){const nx=items[k][0];
       b+=`<div class="btnrow" style="margin-top:10px"><button class="btn primary" data-act="ex-step" data-id="${esc(x.id)}">Mostra ${nx==='Soluzione'?'la soluzione':nx.toLowerCase()}</button>
         ${nx!=='Soluzione'?`<button class="btn ghost" data-act="ex-sol" data-id="${esc(x.id)}" data-n="${items.length}">Soluzione subito</button>`:''}</div>`}
   }
-  return `<section class="card ex"><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:6px"><span class="chip ${x.livello==='difficile'?'red':x.livello==='medio'?'warn':'ok'}">${esc(EX_LEVELS[x.livello]||x.livello)}</span><span class="muted small">${esc(x.id.split('.').pop())}</span></div>
-    ${md(x.testo)}<div style="margin-top:10px">${b}</div></section>`;
+  return `<section class="card ex"><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;align-items:center"><span class="chips"><span class="chip ${x.livello==='difficile'?'red':x.livello==='medio'?'warn':'ok'}">${esc(EX_LEVELS[x.livello]||x.livello)}</span>${rec?(rec.esito==='fatto'?'<span class="chip ok">✓ Risolto</span>':'<span class="chip warn">Da rivedere</span>'):''}</span><span class="muted small">${esc(x.id.split('.').pop())}</span></div>
+    ${md(x.testo)}${R?ansHTML(x):''}<div style="margin-top:${R?6:10}px">${b}</div></section>`;
 }
 function renderTopic(v,a){
   const e=S.esami.get(a.esame_id),secs=sortedSections(a);
@@ -1637,12 +1721,13 @@ function renderVittorie(){
   reads.forEach(r=>{const t=secTitle[r.rif];if(t)started.add(t[1])});
   /* le attività del piano spuntate a mano (per esempio una lezione studiata sulla dispensa del portale) */
   const attT={};const P=pianoS();if(P)for(const b of arr(P.binari))for(const a of arr(b.attivita))attT[a.id]=a.titolo;
-  const acts=[...S.prog.values()].filter(r=>r.tipo==='attivita');
+  const acts=[...S.prog.values()].filter(r=>r.tipo==='attivita'||(r.tipo==='esercizio'&&r.esito==='fatto'));
   v.innerHTML=`<h1 class="page-h">Vittorie</h1>
   <div class="kpis"><div class="kpi"><b>${reads.filter(r=>r.data===today).length}</b><span>sezioni lette oggi</span></div>
     <div class="kpi"><b>${reads.length}</b><span>sezioni lette in tutto</span></div></div>
   <section class="card"><div class="eyebrow" style="margin-bottom:6px">Ultime cose fatte</div>
     ${reads.length||acts.length?limited('wins',reads.concat(acts).sort((a,b)=>b.ts-a.ts),r=>{
+      if(r.tipo==='esercizio'){const f=refFind(r.rif);return `<div class="win"><span class="d num">${esc(shortDate(r.data))}</span><span class="w">Risolto l'esercizio <b>${esc(r.rif.split('.').pop())}</b>${f?' · '+esc(f.a.titolo):''}</span></div>`}
       if(r.tipo==='attivita')return `<div class="win"><span class="d num">${esc(shortDate(r.data))}</span><span class="w">Fatto <b>${esc(attT[r.rif]||r.rif)}</b></span></div>`;
       const t=secTitle[r.rif];
       return `<div class="win"><span class="d num">${esc(shortDate(r.data))}</span><span class="w">Letto <b>${esc(t?t[0]:r.rif)}</b>${t?' · '+esc(t[1]):''}</span></div>`})
@@ -1852,8 +1937,21 @@ const ACT={
     if(S.open){const el=document.querySelector(`[data-act="toggle-sec"][data-id="${CSS.escape(S.open)}"]`);if(el)el.scrollIntoView({block:'start',behavior:'smooth'})}},
   'tech-step':b=>{S.tech[b.dataset.id]=(S.tech[b.dataset.id]||0)+1;render()},
   'ex-try':b=>{S.ex[b.dataset.id]=1;render()},
-  'ex-step':b=>{S.ex[b.dataset.id]=(S.ex[b.dataset.id]||0)+1;render()},
-  'ex-sol':b=>{S.ex[b.dataset.id]=+b.dataset.n;render()},
+  'ex-step':async b=>{S.ex[b.dataset.id]=(S.ex[b.dataset.id]||0)+1;await exSolSeen(b.dataset.id);render()},
+  'ex-sol':async b=>{S.ex[b.dataset.id]=+b.dataset.n;await exSolSeen(b.dataset.id);render()},
+  /* esercizi con le caselle (v17) */
+  'ans-check':async b=>{const id=b.dataset.id,r=refFind(id);if(!r||r.k!=='ese'||!r.item.risposta)return;
+    const R=r.item.risposta,st=S.exAns[id]||(S.exAns[id]={v:[],res:null,msg:[],tries:0});
+    b.closest('.card').querySelectorAll('.ans-in').forEach(el=>{st.v[+el.dataset.i]=el.value});
+    if(R.caselle.some((c,i)=>!String(st.v[i]==null?'':st.v[i]).trim())){toast(R.caselle.length>1?'Riempi tutte le caselle':'Scrivi la tua risposta');return}
+    st.tries=(st.tries||0)+1;st.res=[];st.msg=[];
+    R.caselle.forEach((c,i)=>{const [ok,m]=ansCheck(c,st.v[i]);st.res[i]=ok;st.msg[i]=m});
+    if(st.res.every(Boolean)){if(!exSolSeenNow(id))await saveEx(id,'fatto');toast('Giusto!')}
+    rerender()},
+  'ans-pick':b=>{const id=b.dataset.id,r=refFind(id);if(!r||!r.item.risposta)return;
+    const st=S.exAns[id]||(S.exAns[id]={v:[],res:null,msg:[],tries:0}),c=r.item.risposta.caselle[+b.dataset.i];
+    st.v[+b.dataset.i]=arr(c&&c.opzioni)[+b.dataset.o];rerender()},
+  'ans-reset':b=>{delete S.exAns[b.dataset.id];delete S.ex[b.dataset.id];rerender()},
   'dismiss-tip':()=>{lsSet(LS_TIP,'1');$('#banner').hidden=true},
   'reload-app':()=>location.reload(),
   'edit-exam':b=>editExamSheet(b.dataset.id),
@@ -1901,7 +1999,11 @@ document.addEventListener('click',e=>{
   if(e.target.id==='backdrop')closeSheet();
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#backdrop').hidden)closeSheet()});
-document.addEventListener('input',e=>{if(e.target.id==='gl-q'){S.glq=e.target.value;filterGloss()}});
+document.addEventListener('input',e=>{if(e.target.id==='gl-q'){S.glq=e.target.value;filterGloss();return}
+  /* le caselle degli esercizi: il testo si tiene in memoria, così non si perde quando la pagina si ridisegna */
+  const t=e.target;if(t.classList&&t.classList.contains('ans-in')){const id=t.dataset.id,st=S.exAns[id]||(S.exAns[id]={v:[],res:null,msg:[],tries:0});st.v[+t.dataset.i]=t.value}});
+document.addEventListener('keydown',e=>{const t=e.target;
+  if(e.key==='Enter'&&t.classList&&t.classList.contains('ans-in')){e.preventDefault();const b=t.closest('.card').querySelector('[data-act="ans-check"]');if(b)b.click()}});
 $('#file-in').addEventListener('change',async e=>{
   const fs=[...(e.target.files||[])];if(!fs.length)return;
   if(fs.length===1){
