@@ -1624,15 +1624,21 @@ function ansCheck(c,v){
   if(c.tipo==='bit'){const L=new Set(arr(c.accettate).map(a=>ansNorm('bit',a).length));if(!L.has(nv.length))return [false,`Controlla quante cifre hai scritto: ${nv.length}, ne servono ${[...L].join(' o ')}.`]}
   return [false,'']}
 const exRec=id=>S.prog.get('es:'+id);
-async function saveEx(id,esito){const old=exRec(id);if(old&&old.esito==='fatto'&&esito!=='fatto')return;
-  const r={id:'es:'+id,tipo:'esercizio',rif:id,esito,data:todayKey(),ts:Date.now()};S.prog.set(r.id,r);await put('progressi',r)}
+async function saveEx(id,esito,v){const old=exRec(id);if(old&&old.esito==='fatto'&&esito!=='fatto')return;
+  const r={id:'es:'+id,tipo:'esercizio',rif:id,esito,data:todayKey(),ts:Date.now()};
+  if(Array.isArray(v))r.v=v.map(x=>String(x==null?'':x).slice(0,200));/* le risposte giuste, per mostrarlo risolto anche dopo */
+  S.prog.set(r.id,r);await put('progressi',r)}
+/* lo stato delle caselle: quello in memoria se c'è; altrimenti un esercizio già risolto si mostra risolto, con le risposte salvate */
+function exState(x){const st=S.exAns[x.id];if(st)return st;const rec=exRec(x.id);
+  if(rec&&rec.esito==='fatto')return {v:arr(rec.v),res:x.risposta.caselle.map(()=>true),msg:[],tries:0,saved:rec.data};
+  return {v:[],res:null,msg:[],tries:0}}
 /* soluzione aperta prima di arrivarci: l'esercizio resta «da rivedere» */
 const exSolSeenNow=id=>{const r=refFind(id);return !!r&&r.k==='ese'&&(S.ex[id]||0)>=(r.item.suggerimento?1:0)+arr(r.item.passi).length+1};
 async function exSolSeen(id){const r=refFind(id);if(!r||r.k!=='ese'||!r.item.risposta)return;
   const st=S.exAns[id];if(st&&st.res&&st.res.every(Boolean))return;
   if(exSolSeenNow(id))await saveEx(id,'rivedere')}
 function ansHTML(x){
-  const R=x.risposta,st=S.exAns[x.id]||{v:[],res:null,msg:[]},solved=!!st.res&&st.res.every(Boolean),many=R.caselle.length>1;
+  const R=x.risposta,st=exState(x),solved=!!st.res&&st.res.every(Boolean),many=R.caselle.length>1;
   const rows=R.caselle.map((c,i)=>{const r=st.res?st.res[i]:null,cls=r===true?' ok':r===false?' bad':'',
       lbl=c.etichetta||(many?'Risposta '+(i+1):'La tua risposta'),mark=r===true?'<span class="ans-mark ok" aria-label="giusto">✓</span>':r===false?'<span class="ans-mark bad" aria-label="sbagliato">✗</span>':'';
     const field=c.tipo==='scelta'
@@ -1640,7 +1646,7 @@ function ansHTML(x){
       :`<input class="field ans-in${cls}" data-id="${esc(x.id)}" data-i="${i}" value="${esc(st.v[i]||'')}" placeholder="${esc(c.formato||'')}" aria-label="${esc(lbl)}" inputmode="${c.tipo==='numero'?'decimal':'text'}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"${solved?' readonly':''}>`;
     return `<div class="ans-row"><span class="ans-l">${esc(lbl)}</span><div class="ans-line">${field}${mark}</div>${st.msg[i]?`<div class="ans-msg">${esc(st.msg[i])}</div>`:''}</div>`}).join('');
   return `<div class="ans">${rows}
-    ${solved?`<div class="ans-ok">Giusto!${st.tries>1?` Al tentativo numero ${st.tries}.`:''}</div>`
+    ${solved?`<div class="ans-ok">${st.saved?`Risolto ${esc(shortDate(st.saved))}.`:`Giusto!${st.tries>1?` Al tentativo numero ${st.tries}.`:''}`}</div>`
       :`${st.res?`<div class="ans-no">Non ancora${many?': le caselle con ✗ sono da rivedere':''}. Riprova, oppure apri il suggerimento.</div>`:''}
       <div class="btnrow"><button class="btn primary" data-act="ans-check" data-id="${esc(x.id)}">Controlla</button></div>`}</div>`;
 }
@@ -1654,7 +1660,7 @@ function exCard(x){
   let b='';
   if(k<0)b=`<button class="btn primary" data-act="ex-try" data-id="${esc(x.id)}">Ho provato</button>`;
   else if(R){
-    const solved=S.exAns[x.id]&&S.exAns[x.id].res&&S.exAns[x.id].res.every(Boolean);
+    const st=exState(x),solved=!!st.res&&st.res.every(Boolean);
     b=items.slice(0,k).map(([t,m,c])=>`<div class="box ${c}"><span class="eyebrow">${t}</span>${md(m)}</div>`).join('');
     if(k<items.length){const nx=items[k][0];
       b+=`<div class="btnrow" style="margin-top:10px"><button class="btn ghost" data-act="ex-step" data-id="${esc(x.id)}">${solved?(k?'Mostra ancora':'Vedi come si fa'):'Mostra '+(nx==='Soluzione'?'la soluzione':nx.toLowerCase())}</button>
@@ -1961,12 +1967,12 @@ const ACT={
     if(R.caselle.some((c,i)=>!String(st.v[i]==null?'':st.v[i]).trim())){toast(R.caselle.length>1?'Riempi tutte le caselle':'Scrivi la tua risposta');return}
     st.tries=(st.tries||0)+1;st.res=[];st.msg=[];
     R.caselle.forEach((c,i)=>{const [ok,m]=ansCheck(c,st.v[i]);st.res[i]=ok;st.msg[i]=m});
-    if(st.res.every(Boolean)){if(!exSolSeenNow(id))await saveEx(id,'fatto');toast('Giusto!')}
+    if(st.res.every(Boolean)){if(!exSolSeenNow(id))await saveEx(id,'fatto',st.v);toast('Giusto!')}
     rerender()},
   'ans-pick':b=>{const id=b.dataset.id,r=refFind(id);if(!r||!r.item.risposta)return;
     const st=S.exAns[id]||(S.exAns[id]={v:[],res:null,msg:[],tries:0}),c=r.item.risposta.caselle[+b.dataset.i];
     st.v[+b.dataset.i]=arr(c&&c.opzioni)[+b.dataset.o];rerender()},
-  'ans-reset':b=>{delete S.exAns[b.dataset.id];delete S.ex[b.dataset.id];rerender()},
+  'ans-reset':b=>{S.exAns[b.dataset.id]={v:[],res:null,msg:[],tries:0};delete S.ex[b.dataset.id];rerender()},
   'dismiss-tip':()=>{lsSet(LS_TIP,'1');$('#banner').hidden=true},
   'reload-app':()=>location.reload(),
   'edit-exam':b=>editExamSheet(b.dataset.id),
