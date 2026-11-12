@@ -1,6 +1,6 @@
 // Fa funzionare l'app anche senza connessione: tiene una copia dei file (KaTeX e font compresi)
 // e la aggiorna in background quando c'è rete. I tuoi dati stanno in IndexedDB e non passano da qui.
-const CACHE = 'studio-v15';
+const CACHE = 'studio-v16';
 const FILES = [
   './', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './apple-touch-icon.png',

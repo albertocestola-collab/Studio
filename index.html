@@ -127,6 +127,23 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 .box-c{width:24px;height:24px;flex:none;border:2px solid var(--muted);border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent-ink)}
 .req.ok .box-c{background:var(--ok);border-color:var(--ok)}
 .req.ok .req-t{color:var(--muted);text-decoration:line-through}
+/* piano di studio (v16) */
+.pl-list{display:flex;flex-direction:column}
+.pl-it{display:flex;align-items:center;gap:6px;border-top:1px solid var(--line);min-height:52px}
+.pl-it:first-child{border-top:0}
+.pl-chk{flex:none;width:44px;height:44px;display:grid;place-items:center;border-radius:10px;margin-left:-8px}
+.pl-it.ok .box-c{background:var(--ok);border-color:var(--ok)}
+.pl-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;text-align:left;padding:6px 0;border-radius:8px}
+button.pl-t .t{color:var(--accent)}
+.pl-t .t{font-weight:700;overflow-wrap:anywhere}
+.pl-t .m{font-size:13.5px;color:var(--muted)}
+.pl-it.ok .t{color:var(--muted);text-decoration:line-through}
+.day-h,.sem-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.sem{display:flex;flex-direction:column;gap:3px;padding:10px 0;border-top:1px solid var(--line)}
+.eyebrow+.sem{border-top:0;padding-top:2px}
+.done-card{border-left-color:var(--ok)}
+.done-card .eyebrow{color:var(--ok)}
+.sub-h{font-size:20px;font-weight:800;margin:6px 0 -4px}
 .examrow{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:8px 0;border-top:1px solid var(--line)}
 .examrow:first-child{border-top:0;padding-top:0}
 .examrow{flex-wrap:wrap}
@@ -348,7 +365,7 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
   .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .grid2>.more-btn{grid-column:1/-1}
   #v-adesso,#v-dati{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
-  #v-adesso>.page-h,#v-adesso>.note,#v-adesso>section:only-of-type,#v-adesso>.upd,#v-dati>.page-h,#v-dati>.note{grid-column:1/-1}
+  #v-adesso>.page-h,#v-adesso>.note,#v-adesso>section:only-of-type,#v-adesso>.upd,#v-adesso>.full,#v-dati>.page-h,#v-dati>.note{grid-column:1/-1}
   /* in Dati l'elenco dei pacchetti è lungo: va in fondo, largo quanto la pagina */
   #v-dati>.pk{grid-column:1/-1;order:1}
   #v-dati>.note{order:2}
@@ -398,7 +415,7 @@ const LS_TIP='st-tip-seen', LS_TAB='st-tab';
 const LEVELS={intuizione:'Intuizione',definizione:'Definizione',ragionamento:'Ragionamento',errori_comuni:'Errori comuni',riepilogo:'Riepilogo'};
 const LVL_ORDER=Object.keys(LEVELS);
 const EX_LEVELS={base:'Base',medio:'Medio',difficile:'Difficile'};
-const TIPI=['nuovo_esame','contenuti','aggiornamento_piano','ripasso'];
+const TIPI=['nuovo_esame','contenuti','piano_studio','aggiornamento_piano','ripasso'];
 const MAX_KB=120;/* sopra si avvisa soltanto; era 80 quando i pacchetti si incollavano a mano sul telefono */
 const MSH=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
 const GSH=['dom','lun','mar','mer','gio','ven','sab'];
@@ -696,7 +713,7 @@ const del=(store,key)=>tx([store],t=>t.objectStore(store).delete(key));
 
 /* ---------- stato ---------- */
 const S={esami:new Map(),arg:new Map(),prog:new Map(),imp:{},
-  tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},more:new Set(),
+  tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},more:new Set(),planPage:false,
   draft:'',checked:null,exportAll:false,
   /* collegamenti (pila del riquadro di ripasso), mappe aperte, ricerca nel glossario, stato degli strumenti interattivi */
   refStack:[],maps:new Set(),glq:'',tool:{},play:null,
@@ -850,7 +867,9 @@ function validate(p,bytes){
   if(!isStr(p.id_pacchetto))E('Manca il campo id_pacchetto.');
   else if(!ID_RE.test(p.id_pacchetto))E(`L'id_pacchetto «${esc(p.id_pacchetto)}» non va bene: usa solo lettere minuscole, cifre, punto, trattino e trattino basso.`);
   if(!isDate(p.generato_il))E('Il campo generato_il deve essere una data scritta come AAAA-MM-GG.');
-  if(!isStr(p.esame_id))E('Manca il campo esame_id.');
+  /* il piano di studio riguarda tutti gli esami insieme: lì esame_id non serve */
+  if(p.tipo==='piano_studio'&&p.esame_id===undefined){}
+  else if(!isStr(p.esame_id))E('Manca il campo esame_id.');
   else if(!ID_RE.test(p.esame_id))E(`L'esame_id «${esc(p.esame_id)}» non va bene: usa solo lettere minuscole, cifre, punto, trattino e trattino basso.`);
   if(p.rimuovi!==undefined){if(!Array.isArray(p.rimuovi))E('Il campo rimuovi dovrebbe essere un elenco di ID.');
     else p.rimuovi.forEach((x,i)=>{if(typeof x!=='string'||!ID_RE.test(x))E(`Nel campo rimuovi, l'elemento ${i+1} non è un ID valido.`)})}
@@ -858,7 +877,37 @@ function validate(p,bytes){
   const eid=p.esame_id;
 
   if(p.tipo==='aggiornamento_piano'||p.tipo==='ripasso')
-    return {errs:[`I pacchetti di tipo ${p.tipo} li potrò importare con il prossimo aggiornamento dell'app (tappa 2). Per ora importa esami e contenuti.`]};
+    return {errs:[`I pacchetti di tipo ${p.tipo} non si usano più: il piano arriva con un pacchetto piano_studio e l'app lo ricalcola da sola.`]};
+
+  /* piano di studio: binari (uno per esame), ognuno con le attività in ordine e i minuti stimati */
+  if(p.tipo==='piano_studio'&&need(p,'piano','Nel pacchetto','obj')){
+    const P=p.piano,w='Nel piano';
+    if(need(P,'minuti_giorno',w,'num')&&!(P.minuti_giorno>=15&&P.minuti_giorno<=480))E('Nel piano minuti_giorno deve essere tra 15 e 480.');
+    if(opt(P,'giorni_settimana',w,'arr')&&arr(P.giorni_settimana).some(g=>!Number.isInteger(g)||g<0||g>6))
+      E('Nel piano giorni_settimana deve contenere numeri da 0 (domenica) a 6 (sabato).');
+    if(opt(P,'liberi',w,'arr'))arr(P.liberi).forEach((d,i)=>{if(!isDate(d))E(`Nel piano il giorno libero ${i+1} non è una data scritta come AAAA-MM-GG.`)});
+    opt(P,'messaggio',w,'str');
+    if(need(P,'binari',w,'arr')){
+      if(!P.binari.length)E('Nel piano non c\'è nessun esame (binari è vuoto).');
+      P.binari.forEach((b,i)=>{
+        if(!b||typeof b!=='object'){E(`Nel piano il binario ${i+1} non è un oggetto.`);return}
+        const wb=isStr(b.id)?`Nel binario ${esc(b.id)}`:`Nel binario ${i+1}`;
+        idOk(b.id,wb);opt(b,'titolo',wb,'str');opt(b,'minimo_giorno',wb,'num');
+        for(const f of ['dal','entro'])if(b[f]!==undefined&&!isDate(b[f]))E(`${wb} il campo ${f} deve essere una data scritta come AAAA-MM-GG.`);
+        if(need(b,'esame_id',wb,'str')&&!S.esami.has(b.esame_id))
+          W(`${wb} l'esame ${esc(b.esame_id)} non c'è nell'app: questa parte del piano comparirà quando lo importerai.`);
+        if(need(b,'attivita',wb,'arr')){
+          if(!b.attivita.length)E(`${wb} non ci sono attività.`);
+          b.attivita.forEach((a,j)=>{
+            if(!a||typeof a!=='object'){E(`${wb} l'attività ${j+1} non è un oggetto.`);return}
+            const wa=isStr(a.id)?`Nell'attività ${esc(a.id)}`:`${wb}, nell'attività ${j+1},`;
+            idOk(a.id,wa);need(a,'titolo',wa,'str');opt(a,'rif',wa,'str');opt(a,'cosa',wa,'str');
+            if(need(a,'minuti',wa,'num')&&!(a.minuti>0&&a.minuti<=600))E(`${wa} minuti deve essere un numero tra 1 e 600.`);
+          });
+        }
+      });
+    }
+  }
 
   if(p.tipo==='nuovo_esame'){
     if(need(p,'esame','Nel pacchetto','obj')){
@@ -1075,9 +1124,18 @@ function buildPlan(p){
     if(parts.length)lines.push((nNew?'Aggiungo ':'Aggiungo o sostituisco ')+listIt(parts)+'.');
     if(nUpd)lines.push(`Aggiorno ${pl(nUpd,'argomento già presente','argomenti già presenti')}: le parti con lo stesso ID vengono sostituite, le altre restano.`);
   }
+  let piano=null;
+  if(p.tipo==='piano_studio'){
+    const P=p.piano,bs=arr(P.binari);
+    const names=bs.map(b=>{const e=esami.get(b.esame_id);return '<b>'+esc(e?e.nome:b.esame_id)+'</b>'});
+    const na=bs.reduce((s,b)=>s+arr(b.attivita).length,0),min=bs.reduce((s,b)=>s+arr(b.attivita).reduce((x,a)=>x+(+a.minuti||0),0),0);
+    lines.push(`${S.imp.piano_studio?'Sostituisco':'Aggiungo'} il piano di studio: ${listIt(names)}, ${pl(na,'attività','attività')} (circa ${fmtH(min/60)} ore), ${esc(P.minuti_giorno)} minuti al giorno. Quello che hai già fatto resta.`);
+    if(+S.imp.piano_minuti>=15)warns.push(`Hai scelto tu ${esc(S.imp.piano_minuti)} minuti al giorno: tengo i tuoi.`);
+    piano={...P,id_pacchetto:p.id_pacchetto,generato_il:p.generato_il};
+  }
   if(removed)lines.push(`Tolgo ${pl(removed,'elemento','elementi')} indicati da Claude.`);
   const prev=pacchetti()[p.id_pacchetto];
-  return {p,lines,warns,prev,
+  return {p,lines,warns,prev,piano,
     putE:[...tE].map(k=>esami.get(k)).filter(Boolean),putA:[...tA].map(k=>arg.get(k)).filter(Boolean),delE:[...dE],delA:[...dA],esami,arg};
 }
 async function applyPlan(plan){
@@ -1089,8 +1147,10 @@ async function applyPlan(plan){
     plan.delE.forEach(k=>se.delete(k));plan.delA.forEach(k=>sa.delete(k));
     plan.putE.forEach(v=>se.put(v));plan.putA.forEach(v=>sa.put(v));
     t.objectStore('impostazioni').put({k:'pacchetti',v:pk});
+    if(plan.piano)t.objectStore('impostazioni').put({k:'piano_studio',v:plan.piano});
   });
   S.esami=plan.esami;S.arg=plan.arg;S.imp.pacchetti=pk;mdCache.clear();
+  if(plan.piano)S.imp.piano_studio=plan.piano;
 }
 
 /* ---------- contenuti dal sito ----------
@@ -1142,8 +1202,10 @@ function buildExport(all){
   const o={progressi:1,dal,al,pacchetti:Object.keys(pacchetti()),esami,
     sessioni:[],esercizi:[],quiz:[],
     letture:recs.filter(r=>r.tipo==='lettura').map(r=>[r.rif,r.data]),
+    attivita:recs.filter(r=>r.tipo==='attivita').map(r=>[r.rif,r.data]),
+    minuti_giorno:+S.imp.piano_minuti||null,
     scarico:[],jolly:[],minuti:{},note:[]};
-  const changed=(S.imp.scelte_ts||0)>since?1:0;
+  const changed=Math.max(S.imp.scelte_ts||0,S.imp.piano_minuti_ts||0)>since?1:0;
   return {text:`PROGRESSI STUDIO v1 · dal ${dal} al ${al}\n`+JSON.stringify(o),count:recs.length+changed};
 }
 async function markExported(){await setImp('ultimo_export',{ts:Date.now(),data:todayKey()});render()}
@@ -1204,8 +1266,191 @@ function calendarHTML(e){const prove=arr(e.prove),req=arr(e.requisiti);if(!prove
           <span class="box-c" aria-hidden="true">${ok?'✓':''}</span><span class="req-t">${esc(r.testo)}</span>${r.valore?`<span class="muted small num">${esc(r.valore)}</span>`:''}</button>`}).join('')}
       <p class="note" style="margin:4px 0 0">Tocca una voce quando l'hai fatta.</p></div>`:''}</section>`}
 
+/* ---------- piano di studio (dal 12 novembre 2026, v16) ----------
+   Claude decide COSA fare: per ogni esame un «binario» con le attività in ordine e i minuti stimati (pacchetto piano_studio).
+   L'app fa solo i conti, ogni volta che si apre o che segni qualcosa:
+   - prende quello che resta di ogni attività (dalle sezioni lette o dalla spunta «Fatto»);
+   - riempie i giorni di studio (minuti al giorno, lun–ven, senza i giorni liberi) partendo dall'esame più vicino;
+     un binario con minimo_giorno riceve comunque quei minuti (es. un po' di Programmazione mentre si prepara Sicurezza);
+   - un binario finisce il giorno prima dell'esame (o alla data «entro»).
+   Così il piano si ricalcola da solo: se fai di più si va avanti, se salti un giorno il resto scivola sui giorni dopo.
+   Oggi si calcola da com'era stamattina: quello che fai oggi resta in lista, spuntato, invece di sparire. */
+const pianoS=()=>{const p=S.imp.piano_studio;return p&&arr(p.binari).length?p:null};
+const pianoMin=P=>{const m=+S.imp.piano_minuti;return m>=15?m:(+P.minuti_giorno||90)};
+const studyDays=P=>arr(P.giorni_settimana).length?P.giorni_settimana:[1,2,3,4,5];
+const isStudyDay=(k,P)=>studyDays(P).includes(parseKey(k).getDay())&&!arr(P.liberi).includes(k);
+const addDays=(k,n)=>{const d=parseKey(k);d.setDate(d.getDate()+n);return keyOf(d)};
+const fmtMin=m=>{m=Math.round(m);if(m<60)return m+' min';const h=Math.floor(m/60),r=m%60;return h+' h'+(r?' '+r+' min':'')};
+const r5=m=>m<=0.5?0:Math.max(5,Math.round(m/5)*5);
+const attMin=a=>+a.minuti||0;
+const attTopic=a=>{const t=a.rif&&S.arg.get(a.rif);return t&&arr(t.sezioni).length?t:null};
+/* quanto è fatto di un'attività (0…1); con «before» conta solo quello fatto prima di quel giorno */
+function attFrac(a,before){
+  const r=S.prog.get('att:'+a.id);if(r&&(!before||r.data<before))return 1;
+  const t=attTopic(a);if(!t)return 0;
+  let n=0;for(const s of t.sezioni){const x=S.prog.get('let:'+s.id);if(x&&(!before||x.data<before))n++}
+  return n/t.sezioni.length;
+}
+function planTracks(P,remOf){
+  const out=[],today=todayKey();
+  arr(P.binari).forEach((b,i)=>{
+    const e0=S.esami.get(b.esame_id),e=e0&&effExam(e0);
+    if(!e||e.pausa)return;
+    const entro=isDate(b.entro)?b.entro:isDate(e.data_esame)?addDays(e.data_esame,-1):null;
+    if(!entro||entro<today)return;
+    out.push({b,e,entro,dal:isDate(b.dal)?b.dal:'',minimo:+b.minimo_giorno||0,ord:i,items:arr(b.attivita).map(a=>({a,r:remOf(a)}))});
+  });
+  return out;
+}
+const trackLeft=t=>t.items.reduce((s,it)=>s+it.r,0);
+/* riempie al massimo «budget» minuti con le attività del binario, nell'ordine */
+function fillTrack(t,budget,out,cap){
+  let used=0;
+  for(const it of t.items){
+    if(it.r<=0)continue;
+    /* un'attività corta da spuntare (senza contenuti nell'app, es. una lezione sulla dispensa) non si spezza:
+       se oggi non ci sta, si fa il giorno dopo e il tempo che avanza va all'esame successivo */
+    if(!attTopic(it.a)&&attMin(it.a)<=45&&it.r>budget-used+10&&it.r<=cap)break;
+    let give=Math.min(it.r,budget-used);
+    if(it.r-give>0&&it.r-give<10)give=it.r;/* niente avanzi da 5 minuti per il giorno dopo */
+    if(give<10&&give<it.r)break;/* e niente pezzetti troppo corti: si comincia il giorno dopo */
+    it.r-=give;used+=give;out.push({t,a:it.a,min:give,fine:it.r<=0});
+    if(used>=budget)break;
+  }
+  return used;
+}
+function planDay(tracks,k,cap){
+  const out=[];
+  const act=tracks.filter(t=>k<=t.entro&&(!t.dal||k>=t.dal)&&trackLeft(t)>0).sort((x,y)=>x.entro.localeCompare(y.entro)||x.ord-y.ord);
+  let left=cap;
+  act.forEach((t,i)=>{if(i&&t.minimo>0&&left>=10)left-=fillTrack(t,Math.min(t.minimo,left),out,cap)});
+  for(const t of act){if(left<10)break;left-=fillTrack(t,left,out,cap)}
+  const m=new Map();
+  for(const x of out){const o=m.get(x.a.id);if(o){o.min+=x.min;o.fine=x.fine}else m.set(x.a.id,{...x})}
+  return [...m.values()].sort((x,y)=>act.indexOf(x.t)-act.indexOf(y.t));
+}
+function planState(){
+  const P=pianoS();if(!P)return null;
+  const today=todayKey(),cap=pianoMin(P),studyToday=isStudyDay(today,P);
+  /* 1. oggi, partendo da com'era stamattina */
+  const t0=planTracks(P,a=>r5(attMin(a)*(1-attFrac(a,today))));
+  const oggi=studyToday?planDay(t0,today,cap):[];
+  for(const x of oggi){
+    const now=attFrac(x.a),dm=attMin(x.a)*(now-attFrac(x.a,today));
+    x.done=now>=1||dm>=x.min-2;x.doneMin=x.done?x.min:Math.max(0,Math.min(x.min,dm));
+  }
+  /* 2. da domani: quello che resta adesso, dando per fatto quello che oggi è ancora in programma */
+  const owe={};for(const x of oggi)if(!x.done)owe[x.a.id]=(owe[x.a.id]||0)+x.min-x.doneMin;
+  const tracks=planTracks(P,a=>r5(attMin(a)*(1-attFrac(a))-(owe[a.id]||0)));
+  const fine={};
+  for(const t of tracks)if(trackLeft(t)<=0)fine[t.b.id]=oggi.some(x=>x.t.b.id===t.b.id)?today:'fatto';
+  const days=[];let k=addDays(today,1);
+  const last=tracks.reduce((m,t)=>t.entro>m?t.entro:m,'');
+  for(let n=0;k<=last&&n<800&&tracks.some(t=>trackLeft(t)>0);n++,k=addDays(k,1)){
+    if(!isStudyDay(k,P))continue;
+    const items=planDay(tracks,k,cap);
+    if(items.length)days.push({k,items});
+    for(const t of tracks)if(!fine[t.b.id]&&trackLeft(t)<=0)fine[t.b.id]=k;
+  }
+  /* 3. semaforo: ci sta tutto prima della prova? */
+  const studyBetween=(a,b)=>{let n=0;for(let d=addDays(a,1);d<=b;d=addDays(d,1))if(isStudyDay(d,P))n++;return n};
+  const sem=tracks.map(t=>{
+    const all=arr(t.b.attivita),tot=all.reduce((s,a)=>s+attMin(a),0),done=all.reduce((s,a)=>s+attMin(a)*attFrac(a),0);
+    const first=[...(oggi.length?[{k:today,items:oggi}]:[]),...days].find(d=>d.items.some(x=>x.t.b.id===t.b.id));
+    const short=trackLeft(t),f=fine[t.b.id];
+    let col,txt;
+    if(short>0){
+      const avail=Math.max(1,studyBetween(today,t.entro)),extra=Math.ceil(short/avail/5)*5;
+      col='red';txt=`Non ci sta tutto prima della prova: restano fuori circa ${fmtMin(short)}. Servirebbero ${extra} minuti in più al giorno, oppure chiedi a Claude di rivedere il piano.`;
+    }else if(f==='fatto'){col='ok';txt='Tutto fatto per questa prova.'}
+    else{const slack=studyBetween(f,t.entro);
+      col=slack>=2?'ok':'warn';
+      txt=`Finisci ${f===today?'oggi':dayDate(f)}`+(slack?`, ${pl(slack,'giorno','giorni')} di studio prima della scadenza.`:', proprio alla scadenza: se salti un giorno, aggiungi qualche minuto.');}
+    return {t,col,txt,tot,done,start:first?first.k:null};
+  });
+  return {P,cap,today,studyToday,oggi,days,sem,tracks};
+}
+const SEM_LBL={ok:'In linea',warn:'Poco margine',red:'Non ci sta'};
+/* per un argomento dell'app: quante sezioni circa stanno nei minuti di oggi, e a che punto sei */
+function secHint(x,t){const st=topicStats(t),n=Math.max(1,Math.min(st.tot,Math.round(x.min/attMin(x.a)*st.tot)));
+  return (x.fine?'fino alla fine':`circa ${pl(n,'sezione','sezioni')}`)+` · ${st.read} di ${st.tot} lette`}
+function planItemMeta(x,showEx){
+  const t=attTopic(x.a),tot=attMin(x.a),bits=[];
+  if(showEx)bits.push(esc(x.t.e.nome));
+  if(t)bits.push(fmtMin(x.min),secHint(x,t));
+  else bits.push(x.min<tot?`${fmtMin(x.min)} di ${fmtMin(tot)}`+(x.fine?', la finisci':''):fmtMin(x.min));
+  return bits.join(' · ');
+}
+/* una riga del piano con la spunta: tocchi la casella per «Fatto», il testo per aprire l'argomento */
+function planRow(x,showEx,today){
+  const t=attTopic(x.a),ok=today?x.done:attFrac(x.a)>=1;
+  return `<div class="pl-it${ok?' ok':''}">
+    <button class="pl-chk" data-act="att-toggle" data-id="${esc(x.a.id)}" aria-pressed="${ok}" aria-label="${ok?'Togli la spunta':'Segna come fatto'}: ${esc(x.a.titolo)}"><span class="box-c" aria-hidden="true">${ok?'✓':''}</span></button>
+    ${t?`<button class="pl-t" data-act="open-topic" data-id="${esc(t.id)}">`:'<div class="pl-t">'}<span class="t">${esc(x.a.titolo)}</span><span class="m">${planItemMeta(x,showEx)}</span>${t?'</button>':'</div>'}
+  </div>`;
+}
+function planNowCard(st){
+  const x=st.oggi.find(i=>!i.done);
+  if(x){const t=attTopic(x.a),tot=attMin(x.a),fr=attFrac(x.a);
+    return `<section class="card now stack-s"><div class="eyebrow">Adesso · ${esc(x.t.e.nome)}</div>
+      <div class="what">${esc(x.a.titolo)}</div>
+      ${x.a.cosa?md(x.a.cosa):''}
+      <div class="muted small">${t?`Oggi ${fmtMin(x.min)} · ${secHint(x,t)}`:x.min<tot?`Oggi ${fmtMin(x.min)} su ${fmtMin(tot)}`+(x.fine?': la finisci':': il resto nei prossimi giorni'):fmtMin(x.min)}</div>
+      ${t?`<span class="bar"><b style="width:${Math.round(fr*100)}%"></b></span>`:''}
+      <div class="btnrow">${t?`<button class="btn primary big" data-act="open-topic" data-id="${esc(t.id)}">Apri</button><button class="btn ghost" data-act="att-toggle" data-id="${esc(x.a.id)}">Segna fatto</button>`
+        :`<button class="btn primary big" data-act="att-toggle" data-id="${esc(x.a.id)}">Fatto</button>`}</div></section>`;
+  }
+  const nx=st.days[0];
+  const next=nx?`<p class="muted" style="margin:0">Se vuoi andare avanti, la prossima è <b>${esc(nx.items[0].a.titolo)}</b> (${esc(nx.items[0].t.e.nome)}).</p>
+    ${attTopic(nx.items[0].a)?`<button class="btn" data-act="open-topic" data-id="${esc(attTopic(nx.items[0].a).id)}">Apri</button>`
+      :`<button class="btn" data-act="att-toggle" data-id="${esc(nx.items[0].a.id)}">Fatta anche questa</button>`}`:'';
+  if(st.oggi.length)return `<section class="card now done-card stack-s"><div class="eyebrow">Oggi</div><div class="what">Piano di oggi fatto</div>
+    <p style="margin:0">${fmtMin(st.oggi.reduce((s,i)=>s+i.min,0))} di studio. Il resto del piano si è già aggiornato.</p>${next}</section>`;
+  if(!st.studyToday&&nx)return `<section class="card now stack-s"><div class="eyebrow">Oggi è un giorno libero</div>
+    <div class="what">Si riprende ${esc(dayDate(nx.k))}</div>${next}</section>`;
+  return `<section class="card now stack-s"><div class="eyebrow">Piano</div><div class="what">Non c'è altro in programma</div>
+    <p class="muted" style="margin:0">Hai finito tutte le attività del piano. Chiedi a Claude il prossimo pezzo.</p></section>`;
+}
+function planSemHTML(st,full){
+  return st.sem.map(s=>{const pc=s.tot?Math.round(s.done/s.tot*100):0;
+    return `<div class="sem"><div class="sem-h"><b>${esc(s.t.e.nome)}</b><span class="chip ${s.col==='ok'?'ok':s.col==='warn'?'warn':'red'}">${SEM_LBL[s.col]}</span></div>
+      <div class="small">${esc(s.txt)}</div>
+      ${full?`<div class="muted small">${s.t.b.titolo?esc(s.t.b.titolo)+' · ':''}fatto ${pc}% (${fmtMin(s.done)} di ${fmtMin(s.tot)})${s.start&&s.start!==st.today?` · comincia ${esc(dayDate(s.start))}`:''}</div>
+      <span class="bar"><b style="width:${pc}%"></b></span>`:''}</div>`}).join('')||'<div class="muted">Nessun esame del piano è in corso.</div>';
+}
+function renderPlanPage(v){
+  const st=planState();
+  if(!st){S.planPage=false;renderAdesso();return}
+  const g=studyDays(st.P),gn=g.length===5&&[1,2,3,4,5].every(x=>g.includes(x))?'dal lunedì al venerdì':g.map(x=>GSH[x]).join(', ');
+  const day=(k,items,isToday)=>{const tot=items.reduce((s,i)=>s+i.min,0),done=isToday?items.reduce((s,i)=>s+i.doneMin,0):0;
+    return `<section class="card day stack-s"><div class="day-h"><b>${isToday?'Oggi · ':''}${esc(dayDate(k))}</b><span class="muted small num">${isToday?`${fmtMin(done)} di ${fmtMin(tot)}`:fmtMin(tot)}</span></div>
+      <div class="pl-list">${items.map(x=>planRow(x,true,isToday)).join('')}</div></section>`};
+  const n=st.oggi.length?9:10,all=S.more.has('plan-days'),shown=all?st.days:st.days.slice(0,n);
+  const list=(st.oggi.length?day(st.today,st.oggi,true):'')+shown.map(d=>day(d.k,d.items,false)).join('')
+    +(!all&&st.days.length>n?`<button class="btn ghost more-btn full" data-act="more" data-k="plan-days">Mostra altri ${st.days.length-n} giorni</button>`:'');
+  v.innerHTML=`<div class="full"><button class="back" data-act="plan-close">${IC.left}Adesso</button></div>
+  <h1 class="page-h">Piano di studio</h1>
+  <section class="card stack-s"><div class="eyebrow">Come funziona</div>
+    <p style="margin:0"><b>${fmtMin(st.cap)} al giorno</b>, ${esc(gn)}. Si va avanti nell'ordine, prima l'esame più vicino.</p>
+    <p class="muted small" style="margin:0">Il piano si ricalcola da solo: le sezioni lette contano da sole, le altre attività le spunti tu. Se fai di più vai avanti, se salti un giorno il resto passa ai giorni dopo.</p>
+    <div class="btnrow"><button class="btn" data-act="plan-min">Cambia i minuti al giorno</button></div></section>
+  <section class="card stack-s"><div class="eyebrow">Gli esami</div>${planSemHTML(st,true)}
+    ${st.P.messaggio?`<div class="note">${esc(st.P.messaggio)}</div>`:''}</section>
+  <h2 class="full sub-h">I prossimi giorni</h2>
+  ${list||'<p class="muted full">Niente in programma.</p>'}`;
+}
+function planMinSheet(){
+  const P=pianoS();if(!P)return;
+  const mine=+S.imp.piano_minuti>=15;
+  openSheet(`<h2>Minuti al giorno</h2><div class="stack-s">
+    <label class="lbl">Quanti minuti studi in un giorno di studio<input class="field" type="text" id="pl-min" inputmode="numeric" autocomplete="off" value="${pianoMin(P)}"></label>
+    <p class="note">Il piano si ricalcola subito. Claude aveva messo ${esc(P.minuti_giorno)} minuti.${mine?` <button class="btn small ghost" data-act="plan-min-reset">Rimetti ${esc(P.minuti_giorno)}</button>`:''}</p>
+    <div class="foot"><button class="btn ghost" data-act="close">Annulla</button><button class="btn primary" data-act="plan-min-save">Salva</button></div></div>`);
+}
+
 function renderAdesso(){
   const v=$('#v-adesso');
+  if(S.planPage){renderPlanPage(v);return}
   const upd=updCard();
   if(!S.esami.size){
     v.innerHTML=`<h1 class="page-h">Adesso</h1>`+(upd||`
@@ -1213,6 +1458,21 @@ function renderAdesso(){
       <div class="what">Importa il primo pacchetto</div>
       <p class="muted" style="margin:0">Incolla il JSON che ti ha preparato Claude: prima l'esame, poi i contenuti.</p>
       <button class="btn primary big" data-act="import">Importa</button></section>`);
+    return;
+  }
+  const st=planState();
+  if(st){
+    const tot=st.oggi.reduce((s,i)=>s+i.min,0),done=st.oggi.reduce((s,i)=>s+i.doneMin,0);
+    v.innerHTML=`<h1 class="page-h">Adesso</h1>${upd}${planNowCard(st)}
+    ${st.oggi.length?`<section class="card stack-s"><div class="day-h"><span class="eyebrow">Il piano di oggi</span><span class="muted small num">${fmtMin(done)} di ${fmtMin(tot)}</span></div>
+      <span class="bar"><b style="width:${tot?Math.round(done/tot*100):0}%"></b></span>
+      <div class="pl-list">${st.oggi.map(x=>planRow(x,st.sem.length>1,true)).join('')}</div>
+      <button class="btn" data-act="plan-open">Tutto il piano</button></section>`
+    :`<section class="card stack-s"><div class="eyebrow">Il piano</div><p style="margin:0">${st.days.length?`Il prossimo giorno di studio è ${esc(dayDate(st.days[0].k))}: ${fmtMin(st.days[0].items.reduce((s,i)=>s+i.min,0))}.`:'Non ci sono altri giorni in programma.'}</p>
+      <button class="btn" data-act="plan-open">Tutto il piano</button></section>`}
+    ${deadlineCard()}
+    <section class="card stack-s"><div class="eyebrow">Gli esami</div>${planSemHTML(st,false)}</section>
+    <p class="note">Il piano si ricalcola da solo ogni volta che leggi una sezione o spunti un'attività.</p>`;
     return;
   }
   const a=resumeTopic();let h='<h1 class="page-h">Adesso</h1>'+upd+deadlineCard();
@@ -1232,7 +1492,7 @@ function renderAdesso(){
   h+=`<section class="card"><div class="eyebrow" style="margin-bottom:8px">Esami in corso · ${fmtH(weeklyHours())} h a settimana</div>${act.length?act.slice(0,5).map(e=>
     `<div class="examrow"><b>${esc(e.nome)}</b><span class="muted small num">${esc(shortDate(e.data_esame))} · ${untilText(e.data_esame)}</span></div>`).join('')
     :'<div class="muted">Tutti gli esami sono in pausa.</div>'}</section>
-    <p class="note">Il piano del giorno, il timer e il semaforo arrivano con il prossimo aggiornamento.</p>`;
+    <p class="note">Il piano del giorno arriva con il pacchetto del piano di Claude: quando compare «Novità da Claude», tocca Aggiorna.</p>`;
   v.innerHTML=h;
 }
 
@@ -1375,11 +1635,16 @@ function renderVittorie(){
   const today=todayKey(),started=new Set();
   const secTitle={};for(const a of S.arg.values())for(const s of arr(a.sezioni))secTitle[s.id]=[s.titolo,a.titolo];
   reads.forEach(r=>{const t=secTitle[r.rif];if(t)started.add(t[1])});
+  /* le attività del piano spuntate a mano (per esempio una lezione studiata sulla dispensa del portale) */
+  const attT={};const P=pianoS();if(P)for(const b of arr(P.binari))for(const a of arr(b.attivita))attT[a.id]=a.titolo;
+  const acts=[...S.prog.values()].filter(r=>r.tipo==='attivita');
   v.innerHTML=`<h1 class="page-h">Vittorie</h1>
   <div class="kpis"><div class="kpi"><b>${reads.filter(r=>r.data===today).length}</b><span>sezioni lette oggi</span></div>
     <div class="kpi"><b>${reads.length}</b><span>sezioni lette in tutto</span></div></div>
   <section class="card"><div class="eyebrow" style="margin-bottom:6px">Ultime cose fatte</div>
-    ${reads.length?limited('wins',reads,r=>{const t=secTitle[r.rif];
+    ${reads.length||acts.length?limited('wins',reads.concat(acts).sort((a,b)=>b.ts-a.ts),r=>{
+      if(r.tipo==='attivita')return `<div class="win"><span class="d num">${esc(shortDate(r.data))}</span><span class="w">Fatto <b>${esc(attT[r.rif]||r.rif)}</b></span></div>`;
+      const t=secTitle[r.rif];
       return `<div class="win"><span class="d num">${esc(shortDate(r.data))}</span><span class="w">Letto <b>${esc(t?t[0]:r.rif)}</b>${t?' · '+esc(t[1]):''}</span></div>`})
       :'<div class="empty">Qui comparirà quello che fai. Ogni sezione letta conta.</div>'}
   </section>
@@ -1528,6 +1793,7 @@ const ACT={
     const plan=S.checked&&S.checked.plan;if(!plan)return;b.disabled=true;
     try{await applyPlan(plan)}catch(e){toast('Non sono riuscito a salvare: '+(e&&e.message||e));b.disabled=false;return}
     S.draft='';closeSheet();toast('Importato');
+    if(plan.piano){S.planPage=true;go('adesso');return}
     S.route={esame:plan.p.esame_id,arg:null};S.open=null;
     if(!S.esami.has(plan.p.esame_id))S.route={esame:null,arg:null};
     go('esami');
@@ -1538,6 +1804,7 @@ const ACT={
     try{for(const d of list){await applyPlan(buildPlan(d));n++;last=d.esame_id}}
     catch(e){closeSheet();toast(`Mi sono fermato dopo ${pl(n,'pacchetto','pacchetti')}: ${e&&e.message||e}`);render();return}
     S.draft='';closeSheet();toast(`Importati ${pl(n,'pacchetto','pacchetti')}`);
+    if(list.some(d=>d.tipo==='piano_studio')){S.planPage=true;go('adesso');return}
     S.route={esame:S.esami.has(last)?last:null,arg:null};S.open=null;
     go('esami');
   },
@@ -1591,6 +1858,19 @@ const ACT={
   'reload-app':()=>location.reload(),
   'edit-exam':b=>editExamSheet(b.dataset.id),
   'goto-exam':b=>{S.route={esame:b.dataset.id,arg:null};S.tab='esami';lsSet(LS_TAB,'esami');render();window.scrollTo(0,0)},
+  /* piano di studio: la spunta «Fatto» di un'attività (resta sul dispositivo, come le sezioni lette) */
+  'att-toggle':async b=>{const id=b.dataset.id,k='att:'+id;
+    if(S.prog.has(k)){S.prog.delete(k);await del('progressi',k);toast('Spunta tolta')}
+    else{const r={id:k,tipo:'attivita',rif:id,data:todayKey(),ts:Date.now()};S.prog.set(k,r);await put('progressi',r);toast('Fatto. Il piano si è aggiornato')}
+    render()},
+  'plan-open':()=>{S.planPage=true;S.tab='adesso';lsSet(LS_TAB,'adesso');render();window.scrollTo(0,0)},
+  'plan-close':()=>{S.planPage=false;render();window.scrollTo(0,0)},
+  'plan-min':()=>planMinSheet(),
+  'plan-min-save':async()=>{const raw=$('#pl-min').value.trim(),n=Number(raw);
+    if(!/^\d+$/.test(raw)||n<15||n>480){toast('Scrivi un numero di minuti tra 15 e 480, per esempio 90');return}
+    const P=pianoS();await setImp('piano_minuti',P&&n===+P.minuti_giorno?null:n);await setImp('piano_minuti_ts',Date.now());
+    closeSheet();toast('Salvato: il piano si è ricalcolato');render()},
+  'plan-min-reset':async()=>{await setImp('piano_minuti',null);await setImp('piano_minuti_ts',Date.now());closeSheet();toast('Rimessi i minuti di Claude');render()},
   'req-toggle':async b=>{const k=reqKey(b.dataset.id,b.dataset.r),all={...spunte()};
     if(all[k])delete all[k];else all[k]=true;await setImp('requisiti_spunte',all);render()},
   'save-exam':async b=>{
@@ -1615,7 +1895,7 @@ const ACT={
 };
 document.addEventListener('click',e=>{
   const tab=e.target.closest('.nav [data-tab]');
-  if(tab){const t=tab.dataset.tab;if(t==='esami'&&S.tab==='esami'){S.route={esame:null,arg:null}}go(t);return}
+  if(tab){const t=tab.dataset.tab;if(t==='esami'&&S.tab==='esami'){S.route={esame:null,arg:null}}if(t==='adesso')S.planPage=false;go(t);return}
   const b=e.target.closest('[data-act]');
   if(b&&ACT[b.dataset.act]){e.preventDefault();ACT[b.dataset.act](b);return}
   if(e.target.id==='backdrop')closeSheet();

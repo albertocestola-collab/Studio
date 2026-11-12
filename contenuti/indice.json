@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generato_il": "2026-11-11",
+ "generato_il": "2026-11-12",
  "pacchetti": [
   {
    "file": "analisi-1/anl1-esame-v2.json",
@@ -57,6 +57,14 @@
    "esame_id": "anl1",
    "hash": "89480eaeda82dfa4",
    "kb": 23
+  },
+  {
+   "file": "piano/piano-v1.json",
+   "id_pacchetto": "piano-v1",
+   "tipo": "piano_studio",
+   "esame_id": "",
+   "hash": "54d485c9dd6a9da2",
+   "kb": 25
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-1di5.json",

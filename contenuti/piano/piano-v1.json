@@ -1,0 +1,708 @@
+{
+ "schema_version": 1,
+ "tipo": "piano_studio",
+ "id_pacchetto": "piano-v1",
+ "generato_il": "2026-11-12",
+ "piano": {
+  "minuti_giorno": 90,
+  "giorni_settimana": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "liberi": [
+   "2026-12-08",
+   "2026-12-24",
+   "2026-12-25",
+   "2026-12-31",
+   "2027-01-01",
+   "2027-01-06",
+   "2027-03-29"
+  ],
+  "messaggio": "Fino al 2 dicembre Sicurezza, con 20 minuti di Programmazione al giorno per non perdere il filo. Poi Programmazione fino a febbraio, poi Analisi. I minuti sono una prima stima: se una cosa ti prende più o meno tempo, dillo a Claude e li corregge.",
+  "binari": [
+   {
+    "id": "pb.sic",
+    "esame_id": "sic",
+    "titolo": "Prova intermedia: lezioni 1–20",
+    "attivita": [
+     {
+      "id": "pa.sic.l01",
+      "titolo": "Lezione 1: Introduzione alla sicurezza informatica",
+      "minuti": 35,
+      "rif": "sic.l01",
+      "cosa": "Sul portale: leggi la dispensa della lezione 1 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l02",
+      "titolo": "Lezione 2: Minacce alla sicurezza",
+      "minuti": 35,
+      "rif": "sic.l02",
+      "cosa": "Sul portale: leggi la dispensa della lezione 2 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l03",
+      "titolo": "Lezione 3: Crimini informatici",
+      "minuti": 35,
+      "rif": "sic.l03",
+      "cosa": "Sul portale: leggi la dispensa della lezione 3 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l04",
+      "titolo": "Lezione 4: Cifratura simmetrica",
+      "minuti": 35,
+      "rif": "sic.l04",
+      "cosa": "Sul portale: leggi la dispensa della lezione 4 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l05",
+      "titolo": "Lezione 5: Autenticazione dei messaggi e funzioni hash",
+      "minuti": 35,
+      "rif": "sic.l05",
+      "cosa": "Sul portale: leggi la dispensa della lezione 5 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l06",
+      "titolo": "Lezione 6: Cifratura a chiave pubblica",
+      "minuti": 35,
+      "rif": "sic.l06",
+      "cosa": "Sul portale: leggi la dispensa della lezione 6 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l07",
+      "titolo": "Lezione 7: Firma digitale e gestione delle chiavi",
+      "minuti": 35,
+      "rif": "sic.l07",
+      "cosa": "Sul portale: leggi la dispensa della lezione 7 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l08",
+      "titolo": "Lezione 8: Principi di autenticazione",
+      "minuti": 35,
+      "rif": "sic.l08",
+      "cosa": "Sul portale: leggi la dispensa della lezione 8 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l09",
+      "titolo": "Lezione 9: Autenticazione con password",
+      "minuti": 35,
+      "rif": "sic.l09",
+      "cosa": "Sul portale: leggi la dispensa della lezione 9 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l10",
+      "titolo": "Lezione 10: Autenticazione con token, biometrica, remota",
+      "minuti": 35,
+      "rif": "sic.l10",
+      "cosa": "Sul portale: leggi la dispensa della lezione 10 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l11",
+      "titolo": "Lezione 11: Principi di controllo degli accessi",
+      "minuti": 35,
+      "rif": "sic.l11",
+      "cosa": "Sul portale: leggi la dispensa della lezione 11 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l12",
+      "titolo": "Lezione 12: Controllo degli accessi discrezionale",
+      "minuti": 35,
+      "rif": "sic.l12",
+      "cosa": "Sul portale: leggi la dispensa della lezione 12 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l13",
+      "titolo": "Lezione 13: Controllo degli accessi basato sui ruoli",
+      "minuti": 35,
+      "rif": "sic.l13",
+      "cosa": "Sul portale: leggi la dispensa della lezione 13 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l14",
+      "titolo": "Lezione 14: Malware",
+      "minuti": 35,
+      "rif": "sic.l14",
+      "cosa": "Sul portale: leggi la dispensa della lezione 14 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.lockdown",
+      "titolo": "Prova tecnica di LockDown Browser",
+      "minuti": 15,
+      "cosa": "Fai la simulazione con LockDown Browser sul portale: serve per fare la prova da casa. Va fatta entro il 30 novembre."
+     },
+     {
+      "id": "pa.sic.l15",
+      "titolo": "Lezione 15: Virus",
+      "minuti": 35,
+      "rif": "sic.l15",
+      "cosa": "Sul portale: leggi la dispensa della lezione 15 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l16",
+      "titolo": "Lezione 16: Worm",
+      "minuti": 35,
+      "rif": "sic.l16",
+      "cosa": "Sul portale: leggi la dispensa della lezione 16 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l17",
+      "titolo": "Lezione 17: Trojan, backdoor, rootkit",
+      "minuti": 35,
+      "rif": "sic.l17",
+      "cosa": "Sul portale: leggi la dispensa della lezione 17 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l18",
+      "titolo": "Lezione 18: Antivirus",
+      "minuti": 35,
+      "rif": "sic.l18",
+      "cosa": "Sul portale: leggi la dispensa della lezione 18 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l19",
+      "titolo": "Lezione 19: Buffer overflow",
+      "minuti": 35,
+      "rif": "sic.l19",
+      "cosa": "Sul portale: leggi la dispensa della lezione 19 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.l20",
+      "titolo": "Lezione 20: Sicurezza del software",
+      "minuti": 35,
+      "rif": "sic.l20",
+      "cosa": "Sul portale: leggi la dispensa della lezione 20 e fai il test di fine lezione."
+     },
+     {
+      "id": "pa.sic.rip1",
+      "titolo": "Ripasso: test di fine lezione 1–10",
+      "minuti": 45,
+      "cosa": "Rifai i test di fine lezione delle lezioni 1–10 sul portale. Segnati le domande sbagliate e rileggi quel pezzo di dispensa."
+     },
+     {
+      "id": "pa.sic.rip2",
+      "titolo": "Ripasso: test di fine lezione 11–20",
+      "minuti": 45,
+      "cosa": "Rifai i test di fine lezione delle lezioni 11–20. Segnati le domande sbagliate e rileggi quel pezzo di dispensa."
+     }
+    ]
+   },
+   {
+    "id": "pb.prg",
+    "esame_id": "prg",
+    "titolo": "Prova intermedia: lezioni 1–50",
+    "minimo_giorno": 20,
+    "attivita": [
+     {
+      "id": "pa.prg.stor",
+      "titolo": "Introduzione, storia ed evoluzione dei calcolatori",
+      "minuti": 85,
+      "rif": "prg.stor",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.bin",
+      "titolo": "Rappresentazione binaria dell'informazione e codifiche",
+      "minuti": 75,
+      "rif": "prg.bin",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.bool",
+      "titolo": "Logica booleana",
+      "minuti": 70,
+      "rif": "prg.bool",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.arch",
+      "titolo": "Architetture dei calcolatori",
+      "minuti": 70,
+      "rif": "prg.arch",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.mem",
+      "titolo": "La memoria",
+      "minuti": 70,
+      "rif": "prg.mem",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.gmem",
+      "titolo": "Gestione della memoria e file system",
+      "minuti": 65,
+      "rif": "prg.gmem",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.cpu",
+      "titolo": "La CPU: struttura interna e ciclo fetch-decode-execute",
+      "minuti": 70,
+      "rif": "prg.cpu",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.so",
+      "titolo": "Introduzione ai sistemi operativi",
+      "minuti": 65,
+      "rif": "prg.so",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.proc",
+      "titolo": "Processi, thread e concorrenza",
+      "minuti": 70,
+      "rif": "prg.proc",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.reti",
+      "titolo": "Introduzione alle reti di calcolatori",
+      "minuti": 70,
+      "rif": "prg.reti",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.alg",
+      "titolo": "Cos'è un algoritmo e come si rappresenta",
+      "minuti": 75,
+      "rif": "prg.alg",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.ling",
+      "titolo": "Tipologie di linguaggi di programmazione",
+      "minuti": 70,
+      "rif": "prg.ling",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.cintro",
+      "titolo": "Introduzione al linguaggio C: storia, compilatore, IDE",
+      "minuti": 70,
+      "rif": "prg.cintro",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.tipi",
+      "titolo": "Tipi di dato primitivi, variabili e costanti",
+      "minuti": 75,
+      "rif": "prg.tipi",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.fun",
+      "titolo": "Funzioni, operatori e precedenza",
+      "minuti": 75,
+      "rif": "prg.fun",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.io",
+      "titolo": "Input/output",
+      "minuti": 75,
+      "rif": "prg.io",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.flux",
+      "titolo": "Controllo del flusso e cicli",
+      "minuti": 80,
+      "rif": "prg.flux",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.lib",
+      "titolo": "Librerie e raccolte di funzioni",
+      "minuti": 80,
+      "rif": "prg.lib",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.file",
+      "titolo": "Scrittura e lettura da file",
+      "minuti": 80,
+      "rif": "prg.file",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.uml",
+      "titolo": "UML, Unified Modelling Language",
+      "minuti": 80,
+      "rif": "prg.uml",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.prg.sd",
+      "titolo": "Strutture dati e array",
+      "minuti": 75,
+      "rif": "prg.sd",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.pila",
+      "titolo": "Stack e queue",
+      "minuti": 75,
+      "rif": "prg.pila",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.lista",
+      "titolo": "Liste concatenate",
+      "minuti": 75,
+      "rif": "prg.lista",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.ord",
+      "titolo": "Ordinamenti semplici: bubble, selection, insertion sort",
+      "minuti": 75,
+      "rif": "prg.ord",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.ordav",
+      "titolo": "Ordinamenti avanzati: quicksort e mergesort",
+      "minuti": 75,
+      "rif": "prg.ordav",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.ric",
+      "titolo": "Ricerca lineare e binaria",
+      "minuti": 75,
+      "rif": "prg.ric",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.graf",
+      "titolo": "Grafi e alberi e la ricerca su di essi",
+      "minuti": 75,
+      "rif": "prg.graf",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.compl",
+      "titolo": "Analisi della complessità computazionale",
+      "minuti": 75,
+      "rif": "prg.compl",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.cpp",
+      "titolo": "Da C a C++ e introduzione alla programmazione a oggetti",
+      "minuti": 75,
+      "rif": "prg.cpp",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.cla",
+      "titolo": "Classi, oggetti e incapsulamento",
+      "minuti": 75,
+      "rif": "prg.cla",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.costr",
+      "titolo": "Costruttori e distruttori",
+      "minuti": 75,
+      "rif": "prg.costr",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.poli",
+      "titolo": "Polimorfismo e overloading",
+      "minuti": 75,
+      "rif": "prg.poli",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.ered",
+      "titolo": "Ereditarietà semplice e multipla",
+      "minuti": 75,
+      "rif": "prg.ered",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.thr",
+      "titolo": "Multithreading e thread in C++",
+      "minuti": 75,
+      "rif": "prg.thr",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.link",
+      "titolo": "Compilazione e linking",
+      "minuti": 75,
+      "rif": "prg.link",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.punt",
+      "titolo": "Puntatori e funzioni con puntatori",
+      "minuti": 75,
+      "rif": "prg.punt",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.din",
+      "titolo": "Memoria dinamica e allocazione in C++",
+      "minuti": 75,
+      "rif": "prg.din",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.smart",
+      "titolo": "Gestione automatica della memoria",
+      "minuti": 75,
+      "rif": "prg.smart",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.tmpl",
+      "titolo": "Template e programmazione generica",
+      "minuti": 75,
+      "rif": "prg.tmpl",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.ev",
+      "titolo": "Programmazione e gestione degli eventi",
+      "minuti": 75,
+      "rif": "prg.ev",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.exc",
+      "titolo": "Eccezioni in C++",
+      "minuti": 75,
+      "rif": "prg.exc",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.prg.rip1",
+      "titolo": "Ripasso: test di fine lezione 1–25",
+      "minuti": 90,
+      "cosa": "Rifai i test di fine lezione 1–25 sul portale; dove sbagli, riapri l'argomento nell'app."
+     },
+     {
+      "id": "pa.prg.rip2",
+      "titolo": "Ripasso: test di fine lezione 26–50",
+      "minuti": 90,
+      "cosa": "Rifai i test di fine lezione 26–50 sul portale; dove sbagli, riapri l'argomento nell'app."
+     }
+    ]
+   },
+   {
+    "id": "pb.anl1",
+    "esame_id": "anl1",
+    "titolo": "Prova intermedia: lezioni 1–50",
+    "attivita": [
+     {
+      "id": "pa.anl1.ins",
+      "titolo": "Insiemi e numeri: naturali, interi, razionali, reali",
+      "minuti": 50,
+      "rif": "anl1.ins",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.anl1.sup",
+      "titolo": "Massimo, minimo, estremo superiore e inferiore",
+      "minuti": 30,
+      "rif": "anl1.sup",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.anl1.top",
+      "titolo": "Intervalli, intorni e principio di induzione",
+      "minuti": 35,
+      "rif": "anl1.top",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.anl1.fun",
+      "titolo": "Funzioni: definizione e proprietà",
+      "minuti": 30,
+      "rif": "anl1.fun",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.anl1.pol",
+      "titolo": "Rette, potenze, radici e polinomi",
+      "minuti": 30,
+      "rif": "anl1.pol",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.anl1.exp",
+      "titolo": "Esponenziali, logaritmi e valore assoluto",
+      "minuti": 35,
+      "rif": "anl1.exp",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.anl1.trig",
+      "titolo": "Trigonometria",
+      "minuti": 35,
+      "rif": "anl1.trig",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.anl1.graf",
+      "titolo": "Grafici di funzioni composte",
+      "minuti": 35,
+      "rif": "anl1.graf",
+      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+     },
+     {
+      "id": "pa.anl1.suc",
+      "titolo": "Limiti di successioni",
+      "minuti": 50,
+      "rif": "anl1.suc",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.nep",
+      "titolo": "Il numero di Nepero e le successioni di Cauchy",
+      "minuti": 50,
+      "rif": "anl1.nep",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.lim",
+      "titolo": "Limiti di funzioni e funzioni continue",
+      "minuti": 50,
+      "rif": "anl1.lim",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.limn",
+      "titolo": "Limiti notevoli",
+      "minuti": 50,
+      "rif": "anl1.limn",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.ser",
+      "titolo": "Serie numeriche",
+      "minuti": 50,
+      "rif": "anl1.ser",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.cont",
+      "titolo": "Discontinuità e teoremi sulle funzioni continue",
+      "minuti": 50,
+      "rif": "anl1.cont",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.der",
+      "titolo": "La derivata e le regole di calcolo",
+      "minuti": 50,
+      "rif": "anl1.der",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.teo",
+      "titolo": "Teoremi di Fermat, Rolle e Lagrange",
+      "minuti": 50,
+      "rif": "anl1.teo",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.mon",
+      "titolo": "Monotonia e convessità",
+      "minuti": 50,
+      "rif": "anl1.mon",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.hop",
+      "titolo": "Limiti con le derivate: de l'Hôpital",
+      "minuti": 50,
+      "rif": "anl1.hop",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.tay",
+      "titolo": "La formula di Taylor",
+      "minuti": 50,
+      "rif": "anl1.tay",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.stu",
+      "titolo": "Studio di funzione",
+      "minuti": 50,
+      "rif": "anl1.stu",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.int",
+      "titolo": "L'integrale di Riemann e le sue proprietà",
+      "minuti": 50,
+      "rif": "anl1.int",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.tfc",
+      "titolo": "Teorema fondamentale e integrale indefinito",
+      "minuti": 50,
+      "rif": "anl1.tfc",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.tecint",
+      "titolo": "Tecniche di integrazione",
+      "minuti": 50,
+      "rif": "anl1.tecint",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.imp",
+      "titolo": "Integrali impropri",
+      "minuti": 50,
+      "rif": "anl1.imp",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.vet",
+      "titolo": "Vettori e spazi vettoriali",
+      "minuti": 90,
+      "rif": "anl1.vet",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.base",
+      "titolo": "Dipendenza lineare, basi e dimensione",
+      "minuti": 90,
+      "rif": "anl1.base",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.sis",
+      "titolo": "Sistemi lineari, rango e metodo di Gauss",
+      "minuti": 90,
+      "rif": "anl1.sis",
+      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+     },
+     {
+      "id": "pa.anl1.rip1",
+      "titolo": "Ripasso: test di fine lezione 1–25",
+      "minuti": 90,
+      "cosa": "Rifai i test di fine lezione 1–25 sul portale; dove sbagli, riapri l'argomento nell'app."
+     },
+     {
+      "id": "pa.anl1.rip2",
+      "titolo": "Ripasso: test di fine lezione 26–50",
+      "minuti": 90,
+      "cosa": "Rifai i test di fine lezione 26–50 sul portale; dove sbagli, riapri l'argomento nell'app."
+     }
+    ]
+   }
+  ]
+ }
+}
