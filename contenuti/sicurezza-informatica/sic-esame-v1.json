@@ -2,7 +2,7 @@
  "schema_version": 1,
  "tipo": "nuovo_esame",
  "id_pacchetto": "sic-esame-v1",
- "generato_il": "2026-11-11",
+ "generato_il": "2026-11-12",
  "esame_id": "sic",
  "esame": {
   "nome": "Sicurezza informatica",

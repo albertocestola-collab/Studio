@@ -7,7 +7,7 @@
    "id_pacchetto": "anl1-esame-v2",
    "tipo": "nuovo_esame",
    "esame_id": "anl1",
-   "hash": "84b436739637379f",
+   "hash": "b798621eb1c36772",
    "kb": 6
   },
   {
@@ -15,7 +15,7 @@
    "id_pacchetto": "prg-esame-v3",
    "tipo": "nuovo_esame",
    "esame_id": "prg",
-   "hash": "ac8b68a8ff51855e",
+   "hash": "67ae1847e6c45b6d",
    "kb": 8
   },
   {
@@ -23,7 +23,7 @@
    "id_pacchetto": "sic-esame-v1",
    "tipo": "nuovo_esame",
    "esame_id": "sic",
-   "hash": "f79cd18cf92a9da3",
+   "hash": "e95066c36c60781d",
    "kb": 5
   },
   {

@@ -2,7 +2,7 @@
  "schema_version": 1,
  "tipo": "nuovo_esame",
  "id_pacchetto": "prg-esame-v3",
- "generato_il": "2026-11-11",
+ "generato_il": "2026-11-12",
  "esame_id": "prg",
  "esame": {
   "nome": "Programmazione",
