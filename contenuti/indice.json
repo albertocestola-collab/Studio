@@ -7,23 +7,23 @@
    "id_pacchetto": "anl1-esame-v2",
    "tipo": "nuovo_esame",
    "esame_id": "anl1",
-   "hash": "73d5806f7404f0a7",
-   "kb": 5
+   "hash": "84b436739637379f",
+   "kb": 6
   },
   {
    "file": "programmazione/prg-esame-v3.json",
    "id_pacchetto": "prg-esame-v3",
    "tipo": "nuovo_esame",
    "esame_id": "prg",
-   "hash": "a6c5465cf2a1432a",
-   "kb": 7
+   "hash": "ac8b68a8ff51855e",
+   "kb": 8
   },
   {
    "file": "sicurezza-informatica/sic-esame-v1.json",
    "id_pacchetto": "sic-esame-v1",
    "tipo": "nuovo_esame",
    "esame_id": "sic",
-   "hash": "a0b0b9e202033d69",
+   "hash": "f79cd18cf92a9da3",
    "kb": 5
   },
   {

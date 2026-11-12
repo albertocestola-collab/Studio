@@ -237,6 +237,48 @@
     "testo": "Bonus +1: due lezioni live con il test superato",
     "valore": "facoltativo"
    }
+  ],
+  "capitoli": [
+   {
+    "numero": 1,
+    "titolo": "1 · Nozioni preliminari",
+    "nota": "lezioni 1–3"
+   },
+   {
+    "numero": 2,
+    "titolo": "2 · Funzioni e funzioni elementari",
+    "nota": "lezioni 4–8"
+   },
+   {
+    "numero": 3,
+    "titolo": "3 · Limiti di successioni e di funzioni",
+    "nota": "lezioni 9–14"
+   },
+   {
+    "numero": 4,
+    "titolo": "4 · Serie numeriche",
+    "nota": "lezioni 15–17"
+   },
+   {
+    "numero": 5,
+    "titolo": "5 · Funzioni continue",
+    "nota": "lezioni 18–21"
+   },
+   {
+    "numero": 6,
+    "titolo": "6 · Derivate e studio di funzione",
+    "nota": "lezioni 22–30"
+   },
+   {
+    "numero": 7,
+    "titolo": "7 · Integrali",
+    "nota": "lezioni 31–38"
+   },
+   {
+    "numero": 8,
+    "titolo": "8 · Algebra lineare",
+    "nota": "lezioni 39–54; dalla 51 è prova finale"
+   }
   ]
  }
 }

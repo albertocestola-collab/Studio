@@ -357,6 +357,38 @@
     "testo": "Bonus +1: due lezioni live con il test superato",
     "valore": "facoltativo"
    }
+  ],
+  "capitoli": [
+   {
+    "numero": 1,
+    "titolo": "Modulo 1 · Fondamenti di informatica e architettura dei calcolatori",
+    "nota": "lezioni 1–10"
+   },
+   {
+    "numero": 2,
+    "titolo": "Modulo 2 · Logica algoritmica e programmazione in C",
+    "nota": "lezioni 11–20"
+   },
+   {
+    "numero": 3,
+    "titolo": "Modulo 3 · Strutture dati e algoritmi fondamentali",
+    "nota": "lezioni 21–30"
+   },
+   {
+    "numero": 4,
+    "titolo": "Modulo 4 · C++ e paradigma OOP",
+    "nota": "lezioni 31–40"
+   },
+   {
+    "numero": 5,
+    "titolo": "Modulo 5 · Gestione della memoria e degli eventi: programmazione avanzata in C++",
+    "nota": "lezioni 41–50"
+   },
+   {
+    "numero": 6,
+    "titolo": "Modulo 6 · Java e OOP avanzata",
+    "nota": "lezioni 51–60, prova finale"
+   }
   ]
  }
 }

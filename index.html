@@ -150,6 +150,9 @@ button.pl-t .t{color:var(--accent)}
 .examrow b{overflow-wrap:break-word;min-width:0}
 
 /* righe toccabili */
+.cap-h{display:flex;flex-direction:column;gap:2px;font-size:17px;font-weight:800;line-height:1.25;margin:14px 2px 2px;overflow-wrap:anywhere}
+.stack-s>.cap-h:first-child{margin-top:4px}
+.cap-h .small{font-weight:400;font-family:var(--f-body)}
 .row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;background:var(--surface);box-shadow:var(--shadow);border-radius:14px;min-height:60px}
 .row .txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .row .t{font-weight:700;overflow-wrap:anywhere}
@@ -951,6 +954,11 @@ function validate(p,bytes){
         idOk(x.id,ww,eid);need(x,'testo',ww,'str');opt(x,'valore',ww,'str');
         if(x.fatto!==undefined&&typeof x.fatto!=='boolean')E(`${ww} il campo fatto deve valere true o false.`);
       });
+      /* capitoli (v18): i titoli che separano gli argomenti nella pagina dell'esame */
+      if(opt(e,'capitoli',w,'arr'))arr(e.capitoli).forEach((x,i)=>{
+        if(!x||typeof x!=='object'){E(`Nei capitoli, la voce ${i+1} non è un oggetto.`);return}
+        const ww=`Nel capitolo ${i+1},`;need(x,'numero',ww,'num');need(x,'titolo',ww,'str');opt(x,'nota',ww,'str');
+      });
     }
   }
 
@@ -1116,7 +1124,8 @@ function buildPlan(p){
     const n=p.esame,old=esami.get(p.esame_id);
     esami.set(p.esame_id,{id:p.esame_id,nome:n.nome,cfu:n.cfu,data_esame:n.data_esame,ore_settimanali:n.ore_settimanali,
       perche_mi_serve:n.perche_mi_serve||(old&&old.perche_mi_serve)||'',programma:mergeById(old&&old.programma,n.programma),simulazioni:arr(old&&old.simulazioni),
-      prove:n.prove!==undefined?arr(n.prove):arr(old&&old.prove),requisiti:n.requisiti!==undefined?arr(n.requisiti):arr(old&&old.requisiti)});
+      prove:n.prove!==undefined?arr(n.prove):arr(old&&old.prove),requisiti:n.requisiti!==undefined?arr(n.requisiti):arr(old&&old.requisiti),
+      capitoli:n.capitoli!==undefined?arr(n.capitoli):arr(old&&old.capitoli)});
     tE.add(p.esame_id);
     const mine=obj(scelte()[p.esame_id]),kept=[];
     if('data_esame' in mine)kept.push('la data ('+esc(shortDate(mine.data_esame))+')');
@@ -1559,14 +1568,20 @@ function renderExam(v,e){
     <div class="btnrow" style="margin-top:10px"><button class="btn" data-act="edit-exam" data-id="${esc(e.id)}">Modifica data, ore e pausa</button>
       ${examTerms(e.id).length?`<button class="btn" data-act="open-gloss" data-id="${esc(e.id)}">Glossario · ${pl(examTerms(e.id).length,'termine','termini')}</button>`:''}</div></div>
   ${calendarHTML(e)}
-  <!-- una colonna sola e il numero d'ordine (1, 2, 3…): è un percorso da fare dall'alto in basso, anche sul PC -->
+  <!-- una colonna sola e il numero d'ordine (1, 2, 3…): è un percorso da fare dall'alto in basso, anche sul PC.
+       Sopra il primo argomento di ogni capitolo c'è il titolo del capitolo, se il pacchetto dell'esame lo dà (v18). -->
   <div class="stack-s">${limited('prog:'+e.id,tops,t=>{
+    const i=tops.indexOf(t),cap=t.capitolo!==999&&(i===0||tops[i-1].capitolo!==t.capitolo)?arr(e.capitoli).find(c=>c&&c.numero===t.capitolo):null;
+    const head=cap?`<h2 class="cap-h"><span>${esc(cap.titolo)}</span>${cap.nota?`<span class="muted small">${esc(cap.nota)}</span>`:''}</h2>`:'';
+    return head+topicRow(t,i)},12)}</div>`;
+}
+function topicRow(t,i){
     const a=S.arg.get(t.id);
-    if(!a)return `<div class="row off"><span class="n">${esc(t.capitolo===999?'·':tops.indexOf(t)+1)}</span><span class="txt"><span class="t">${esc(t.titolo)}</span><span class="m">Contenuti non ancora importati</span></span></div>`;
+    if(!a)return `<div class="row off"><span class="n">${esc(t.capitolo===999?'·':i+1)}</span><span class="txt"><span class="t">${esc(t.titolo)}</span><span class="m">Contenuti non ancora importati</span></span></div>`;
     const st=topicStats(a);
-    return `<button class="row" data-act="open-topic" data-id="${esc(a.id)}"><span class="n">${esc(t.capitolo===999?'·':tops.indexOf(t)+1)}</span><span class="txt"><span class="t">${esc(a.titolo)}</span>
+    return `<button class="row" data-act="open-topic" data-id="${esc(a.id)}"><span class="n">${esc(t.capitolo===999?'·':i+1)}</span><span class="txt"><span class="t">${esc(a.titolo)}</span>
       <span class="m">${st.tot?`${st.read}/${st.tot} sezioni lette`:''}${arr(a.esercizi).length?`<span>${pl(arr(a.esercizi).length,'esercizio','esercizi')}</span>`:''}</span>
-      ${st.tot?`<span class="bar"><b style="width:${Math.round(st.read/st.tot*100)}%"></b></span>`:''}</span>${IC.right}</button>`},8)}</div>`;
+      ${st.tot?`<span class="bar"><b style="width:${Math.round(st.read/st.tot*100)}%"></b></span>`:''}</span>${IC.right}</button>`;
 }
 /* il glossario dell'esame: tutti i termini degli argomenti importati, con la ricerca */
 function renderGloss(v,e){

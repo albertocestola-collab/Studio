@@ -18,175 +18,175 @@
    {
     "id": "sic.l02",
     "titolo": "Lezione 2: Minacce alla sicurezza",
-    "capitolo": 2,
+    "capitolo": 1,
     "ordine": 2
    },
    {
     "id": "sic.l03",
     "titolo": "Lezione 3: Crimini informatici",
-    "capitolo": 3,
+    "capitolo": 1,
     "ordine": 3
    },
    {
     "id": "sic.l04",
     "titolo": "Lezione 4: Cifratura simmetrica",
-    "capitolo": 4,
+    "capitolo": 1,
     "ordine": 4
    },
    {
     "id": "sic.l05",
     "titolo": "Lezione 5: Autenticazione dei messaggi e funzioni hash",
-    "capitolo": 5,
+    "capitolo": 1,
     "ordine": 5
    },
    {
     "id": "sic.l06",
     "titolo": "Lezione 6: Cifratura a chiave pubblica",
-    "capitolo": 6,
+    "capitolo": 1,
     "ordine": 6
    },
    {
     "id": "sic.l07",
     "titolo": "Lezione 7: Firma digitale e gestione delle chiavi",
-    "capitolo": 7,
+    "capitolo": 1,
     "ordine": 7
    },
    {
     "id": "sic.l08",
     "titolo": "Lezione 8: Principi di autenticazione",
-    "capitolo": 8,
+    "capitolo": 1,
     "ordine": 8
    },
    {
     "id": "sic.l09",
     "titolo": "Lezione 9: Autenticazione con password",
-    "capitolo": 9,
+    "capitolo": 1,
     "ordine": 9
    },
    {
     "id": "sic.l10",
     "titolo": "Lezione 10: Autenticazione con token, biometrica, remota",
-    "capitolo": 10,
+    "capitolo": 1,
     "ordine": 10
    },
    {
     "id": "sic.l11",
     "titolo": "Lezione 11: Principi di controllo degli accessi",
-    "capitolo": 11,
+    "capitolo": 1,
     "ordine": 11
    },
    {
     "id": "sic.l12",
     "titolo": "Lezione 12: Controllo degli accessi discrezionale",
-    "capitolo": 12,
+    "capitolo": 1,
     "ordine": 12
    },
    {
     "id": "sic.l13",
     "titolo": "Lezione 13: Controllo degli accessi basato sui ruoli",
-    "capitolo": 13,
+    "capitolo": 1,
     "ordine": 13
    },
    {
     "id": "sic.l14",
     "titolo": "Lezione 14: Malware",
-    "capitolo": 14,
+    "capitolo": 1,
     "ordine": 14
    },
    {
     "id": "sic.l15",
     "titolo": "Lezione 15: Virus",
-    "capitolo": 15,
+    "capitolo": 1,
     "ordine": 15
    },
    {
     "id": "sic.l16",
     "titolo": "Lezione 16: Worm",
-    "capitolo": 16,
+    "capitolo": 1,
     "ordine": 16
    },
    {
     "id": "sic.l17",
     "titolo": "Lezione 17: Trojan, backdoor, rootkit",
-    "capitolo": 17,
+    "capitolo": 1,
     "ordine": 17
    },
    {
     "id": "sic.l18",
     "titolo": "Lezione 18: Antivirus",
-    "capitolo": 18,
+    "capitolo": 1,
     "ordine": 18
    },
    {
     "id": "sic.l19",
     "titolo": "Lezione 19: Buffer overflow",
-    "capitolo": 19,
+    "capitolo": 1,
     "ordine": 19
    },
    {
     "id": "sic.l20",
     "titolo": "Lezione 20: Sicurezza del software",
-    "capitolo": 20,
+    "capitolo": 1,
     "ordine": 20
    },
    {
     "id": "sic.l21",
     "titolo": "Lezione 21: Sicurezza del database",
-    "capitolo": 21,
+    "capitolo": 2,
     "ordine": 21
    },
    {
     "id": "sic.l22",
     "titolo": "Lezione 22: Sicurezza del sistema operativo",
-    "capitolo": 22,
+    "capitolo": 2,
     "ordine": 22
    },
    {
     "id": "sic.l23",
     "titolo": "Lezione 23: Sicurezza IoT",
-    "capitolo": 23,
+    "capitolo": 2,
     "ordine": 23
    },
    {
     "id": "sic.l24",
     "titolo": "Lezione 24: Attacchi DoS",
-    "capitolo": 24,
+    "capitolo": 2,
     "ordine": 24
    },
    {
     "id": "sic.l25",
     "titolo": "Lezione 25: Tipologie di DoS",
-    "capitolo": 25,
+    "capitolo": 2,
     "ordine": 25
    },
    {
     "id": "sic.l26",
     "titolo": "Lezione 26: Firewall",
-    "capitolo": 26,
+    "capitolo": 2,
     "ordine": 26
    },
    {
     "id": "sic.l27",
     "titolo": "Lezione 27: Intrusion Detection Systems",
-    "capitolo": 27,
+    "capitolo": 2,
     "ordine": 27
    },
    {
     "id": "sic.l28",
     "titolo": "Lezione 28: Sicurezza della posta elettronica",
-    "capitolo": 28,
+    "capitolo": 2,
     "ordine": 28
    },
    {
     "id": "sic.l29",
     "titolo": "Lezione 29: SSL/TLS e HTTPS",
-    "capitolo": 29,
+    "capitolo": 2,
     "ordine": 29
    },
    {
     "id": "sic.l30",
     "titolo": "Lezione 30: IP Security",
-    "capitolo": 30,
+    "capitolo": 2,
     "ordine": 30
    }
   ],
@@ -242,6 +242,16 @@
     "id": "sic.r.live",
     "testo": "Bonus +1: due lezioni live con il test superato",
     "valore": "facoltativo"
+   }
+  ],
+  "capitoli": [
+   {
+    "numero": 1,
+    "titolo": "Lezioni 1–20 · prova intermedia"
+   },
+   {
+    "numero": 2,
+    "titolo": "Lezioni 21–30 · prova finale"
    }
   ]
  }
