@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generato_il": "2026-11-12",
+ "generato_il": "2026-11-16",
  "pacchetti": [
   {
    "file": "analisi-1/anl1-esame-v2.json",
@@ -31,120 +31,272 @@
    "id_pacchetto": "anl1-cap1-v1",
    "tipo": "contenuti",
    "esame_id": "anl1",
-   "hash": "88e9687fb5e83d18",
-   "kb": 33
+   "hash": "2340eb2399e6b1ec",
+   "kb": 68
   },
   {
    "file": "analisi-1/cap2/anl1-cap2-1di2.json",
    "id_pacchetto": "anl1-cap2-1di2",
    "tipo": "contenuti",
    "esame_id": "anl1",
-   "hash": "1937d58e3b203e25",
-   "kb": 28
+   "hash": "8deceb3391a459fb",
+   "kb": 56
   },
   {
    "file": "analisi-1/cap2/anl1-cap2-2di2.json",
    "id_pacchetto": "anl1-cap2-2di2",
    "tipo": "contenuti",
    "esame_id": "anl1",
-   "hash": "fcc5ed6da24ea5ac",
-   "kb": 39
+   "hash": "2aac143dd7181acc",
+   "kb": 91
   },
   {
    "file": "analisi-1/cap1/anl1-ins-v1.json",
    "id_pacchetto": "anl1-ins-v1",
    "tipo": "contenuti",
    "esame_id": "anl1",
-   "hash": "89480eaeda82dfa4",
-   "kb": 23
+   "hash": "4bcddcf449c717e9",
+   "kb": 44
   },
   {
    "file": "piano/piano-v1.json",
    "id_pacchetto": "piano-v1",
    "tipo": "piano_studio",
    "esame_id": "",
-   "hash": "54d485c9dd6a9da2",
-   "kb": 25
+   "hash": "274415b3b6977d30",
+   "kb": 26
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-1di5.json",
    "id_pacchetto": "prg-cap1-v2-1di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "30ce292119daf8c7",
-   "kb": 103
+   "hash": "442abb97f618da40",
+   "kb": 130
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-2di5.json",
    "id_pacchetto": "prg-cap1-v2-2di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "7babf80451ddf4dd",
-   "kb": 83
+   "hash": "3e7af7dc80a7fade",
+   "kb": 129
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-3di5.json",
    "id_pacchetto": "prg-cap1-v2-3di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "69c75dbe21e1dca5",
-   "kb": 81
+   "hash": "85262c597240ed9e",
+   "kb": 121
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-4di5.json",
    "id_pacchetto": "prg-cap1-v2-4di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "b6d0910128a52a99",
-   "kb": 81
+   "hash": "d536931a2fd92cea",
+   "kb": 123
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-5di5.json",
    "id_pacchetto": "prg-cap1-v2-5di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "a6b8168dfe922c4b",
-   "kb": 82
+   "hash": "2365213b6f4bf3ac",
+   "kb": 141
   },
   {
    "file": "programmazione/cap2/prg-cap2-1di5.json",
    "id_pacchetto": "prg-cap2-1di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "007f078f65226f8d",
-   "kb": 90
+   "hash": "84da17cd8eb42952",
+   "kb": 131
   },
   {
    "file": "programmazione/cap2/prg-cap2-2di5.json",
    "id_pacchetto": "prg-cap2-2di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "e08bd5ad386938cb",
-   "kb": 94
+   "hash": "9277be2cb3ef531d",
+   "kb": 160
   },
   {
    "file": "programmazione/cap2/prg-cap2-3di5.json",
    "id_pacchetto": "prg-cap2-3di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "1cd21d09b085de68",
-   "kb": 95
+   "hash": "d1323422548b6f80",
+   "kb": 150
   },
   {
    "file": "programmazione/cap2/prg-cap2-4di5.json",
    "id_pacchetto": "prg-cap2-4di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "930df3aa4dc352d2",
-   "kb": 101
+   "hash": "0cf0794cfdee463d",
+   "kb": 184
   },
   {
    "file": "programmazione/cap2/prg-cap2-5di5.json",
    "id_pacchetto": "prg-cap2-5di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "5ddd412dfbf8fa26",
-   "kb": 108
+   "hash": "0ad7b858189d4989",
+   "kb": 154
+  },
+  {
+   "file": "programmazione/cap3/prg-cap3-1di4.json",
+   "id_pacchetto": "prg-cap3-1di4",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "deca2e88fac9fdab",
+   "kb": 119
+  },
+  {
+   "file": "programmazione/cap3/prg-cap3-2di4.json",
+   "id_pacchetto": "prg-cap3-2di4",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "f3980336365a6abb",
+   "kb": 112
+  },
+  {
+   "file": "programmazione/cap3/prg-cap3-3di4.json",
+   "id_pacchetto": "prg-cap3-3di4",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "0cecd17a6a6f8f3c",
+   "kb": 90
+  },
+  {
+   "file": "programmazione/cap3/prg-cap3-4di4.json",
+   "id_pacchetto": "prg-cap3-4di4",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "ffc0e041863b8fb7",
+   "kb": 101
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-10di10.json",
+   "id_pacchetto": "sic-cap1-10di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "98313ae38b263820",
+   "kb": 68
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-1di10.json",
+   "id_pacchetto": "sic-cap1-1di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "18a2257201848f4c",
+   "kb": 101
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-2di10.json",
+   "id_pacchetto": "sic-cap1-2di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "3e104491eea68545",
+   "kb": 86
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-3di10.json",
+   "id_pacchetto": "sic-cap1-3di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "f876775416a9d5be",
+   "kb": 84
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-4di10.json",
+   "id_pacchetto": "sic-cap1-4di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "35e305af2663476c",
+   "kb": 89
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-5di10.json",
+   "id_pacchetto": "sic-cap1-5di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "925621be425731fa",
+   "kb": 86
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-6di10.json",
+   "id_pacchetto": "sic-cap1-6di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "059796d9b88270ff",
+   "kb": 81
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-7di10.json",
+   "id_pacchetto": "sic-cap1-7di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "241b1416549abd20",
+   "kb": 106
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-8di10.json",
+   "id_pacchetto": "sic-cap1-8di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "58de30f7aad8735d",
+   "kb": 106
+  },
+  {
+   "file": "sicurezza-informatica/cap1/sic-cap1-9di10.json",
+   "id_pacchetto": "sic-cap1-9di10",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "58077a9551eac553",
+   "kb": 86
+  },
+  {
+   "file": "sicurezza-informatica/cap2/sic-cap2-1di5.json",
+   "id_pacchetto": "sic-cap2-1di5",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "812034aad26b98ec",
+   "kb": 66
+  },
+  {
+   "file": "sicurezza-informatica/cap2/sic-cap2-2di5.json",
+   "id_pacchetto": "sic-cap2-2di5",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "ccea85d994919cc5",
+   "kb": 64
+  },
+  {
+   "file": "sicurezza-informatica/cap2/sic-cap2-3di5.json",
+   "id_pacchetto": "sic-cap2-3di5",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "aabb8189765aa3b6",
+   "kb": 101
+  },
+  {
+   "file": "sicurezza-informatica/cap2/sic-cap2-4di5.json",
+   "id_pacchetto": "sic-cap2-4di5",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "83b4d08355641175",
+   "kb": 91
+  },
+  {
+   "file": "sicurezza-informatica/cap2/sic-cap2-5di5.json",
+   "id_pacchetto": "sic-cap2-5di5",
+   "tipo": "contenuti",
+   "esame_id": "sic",
+   "hash": "380d2a8806f3f81c",
+   "kb": 89
   }
  ]
 }

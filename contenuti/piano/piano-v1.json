@@ -2,7 +2,7 @@
  "schema_version": 1,
  "tipo": "piano_studio",
  "id_pacchetto": "piano-v1",
- "generato_il": "2026-11-12",
+ "generato_il": "2026-11-16",
  "piano": {
   "minuti_giorno": 90,
   "giorni_settimana": [
@@ -31,100 +31,100 @@
      {
       "id": "pa.sic.l01",
       "titolo": "Lezione 1: Introduzione alla sicurezza informatica",
-      "minuti": 35,
+      "minuti": 90,
       "rif": "sic.l01",
-      "cosa": "Sul portale: leggi la dispensa della lezione 1 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 1."
      },
      {
       "id": "pa.sic.l02",
       "titolo": "Lezione 2: Minacce alla sicurezza",
-      "minuti": 35,
+      "minuti": 85,
       "rif": "sic.l02",
-      "cosa": "Sul portale: leggi la dispensa della lezione 2 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 2."
      },
      {
       "id": "pa.sic.l03",
       "titolo": "Lezione 3: Crimini informatici",
-      "minuti": 35,
+      "minuti": 80,
       "rif": "sic.l03",
-      "cosa": "Sul portale: leggi la dispensa della lezione 3 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 3."
      },
      {
       "id": "pa.sic.l04",
       "titolo": "Lezione 4: Cifratura simmetrica",
-      "minuti": 35,
+      "minuti": 75,
       "rif": "sic.l04",
-      "cosa": "Sul portale: leggi la dispensa della lezione 4 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 4."
      },
      {
       "id": "pa.sic.l05",
       "titolo": "Lezione 5: Autenticazione dei messaggi e funzioni hash",
-      "minuti": 35,
+      "minuti": 80,
       "rif": "sic.l05",
-      "cosa": "Sul portale: leggi la dispensa della lezione 5 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 5."
      },
      {
       "id": "pa.sic.l06",
       "titolo": "Lezione 6: Cifratura a chiave pubblica",
-      "minuti": 35,
+      "minuti": 80,
       "rif": "sic.l06",
-      "cosa": "Sul portale: leggi la dispensa della lezione 6 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 6."
      },
      {
       "id": "pa.sic.l07",
       "titolo": "Lezione 7: Firma digitale e gestione delle chiavi",
-      "minuti": 35,
+      "minuti": 75,
       "rif": "sic.l07",
-      "cosa": "Sul portale: leggi la dispensa della lezione 7 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 7."
      },
      {
       "id": "pa.sic.l08",
       "titolo": "Lezione 8: Principi di autenticazione",
-      "minuti": 35,
+      "minuti": 80,
       "rif": "sic.l08",
-      "cosa": "Sul portale: leggi la dispensa della lezione 8 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 8."
      },
      {
       "id": "pa.sic.l09",
       "titolo": "Lezione 9: Autenticazione con password",
-      "minuti": 35,
+      "minuti": 75,
       "rif": "sic.l09",
-      "cosa": "Sul portale: leggi la dispensa della lezione 9 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 9."
      },
      {
       "id": "pa.sic.l10",
       "titolo": "Lezione 10: Autenticazione con token, biometrica, remota",
-      "minuti": 35,
+      "minuti": 75,
       "rif": "sic.l10",
-      "cosa": "Sul portale: leggi la dispensa della lezione 10 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 10."
      },
      {
       "id": "pa.sic.l11",
       "titolo": "Lezione 11: Principi di controllo degli accessi",
-      "minuti": 35,
+      "minuti": 70,
       "rif": "sic.l11",
-      "cosa": "Sul portale: leggi la dispensa della lezione 11 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 11."
      },
      {
       "id": "pa.sic.l12",
       "titolo": "Lezione 12: Controllo degli accessi discrezionale",
-      "minuti": 35,
+      "minuti": 80,
       "rif": "sic.l12",
-      "cosa": "Sul portale: leggi la dispensa della lezione 12 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 12."
      },
      {
       "id": "pa.sic.l13",
       "titolo": "Lezione 13: Controllo degli accessi basato sui ruoli",
-      "minuti": 35,
+      "minuti": 85,
       "rif": "sic.l13",
-      "cosa": "Sul portale: leggi la dispensa della lezione 13 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 13."
      },
      {
       "id": "pa.sic.l14",
       "titolo": "Lezione 14: Malware",
-      "minuti": 35,
+      "minuti": 85,
       "rif": "sic.l14",
-      "cosa": "Sul portale: leggi la dispensa della lezione 14 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 14."
      },
      {
       "id": "pa.sic.lockdown",
@@ -135,44 +135,44 @@
      {
       "id": "pa.sic.l15",
       "titolo": "Lezione 15: Virus",
-      "minuti": 35,
+      "minuti": 90,
       "rif": "sic.l15",
-      "cosa": "Sul portale: leggi la dispensa della lezione 15 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 15."
      },
      {
       "id": "pa.sic.l16",
       "titolo": "Lezione 16: Worm",
-      "minuti": 35,
+      "minuti": 85,
       "rif": "sic.l16",
-      "cosa": "Sul portale: leggi la dispensa della lezione 16 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 16."
      },
      {
       "id": "pa.sic.l17",
       "titolo": "Lezione 17: Trojan, backdoor, rootkit",
-      "minuti": 35,
+      "minuti": 75,
       "rif": "sic.l17",
-      "cosa": "Sul portale: leggi la dispensa della lezione 17 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 17."
      },
      {
       "id": "pa.sic.l18",
       "titolo": "Lezione 18: Antivirus",
-      "minuti": 35,
+      "minuti": 75,
       "rif": "sic.l18",
-      "cosa": "Sul portale: leggi la dispensa della lezione 18 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 18."
      },
      {
       "id": "pa.sic.l19",
       "titolo": "Lezione 19: Buffer overflow",
-      "minuti": 35,
+      "minuti": 65,
       "rif": "sic.l19",
-      "cosa": "Sul portale: leggi la dispensa della lezione 19 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 19."
      },
      {
       "id": "pa.sic.l20",
       "titolo": "Lezione 20: Sicurezza del software",
-      "minuti": 35,
+      "minuti": 70,
       "rif": "sic.l20",
-      "cosa": "Sul portale: leggi la dispensa della lezione 20 e fai il test di fine lezione."
+      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 20."
      },
      {
       "id": "pa.sic.rip1",
@@ -197,142 +197,142 @@
      {
       "id": "pa.prg.stor",
       "titolo": "Introduzione, storia ed evoluzione dei calcolatori",
-      "minuti": 85,
+      "minuti": 110,
       "rif": "prg.stor",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.bin",
       "titolo": "Rappresentazione binaria dell'informazione e codifiche",
-      "minuti": 75,
+      "minuti": 105,
       "rif": "prg.bin",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.bool",
       "titolo": "Logica booleana",
-      "minuti": 70,
+      "minuti": 100,
       "rif": "prg.bool",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.arch",
       "titolo": "Architetture dei calcolatori",
-      "minuti": 70,
+      "minuti": 95,
       "rif": "prg.arch",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.mem",
       "titolo": "La memoria",
-      "minuti": 70,
+      "minuti": 95,
       "rif": "prg.mem",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.gmem",
       "titolo": "Gestione della memoria e file system",
-      "minuti": 65,
+      "minuti": 100,
       "rif": "prg.gmem",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.cpu",
       "titolo": "La CPU: struttura interna e ciclo fetch-decode-execute",
-      "minuti": 70,
+      "minuti": 100,
       "rif": "prg.cpu",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.so",
       "titolo": "Introduzione ai sistemi operativi",
-      "minuti": 65,
+      "minuti": 95,
       "rif": "prg.so",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.proc",
       "titolo": "Processi, thread e concorrenza",
-      "minuti": 70,
+      "minuti": 105,
       "rif": "prg.proc",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.reti",
       "titolo": "Introduzione alle reti di calcolatori",
-      "minuti": 70,
+      "minuti": 105,
       "rif": "prg.reti",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.alg",
       "titolo": "Cos'è un algoritmo e come si rappresenta",
-      "minuti": 75,
+      "minuti": 100,
       "rif": "prg.alg",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.ling",
       "titolo": "Tipologie di linguaggi di programmazione",
-      "minuti": 70,
+      "minuti": 100,
       "rif": "prg.ling",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.cintro",
       "titolo": "Introduzione al linguaggio C: storia, compilatore, IDE",
-      "minuti": 70,
+      "minuti": 95,
       "rif": "prg.cintro",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.tipi",
       "titolo": "Tipi di dato primitivi, variabili e costanti",
-      "minuti": 75,
+      "minuti": 120,
       "rif": "prg.tipi",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.fun",
       "titolo": "Funzioni, operatori e precedenza",
-      "minuti": 75,
+      "minuti": 120,
       "rif": "prg.fun",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.io",
       "titolo": "Input/output",
-      "minuti": 75,
+      "minuti": 105,
       "rif": "prg.io",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.flux",
       "titolo": "Controllo del flusso e cicli",
-      "minuti": 80,
+      "minuti": 120,
       "rif": "prg.flux",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.lib",
       "titolo": "Librerie e raccolte di funzioni",
-      "minuti": 80,
+      "minuti": 120,
       "rif": "prg.lib",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.file",
       "titolo": "Scrittura e lettura da file",
-      "minuti": 80,
+      "minuti": 115,
       "rif": "prg.file",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.uml",
       "titolo": "UML, Unified Modelling Language",
-      "minuti": 80,
+      "minuti": 110,
       "rif": "prg.uml",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.sd",
@@ -503,58 +503,58 @@
      {
       "id": "pa.anl1.ins",
       "titolo": "Insiemi e numeri: naturali, interi, razionali, reali",
-      "minuti": 50,
+      "minuti": 70,
       "rif": "anl1.ins",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.anl1.sup",
       "titolo": "Massimo, minimo, estremo superiore e inferiore",
-      "minuti": 30,
+      "minuti": 50,
       "rif": "anl1.sup",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.anl1.top",
       "titolo": "Intervalli, intorni e principio di induzione",
-      "minuti": 35,
+      "minuti": 60,
       "rif": "anl1.top",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.anl1.fun",
       "titolo": "Funzioni: definizione e proprietà",
-      "minuti": 30,
+      "minuti": 50,
       "rif": "anl1.fun",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.anl1.pol",
       "titolo": "Rette, potenze, radici e polinomi",
-      "minuti": 30,
+      "minuti": 50,
       "rif": "anl1.pol",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.anl1.exp",
       "titolo": "Esponenziali, logaritmi e valore assoluto",
-      "minuti": 35,
+      "minuti": 50,
       "rif": "anl1.exp",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.anl1.trig",
       "titolo": "Trigonometria",
-      "minuti": 35,
+      "minuti": 60,
       "rif": "anl1.trig",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.anl1.graf",
       "titolo": "Grafici di funzioni composte",
-      "minuti": 35,
+      "minuti": 50,
       "rif": "anl1.graf",
-      "cosa": "Nell'app: leggi le sezioni in ordine e fai gli esercizi di «Mettiti alla prova»."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.anl1.suc",

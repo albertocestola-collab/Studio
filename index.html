@@ -194,6 +194,18 @@ button.pl-t .t{color:var(--accent)}
 .ans-ok{background:var(--ok-soft);color:var(--ok);border-radius:12px;padding:10px 14px;font-weight:700}
 .ans-no{font-size:14.5px;color:var(--muted)}
 .box{background:var(--surface-2);border-radius:12px;padding:10px 14px;margin-top:10px}
+/* quiz (v20) */
+.qz-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.qz-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.qz-op{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface)}
+.qz-op:disabled{cursor:default;opacity:1}
+.qz-op .qz-l{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-weight:800;background:var(--surface-2);color:var(--muted)}
+.qz-op .qz-t{flex:1;min-width:0}.qz-op .qz-t p{margin:0}
+.qz-op.ok{border-color:var(--ok);background:var(--ok-soft)}.qz-op.ok .qz-l{background:var(--ok);color:var(--accent-ink)}
+.qz-op.bad{border-color:var(--urgent);background:var(--urgent-soft)}.qz-op.bad .qz-l{background:var(--urgent);color:var(--accent-ink)}
+.qz-op.off{opacity:.65}
+.qz-sum{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:15px}
+.sp-in{min-height:84px;font-size:15.5px}
 .box .eyebrow{display:block;margin-bottom:2px}
 .box.sol{background:var(--ok-soft)}
 .box.sol .eyebrow{color:var(--ok)}
@@ -432,7 +444,7 @@ const LEVELS={intuizione:'Intuizione',definizione:'Definizione',ragionamento:'Ra
 const LVL_ORDER=Object.keys(LEVELS);
 const EX_LEVELS={base:'Base',medio:'Medio',difficile:'Difficile'};
 const TIPI=['nuovo_esame','contenuti','piano_studio','aggiornamento_piano','ripasso'];
-const MAX_KB=120;/* sopra si avvisa soltanto; era 80 quando i pacchetti si incollavano a mano sul telefono */
+const MAX_KB=250;/* sopra si avvisa soltanto; era 80 con i pacchetti incollati a mano, 120 fino alla v19: gli strumenti interattivi pesano */
 const MSH=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
 const GSH=['dom','lun','mar','mer','gio','ven','sab'];
 const IC={
@@ -729,7 +741,7 @@ const del=(store,key)=>tx([store],t=>t.objectStore(store).delete(key));
 
 /* ---------- stato ---------- */
 const S={esami:new Map(),arg:new Map(),prog:new Map(),imp:{},
-  tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},exAns:{},more:new Set(),planPage:false,
+  tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},exAns:{},qzRedo:new Set(),spDraft:{},more:new Set(),planPage:false,
   draft:'',checked:null,exportAll:false,
   /* collegamenti (pila del riquadro di ripasso), mappe aperte, ricerca nel glossario, stato degli strumenti interattivi */
   refStack:[],maps:new Set(),glq:'',tool:{},play:null,
@@ -1237,11 +1249,12 @@ function buildExport(all){
   const act=activeExams();
   const esami=examsSorted().map(e=>({id:e.id,data_esame:e.data_esame,ore_settimanali:+e.ore_settimanali,priorita:e.pausa?null:act.findIndex(x=>x.id===e.id)+1,pausa:!!e.pausa}));
   const o={progressi:1,dal,al,pacchetti:Object.keys(pacchetti()),esami,
-    sessioni:[],esercizi:recs.filter(r=>r.tipo==='esercizio').map(r=>[r.rif,r.esito,r.data,'']),quiz:[],
+    sessioni:[],esercizi:recs.filter(r=>r.tipo==='esercizio').map(r=>[r.rif,r.esito,r.data,'']),
+    quiz:recs.filter(r=>r.tipo==='quiz').map(r=>[r.rif,r.esito==='giusta'?1:0,r.data]),
     letture:recs.filter(r=>r.tipo==='lettura').map(r=>[r.rif,r.data]),
     attivita:recs.filter(r=>r.tipo==='attivita').map(r=>[r.rif,r.data]),
     minuti_giorno:+S.imp.piano_minuti||null,
-    scarico:[],jolly:[],minuti:{},note:[]};
+    scarico:[],jolly:[],minuti:{},note:recs.filter(r=>r.tipo==='spiegalo').map(r=>r.rif+': '+r.testo)};
   const changed=Math.max(S.imp.scelte_ts||0,S.imp.piano_minuti_ts||0)>since?1:0;
   return {text:`PROGRESSI STUDIO v1 · dal ${dal} al ${al}\n`+JSON.stringify(o),count:recs.length+changed};
 }
@@ -1624,6 +1637,7 @@ function ansCheck(c,v){
   if(c.tipo==='bit'){const L=new Set(arr(c.accettate).map(a=>ansNorm('bit',a).length));if(!L.has(nv.length))return [false,`Controlla quante cifre hai scritto: ${nv.length}, ne servono ${[...L].join(' o ')}.`]}
   return [false,'']}
 const exRec=id=>S.prog.get('es:'+id);
+function refFindQuiz(id){for(const a of S.arg.values()){if(!id.startsWith(a.id+'.'))continue;const q=arr(obj(a.verifica).quiz).find(x=>x&&x.id===id);if(q)return {a,q}}return null}
 async function saveEx(id,esito,v){const old=exRec(id);if(old&&old.esito==='fatto'&&esito!=='fatto')return;
   const r={id:'es:'+id,tipo:'esercizio',rif:id,esito,data:todayKey(),ts:Date.now()};
   if(Array.isArray(v))r.v=v.map(x=>String(x==null?'':x).slice(0,200));/* le risposte giuste, per mostrarlo risolto anche dopo */
@@ -1649,6 +1663,31 @@ function ansHTML(x){
     ${solved?`<div class="ans-ok">${st.saved?`Risolto ${esc(shortDate(st.saved))}.`:`Giusto!${st.tries>1?` Al tentativo numero ${st.tries}.`:''}`}</div>`
       :`${st.res?`<div class="ans-no">Non ancora${many?': le caselle con ✗ sono da rivedere':''}. Riprova, oppure apri il suggerimento.</div>`:''}
       <div class="btnrow"><button class="btn primary" data-act="ans-check" data-id="${esc(x.id)}">Controlla</button></div>`}</div>`;
+}
+/* ---------- quiz e «spiegalo» (v20) ----------
+   Ogni domanda di quiz si risponde con un tocco: l'app mostra subito se è giusta, la risposta giusta e la spiegazione.
+   L'esito resta salvato (progressi qz:<id>), con «Rifai il quiz» per ripartire. I testi «spiegalo» si salvano (sp:<argomento>:<n>)
+   e vanno nell'export come note per Claude. */
+const qzRec=id=>S.prog.get('qz:'+id);
+function quizHTML(a,quiz){
+  const done=quiz.filter(q=>qzRec(q.id)&&!S.qzRedo.has(q.id)),ok=done.filter(q=>qzRec(q.id).esito==='giusta').length;
+  const card=(q,i)=>{const r=S.qzRedo.has(q.id)?null:qzRec(q.id),ops=arr(q.opzioni);
+    return `<section class="card qz"><div class="qz-h"><span class="eyebrow">Domanda ${i+1} di ${quiz.length}</span>${r?(r.esito==='giusta'?'<span class="chip ok">✓ Giusta</span>':'<span class="chip red">Sbagliata</span>'):''}</div>
+      <div class="qz-d">${md(q.domanda)}</div>
+      <div class="qz-ops">${ops.map((o,j)=>{const cls=!r?'':j===q.corretta?' ok':j===r.scelta?' bad':' off';
+        return `<button class="qz-op${cls}" data-act="qz-pick" data-id="${esc(q.id)}" data-o="${j}"${r?' disabled':''}><span class="qz-l">${'ABCDEF'[j]||j+1}</span><span class="qz-t">${md(String(o))}</span></button>`}).join('')}</div>
+      ${r&&q.spiegazione?`<div class="box ${r.esito==='giusta'?'sol':''}"><span class="eyebrow">${r.esito==='giusta'?'Giusto':'La risposta giusta è la '+('ABCDEF'[q.corretta]||'')}</span>${md(q.spiegazione)}</div>`:''}</section>`};
+  return `<h2 class="sec-h" id="h-quiz">Quiz</h2>
+    <div class="qz-sum"><span>${done.length?`Giuste <b>${ok}</b> su ${done.length} fatte · ${quiz.length} domande`:`${pl(quiz.length,'domanda','domande')} in stile esame: tocca la risposta che scegli.`}</span>
+      ${done.length?`<button class="btn small ghost" data-act="qz-reset" data-id="${esc(a.id)}">Rifai il quiz</button>`:''}</div>
+    <div class="stack-s">${limited('qz:'+a.id,quiz,q=>card(q,quiz.indexOf(q)),10)}</div>`;
+}
+function spiegaloHTML(a,spg){
+  return `<h2 class="sec-h">Spiegalo con parole tue</h2><p class="note" style="margin:0">Scrivi come lo spiegheresti a un compagno. Quello che salvi va a Claude con l'export dei progressi.</p>
+    <div class="stack-s">${spg.map((t,i)=>{const k=a.id+':'+i,r=S.prog.get('sp:'+k);
+      return `<section class="card stack-s"><div>${md(String(t))}</div>
+        <textarea class="sp-in" data-k="${esc(k)}" placeholder="Scrivi qui…" rows="3">${esc(S.spDraft[k]!=null?S.spDraft[k]:(r?r.testo:''))}</textarea>
+        <div class="btnrow"><button class="btn" data-act="sp-save" data-k="${esc(k)}">Salva</button>${r?`<span class="muted small" style="align-self:center">Salvato ${esc(shortDate(r.data))}</span>`:''}</div></section>`}).join('')}</div>`;
 }
 function exCard(x){
   const items=[];
@@ -1719,14 +1758,15 @@ function renderTopic(v,a){
       ${placed?'<p class="note" style="margin:0">Li trovi anche dentro la spiegazione, subito dopo la sezione che serve per farli. Qui sono tutti insieme, per ripassare.</p>':''}
       <div class="stack-s">`+limited('ese:'+a.id,exs,x=>exCard(x))+`</div>`;
   }
-  const nq=arr(obj(a.verifica).quiz).length,ns=arr(obj(a.verifica).spiegalo).length;
-  if(nq||ns)h+=`<p class="note">${listIt([nq?pl(nq,'domanda di quiz','domande di quiz'):'',ns?pl(ns,'domanda «spiegalo»','domande «spiegalo»'):''])} pronte: arrivano con l'aggiornamento degli esercizi.</p>`;
+  const quiz=arr(obj(a.verifica).quiz),spg=arr(obj(a.verifica).spiegalo);
+  if(quiz.length)h+=quizHTML(a,quiz);
+  if(spg.length)h+=spiegaloHTML(a,spg);
   /* indice a destra (solo su schermi larghi, il CSS lo nasconde altrove) */
   let toc='';
   if(secs.length>1||techs.length||exs.length){
     toc=`<aside class="toc" aria-label="Indice dell'argomento"><div class="eyebrow">Indice</div><ol>${secs.map(s=>
       `<li><button data-act="goto-sec" data-id="${esc(s.id)}"${S.open===s.id?' aria-current="true"':''}><span class="dot${isRead(s.id)?' on':''}">${IC.check}</span><span>${esc(s.titolo)}${after[s.id]?` <span class="tx">· ${pl(after[s.id].length,'esercizio','esercizi')}</span>`:''}</span></button></li>`).join('')}</ol>
-      ${techs.length||exs.length?`<div class="jump">${techs.length?'<button data-act="goto" data-to="h-tec">Tecniche</button>':''}${exs.length?'<button data-act="goto" data-to="h-ese">Esercizi</button>':''}</div>`:''}</aside>`;
+      ${techs.length||exs.length?`<div class="jump">${techs.length?'<button data-act="goto" data-to="h-tec">Tecniche</button>':''}${exs.length?'<button data-act="goto" data-to="h-ese">Esercizi</button>':''}${arr(obj(a.verifica).quiz).length?'<button data-act="goto" data-to="h-quiz">Quiz</button>':''}</div>`:''}</aside>`;
   }
   /* l'indice viene ridisegnato: resta dove l'avevi fatto scorrere */
   const old=v.querySelector('.toc'),keep=old?old.scrollTop:0;
@@ -1972,6 +2012,13 @@ const ACT={
   'ans-pick':b=>{const id=b.dataset.id,r=refFind(id);if(!r||!r.item.risposta)return;
     const st=S.exAns[id]||(S.exAns[id]={v:[],res:null,msg:[],tries:0}),c=r.item.risposta.caselle[+b.dataset.i];
     st.v[+b.dataset.i]=arr(c&&c.opzioni)[+b.dataset.o];rerender()},
+  'qz-pick':async b=>{const id=b.dataset.id,r=refFindQuiz(id);if(!r)return;const o=+b.dataset.o,ok=o===r.q.corretta;
+    const rec={id:'qz:'+id,tipo:'quiz',rif:id,scelta:o,esito:ok?'giusta':'sbagliata',data:todayKey(),ts:Date.now()};
+    S.prog.set(rec.id,rec);S.qzRedo.delete(id);await put('progressi',rec);toast(ok?'Giusta!':'Non è questa: leggi la spiegazione');rerender()},
+  'qz-reset':b=>{const a=S.arg.get(b.dataset.id);if(!a)return;arr(obj(a.verifica).quiz).forEach(q=>S.qzRedo.add(q.id));rerender()},
+  'sp-save':async b=>{const k=b.dataset.k,ta=b.closest('.card').querySelector('.sp-in'),t=(ta?ta.value:'').trim().slice(0,4000);
+    if(!t){toast('Scrivi qualcosa prima di salvare');return}
+    const rec={id:'sp:'+k,tipo:'spiegalo',rif:k,testo:t,data:todayKey(),ts:Date.now()};S.prog.set(rec.id,rec);delete S.spDraft[k];await put('progressi',rec);toast('Salvato');rerender()},
   'ans-reset':b=>{S.exAns[b.dataset.id]={v:[],res:null,msg:[],tries:0};delete S.ex[b.dataset.id];rerender()},
   'dismiss-tip':()=>{lsSet(LS_TIP,'1');$('#banner').hidden=true},
   'reload-app':()=>location.reload(),
@@ -2022,7 +2069,8 @@ document.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#backdrop').hidden)closeSheet()});
 document.addEventListener('input',e=>{if(e.target.id==='gl-q'){S.glq=e.target.value;filterGloss();return}
   /* le caselle degli esercizi: il testo si tiene in memoria, così non si perde quando la pagina si ridisegna */
-  const t=e.target;if(t.classList&&t.classList.contains('ans-in')){const id=t.dataset.id,st=S.exAns[id]||(S.exAns[id]={v:[],res:null,msg:[],tries:0});st.v[+t.dataset.i]=t.value}});
+  const t=e.target;if(t.classList&&t.classList.contains('sp-in')){S.spDraft[t.dataset.k]=t.value;return}
+  if(t.classList&&t.classList.contains('ans-in')){const id=t.dataset.id,st=S.exAns[id]||(S.exAns[id]={v:[],res:null,msg:[],tries:0});st.v[+t.dataset.i]=t.value}});
 document.addEventListener('keydown',e=>{const t=e.target;
   if(e.key==='Enter'&&t.classList&&t.classList.contains('ans-in')){e.preventDefault();const b=t.closest('.card').querySelector('[data-act="ans-check"]');if(b)b.click()}});
 $('#file-in').addEventListener('change',async e=>{

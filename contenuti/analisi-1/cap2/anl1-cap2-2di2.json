@@ -1,653 +1,1407 @@
 {
-  "schema_version": 1,
-  "tipo": "contenuti",
-  "id_pacchetto": "anl1-cap2-2di2",
-  "generato_il": "2026-10-29",
-  "esame_id": "anl1",
-  "argomenti": [
+ "schema_version": 1,
+ "tipo": "contenuti",
+ "id_pacchetto": "anl1-cap2-2di2",
+ "generato_il": "2026-10-29",
+ "esame_id": "anl1",
+ "argomenti": [
+  {
+   "id": "anl1.exp",
+   "titolo": "Esponenziali, logaritmi e valore assoluto",
+   "fonte": "Programma Mercatorum, videolezione 6",
+   "prossimo_passo": "Leggi la definizione di logaritmo e le sue proprietà, poi fai la tecnica t1 e l'esercizio e04.",
+   "sezioni": [
     {
-      "id": "anl1.exp",
-      "titolo": "Esponenziali, logaritmi e valore assoluto",
-      "fonte": "Programma Mercatorum, videolezione 6",
-      "prossimo_passo": "Leggi la definizione di logaritmo e le sue proprietà, poi fai la tecnica t1 e l'esercizio e04.",
-      "sezioni": [
-        {
-          "id": "anl1.exp.s1",
-          "livello": "intuizione",
-          "titolo": "Moltiplicare tante volte, e tornare indietro",
-          "testo": "- $2^3$ vuol dire moltiplicare $2$ per sé stesso $3$ volte. L'**esponenziale** $a^x$ estende questa idea a **ogni** numero reale $x$, anche a $x = \\frac{1}{2}$ o $x = \\sqrt{2}$, in modo che il grafico sia una curva continua senza salti.\n- Il **logaritmo** fa il contrario. $\\log_2 8$ risponde alla domanda «**a quale esponente** devo elevare $2$ per ottenere $8$?». La risposta è $3$. Il logaritmo è quindi l'**inversa** dell'esponenziale.\n- Il **valore assoluto** $|x|$ è la **distanza** di $x$ da zero sulla retta, quindi non è mai negativo: $|-5| = |5| = 5$. Più in generale, $|x - y|$ è la distanza tra $x$ e $y$."
-        },
-        {
-          "id": "anl1.exp.s2",
-          "livello": "definizione",
-          "titolo": "L'esponenziale",
-          "testo": "Fissata una base $a > 0$ con $a \\neq 1$, la funzione $a^x$ è definita per ogni $x \\in \\mathbb{R}$.\n\n- È **sempre positiva**: $a^x > 0$. L'immagine è $(0, +\\infty)$.\n- $a^0 = 1$, quindi il grafico passa sempre per $(0, 1)$.\n- Se $a > 1$ è **strettamente crescente**; se $0 < a < 1$ è **strettamente decrescente**.\n- **Proprietà:** $a^{x+y} = a^x a^y$, $\\ (a^x)^y = a^{xy}$, $\\ a^{-x} = \\frac{1}{a^x}$, $\\ (ab)^x = a^x b^x$.\n\nLa base più importante è il **numero di Nepero** $e \\approx 2{,}718$, che vedremo con le successioni. La funzione $e^x$ si chiama semplicemente «esponenziale»."
-        },
-        {
-          "id": "anl1.exp.s3",
-          "livello": "definizione",
-          "titolo": "Il logaritmo",
-          "testo": "Con $a > 0$, $a \\neq 1$ e $y > 0$:\n$$\\log_a y = x \\iff a^x = y.$$\n\n- È definito **solo per argomenti positivi**: dominio $(0, +\\infty)$, immagine $\\mathbb{R}$. Infatti $a^x$ non è mai $\\le 0$.\n- $\\log_a 1 = 0$ e $\\log_a a = 1$.\n- Se $a > 1$ è crescente; se $0 < a < 1$ è decrescente, come l'esponenziale con la stessa base.\n- **Proprietà**, per $x, y > 0$: $\\ \\log_a(xy) = \\log_a x + \\log_a y$; $\\ \\log_a \\frac{x}{y} = \\log_a x - \\log_a y$; $\\ \\log_a(x^k) = k \\log_a x$.\n- **Cambio di base:** $\\log_a x = \\frac{\\ln x}{\\ln a}$, dove $\\ln = \\log_e$ è il **logaritmo naturale**.\n- $a^{\\log_a x} = x$ e $\\log_a(a^x) = x$: sono inverse una dell'altra."
-        },
-        {
-          "id": "anl1.exp.s4",
-          "livello": "definizione",
-          "titolo": "Valore assoluto e funzione caratteristica",
-          "testo": "**Valore assoluto.**\n$$|x| = \\begin{cases} x & \\text{se } x \\ge 0 \\\\ -x & \\text{se } x < 0 \\end{cases}$$\nPer $x < 0$, $-x$ è positivo: per esempio $|-3| = -(-3) = 3$.\n\n- Con $r > 0$: $|x| < r \\iff -r < x < r$, cioè $x$ dista da $0$ meno di $r$.\n- Con $r > 0$: $|x| > r \\iff x < -r$ oppure $x > r$.\n- $|xy| = |x||y|$.\n- **Disuguaglianza triangolare:** $|a + b| \\le |a| + |b|$.\n\n**Funzione caratteristica** di un insieme $A$:\n$$\\chi_A(x) = \\begin{cases} 1 & \\text{se } x \\in A \\\\ 0 & \\text{se } x \\notin A \\end{cases}$$\nÈ un «interruttore»: vale $1$ dentro $A$ e $0$ fuori."
-        },
-        {
-          "id": "anl1.exp.s5",
-          "livello": "ragionamento",
-          "titolo": "Perché valgono le proprietà",
-          "testo": "**$\\log_a(xy) = \\log_a x + \\log_a y$.** L'idea è trasformare il logaritmo in un esponente e usare le proprietà delle potenze.\n\n1. Pongo $u = \\log_a x$ e $v = \\log_a y$. Per definizione $a^u = x$ e $a^v = y$.\n2. Moltiplico: $xy = a^u a^v = a^{u+v}$, per la proprietà delle potenze.\n3. $xy = a^{u+v}$ vuol dire, per definizione di logaritmo, $\\log_a(xy) = u + v = \\log_a x + \\log_a y$. $\\blacksquare$\n\n**Disuguaglianza triangolare $|a + b| \\le |a| + |b|$.**\n\n1. Per ogni numero vale $-|a| \\le a \\le |a|$: se $a \\ge 0$ è uguale a $|a|$, se $a < 0$ è uguale a $-|a|$.\n2. Allo stesso modo $-|b| \\le b \\le |b|$.\n3. Sommo le due catene: $-(|a| + |b|) \\le a + b \\le |a| + |b|$.\n4. Per la regola $|x| \\le r \\iff -r \\le x \\le r$, con $x = a + b$ e $r = |a| + |b|$: $\\ |a + b| \\le |a| + |b|$. $\\blacksquare$\nIl nome viene dai triangoli: un lato non è mai più lungo della somma degli altri due."
-        },
-        {
-          "id": "anl1.exp.s6",
-          "livello": "errori_comuni",
-          "titolo": "Dove si sbaglia di solito",
-          "testo": "- **$\\log(x + y) = \\log x + \\log y$.** Falso: la proprietà vale per il **prodotto**, $\\log(xy)$.\n- **$\\log(x^2) = 2 \\log x$ per ogni $x$.** Vale solo per $x > 0$. Per $x \\neq 0$ la regola giusta è $\\log(x^2) = 2 \\log|x|$.\n- **$a^x \\cdot a^y = a^{xy}$.** No: gli esponenti si **sommano**, $a^{x+y}$.\n- **Dimenticare di cambiare il verso con base minore di $1$.** $\\left(\\frac{1}{2}\\right)^x > \\left(\\frac{1}{2}\\right)^3 \\iff x < 3$, perché la funzione è decrescente.\n- **Dimenticare il dominio dei logaritmi.** In $\\ln x + \\ln(x - 3)$ serve $x > 3$, e va imposto **prima** di risolvere.\n- **$|a + b| = |a| + |b|$.** Falso con segni opposti: $|3 + (-5)| = 2$, ma $3 + 5 = 8$.\n- **$|x| < -1$ ha soluzioni?** No: un valore assoluto non è mai negativo."
-        },
-        {
-          "id": "anl1.exp.s7",
-          "livello": "riepilogo",
-          "titolo": "In cinque righe",
-          "testo": "- $a^x > 0$ sempre; crescente se $a > 1$, decrescente se $0 < a < 1$; $a^{x+y} = a^x a^y$.\n- $\\log_a y = x \\iff a^x = y$; solo per $y > 0$. È l'inversa di $a^x$.\n- $\\log(xy) = \\log x + \\log y$, $\\log(x^k) = k \\log x$, $\\log_a x = \\frac{\\ln x}{\\ln a}$.\n- $|x| < r \\iff -r < x < r$; $|x| > r \\iff x < -r$ oppure $x > r$.\n- $|a + b| \\le |a| + |b|$. Con base $< 1$ le disuguaglianze cambiano verso."
-        }
-      ],
-      "tecniche": [
-        {
-          "id": "anl1.exp.t1",
-          "nome": "Equazioni con i logaritmi",
-          "quando": "Equazioni o disequazioni in cui la $x$ compare dentro uno o più logaritmi.",
-          "esempio": {
-            "testo": "Risolvi $\\log_2(x - 1) + \\log_2(x + 1) = 3$.",
-            "passi": [
-              "**Dominio prima di tutto:** $x - 1 > 0$ e $x + 1 > 0$, cioè $x > 1$.",
-              "Unisco i logaritmi con la proprietà del prodotto: $\\log_2\\big((x - 1)(x + 1)\\big) = 3$.",
-              "Passo agli esponenziali con la definizione: $(x - 1)(x + 1) = 2^3 = 8$.",
-              "$x^2 - 1 = 8$, cioè $x^2 = 9$, quindi $x = 3$ oppure $x = -3$.",
-              "Confronto con il dominio $x > 1$: resta solo $x = 3$. Controllo: $\\log_2 2 + \\log_2 4 = 1 + 2 = 3$."
-            ]
-          }
-        },
-        {
-          "id": "anl1.exp.t2",
-          "nome": "Disequazioni con il valore assoluto",
-          "quando": "Quando una disuguaglianza contiene $|\\text{qualcosa}|$ confrontato con un numero.",
-          "esempio": {
-            "testo": "Risolvi $|2x - 1| < 3$.",
-            "passi": [
-              "Riconosco la forma $|\\text{qualcosa}| < r$ con $r = 3 > 0$.",
-              "La traduco in una doppia disuguaglianza: $-3 < 2x - 1 < 3$.",
-              "Aggiungo $1$ a tutti e tre i membri: $-2 < 2x < 4$.",
-              "Divido per $2$, positivo, quindi il verso resta: $-1 < x < 2$.",
-              "Lettura come distanza: $|2x - 1| < 3$ vuol dire che $2x$ dista meno di $3$ da $1$."
-            ]
-          }
-        }
-      ],
-      "esercizi": [
-        {
-          "id": "anl1.exp.e01",
-          "livello": "base",
-          "testo": "Calcola: $\\log_2 8$, $\\ \\log_3 \\frac{1}{9}$, $\\ \\ln e^5$, $\\ \\log_{10} 0{,}001$.",
-          "suggerimento": "Per ognuno chiediti: a quale esponente devo elevare la base per ottenere l'argomento?",
-          "passi": [
-            "$2^3 = 8$, quindi $\\log_2 8 = 3$.",
-            "$\\frac{1}{9} = 3^{-2}$, quindi $\\log_3 \\frac{1}{9} = -2$.",
-            "$\\ln e^5 = 5$, perché $\\ln$ e $e^x$ sono inverse.",
-            "$0{,}001 = 10^{-3}$, quindi $\\log_{10} 0{,}001 = -3$."
-          ],
-          "soluzione": "$3,\\ -2,\\ 5,\\ -3$"
-        },
-        {
-          "id": "anl1.exp.e02",
-          "livello": "base",
-          "testo": "Risolvi $4^x = 8$.",
-          "suggerimento": "Scrivi entrambi i lati come potenze di $2$.",
-          "passi": [
-            "$4^x = (2^2)^x = 2^{2x}$ e $8 = 2^3$.",
-            "$2^{2x} = 2^3$. L'esponenziale è iniettivo, quindi gli esponenti sono uguali: $2x = 3$.",
-            "$x = \\frac{3}{2}$."
-          ],
-          "soluzione": "$x = \\frac{3}{2}$"
-        },
-        {
-          "id": "anl1.exp.e03",
-          "livello": "medio",
-          "testo": "Risolvi $|x - 2| \\ge 1$.",
-          "suggerimento": "$|\\text{qualcosa}| \\ge r$ si spezza in due: qualcosa $\\le -r$ oppure qualcosa $\\ge r$.",
-          "passi": [
-            "$x - 2 \\le -1$ oppure $x - 2 \\ge 1$.",
-            "Cioè $x \\le 1$ oppure $x \\ge 3$.",
-            "Lettura come distanza: i punti che distano almeno $1$ da $2$."
-          ],
-          "soluzione": "$x \\le 1$ oppure $x \\ge 3$"
-        },
-        {
-          "id": "anl1.exp.e04",
-          "livello": "medio",
-          "testo": "Risolvi $\\left(\\frac{1}{3}\\right)^x > 9$.",
-          "suggerimento": "Scrivi $9$ come potenza di $\\frac{1}{3}$ e ricorda che con base minore di $1$ il verso si ribalta.",
-          "passi": [
-            "$9 = 3^2 = \\left(\\frac{1}{3}\\right)^{-2}$.",
-            "$\\left(\\frac{1}{3}\\right)^x > \\left(\\frac{1}{3}\\right)^{-2}$.",
-            "La base $\\frac{1}{3}$ è minore di $1$: la funzione è decrescente, quindi «più grande» corrisponde a esponente **più piccolo**: $x < -2$.",
-            "Controllo: $x = -3$ dà $3^3 = 27 > 9$, vero; $x = 0$ dà $1$, falso. Torna."
-          ],
-          "soluzione": "$x < -2$"
-        },
-        {
-          "id": "anl1.exp.e05",
-          "livello": "difficile",
-          "testo": "Risolvi $e^{2x} - 3e^x + 2 = 0$.",
-          "suggerimento": "$e^{2x} = (e^x)^2$: poni $t = e^x$, ricordando che $t > 0$.",
-          "passi": [
-            "Con $t = e^x$: $t^2 - 3t + 2 = 0$, con soluzioni $t = 1$ e $t = 2$, entrambe positive.",
-            "$e^x = 1$ dà $x = 0$.",
-            "$e^x = 2$ dà $x = \\ln 2$."
-          ],
-          "soluzione": "$x = 0$ oppure $x = \\ln 2$"
-        },
-        {
-          "id": "anl1.exp.e06",
-          "livello": "difficile",
-          "testo": "Risolvi $|x| + |x - 2| = 4$.",
-          "suggerimento": "I valori assoluti cambiano forma in $x = 0$ e in $x = 2$: studia separatamente le tre zone.",
-          "passi": [
-            "Zona $x < 0$: $|x| = -x$ e $|x - 2| = 2 - x$. L'equazione diventa $-2x + 2 = 4$, cioè $x = -1$, che sta nella zona: accettata.",
-            "Zona $0 \\le x < 2$: $|x| = x$ e $|x - 2| = 2 - x$. Viene $2 = 4$: impossibile, nessuna soluzione.",
-            "Zona $x \\ge 2$: $|x| = x$ e $|x - 2| = x - 2$. Viene $2x - 2 = 4$, cioè $x = 3$, che sta nella zona: accettata.",
-            "Controllo: $|-1| + |-3| = 4$ e $|3| + |1| = 4$. Tornano."
-          ],
-          "soluzione": "$x = -1$ oppure $x = 3$"
-        }
-      ],
-      "verifica": {
-        "spiegalo": [
-          "Spiega a parole che cosa vuol dire $\\log_2 32 = 5$.",
-          "Perché $\\log(x + y)$ non si può spezzare, mentre $\\log(xy)$ sì?"
-        ],
-        "quiz": [
-          {
-            "id": "anl1.exp.q1",
-            "domanda": "Per $x, y > 0$, $\\log(xy)$ è uguale a:",
-            "opzioni": [
-              "$\\log x \\cdot \\log y$",
-              "$\\log x + \\log y$",
-              "$\\log(x + y)$"
-            ],
-            "corretta": 1,
-            "spiegazione": "Il logaritmo trasforma prodotti in somme, perché gli esponenti si sommano."
-          },
-          {
-            "id": "anl1.exp.q2",
-            "domanda": "La funzione $\\left(\\frac{1}{2}\\right)^x$ è:",
-            "opzioni": [
-              "costante",
-              "strettamente crescente",
-              "strettamente decrescente"
-            ],
-            "corretta": 2,
-            "spiegazione": "La base è compresa tra 0 e 1."
-          },
-          {
-            "id": "anl1.exp.q3",
-            "domanda": "$|x| < 3$ equivale a:",
-            "opzioni": [
-              "$-3 < x < 3$",
-              "$x < 3$",
-              "$x < -3$ oppure $x > 3$"
-            ],
-            "corretta": 0,
-            "spiegazione": "I punti che distano meno di $3$ da zero."
-          },
-          {
-            "id": "anl1.exp.q4",
-            "domanda": "Il dominio di $\\ln(x - 1)$ è:",
-            "opzioni": [
-              "$x \\ge 1$",
-              "$x \\neq 1$",
-              "$x > 1$"
-            ],
-            "corretta": 2,
-            "spiegazione": "L'argomento del logaritmo deve essere **strettamente** positivo: $x - 1 > 0$."
-          },
-          {
-            "id": "anl1.exp.q5",
-            "domanda": "$\\log_2 32$ vale:",
-            "opzioni": [
-              "$5$",
-              "$16$",
-              "$6$"
-            ],
-            "corretta": 0,
-            "spiegazione": "$2^5 = 32$."
-          }
-        ]
-      }
+     "id": "anl1.exp.s1",
+     "livello": "intuizione",
+     "titolo": "Moltiplicare tante volte, e tornare indietro",
+     "testo": "- $2^3$ vuol dire moltiplicare $2$ per sé stesso $3$ volte. L'**esponenziale** $a^x$ estende questa idea a **ogni** numero reale $x$, anche a $x = \\frac{1}{2}$ o $x = \\sqrt{2}$, in modo che il grafico sia una curva continua senza salti.\n- Il **logaritmo** fa il contrario. $\\log_2 8$ risponde alla domanda «**a quale esponente** devo elevare $2$ per ottenere $8$?». La risposta è $3$. Il logaritmo è quindi l'**inversa** dell'esponenziale.\n- Il **valore assoluto** $|x|$ è la **distanza** di $x$ da zero sulla retta, quindi non è mai negativo: $|-5| = |5| = 5$. Più in generale, $|x - y|$ è la distanza tra $x$ e $y$."
     },
     {
-      "id": "anl1.trig",
-      "titolo": "Trigonometria",
-      "fonte": "Programma Mercatorum, videolezione 7",
-      "incerto": [
-        "Le formule di addizione le do come risultato da sapere: nel corso potrebbero essere dimostrate. Se nella dispensa c'è la dimostrazione, dimmelo e la aggiungo spiegata passo per passo."
-      ],
-      "prossimo_passo": "Rileggi la circonferenza goniometrica, poi fai le tecniche su $\\sin x = k$ e $\\cos x = k$.",
-      "sezioni": [
-        {
-          "id": "anl1.trig.s1",
-          "livello": "intuizione",
-          "titolo": "Un punto che gira su un cerchio",
-          "testo": "Disegna una circonferenza di **raggio $1$** centrata nell'origine. Parti dal punto $(1, 0)$ e cammina sulla circonferenza in senso antiorario per una lunghezza $x$.\n\n- La lunghezza percorsa è l'**angolo in radianti**. Un giro completo è lungo $2\\pi$, quindi $360° = 2\\pi$ e $180° = \\pi$.\n- Il punto in cui arrivi ha coordinate $(\\cos x, \\sin x)$: il **coseno** è quanto sei a destra o a sinistra, il **seno** quanto sei in alto o in basso.\n- La **tangente** $\\tan x = \\frac{\\sin x}{\\cos x}$ è la pendenza del raggio che va dall'origine al punto.\n\nDa questa immagine escono quasi tutte le proprietà. Dopo un giro torni allo stesso punto, quindi le funzioni si ripetono ogni $2\\pi$. Le coordinate stanno tra $-1$ e $1$. E dato che il punto sta sul cerchio di raggio $1$, vale il teorema di Pitagora."
-        },
-        {
-          "id": "anl1.trig.s2",
-          "livello": "definizione",
-          "titolo": "Definizioni e valori da sapere",
-          "testo": "- **Radianti:** $\\text{radianti} = \\text{gradi} \\cdot \\frac{\\pi}{180}$.\n- $\\sin x$ e $\\cos x$: definite su $\\mathbb{R}$, immagine $[-1, 1]$, **periodo** $2\\pi$.\n- $\\cos$ è **pari**: $\\cos(-x) = \\cos x$. $\\sin$ è **dispari**: $\\sin(-x) = -\\sin x$. Sul cerchio, cambiare segno all'angolo vuol dire specchiare il punto rispetto all'asse orizzontale.\n- **Identità fondamentale:** $\\sin^2 x + \\cos^2 x = 1$. Attenzione alla scrittura: $\\sin^2 x$ significa $(\\sin x)^2$.\n- $\\tan x = \\frac{\\sin x}{\\cos x}$, definita per $x \\neq \\frac{\\pi}{2} + k\\pi$, periodo $\\pi$, immagine $\\mathbb{R}$.\n\n**Valori notevoli** (angolo: seno, coseno):\n\n- $0$: $\\ 0,\\ 1$\n- $\\frac{\\pi}{6}$ (30°): $\\ \\frac{1}{2},\\ \\frac{\\sqrt{3}}{2}$\n- $\\frac{\\pi}{4}$ (45°): $\\ \\frac{\\sqrt{2}}{2},\\ \\frac{\\sqrt{2}}{2}$\n- $\\frac{\\pi}{3}$ (60°): $\\ \\frac{\\sqrt{3}}{2},\\ \\frac{1}{2}$\n- $\\frac{\\pi}{2}$ (90°): $\\ 1,\\ 0$"
-        },
-        {
-          "id": "anl1.trig.s3",
-          "livello": "definizione",
-          "titolo": "Formule e funzioni inverse",
-          "testo": "**Addizione:**\n$$\\sin(a + b) = \\sin a \\cos b + \\cos a \\sin b, \\qquad \\cos(a + b) = \\cos a \\cos b - \\sin a \\sin b.$$\n\n**Duplicazione:** $\\sin 2a = 2 \\sin a \\cos a$; $\\ \\cos 2a = \\cos^2 a - \\sin^2 a = 1 - 2\\sin^2 a = 2\\cos^2 a - 1$.\n\n**Archi associati**, che si leggono sul cerchio:\n\n- $\\sin(\\pi - x) = \\sin x$, $\\ \\cos(\\pi - x) = -\\cos x$: il punto viene specchiato rispetto all'asse verticale;\n- $\\sin(x + \\pi) = -\\sin x$, $\\ \\cos(x + \\pi) = -\\cos x$: mezzo giro, il punto va all'opposto;\n- $\\sin\\left(\\frac{\\pi}{2} - x\\right) = \\cos x$: seno e coseno si scambiano.\n\n**Inverse.** Seno, coseno e tangente non sono iniettive, perché sono periodiche. Per invertirle le si restringe a un tratto dove lo sono:\n\n- $\\arcsin : [-1, 1] \\to \\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$;\n- $\\arccos : [-1, 1] \\to [0, \\pi]$;\n- $\\arctan : \\mathbb{R} \\to \\left(-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right)$."
-        },
-        {
-          "id": "anl1.trig.s4",
-          "livello": "ragionamento",
-          "titolo": "Da dove vengono identità e duplicazione",
-          "testo": "**$\\sin^2 x + \\cos^2 x = 1$.** Il punto $(\\cos x, \\sin x)$ sta sulla circonferenza di raggio $1$ centrata nell'origine, quindi dista $1$ dall'origine. La distanza dall'origine del punto $(u, v)$ è $\\sqrt{u^2 + v^2}$, per il teorema di Pitagora sul triangolo con cateti $|u|$ e $|v|$. Quindi $\\sqrt{\\cos^2 x + \\sin^2 x} = 1$ e, elevando al quadrato, $\\cos^2 x + \\sin^2 x = 1$. $\\blacksquare$\n\n**$\\sin 2a = 2 \\sin a \\cos a$.** Nella formula di addizione metto $b = a$: $\\sin(a + a) = \\sin a \\cos a + \\cos a \\sin a = 2 \\sin a \\cos a$. $\\blacksquare$\n\n**Le tre forme di $\\cos 2a$.**\n1. Addizione con $b = a$: $\\cos 2a = \\cos^2 a - \\sin^2 a$.\n2. Sostituisco $\\cos^2 a = 1 - \\sin^2 a$, preso dall'identità fondamentale: $\\cos 2a = 1 - 2\\sin^2 a$.\n3. Oppure sostituisco $\\sin^2 a = 1 - \\cos^2 a$: $\\cos 2a = 2\\cos^2 a - 1$. $\\blacksquare$\n\nNon serve impararle tutte e tre a memoria: basta saperle ricavare dalla prima in due righe."
-        },
-        {
-          "id": "anl1.trig.s5",
-          "livello": "errori_comuni",
-          "titolo": "Dove si sbaglia di solito",
-          "testo": "- **Mescolare gradi e radianti.** In Analisi gli angoli sono **sempre** in radianti, anche dentro i limiti e le derivate.\n- **$\\sin 2x = 2 \\sin x$.** Falso: $\\sin 2x = 2 \\sin x \\cos x$.\n- **Fermarsi a una soluzione.** $\\sin x = \\frac{1}{2}$ ha **infinite** soluzioni, divise in due famiglie: $\\frac{\\pi}{6} + 2k\\pi$ e $\\frac{5\\pi}{6} + 2k\\pi$.\n- **$\\arcsin(\\sin x) = x$ sempre.** Vale solo per $x \\in \\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$. Per esempio $\\arcsin(\\sin \\pi) = \\arcsin 0 = 0 \\neq \\pi$.\n- **Dimenticare dove la tangente non esiste**: in $\\frac{\\pi}{2} + k\\pi$, cioè dove $\\cos x = 0$.\n- **Confondere $\\sin^{-1} x$ con $\\frac{1}{\\sin x}$.** Su molti libri e calcolatrici $\\sin^{-1}$ indica l'arcoseno."
-        },
-        {
-          "id": "anl1.trig.s6",
-          "livello": "riepilogo",
-          "titolo": "In cinque righe",
-          "testo": "- Cerchio di raggio $1$: punto $(\\cos x, \\sin x)$, angolo $x$ in radianti, $\\pi = 180°$.\n- $\\sin^2 x + \\cos^2 x = 1$ (Pitagora); periodo $2\\pi$ per seno e coseno, $\\pi$ per la tangente.\n- $\\sin 2a = 2\\sin a\\cos a$; $\\cos 2a = 1 - 2\\sin^2 a$: si ricavano dall'addizione.\n- Equazioni elementari: due famiglie di soluzioni, più $2k\\pi$.\n- $\\arcsin$ e $\\arccos$ su $[-1, 1]$, $\\arctan$ su $\\mathbb{R}$, con immagini ristrette."
-        }
-      ],
-      "tecniche": [
-        {
-          "id": "anl1.trig.t1",
-          "nome": "Risolvere sin x = k",
-          "quando": "Equazioni goniometriche elementari con il seno, con $-1 \\le k \\le 1$.",
-          "esempio": {
-            "testo": "Risolvi $\\sin x = \\frac{1}{2}$.",
-            "passi": [
-              "Cerco sul cerchio i punti alla **altezza** $\\frac{1}{2}$: sono due, simmetrici rispetto all'asse verticale.",
-              "Il primo è un angolo noto: $x = \\frac{\\pi}{6}$.",
-              "Il secondo è il suo simmetrico: $x = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$, perché $\\sin(\\pi - x) = \\sin x$.",
-              "Aggiungo la periodicità: $x = \\frac{\\pi}{6} + 2k\\pi$ oppure $x = \\frac{5\\pi}{6} + 2k\\pi$, con $k \\in \\mathbb{Z}$."
-            ]
-          }
-        },
-        {
-          "id": "anl1.trig.t2",
-          "nome": "Risolvere cos x = k",
-          "quando": "Equazioni goniometriche elementari con il coseno, con $-1 \\le k \\le 1$.",
-          "esempio": {
-            "testo": "Risolvi $\\cos x = -\\frac{1}{2}$.",
-            "passi": [
-              "Cerco sul cerchio i punti con **ascissa** $-\\frac{1}{2}$: sono due, simmetrici rispetto all'asse orizzontale.",
-              "$\\cos \\frac{\\pi}{3} = \\frac{1}{2}$, e $\\cos(\\pi - x) = -\\cos x$, quindi $\\cos \\frac{2\\pi}{3} = -\\frac{1}{2}$.",
-              "Il simmetrico rispetto all'asse orizzontale è $-\\frac{2\\pi}{3}$, perché il coseno è pari.",
-              "Soluzioni: $x = \\pm \\frac{2\\pi}{3} + 2k\\pi$, con $k \\in \\mathbb{Z}$."
-            ]
-          }
-        }
-      ],
-      "esercizi": [
-        {
-          "id": "anl1.trig.e01",
-          "livello": "base",
-          "testo": "Converti $135°$ in radianti e $\\frac{5\\pi}{6}$ in gradi.",
-          "suggerimento": "$180° = \\pi$.",
-          "passi": [
-            "$135 \\cdot \\frac{\\pi}{180} = \\frac{135}{180}\\pi = \\frac{3}{4}\\pi$.",
-            "$\\frac{5\\pi}{6} \\cdot \\frac{180}{\\pi} = \\frac{5 \\cdot 180}{6} = 150$."
-          ],
-          "soluzione": "$135° = \\frac{3\\pi}{4}$; $\\frac{5\\pi}{6} = 150°$"
-        },
-        {
-          "id": "anl1.trig.e02",
-          "livello": "base",
-          "testo": "Calcola $\\sin \\frac{2\\pi}{3}$, $\\cos \\frac{2\\pi}{3}$ e $\\tan \\frac{\\pi}{4}$.",
-          "suggerimento": "$\\frac{2\\pi}{3} = \\pi - \\frac{\\pi}{3}$: usa gli archi associati.",
-          "passi": [
-            "$\\sin\\left(\\pi - \\frac{\\pi}{3}\\right) = \\sin \\frac{\\pi}{3} = \\frac{\\sqrt{3}}{2}$.",
-            "$\\cos\\left(\\pi - \\frac{\\pi}{3}\\right) = -\\cos \\frac{\\pi}{3} = -\\frac{1}{2}$.",
-            "$\\tan \\frac{\\pi}{4} = \\frac{\\sqrt{2}/2}{\\sqrt{2}/2} = 1$."
-          ],
-          "soluzione": "$\\frac{\\sqrt{3}}{2}$, $-\\frac{1}{2}$, $1$"
-        },
-        {
-          "id": "anl1.trig.e03",
-          "livello": "medio",
-          "testo": "Risolvi $2\\cos x - \\sqrt{2} = 0$.",
-          "suggerimento": "Isola il coseno e riconosci un valore notevole.",
-          "passi": [
-            "$\\cos x = \\frac{\\sqrt{2}}{2}$.",
-            "$\\cos \\frac{\\pi}{4} = \\frac{\\sqrt{2}}{2}$, e il coseno è pari, quindi va bene anche $-\\frac{\\pi}{4}$.",
-            "$x = \\pm \\frac{\\pi}{4} + 2k\\pi$."
-          ],
-          "soluzione": "$x = \\pm \\frac{\\pi}{4} + 2k\\pi$, $k \\in \\mathbb{Z}$"
-        },
-        {
-          "id": "anl1.trig.e04",
-          "livello": "medio",
-          "testo": "Risolvi $\\sin 2x = \\sin x$ nell'intervallo $[0, 2\\pi]$.",
-          "suggerimento": "Usa la duplicazione e porta tutto a sinistra: compare un fattore comune. **Non** dividere per $\\sin x$, perché perderesti delle soluzioni.",
-          "passi": [
-            "$2 \\sin x \\cos x - \\sin x = 0$, cioè $\\sin x (2\\cos x - 1) = 0$.",
-            "Primo fattore: $\\sin x = 0$ in $[0, 2\\pi]$ dà $x = 0, \\pi, 2\\pi$.",
-            "Secondo fattore: $\\cos x = \\frac{1}{2}$ dà $x = \\frac{\\pi}{3}$ e $x = \\frac{5\\pi}{3}$.",
-            "Se avessi diviso per $\\sin x$ avrei perso $0$, $\\pi$ e $2\\pi$."
-          ],
-          "soluzione": "$x = 0,\\ \\frac{\\pi}{3},\\ \\pi,\\ \\frac{5\\pi}{3},\\ 2\\pi$"
-        },
-        {
-          "id": "anl1.trig.e05",
-          "livello": "difficile",
-          "testo": "Risolvi $\\sin^2 x - \\cos^2 x = \\frac{1}{2}$.",
-          "suggerimento": "Riconosci $\\cos 2x$ con il segno cambiato.",
-          "passi": [
-            "$\\sin^2 x - \\cos^2 x = -(\\cos^2 x - \\sin^2 x) = -\\cos 2x$.",
-            "L'equazione diventa $\\cos 2x = -\\frac{1}{2}$.",
-            "Con la tecnica del coseno: $2x = \\pm \\frac{2\\pi}{3} + 2k\\pi$.",
-            "Divido per $2$, anche il termine periodico: $x = \\pm \\frac{\\pi}{3} + k\\pi$."
-          ],
-          "soluzione": "$x = \\pm \\frac{\\pi}{3} + k\\pi$, $k \\in \\mathbb{Z}$"
-        },
-        {
-          "id": "anl1.trig.e06",
-          "livello": "difficile",
-          "testo": "Risolvi $2\\sin^2 x + 3\\sin x - 2 \\ge 0$.",
-          "suggerimento": "Poni $t = \\sin x$, con $-1 \\le t \\le 1$, e risolvi la disequazione di secondo grado in $t$.",
-          "passi": [
-            "$2t^2 + 3t - 2 = (2t - 1)(t + 2)$. Controllo: $2t^2 + 4t - t - 2$. Torna.",
-            "Radici $t = \\frac{1}{2}$ e $t = -2$; con $a = 2 > 0$, il trinomio è $\\ge 0$ per $t \\le -2$ oppure $t \\ge \\frac{1}{2}$.",
-            "$\\sin x \\le -2$ è impossibile, perché il seno non scende sotto $-1$.",
-            "$\\sin x \\ge \\frac{1}{2}$: sul cerchio, l'arco tra $\\frac{\\pi}{6}$ e $\\frac{5\\pi}{6}$.",
-            "Aggiungo la periodicità."
-          ],
-          "soluzione": "$\\frac{\\pi}{6} + 2k\\pi \\le x \\le \\frac{5\\pi}{6} + 2k\\pi$, $k \\in \\mathbb{Z}$"
-        }
-      ],
-      "verifica": {
-        "spiegalo": [
-          "Spiega con il cerchio di raggio $1$ perché $\\sin^2 x + \\cos^2 x = 1$.",
-          "Perché per definire l'arcoseno bisogna restringere il seno a $\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$?"
-        ],
-        "quiz": [
-          {
-            "id": "anl1.trig.q1",
-            "domanda": "$\\frac{\\pi}{3}$ radianti sono:",
-            "opzioni": [
-              "$30°$",
-              "$60°$",
-              "$120°$"
-            ],
-            "corretta": 1,
-            "spiegazione": "$\\frac{180°}{3} = 60°$."
-          },
-          {
-            "id": "anl1.trig.q2",
-            "domanda": "$\\sin(\\pi - x)$ è uguale a:",
-            "opzioni": [
-              "$-\\sin x$",
-              "$\\cos x$",
-              "$\\sin x$"
-            ],
-            "corretta": 2,
-            "spiegazione": "Il punto viene specchiato rispetto all'asse verticale: l'altezza resta la stessa."
-          },
-          {
-            "id": "anl1.trig.q3",
-            "domanda": "Il dominio di $\\arcsin x$ è:",
-            "opzioni": [
-              "$[-1, 1]$",
-              "$\\mathbb{R}$",
-              "$\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$"
-            ],
-            "corretta": 0,
-            "spiegazione": "Gli input dell'arcoseno sono valori del seno, che stanno tra $-1$ e $1$. $\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$ è l'**immagine**."
-          },
-          {
-            "id": "anl1.trig.q4",
-            "domanda": "$\\cos 2x$ è uguale a:",
-            "opzioni": [
-              "$2\\cos x$",
-              "$1 - 2\\sin^2 x$",
-              "$1 - \\sin^2 x$"
-            ],
-            "corretta": 1,
-            "spiegazione": "$\\cos 2x = \\cos^2 x - \\sin^2 x$ e $\\cos^2 x = 1 - \\sin^2 x$."
-          },
-          {
-            "id": "anl1.trig.q5",
-            "domanda": "Il periodo di $\\tan x$ è:",
-            "opzioni": [
-              "$\\pi$",
-              "$2\\pi$",
-              "$\\frac{\\pi}{2}$"
-            ],
-            "corretta": 0,
-            "spiegazione": "Dopo mezzo giro seno e coseno cambiano entrambi segno, quindi il loro rapporto resta uguale."
-          }
-        ]
-      }
+     "id": "anl1.exp.s2",
+     "livello": "definizione",
+     "titolo": "L'esponenziale",
+     "testo": "Fissata una base $a > 0$ con $a \\neq 1$, la funzione $a^x$ è definita per ogni $x \\in \\mathbb{R}$.\n\n- È **sempre positiva**: $a^x > 0$. L'immagine è $(0, +\\infty)$.\n- $a^0 = 1$, quindi il grafico passa sempre per $(0, 1)$.\n- Se $a > 1$ è **strettamente crescente**; se $0 < a < 1$ è **strettamente decrescente**.\n- **Proprietà:** $a^{x+y} = a^x a^y$, $\\ (a^x)^y = a^{xy}$, $\\ a^{-x} = \\frac{1}{a^x}$, $\\ (ab)^x = a^x b^x$.\n\nLa base più importante è il **numero di Nepero** $e \\approx 2{,}718$, che vedremo con le successioni. La funzione $e^x$ si chiama semplicemente «esponenziale»."
     },
     {
-      "id": "anl1.graf",
-      "titolo": "Grafici di funzioni composte",
-      "fonte": "Programma Mercatorum, videolezione 8",
-      "prossimo_passo": "Leggi la regola dello spostamento orizzontale (quella controintuitiva), poi fai l'esercizio e05.",
-      "sezioni": [
-        {
-          "id": "anl1.graf.s1",
-          "livello": "intuizione",
-          "titolo": "Spostare, stirare, specchiare",
-          "testo": "Non serve ricalcolare ogni grafico da zero. Se conosci il grafico di una funzione base come $x^2$, $e^x$, $\\ln x$ o $\\sin x$, puoi ottenere quello di molte funzioni composte **muovendolo**: lo sposti, lo allunghi, lo specchi.\n\nÈ come avere un timbro e decidere dove e come appoggiarlo sul foglio. Le mosse sono poche, e una sola è controintuitiva: lo spostamento orizzontale va nel verso **opposto** al segno che vedi."
-        },
-        {
-          "id": "anl1.graf.s2",
-          "livello": "definizione",
-          "titolo": "Le mosse, una per una",
-          "testo": "Parti dal grafico di $y = f(x)$ e prendi $k > 0$.\n\n- $f(x) + k$: **su** di $k$. $\\ f(x) - k$: **giù** di $k$.\n- $f(x - k)$: **a destra** di $k$. $\\ f(x + k)$: **a sinistra** di $k$.\n- $-f(x)$: specchio rispetto all'**asse $x$**, cioè sopra e sotto si scambiano.\n- $f(-x)$: specchio rispetto all'**asse $y$**, cioè destra e sinistra si scambiano.\n- $k \\cdot f(x)$: stiramento **verticale** di un fattore $k$ (se $k < 1$ è uno schiacciamento).\n- $f(kx)$: **compressione orizzontale** di un fattore $k$ (se $k < 1$ è un allungamento). Esempio: $\\sin 2x$ ha periodo $\\pi$ invece di $2\\pi$.\n- $|f(x)|$: le parti del grafico **sotto** l'asse $x$ vengono ribaltate sopra; le altre restano uguali.\n- $f(|x|)$: tieni la parte con $x \\ge 0$, butti quella con $x < 0$ e la sostituisci con lo specchio della parte destra. Il risultato è sempre una funzione **pari**."
-        },
-        {
-          "id": "anl1.graf.s3",
-          "livello": "ragionamento",
-          "titolo": "Perché f(x − k) va a destra",
-          "testo": "Sia $g(x) = f(x - k)$ con $k > 0$, e prendi un punto qualunque del grafico di $f$, cioè $(x_0, f(x_0))$.\n\n**Passo 1.** Mi chiedo dove $g$ assume lo **stesso valore** $f(x_0)$. Mi serve un $x$ con $x - k = x_0$, cioè $x = x_0 + k$.\n\n**Passo 2.** Infatti $g(x_0 + k) = f(x_0 + k - k) = f(x_0)$.\n\n**Passo 3.** Quindi il punto che per $f$ stava in $x_0$, per $g$ sta in $x_0 + k$: alla **stessa altezza**, ma $k$ passi più a **destra**. Vale per ogni punto, quindi tutto il grafico trasla a destra. $\\blacksquare$\n\n**Il modo di pensarci:** $g$ «arriva in ritardo». Per ottenere lo stesso valore di $f$, a $g$ serve una $x$ più grande di $k$.\n\n**Perché $|f(x)|$ ribalta solo le parti negative.** Dove $f(x) \\ge 0$, $|f(x)| = f(x)$ e non cambia niente. Dove $f(x) < 0$, $|f(x)| = -f(x)$, cioè lo specchio rispetto all'asse $x$ applicato solo a quel tratto."
-        },
-        {
-          "id": "anl1.graf.s4",
-          "livello": "errori_comuni",
-          "titolo": "Dove si sbaglia di solito",
-          "testo": "- **Spostare $f(x + 2)$ a destra.** Va a **sinistra** di $2$.\n- **Sbagliare l'ordine delle mosse orizzontali.** $f(2x + 4) = f\\big(2(x + 2)\\big)$: prima comprimi di un fattore $2$, poi sposti a sinistra di $2$, **non di $4$**. Raccogliere il coefficiente di $x$ evita l'errore.\n- **Confondere $|f(x)|$ e $f(|x|)$.** Il primo agisce sui valori, cioè sopra e sotto; il secondo agisce sulle $x$, cioè destra e sinistra.\n- **Dimenticare di spostare anche asintoti e punti notevoli.** In $\\ln(x - 1)$ l'asintoto verticale passa da $x = 0$ a $x = 1$.\n- **Pensare che $-f(x)$ e $f(-x)$ siano la stessa cosa.** Lo sono solo per le funzioni dispari."
-        },
-        {
-          "id": "anl1.graf.s5",
-          "livello": "riepilogo",
-          "titolo": "In cinque righe",
-          "testo": "- $f(x) \\pm k$: su o giù. $f(x \\mp k)$: a destra o a sinistra, nel verso opposto al segno.\n- $-f(x)$ specchia sull'asse $x$; $f(-x)$ specchia sull'asse $y$.\n- $f(kx)$ comprime orizzontalmente: il periodo di $\\sin kx$ è $\\frac{2\\pi}{k}$.\n- $|f(x)|$ ribalta sopra le parti negative; $f(|x|)$ copia a sinistra la parte destra.\n- Si sposta tutto: zeri, asintoti, massimi e minimi."
-        }
-      ],
-      "tecniche": [
-        {
-          "id": "anl1.graf.t1",
-          "nome": "Disegnare un grafico con le trasformazioni",
-          "quando": "Quando la funzione è una funzione base modificata con traslazioni, valori assoluti o cambi di segno.",
-          "esempio": {
-            "testo": "Disegna $y = |x^2 - 4|$.",
-            "passi": [
-              "Parto da $y = x^2$: parabola con vertice nell'origine.",
-              "$x^2 - 4$: la abbasso di $4$. Vertice in $(0, -4)$; taglia l'asse $x$ dove $x^2 = 4$, cioè in $x = \\pm 2$.",
-              "$|x^2 - 4|$: la parte negativa, tra $-2$ e $2$, si ribalta sopra. Il vertice $(0, -4)$ diventa $(0, 4)$.",
-              "Risultato: una «W» arrotondata, che tocca l'asse $x$ in $\\pm 2$ e ha una gobba di altezza $4$ in $x = 0$."
-            ]
-          }
-        },
-        {
-          "id": "anl1.graf.t2",
-          "nome": "Seguire asintoti e punti notevoli",
-          "quando": "Con esponenziali e logaritmi traslati, dove conta vedere dove si sposta l'asintoto.",
-          "esempio": {
-            "testo": "Disegna $y = 2 + \\ln(x - 1)$.",
-            "passi": [
-              "Parto da $\\ln x$: asintoto verticale $x = 0$, passa per $(1, 0)$, crescente.",
-              "$\\ln(x - 1)$: tutto a destra di $1$. Asintoto $x = 1$, passa per $(2, 0)$. Dominio $x > 1$.",
-              "$2 + \\ln(x - 1)$: tutto su di $2$. Il punto $(2, 0)$ diventa $(2, 2)$; l'asintoto verticale resta $x = 1$.",
-              "Zero della nuova funzione: $\\ln(x - 1) = -2$, cioè $x = 1 + e^{-2} \\approx 1{,}14$, molto vicino all'asintoto."
-            ]
-          }
-        }
-      ],
-      "esercizi": [
-        {
-          "id": "anl1.graf.e01",
-          "livello": "base",
-          "testo": "Descrivi il grafico di $y = (x - 3)^2 + 1$ partendo da $y = x^2$.",
-          "suggerimento": "Due mosse: una orizzontale e una verticale.",
-          "passi": [
-            "$(x - 3)^2$: la parabola va a destra di $3$.",
-            "$+1$: va su di $1$.",
-            "Il vertice passa da $(0, 0)$ a $(3, 1)$. La forma non cambia."
-          ],
-          "soluzione": "Parabola con vertice $(3, 1)$, rivolta verso l'alto; immagine $[1, +\\infty)$."
-        },
-        {
-          "id": "anl1.graf.e02",
-          "livello": "base",
-          "testo": "Descrivi il grafico di $y = -e^x$ e trova la sua immagine.",
-          "suggerimento": "Il segno meno davanti specchia rispetto all'asse $x$.",
-          "passi": [
-            "$e^x$ sta tutta sopra l'asse $x$ e passa per $(0, 1)$.",
-            "$-e^x$ è lo specchio: sta tutta sotto l'asse e passa per $(0, -1)$.",
-            "L'immagine di $e^x$ è $(0, +\\infty)$, quindi quella di $-e^x$ è $(-\\infty, 0)$."
-          ],
-          "soluzione": "Grafico di $e^x$ ribaltato sotto l'asse $x$; immagine $(-\\infty, 0)$."
-        },
-        {
-          "id": "anl1.graf.e03",
-          "livello": "medio",
-          "testo": "Descrivi il grafico di $y = |\\ln x|$ e trova il suo minimo.",
-          "suggerimento": "Dove $\\ln x$ è negativo?",
-          "passi": [
-            "$\\ln x < 0$ per $0 < x < 1$ e $\\ln x \\ge 0$ per $x \\ge 1$.",
-            "Il tratto su $(0, 1)$ si ribalta sopra; quello per $x \\ge 1$ resta com'è.",
-            "Il grafico tocca l'asse solo in $x = 1$, dove vale $0$: è il minimo."
-          ],
-          "soluzione": "Minimo $0$ in $x = 1$; tende a $+\\infty$ sia per $x \\to 0^+$ sia per $x \\to +\\infty$."
-        },
-        {
-          "id": "anl1.graf.e04",
-          "livello": "medio",
-          "testo": "Descrivi il grafico di $y = \\frac{1}{x + 1} - 2$.",
-          "suggerimento": "Parti dall'iperbole $y = \\frac{1}{x}$, che ha asintoti $x = 0$ e $y = 0$.",
-          "passi": [
-            "$\\frac{1}{x + 1}$: tutto a sinistra di $1$. Asintoto verticale $x = -1$.",
-            "$-2$: tutto giù di $2$. Asintoto orizzontale $y = -2$.",
-            "Dominio $x \\neq -1$; immagine $y \\neq -2$."
-          ],
-          "soluzione": "Iperbole con asintoti $x = -1$ e $y = -2$."
-        },
-        {
-          "id": "anl1.graf.e05",
-          "livello": "difficile",
-          "testo": "Quante soluzioni ha $|x^2 - 4| = 3$? Rispondi prima con il grafico, poi verifica con i calcoli.",
-          "suggerimento": "Usa il grafico di $|x^2 - 4|$ dalla tecnica t1 e intersecalo con la retta orizzontale $y = 3$.",
-          "passi": [
-            "Il grafico ha una gobba centrale alta $4$ e due rami esterni che salgono all'infinito.",
-            "La retta $y = 3$ sta sotto la cima della gobba ($4$): taglia la gobba in 2 punti e i due rami esterni in 1 punto ciascuno. Totale 4.",
-            "Verifica: $x^2 - 4 = 3$ dà $x = \\pm\\sqrt{7}$; $x^2 - 4 = -3$ dà $x = \\pm 1$."
-          ],
-          "soluzione": "4 soluzioni: $x = \\pm 1$ e $x = \\pm \\sqrt{7}$."
-        },
-        {
-          "id": "anl1.graf.e06",
-          "livello": "difficile",
-          "testo": "Descrivi il grafico di $y = e^{|x|}$: è pari? Qual è il minimo?",
-          "suggerimento": "$f(|x|)$: tieni la parte con $x \\ge 0$ e copiala a sinistra.",
-          "passi": [
-            "Per $x \\ge 0$: $e^{|x|} = e^x$, crescente, parte da $(0, 1)$.",
-            "Per $x < 0$: è lo specchio della parte destra.",
-            "È pari, perché $e^{|-x|} = e^{|x|}$. Il minimo è $1$, in $x = 0$, dove il grafico ha una punta."
-          ],
-          "soluzione": "Funzione pari a forma di «V» con i lati curvi, minimo $1$ in $x = 0$."
-        }
-      ],
-      "verifica": {
-        "spiegalo": [
-          "Spiega perché $f(x - 3)$ sposta il grafico a destra e non a sinistra.",
-          "Che differenza c'è tra $|f(x)|$ e $f(|x|)$? Fai un esempio."
-        ],
-        "quiz": [
-          {
-            "id": "anl1.graf.q1",
-            "domanda": "Il grafico di $f(x - 2)$ si ottiene da quello di $f$ spostandolo:",
-            "opzioni": [
-              "a sinistra di $2$",
-              "in su di $2$",
-              "a destra di $2$"
-            ],
-            "corretta": 2,
-            "spiegazione": "Per ottenere lo stesso valore serve una $x$ più grande di $2$."
-          },
-          {
-            "id": "anl1.graf.q2",
-            "domanda": "Il grafico di $|f(x)|$:",
-            "opzioni": [
-              "ribalta sopra le parti che stanno sotto l'asse $x$",
-              "copia a sinistra la parte destra",
-              "è uguale a quello di $f$"
-            ],
-            "corretta": 0,
-            "spiegazione": "Il valore assoluto rende positivi i valori negativi, lasciando gli altri invariati."
-          },
-          {
-            "id": "anl1.graf.q3",
-            "domanda": "Il grafico di $f(-x)$ è il simmetrico di quello di $f$ rispetto:",
-            "opzioni": [
-              "all'asse $x$",
-              "all'asse $y$",
-              "all'origine"
-            ],
-            "corretta": 1,
-            "spiegazione": "Si scambiano destra e sinistra: il valore che $f$ aveva in $x$, ora c'è in $-x$."
-          },
-          {
-            "id": "anl1.graf.q4",
-            "domanda": "Il periodo di $\\sin 2x$ è:",
-            "opzioni": [
-              "$\\pi$",
-              "$2\\pi$",
-              "$4\\pi$"
-            ],
-            "corretta": 0,
-            "spiegazione": "$f(kx)$ comprime di un fattore $k$: $\\frac{2\\pi}{2} = \\pi$."
-          },
-          {
-            "id": "anl1.graf.q5",
-            "domanda": "Una funzione della forma $f(|x|)$ è sempre:",
-            "opzioni": [
-              "dispari",
-              "positiva",
-              "pari"
-            ],
-            "corretta": 2,
-            "spiegazione": "$f(|-x|) = f(|x|)$ per ogni $x$."
-          }
-        ]
-      }
+     "id": "anl1.exp.s3",
+     "livello": "definizione",
+     "titolo": "Il logaritmo",
+     "testo": "Con $a > 0$, $a \\neq 1$ e $y > 0$:\n$$\\log_a y = x \\iff a^x = y.$$\n\n- È definito **solo per argomenti positivi**: dominio $(0, +\\infty)$, immagine $\\mathbb{R}$. Infatti $a^x$ non è mai $\\le 0$.\n- $\\log_a 1 = 0$ e $\\log_a a = 1$.\n- Se $a > 1$ è crescente; se $0 < a < 1$ è decrescente, come l'esponenziale con la stessa base.\n- **Proprietà**, per $x, y > 0$: $\\ \\log_a(xy) = \\log_a x + \\log_a y$; $\\ \\log_a \\frac{x}{y} = \\log_a x - \\log_a y$; $\\ \\log_a(x^k) = k \\log_a x$.\n- **Cambio di base:** $\\log_a x = \\frac{\\ln x}{\\ln a}$, dove $\\ln = \\log_e$ è il **logaritmo naturale**.\n- $a^{\\log_a x} = x$ e $\\log_a(a^x) = x$: sono inverse una dell'altra.\n\n```strumento\n{\"tipo\":\"passi\",\"id\":\"anl1.exp.x20\",\"titolo\":\"Il logaritmo conta le volte\",\"come_si_usa\":\"Premi **Passo successivo**. In ogni colonna si divide per $2$ (o si moltiplica, se il numero è minore di $1$) finché si arriva a $1$. Il numero tra parentesi conta i passaggi.\",\"cosa_osservare\":\"1. $32$ si divide $5$ volte: $\\\\log_2 32 = 5$.\\n2. $\\\\frac{1}{8}$ va **moltiplicato** $3$ volte: l'esponente è $-3$.\\n3. $10$ dopo $3$ divisioni è $1{,}25$: un'altra divisione scenderebbe sotto $1$. Il logaritmo sta tra $3$ e $4$.\",\"colonne\":[\"log₂ 32\",\"log₂ (1/8)\",\"log₂ 10\"],\"passi\":[{\"colonne\":[[{\"righe\":[\"parto da 32\"],\"cambiate\":[0]}],[{\"righe\":[\"parto da 1/8\"],\"cambiate\":[0]}],[{\"righe\":[\"parto da 10\"],\"cambiate\":[0]}]],\"nota\":\"Il logaritmo risponde a: **a quale esponente** devo elevare $2$? Contare le divisioni per $2$ fino a $1$ dà proprio quell'esponente.\"},{\"colonne\":[[{\"righe\":[\"parto da 32\",\"÷2 → 16    (1)\"],\"cambiate\":[1]}],[{\"righe\":[\"parto da 1/8\",\"×2 → 1/4   (1)\"],\"cambiate\":[1]}],[{\"righe\":[\"parto da 10\",\"÷2 → 5     (1)\"],\"cambiate\":[1]}]],\"nota\":\"Un'altra divisione (o moltiplicazione) per $2$. Tra parentesi quante ne ho fatte.\"},{\"colonne\":[[{\"righe\":[\"parto da 32\",\"÷2 → 16    (1)\",\"÷2 → 8     (2)\"],\"cambiate\":[2]}],[{\"righe\":[\"parto da 1/8\",\"×2 → 1/4   (1)\",\"×2 → 1/2   (2)\"],\"cambiate\":[2]}],[{\"righe\":[\"parto da 10\",\"÷2 → 5     (1)\",\"÷2 → 2,5   (2)\"],\"cambiate\":[2]}]],\"nota\":\"Un'altra divisione (o moltiplicazione) per $2$. Tra parentesi quante ne ho fatte.\"},{\"colonne\":[[{\"righe\":[\"parto da 32\",\"÷2 → 16    (1)\",\"÷2 → 8     (2)\",\"÷2 → 4     (3)\"],\"cambiate\":[3]}],[{\"righe\":[\"parto da 1/8\",\"×2 → 1/4   (1)\",\"×2 → 1/2   (2)\",\"×2 → 1     (3)\"],\"cambiate\":[3]}],[{\"righe\":[\"parto da 10\",\"÷2 → 5     (1)\",\"÷2 → 2,5   (2)\",\"÷2 → 1,25  (3)\"],\"cambiate\":[3]}]],\"nota\":\"Un'altra divisione (o moltiplicazione) per $2$. Tra parentesi quante ne ho fatte.\"},{\"colonne\":[[{\"righe\":[\"parto da 32\",\"÷2 → 16    (1)\",\"÷2 → 8     (2)\",\"÷2 → 4     (3)\",\"÷2 → 2     (4)\"],\"cambiate\":[4]}],[{\"righe\":[\"parto da 1/8\",\"×2 → 1/4   (1)\",\"×2 → 1/2   (2)\",\"×2 → 1     (3)\"]}],[{\"righe\":[\"parto da 10\",\"÷2 → 5     (1)\",\"÷2 → 2,5   (2)\",\"÷2 → 1,25  (3)\"]}]],\"nota\":\"Un'altra divisione (o moltiplicazione) per $2$. Tra parentesi quante ne ho fatte.\"},{\"colonne\":[[{\"righe\":[\"parto da 32\",\"÷2 → 16    (1)\",\"÷2 → 8     (2)\",\"÷2 → 4     (3)\",\"÷2 → 2     (4)\",\"÷2 → 1     (5)\"],\"cambiate\":[5]}],[{\"righe\":[\"parto da 1/8\",\"×2 → 1/4   (1)\",\"×2 → 1/2   (2)\",\"×2 → 1     (3)\"]}],[{\"righe\":[\"parto da 10\",\"÷2 → 5     (1)\",\"÷2 → 2,5   (2)\",\"÷2 → 1,25  (3)\"]}]],\"nota\":\"Un'altra divisione (o moltiplicazione) per $2$. Tra parentesi quante ne ho fatte.\"},{\"nota\":\"**Risultato.** Divisioni contate = esponente positivo; moltiplicazioni = esponente **negativo**. Con $10$ ci si ferma tra $1$ e $2$: il logaritmo non è intero.\",\"colonne\":[[{\"righe\":[\"parto da 32\",\"÷2 → 16    (1)\",\"÷2 → 8     (2)\",\"÷2 → 4     (3)\",\"÷2 → 2     (4)\",\"÷2 → 1     (5)\"]},{\"titolo\":\"quindi\",\"righe\":[\"log2(32) = 5\",\"infatti 2^5 = 32\"],\"evidenzia\":[0]}],[{\"righe\":[\"parto da 1/8\",\"×2 → 1/4   (1)\",\"×2 → 1/2   (2)\",\"×2 → 1     (3)\"]},{\"titolo\":\"quindi\",\"righe\":[\"log2(1/8) = -3\",\"infatti 2^-3 = 1/8\"],\"evidenzia\":[0]}],[{\"righe\":[\"parto da 10\",\"÷2 → 5     (1)\",\"÷2 → 2,5   (2)\",\"÷2 → 1,25  (3)\"]},{\"titolo\":\"quindi\",\"righe\":[\"non si arriva a 1 esatto:\",\"3 < log2(10) < 4\",\"(vale 3,322)\"],\"evidenzia\":[0]}]]}]}\n```"
+    },
+    {
+     "id": "anl1.exp.s4",
+     "livello": "definizione",
+     "titolo": "Valore assoluto e funzione caratteristica",
+     "testo": "**Valore assoluto.**\n$$|x| = \\begin{cases} x & \\text{se } x \\ge 0 \\\\ -x & \\text{se } x < 0 \\end{cases}$$\nPer $x < 0$, $-x$ è positivo: per esempio $|-3| = -(-3) = 3$.\n\n- Con $r > 0$: $|x| < r \\iff -r < x < r$, cioè $x$ dista da $0$ meno di $r$.\n- Con $r > 0$: $|x| > r \\iff x < -r$ oppure $x > r$.\n- $|xy| = |x||y|$.\n- **Disuguaglianza triangolare:** $|a + b| \\le |a| + |b|$.\n\n**Funzione caratteristica** di un insieme $A$:\n$$\\chi_A(x) = \\begin{cases} 1 & \\text{se } x \\in A \\\\ 0 & \\text{se } x \\notin A \\end{cases}$$\nÈ un «interruttore»: vale $1$ dentro $A$ e $0$ fuori.\n\n```strumento\n{\"tipo\":\"passi\",\"id\":\"anl1.exp.x21\",\"titolo\":\"Valori assoluti: una zona alla volta\",\"come_si_usa\":\"Premi **Passo successivo**. Si trovano i punti dove i valori assoluti cambiano forma, poi si risolve l'equazione in ogni zona, senza valori assoluti.\",\"cosa_osservare\":\"1. In ogni zona ogni valore assoluto ha **un'unica forma**: o il contenuto, o il contenuto cambiato di segno.\\n2. Una soluzione vale solo se **cade nella sua zona**.\\n3. Nella zona centrale le $x$ si cancellano: lì nessuna soluzione (geometricamente, la distanza da $1$ più quella da $-2$ vale sempre $3$).\",\"passi\":[{\"nota\":\"I due valori assoluti cambiano forma dove il loro contenuto vale $0$: in $x = 1$ e in $x = -2$. Questi due punti dividono la retta in **3 zone**.\",\"pannelli\":[{\"titolo\":\"le zone\",\"righe\":[\"   x < -2   │ -2 ≤ x < 1 │   x ≥ 1\",\"────────────┼────────────┼───────────\",\"           -2            1\"]}]},{\"nota\":\"Zona $x < -2$: scelgo il segno di ogni valore assoluto (prova con $x = -3$) e risolvo un'equazione **senza** valori assoluti.\",\"pannelli\":[{\"titolo\":\"le zone\",\"righe\":[\"   x < -2   │ -2 ≤ x < 1 │   x ≥ 1\",\"────────────┼────────────┼───────────\",\"           -2            1\"]},{\"titolo\":\"zona per zona\",\"righe\":[\"x < -2\",\"  |x - 1| = 1 - x,  |x + 2| = -x - 2\",\"  somma: -2x - 1 = 5  →  x = -3\",\"  sta nella zona: ACCETTATA\"],\"cambiate\":[0,1,2,3]}]},{\"nota\":\"Zona $-2 \\\\le  x < 1$: scelgo il segno di ogni valore assoluto (prova con $x = 0$) e risolvo un'equazione **senza** valori assoluti. Le $x$ si cancellano.\",\"pannelli\":[{\"titolo\":\"le zone\",\"righe\":[\"   x < -2   │ -2 ≤ x < 1 │   x ≥ 1\",\"────────────┼────────────┼───────────\",\"           -2            1\"]},{\"titolo\":\"zona per zona\",\"righe\":[\"x < -2\",\"  |x - 1| = 1 - x,  |x + 2| = -x - 2\",\"  somma: -2x - 1 = 5  →  x = -3\",\"  sta nella zona: ACCETTATA\",\"-2 ≤ x < 1\",\"  |x - 1| = 1 - x,  |x + 2| = x + 2\",\"  somma: 3 = 5   impossibile\"],\"cambiate\":[4,5,6]}]},{\"nota\":\"Zona $x \\\\ge  1$: scelgo il segno di ogni valore assoluto (prova con $x = 2$) e risolvo un'equazione **senza** valori assoluti.\",\"pannelli\":[{\"titolo\":\"le zone\",\"righe\":[\"   x < -2   │ -2 ≤ x < 1 │   x ≥ 1\",\"────────────┼────────────┼───────────\",\"           -2            1\"]},{\"titolo\":\"zona per zona\",\"righe\":[\"x < -2\",\"  |x - 1| = 1 - x,  |x + 2| = -x - 2\",\"  somma: -2x - 1 = 5  →  x = -3\",\"  sta nella zona: ACCETTATA\",\"-2 ≤ x < 1\",\"  |x - 1| = 1 - x,  |x + 2| = x + 2\",\"  somma: 3 = 5   impossibile\",\"x ≥ 1\",\"  |x - 1| = x - 1,  |x + 2| = x + 2\",\"  somma: 2x + 1 = 5  →  x = 2\",\"  sta nella zona: ACCETTATA\"],\"cambiate\":[7,8,9,10]}]},{\"nota\":\"**Soluzioni:** $x = -3$ e $x = 2$. Controllo: $|-4| + |-1| = 5$ e $|1| + |4| = 5$. Tornano.\",\"pannelli\":[{\"titolo\":\"le zone\",\"righe\":[\"   x < -2   │ -2 ≤ x < 1 │   x ≥ 1\",\"────────────┼────────────┼───────────\",\"           -2            1\"]},{\"titolo\":\"zona per zona\",\"righe\":[\"x < -2\",\"  |x - 1| = 1 - x,  |x + 2| = -x - 2\",\"  somma: -2x - 1 = 5  →  x = -3\",\"  sta nella zona: ACCETTATA\",\"-2 ≤ x < 1\",\"  |x - 1| = 1 - x,  |x + 2| = x + 2\",\"  somma: 3 = 5   impossibile\",\"x ≥ 1\",\"  |x - 1| = x - 1,  |x + 2| = x + 2\",\"  somma: 2x + 1 = 5  →  x = 2\",\"  sta nella zona: ACCETTATA\"]},{\"titolo\":\"controllo\",\"righe\":[\"x = -3: |-4| + |-1| = 4 + 1 = 5\",\"x =  2: | 1| + | 4| = 1 + 4 = 5\"]}]}]}\n```"
+    },
+    {
+     "id": "anl1.exp.s5",
+     "livello": "ragionamento",
+     "titolo": "Perché valgono le proprietà",
+     "testo": "**$\\log_a(xy) = \\log_a x + \\log_a y$.** L'idea è trasformare il logaritmo in un esponente e usare le proprietà delle potenze.\n\n1. Pongo $u = \\log_a x$ e $v = \\log_a y$. Per definizione $a^u = x$ e $a^v = y$.\n2. Moltiplico: $xy = a^u a^v = a^{u+v}$, per la proprietà delle potenze.\n3. $xy = a^{u+v}$ vuol dire, per definizione di logaritmo, $\\log_a(xy) = u + v = \\log_a x + \\log_a y$. $\\blacksquare$\n\n**Disuguaglianza triangolare $|a + b| \\le |a| + |b|$.**\n\n1. Per ogni numero vale $-|a| \\le a \\le |a|$: se $a \\ge 0$ è uguale a $|a|$, se $a < 0$ è uguale a $-|a|$.\n2. Allo stesso modo $-|b| \\le b \\le |b|$.\n3. Sommo le due catene: $-(|a| + |b|) \\le a + b \\le |a| + |b|$.\n4. Per la regola $|x| \\le r \\iff -r \\le x \\le r$, con $x = a + b$ e $r = |a| + |b|$: $\\ |a + b| \\le |a| + |b|$. $\\blacksquare$\nIl nome viene dai triangoli: un lato non è mai più lungo della somma degli altri due.\n\n```strumento\n{\"tipo\":\"collega\",\"id\":\"anl1.exp.x22\",\"titolo\":\"Le proprietà dei logaritmi, con i numeri\",\"istruzioni\":\"Tocca un'espressione a sinistra, poi il calcolo giusto a destra.\",\"coppie\":[{\"a\":\"log₂(8 · 4)\",\"b\":\"log₂ 8 + log₂ 4 = 5\"},{\"a\":\"log₂(8 / 4)\",\"b\":\"log₂ 8 − log₂ 4 = 1\"},{\"a\":\"log₂(8⁴)\",\"b\":\"4 · log₂ 8 = 12\"},{\"a\":\"log₂ 8 · log₂ 4\",\"b\":\"3 · 2 = 6: è solo un prodotto di numeri\"},{\"a\":\"log₂(8 + 4)\",\"b\":\"log₂ 12 ≈ 3,58: la somma non si spezza\"},{\"a\":\"2³ · 2²\",\"b\":\"2⁵ = 32: gli esponenti si sommano\"}]}\n```"
+    },
+    {
+     "id": "anl1.exp.s6",
+     "livello": "errori_comuni",
+     "titolo": "Dove si sbaglia di solito",
+     "testo": "- **$\\log(x + y) = \\log x + \\log y$.** Falso: la proprietà vale per il **prodotto**, $\\log(xy)$.\n- **$\\log(x^2) = 2 \\log x$ per ogni $x$.** Vale solo per $x > 0$. Per $x \\neq 0$ la regola giusta è $\\log(x^2) = 2 \\log|x|$.\n- **$a^x \\cdot a^y = a^{xy}$.** No: gli esponenti si **sommano**, $a^{x+y}$.\n- **Dimenticare di cambiare il verso con base minore di $1$.** $\\left(\\frac{1}{2}\\right)^x > \\left(\\frac{1}{2}\\right)^3 \\iff x < 3$, perché la funzione è decrescente.\n- **Dimenticare il dominio dei logaritmi.** In $\\ln x + \\ln(x - 3)$ serve $x > 3$, e va imposto **prima** di risolvere.\n- **$|a + b| = |a| + |b|$.** Falso con segni opposti: $|3 + (-5)| = 2$, ma $3 + 5 = 8$.\n- **$|x| < -1$ ha soluzioni?** No: un valore assoluto non è mai negativo.\n\n```strumento\n{\"tipo\":\"domanda\",\"id\":\"anl1.exp.x23\",\"titolo\":\"Base minore di 1: il verso\",\"domanda\":\"Risolvi $\\\\left(\\\\frac{1}{2}\\\\right)^x > 8$.\",\"opzioni\":[{\"testo\":\"x < −3\",\"giusta\":true,\"perche\":\"Sì. $8 = \\\\left(\\\\frac{1}{2}\\\\right)^{-3}$ e con base minore di $1$ la funzione è **decrescente**: valore più grande vuol dire esponente più piccolo. Prova: $x = -4$ dà $16 > 8$.\"},{\"testo\":\"x > −3\",\"giusta\":false,\"perche\":\"Hai tenuto il verso: con base $\\\\frac{1}{2} < 1$ si ribalta. Prova $x = 0$: $\\\\left(\\\\frac{1}{2}\\\\right)^0 = 1$, che non è $> 8$.\"},{\"testo\":\"x > 3\",\"giusta\":false,\"perche\":\"$\\\\left(\\\\frac{1}{2}\\\\right)^3 = \\\\frac{1}{8}$, non $8$: l'esponente giusto è $-3$. Prova $x = 4$: $\\\\frac{1}{16}$, non è $> 8$.\"},{\"testo\":\"x < 3\",\"giusta\":false,\"perche\":\"L'esponente di confronto è $-3$, non $3$: $8 = 2^3 = \\\\left(\\\\frac{1}{2}\\\\right)^{-3}$. Prova $x = 0$: viene $1$, non $> 8$.\"}]}\n```"
+    },
+    {
+     "id": "anl1.exp.s7",
+     "livello": "riepilogo",
+     "titolo": "In cinque righe",
+     "testo": "- $a^x > 0$ sempre; crescente se $a > 1$, decrescente se $0 < a < 1$; $a^{x+y} = a^x a^y$.\n- $\\log_a y = x \\iff a^x = y$; solo per $y > 0$. È l'inversa di $a^x$.\n- $\\log(xy) = \\log x + \\log y$, $\\log(x^k) = k \\log x$, $\\log_a x = \\frac{\\ln x}{\\ln a}$.\n- $|x| < r \\iff -r < x < r$; $|x| > r \\iff x < -r$ oppure $x > r$.\n- $|a + b| \\le |a| + |b|$. Con base $< 1$ le disuguaglianze cambiano verso."
     }
-  ]
+   ],
+   "tecniche": [
+    {
+     "id": "anl1.exp.t1",
+     "nome": "Equazioni con i logaritmi",
+     "quando": "Equazioni o disequazioni in cui la $x$ compare dentro uno o più logaritmi.",
+     "esempio": {
+      "testo": "Risolvi $\\log_2(x - 1) + \\log_2(x + 1) = 3$.",
+      "passi": [
+       "**Dominio prima di tutto:** $x - 1 > 0$ e $x + 1 > 0$, cioè $x > 1$.",
+       "Unisco i logaritmi con la proprietà del prodotto: $\\log_2\\big((x - 1)(x + 1)\\big) = 3$.",
+       "Passo agli esponenziali con la definizione: $(x - 1)(x + 1) = 2^3 = 8$.",
+       "$x^2 - 1 = 8$, cioè $x^2 = 9$, quindi $x = 3$ oppure $x = -3$.",
+       "Confronto con il dominio $x > 1$: resta solo $x = 3$. Controllo: $\\log_2 2 + \\log_2 4 = 1 + 2 = 3$."
+      ]
+     }
+    },
+    {
+     "id": "anl1.exp.t2",
+     "nome": "Disequazioni con il valore assoluto",
+     "quando": "Quando una disuguaglianza contiene $|\\text{qualcosa}|$ confrontato con un numero.",
+     "esempio": {
+      "testo": "Risolvi $|2x - 1| < 3$.",
+      "passi": [
+       "Riconosco la forma $|\\text{qualcosa}| < r$ con $r = 3 > 0$.",
+       "La traduco in una doppia disuguaglianza: $-3 < 2x - 1 < 3$.",
+       "Aggiungo $1$ a tutti e tre i membri: $-2 < 2x < 4$.",
+       "Divido per $2$, positivo, quindi il verso resta: $-1 < x < 2$.",
+       "Lettura come distanza: $|2x - 1| < 3$ vuol dire che $2x$ dista meno di $3$ da $1$."
+      ]
+     }
+    }
+   ],
+   "esercizi": [
+    {
+     "id": "anl1.exp.e01",
+     "livello": "base",
+     "testo": "Calcola: $\\log_2 8$, $\\ \\log_3 \\frac{1}{9}$, $\\ \\ln e^5$, $\\ \\log_{10} 0{,}001$.",
+     "suggerimento": "Per ognuno chiediti: a quale esponente devo elevare la base per ottenere l'argomento?",
+     "passi": [
+      "$2^3 = 8$, quindi $\\log_2 8 = 3$.",
+      "$\\frac{1}{9} = 3^{-2}$, quindi $\\log_3 \\frac{1}{9} = -2$.",
+      "$\\ln e^5 = 5$, perché $\\ln$ e $e^x$ sono inverse.",
+      "$0{,}001 = 10^{-3}$, quindi $\\log_{10} 0{,}001 = -3$."
+     ],
+     "soluzione": "$3,\\ -2,\\ 5,\\ -3$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "log₂ 8",
+        "tipo": "numero",
+        "accettate": [
+         "3"
+        ],
+        "errori": {
+         "4": "8 / 2 = 4, ma il logaritmo è l'esponente: 2 elevato a cosa fa 8?"
+        }
+       },
+       {
+        "etichetta": "log₃ (1/9)",
+        "tipo": "numero",
+        "accettate": [
+         "-2"
+        ],
+        "errori": {
+         "2": "1/9 = 3 elevato a −2: il segno conta.",
+         "1/2": "Il logaritmo è l'esponente: 3 elevato a cosa fa 1/9?"
+        }
+       },
+       {
+        "etichetta": "ln e⁵",
+        "tipo": "numero",
+        "accettate": [
+         "5"
+        ]
+       },
+       {
+        "etichetta": "log₁₀ 0,001",
+        "tipo": "numero",
+        "accettate": [
+         "-3"
+        ],
+        "errori": {
+         "3": "0,001 = 10 elevato a −3: il segno conta.",
+         "-2": "Conta gli zeri: 0,001 = 1/1000."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.exp.e02",
+     "livello": "base",
+     "testo": "Risolvi $4^x = 8$.",
+     "suggerimento": "Scrivi entrambi i lati come potenze di $2$.",
+     "passi": [
+      "$4^x = (2^2)^x = 2^{2x}$ e $8 = 2^3$.",
+      "$2^{2x} = 2^3$. L'esponenziale è iniettivo, quindi gli esponenti sono uguali: $2x = 3$.",
+      "$x = \\frac{3}{2}$."
+     ],
+     "soluzione": "$x = \\frac{3}{2}$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "x",
+        "tipo": "numero",
+        "formato": "es. 5/2",
+        "accettate": [
+         "3/2"
+        ],
+        "errori": {
+         "2": "8 / 4 = 2, ma qui l'incognita è all'esponente: scrivi 4 e 8 come potenze di 2.",
+         "3": "8 = 2³, ma anche 4 va scritto come potenza di 2: 4ˣ = 2²ˣ."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.exp.e03",
+     "livello": "medio",
+     "testo": "Risolvi $|x - 2| \\ge 1$.",
+     "suggerimento": "$|\\text{qualcosa}| \\ge r$ si spezza in due: qualcosa $\\le -r$ oppure qualcosa $\\ge r$.",
+     "passi": [
+      "$x - 2 \\le -1$ oppure $x - 2 \\ge 1$.",
+      "Cioè $x \\le 1$ oppure $x \\ge 3$.",
+      "Lettura come distanza: i punti che distano almeno $1$ da $2$."
+     ],
+     "soluzione": "$x \\le 1$ oppure $x \\ge 3$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "Prima parte: x ≤ …",
+        "tipo": "numero",
+        "accettate": [
+         "1"
+        ],
+        "errori": {
+         "-1": "Il −1 è a destra del segno: da x − 2 ≤ −1 aggiungi 2."
+        }
+       },
+       {
+        "etichetta": "Seconda parte: x ≥ …",
+        "tipo": "numero",
+        "accettate": [
+         "3"
+        ]
+       },
+       {
+        "etichetta": "Le soluzioni stanno…",
+        "tipo": "scelta",
+        "opzioni": [
+         "fuori dall'intervallo tra 1 e 3",
+         "dentro l'intervallo tra 1 e 3"
+        ],
+        "accettate": [
+         "fuori dall'intervallo tra 1 e 3"
+        ],
+        "errori": {
+         "dentro l'intervallo tra 1 e 3": "≥ 1 vuol dire distanza da 2 almeno 1: i punti lontani da 2, non quelli vicini."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.exp.e04",
+     "livello": "medio",
+     "testo": "Risolvi $\\left(\\frac{1}{3}\\right)^x > 9$.",
+     "suggerimento": "Scrivi $9$ come potenza di $\\frac{1}{3}$ e ricorda che con base minore di $1$ il verso si ribalta.",
+     "passi": [
+      "$9 = 3^2 = \\left(\\frac{1}{3}\\right)^{-2}$.",
+      "$\\left(\\frac{1}{3}\\right)^x > \\left(\\frac{1}{3}\\right)^{-2}$.",
+      "La base $\\frac{1}{3}$ è minore di $1$: la funzione è decrescente, quindi «più grande» corrisponde a esponente **più piccolo**: $x < -2$.",
+      "Controllo: $x = -3$ dà $3^3 = 27 > 9$, vero; $x = 0$ dà $1$, falso. Torna."
+     ],
+     "soluzione": "$x < -2$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "Il verso",
+        "tipo": "scelta",
+        "opzioni": [
+         "x <",
+         "x >"
+        ],
+        "accettate": [
+         "x <"
+        ],
+        "errori": {
+         "x >": "La base 1/3 è minore di 1: la funzione è decrescente, il verso si ribalta."
+        }
+       },
+       {
+        "etichetta": "Il numero dopo il segno",
+        "tipo": "numero",
+        "accettate": [
+         "-2"
+        ],
+        "errori": {
+         "2": "9 = (1/3) elevato a −2: l'esponente è negativo.",
+         "9": "Scrivi 9 come potenza di 1/3: il numero da confrontare è l'esponente."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.exp.e05",
+     "livello": "difficile",
+     "testo": "Risolvi $e^{2x} - 3e^x + 2 = 0$.",
+     "suggerimento": "$e^{2x} = (e^x)^2$: poni $t = e^x$, ricordando che $t > 0$.",
+     "passi": [
+      "Con $t = e^x$: $t^2 - 3t + 2 = 0$, con soluzioni $t = 1$ e $t = 2$, entrambe positive.",
+      "$e^x = 1$ dà $x = 0$.",
+      "$e^x = 2$ dà $x = \\ln 2$."
+     ],
+     "soluzione": "$x = 0$ oppure $x = \\ln 2$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "La soluzione più piccola",
+        "tipo": "numero",
+        "accettate": [
+         "0"
+        ],
+        "errori": {
+         "1": "1 è il valore di t = eˣ: torna a x, eˣ = 1."
+        }
+       },
+       {
+        "etichetta": "La soluzione più grande",
+        "tipo": "testo",
+        "formato": "es. ln 3, oppure in decimale",
+        "accettate": [
+         "ln2",
+         "ln(2)",
+         "loge2",
+         "loge(2)",
+         "log_e2",
+         "log_e(2)",
+         "0.69",
+         "0,69",
+         "0.693",
+         "0,693",
+         "0.6931",
+         "0,6931"
+        ],
+        "errori": {
+         "2": "2 è il valore di t = eˣ: torna a x, eˣ = 2.",
+         "e^2": "eˣ = 2 si risolve con il logaritmo, non con l'esponenziale."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.exp.e06",
+     "livello": "difficile",
+     "testo": "Risolvi $|x| + |x - 2| = 4$.",
+     "suggerimento": "I valori assoluti cambiano forma in $x = 0$ e in $x = 2$: studia separatamente le tre zone.",
+     "passi": [
+      "Zona $x < 0$: $|x| = -x$ e $|x - 2| = 2 - x$. L'equazione diventa $-2x + 2 = 4$, cioè $x = -1$, che sta nella zona: accettata.",
+      "Zona $0 \\le x < 2$: $|x| = x$ e $|x - 2| = 2 - x$. Viene $2 = 4$: impossibile, nessuna soluzione.",
+      "Zona $x \\ge 2$: $|x| = x$ e $|x - 2| = x - 2$. Viene $2x - 2 = 4$, cioè $x = 3$, che sta nella zona: accettata.",
+      "Controllo: $|-1| + |-3| = 4$ e $|3| + |1| = 4$. Tornano."
+     ],
+     "soluzione": "$x = -1$ oppure $x = 3$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "La soluzione negativa",
+        "tipo": "numero",
+        "accettate": [
+         "-1"
+        ],
+        "errori": {
+         "1": "Con x < 0 vale |x| = −x: controlla i segni."
+        }
+       },
+       {
+        "etichetta": "La soluzione positiva",
+        "tipo": "numero",
+        "accettate": [
+         "3"
+        ]
+       },
+       {
+        "etichetta": "Quante soluzioni nella zona 0 ≤ x < 2?",
+        "tipo": "numero",
+        "accettate": [
+         "0"
+        ],
+        "errori": {
+         "1": "Nella zona centrale le x si cancellano: che equazione resta?"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "verifica": {
+    "spiegalo": [
+     "Spiega a parole che cosa vuol dire $\\log_2 32 = 5$.",
+     "Perché $\\log(x + y)$ non si può spezzare, mentre $\\log(xy)$ sì?"
+    ],
+    "quiz": [
+     {
+      "id": "anl1.exp.q1",
+      "domanda": "Per $x, y > 0$, $\\log(xy)$ è uguale a:",
+      "opzioni": [
+       "$\\log x \\cdot \\log y$",
+       "$\\log x + \\log y$",
+       "$\\log(x + y)$"
+      ],
+      "corretta": 1,
+      "spiegazione": "Il logaritmo trasforma prodotti in somme, perché gli esponenti si sommano."
+     },
+     {
+      "id": "anl1.exp.q2",
+      "domanda": "La funzione $\\left(\\frac{1}{2}\\right)^x$ è:",
+      "opzioni": [
+       "costante",
+       "strettamente crescente",
+       "strettamente decrescente"
+      ],
+      "corretta": 2,
+      "spiegazione": "La base è compresa tra 0 e 1."
+     },
+     {
+      "id": "anl1.exp.q3",
+      "domanda": "$|x| < 3$ equivale a:",
+      "opzioni": [
+       "$-3 < x < 3$",
+       "$x < 3$",
+       "$x < -3$ oppure $x > 3$"
+      ],
+      "corretta": 0,
+      "spiegazione": "I punti che distano meno di $3$ da zero."
+     },
+     {
+      "id": "anl1.exp.q4",
+      "domanda": "Il dominio di $\\ln(x - 1)$ è:",
+      "opzioni": [
+       "$x \\ge 1$",
+       "$x \\neq 1$",
+       "$x > 1$"
+      ],
+      "corretta": 2,
+      "spiegazione": "L'argomento del logaritmo deve essere **strettamente** positivo: $x - 1 > 0$."
+     },
+     {
+      "id": "anl1.exp.q5",
+      "domanda": "$\\log_2 32$ vale:",
+      "opzioni": [
+       "$5$",
+       "$16$",
+       "$6$"
+      ],
+      "corretta": 0,
+      "spiegazione": "$2^5 = 32$."
+     }
+    ]
+   }
+  },
+  {
+   "id": "anl1.trig",
+   "titolo": "Trigonometria",
+   "fonte": "Programma Mercatorum, videolezione 7",
+   "incerto": [
+    "Le formule di addizione le do come risultato da sapere: nel corso potrebbero essere dimostrate. Se nella dispensa c'è la dimostrazione, dimmelo e la aggiungo spiegata passo per passo."
+   ],
+   "prossimo_passo": "Rileggi la circonferenza goniometrica, poi fai le tecniche su $\\sin x = k$ e $\\cos x = k$.",
+   "sezioni": [
+    {
+     "id": "anl1.trig.s1",
+     "livello": "intuizione",
+     "titolo": "Un punto che gira su un cerchio",
+     "testo": "Disegna una circonferenza di **raggio $1$** centrata nell'origine. Parti dal punto $(1, 0)$ e cammina sulla circonferenza in senso antiorario per una lunghezza $x$.\n\n- La lunghezza percorsa è l'**angolo in radianti**. Un giro completo è lungo $2\\pi$, quindi $360° = 2\\pi$ e $180° = \\pi$.\n- Il punto in cui arrivi ha coordinate $(\\cos x, \\sin x)$: il **coseno** è quanto sei a destra o a sinistra, il **seno** quanto sei in alto o in basso.\n- La **tangente** $\\tan x = \\frac{\\sin x}{\\cos x}$ è la pendenza del raggio che va dall'origine al punto.\n\nDa questa immagine escono quasi tutte le proprietà. Dopo un giro torni allo stesso punto, quindi le funzioni si ripetono ogni $2\\pi$. Le coordinate stanno tra $-1$ e $1$. E dato che il punto sta sul cerchio di raggio $1$, vale il teorema di Pitagora."
+    },
+    {
+     "id": "anl1.trig.s2",
+     "livello": "definizione",
+     "titolo": "Definizioni e valori da sapere",
+     "testo": "- **Radianti:** $\\text{radianti} = \\text{gradi} \\cdot \\frac{\\pi}{180}$.\n- $\\sin x$ e $\\cos x$: definite su $\\mathbb{R}$, immagine $[-1, 1]$, **periodo** $2\\pi$.\n- $\\cos$ è **pari**: $\\cos(-x) = \\cos x$. $\\sin$ è **dispari**: $\\sin(-x) = -\\sin x$. Sul cerchio, cambiare segno all'angolo vuol dire specchiare il punto rispetto all'asse orizzontale.\n- **Identità fondamentale:** $\\sin^2 x + \\cos^2 x = 1$. Attenzione alla scrittura: $\\sin^2 x$ significa $(\\sin x)^2$.\n- $\\tan x = \\frac{\\sin x}{\\cos x}$, definita per $x \\neq \\frac{\\pi}{2} + k\\pi$, periodo $\\pi$, immagine $\\mathbb{R}$.\n\n**Valori notevoli** (angolo: seno, coseno):\n\n- $0$: $\\ 0,\\ 1$\n- $\\frac{\\pi}{6}$ (30°): $\\ \\frac{1}{2},\\ \\frac{\\sqrt{3}}{2}$\n- $\\frac{\\pi}{4}$ (45°): $\\ \\frac{\\sqrt{2}}{2},\\ \\frac{\\sqrt{2}}{2}$\n- $\\frac{\\pi}{3}$ (60°): $\\ \\frac{\\sqrt{3}}{2},\\ \\frac{1}{2}$\n- $\\frac{\\pi}{2}$ (90°): $\\ 1,\\ 0$\n\n```strumento\n{\"tipo\":\"passi\",\"id\":\"anl1.trig.x20\",\"titolo\":\"Il punto che gira sul cerchio\",\"come_si_usa\":\"Premi **Passo successivo** (o **Riproduci**). Il punto ● fa un giro in senso antiorario e si ferma sugli angoli da sapere. A destra (sul telefono sotto) i valori esatti e quelli in decimale.\",\"cosa_osservare\":\"1. Il coseno è **quanto il punto è a destra**, il seno **quanto è in alto**: guarda come cambiano i segni nei quattro quadranti.\\n2. Dopo il primo quadrante i numeri si ripetono: cambiano solo i segni.\\n3. In $\\\\frac{\\\\pi}{2}$ e $\\\\frac{3\\\\pi}{2}$ il punto è sull'asse verticale: $\\\\cos = 0$ e la tangente non esiste.\",\"passi\":[{\"nota\":\"Si parte da $(1, 0)$: angolo $0$.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────●\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 0 = 0°\",\"cos = 1\",\"sin = 0\",\"tan = 0\",\"quadrante: sugli assi\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{\\\\pi}{6}$ sulla circonferenza.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ●·\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: π/6 = 30°\",\"cos = √3/2 ≈ 0,866\",\"sin = 1/2 ≈ 0,5\",\"tan = √3/3\",\"quadrante: I\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{\\\\pi}{4}$ sulla circonferenza.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ●··\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: π/4 = 45°\",\"cos = √2/2 ≈ 0,707\",\"sin = √2/2 ≈ 0,707\",\"tan = 1\",\"quadrante: I\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{\\\\pi}{3}$ sulla circonferenza.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ·●··\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: π/3 = 60°\",\"cos = 1/2 ≈ 0,5\",\"sin = √3/2 ≈ 0,866\",\"tan = √3\",\"quadrante: I\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{\\\\pi}{2}$ sulla circonferenza. Qui $\\\\cos = 0$: la tangente non esiste.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ·····●·····\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: π/2 = 90°\",\"cos = 0\",\"sin = 1\",\"tan = non esiste (cos = 0)\",\"quadrante: sugli assi\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{2\\\\pi}{3}$ sulla circonferenza. Stessi numeri di un angolo del primo quadrante, con i **segni** del quadrante II.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ··●·    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 2π/3 = 120°\",\"cos = -1/2 ≈ -0,5\",\"sin = √3/2 ≈ 0,866\",\"tan = -√3\",\"quadrante: II\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{3\\\\pi}{4}$ sulla circonferenza. Stessi numeri di un angolo del primo quadrante, con i **segni** del quadrante II.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ··●       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 3π/4 = 135°\",\"cos = -√2/2 ≈ -0,707\",\"sin = √2/2 ≈ 0,707\",\"tan = -1\",\"quadrante: II\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{5\\\\pi}{6}$ sulla circonferenza. Stessi numeri di un angolo del primo quadrante, con i **segni** del quadrante II.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ·●         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 5π/6 = 150°\",\"cos = -√3/2 ≈ -0,866\",\"sin = 1/2 ≈ 0,5\",\"tan = -√3/3\",\"quadrante: II\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\pi$ sulla circonferenza. Mezzo giro: il punto è all'opposto di $(1, 0)$.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"●───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: π = 180°\",\"cos = -1\",\"sin = 0\",\"tan = 0\",\"quadrante: sugli assi\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{7\\\\pi}{6}$ sulla circonferenza. Stessi numeri di un angolo del primo quadrante, con i **segni** del quadrante III.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ·●         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 7π/6 = 210°\",\"cos = -√3/2 ≈ -0,866\",\"sin = -1/2 ≈ -0,5\",\"tan = √3/3\",\"quadrante: III\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{5\\\\pi}{4}$ sulla circonferenza. Stessi numeri di un angolo del primo quadrante, con i **segni** del quadrante III.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ··●       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 5π/4 = 225°\",\"cos = -√2/2 ≈ -0,707\",\"sin = -√2/2 ≈ -0,707\",\"tan = 1\",\"quadrante: III\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{4\\\\pi}{3}$ sulla circonferenza. Stessi numeri di un angolo del primo quadrante, con i **segni** del quadrante III.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ··●·    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 4π/3 = 240°\",\"cos = -1/2 ≈ -0,5\",\"sin = -√3/2 ≈ -0,866\",\"tan = √3\",\"quadrante: III\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{3\\\\pi}{2}$ sulla circonferenza. Qui $\\\\cos = 0$: la tangente non esiste.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ·····●·····\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 3π/2 = 270°\",\"cos = 0\",\"sin = -1\",\"tan = non esiste (cos = 0)\",\"quadrante: sugli assi\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{5\\\\pi}{3}$ sulla circonferenza. Stessi numeri di un angolo del primo quadrante, con i **segni** del quadrante IV.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ·●··\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 5π/3 = 300°\",\"cos = 1/2 ≈ 0,5\",\"sin = -√3/2 ≈ -0,866\",\"tan = -√3\",\"quadrante: IV\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{7\\\\pi}{4}$ sulla circonferenza. Stessi numeri di un angolo del primo quadrante, con i **segni** del quadrante IV.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ●··\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 7π/4 = 315°\",\"cos = √2/2 ≈ 0,707\",\"sin = -√2/2 ≈ -0,707\",\"tan = -1\",\"quadrante: IV\"],\"cambiate\":[1,2]}]},{\"nota\":\"Il punto ha camminato per $\\\\frac{11\\\\pi}{6}$ sulla circonferenza. Stessi numeri di un angolo del primo quadrante, con i **segni** del quadrante IV.\",\"pannelli\":[{\"titolo\":\"il punto (cos, sin)\",\"righe\":[\"       ···········\",\"    ····    │    ····\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ●·\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i valori\",\"righe\":[\"angolo: 11π/6 = 330°\",\"cos = √3/2 ≈ 0,866\",\"sin = -1/2 ≈ -0,5\",\"tan = -√3/3\",\"quadrante: IV\"],\"cambiate\":[1,2]}]}]}\n```"
+    },
+    {
+     "id": "anl1.trig.s3",
+     "livello": "definizione",
+     "titolo": "Formule e funzioni inverse",
+     "testo": "**Addizione:**\n$$\\sin(a + b) = \\sin a \\cos b + \\cos a \\sin b, \\qquad \\cos(a + b) = \\cos a \\cos b - \\sin a \\sin b.$$\n\n**Duplicazione:** $\\sin 2a = 2 \\sin a \\cos a$; $\\ \\cos 2a = \\cos^2 a - \\sin^2 a = 1 - 2\\sin^2 a = 2\\cos^2 a - 1$.\n\n**Archi associati**, che si leggono sul cerchio:\n\n- $\\sin(\\pi - x) = \\sin x$, $\\ \\cos(\\pi - x) = -\\cos x$: il punto viene specchiato rispetto all'asse verticale;\n- $\\sin(x + \\pi) = -\\sin x$, $\\ \\cos(x + \\pi) = -\\cos x$: mezzo giro, il punto va all'opposto;\n- $\\sin\\left(\\frac{\\pi}{2} - x\\right) = \\cos x$: seno e coseno si scambiano.\n\n**Inverse.** Seno, coseno e tangente non sono iniettive, perché sono periodiche. Per invertirle le si restringe a un tratto dove lo sono:\n\n- $\\arcsin : [-1, 1] \\to \\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$;\n- $\\arccos : [-1, 1] \\to [0, \\pi]$;\n- $\\arctan : \\mathbb{R} \\to \\left(-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right)$.\n\n```strumento\n{\"tipo\":\"collega\",\"id\":\"anl1.trig.x21\",\"titolo\":\"Archi associati e duplicazione\",\"istruzioni\":\"Tocca un'espressione a sinistra, poi quella uguale a destra. Se hai un dubbio, immagina il punto sul cerchio.\",\"coppie\":[{\"a\":\"sin(π − x)\",\"b\":\"sin x\"},{\"a\":\"cos(π − x)\",\"b\":\"−cos x\"},{\"a\":\"sin(x + π)\",\"b\":\"−sin x\"},{\"a\":\"sin(π/2 − x)\",\"b\":\"cos x\"},{\"a\":\"tan(x + π)\",\"b\":\"tan x\"},{\"a\":\"cos 2x\",\"b\":\"1 − 2 sin² x\"},{\"a\":\"sin 2x\",\"b\":\"2 sin x cos x\"}]}\n```"
+    },
+    {
+     "id": "anl1.trig.s4",
+     "livello": "ragionamento",
+     "titolo": "Da dove vengono identità e duplicazione",
+     "testo": "**$\\sin^2 x + \\cos^2 x = 1$.** Il punto $(\\cos x, \\sin x)$ sta sulla circonferenza di raggio $1$ centrata nell'origine, quindi dista $1$ dall'origine. La distanza dall'origine del punto $(u, v)$ è $\\sqrt{u^2 + v^2}$, per il teorema di Pitagora sul triangolo con cateti $|u|$ e $|v|$. Quindi $\\sqrt{\\cos^2 x + \\sin^2 x} = 1$ e, elevando al quadrato, $\\cos^2 x + \\sin^2 x = 1$. $\\blacksquare$\n\n**$\\sin 2a = 2 \\sin a \\cos a$.** Nella formula di addizione metto $b = a$: $\\sin(a + a) = \\sin a \\cos a + \\cos a \\sin a = 2 \\sin a \\cos a$. $\\blacksquare$\n\n**Le tre forme di $\\cos 2a$.**\n1. Addizione con $b = a$: $\\cos 2a = \\cos^2 a - \\sin^2 a$.\n2. Sostituisco $\\cos^2 a = 1 - \\sin^2 a$, preso dall'identità fondamentale: $\\cos 2a = 1 - 2\\sin^2 a$.\n3. Oppure sostituisco $\\sin^2 a = 1 - \\cos^2 a$: $\\cos 2a = 2\\cos^2 a - 1$. $\\blacksquare$\n\nNon serve impararle tutte e tre a memoria: basta saperle ricavare dalla prima in due righe."
+    },
+    {
+     "id": "anl1.trig.s5",
+     "livello": "errori_comuni",
+     "titolo": "Dove si sbaglia di solito",
+     "testo": "- **Mescolare gradi e radianti.** In Analisi gli angoli sono **sempre** in radianti, anche dentro i limiti e le derivate.\n- **$\\sin 2x = 2 \\sin x$.** Falso: $\\sin 2x = 2 \\sin x \\cos x$.\n- **Fermarsi a una soluzione.** $\\sin x = \\frac{1}{2}$ ha **infinite** soluzioni, divise in due famiglie: $\\frac{\\pi}{6} + 2k\\pi$ e $\\frac{5\\pi}{6} + 2k\\pi$.\n- **$\\arcsin(\\sin x) = x$ sempre.** Vale solo per $x \\in \\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$. Per esempio $\\arcsin(\\sin \\pi) = \\arcsin 0 = 0 \\neq \\pi$.\n- **Dimenticare dove la tangente non esiste**: in $\\frac{\\pi}{2} + k\\pi$, cioè dove $\\cos x = 0$.\n- **Confondere $\\sin^{-1} x$ con $\\frac{1}{\\sin x}$.** Su molti libri e calcolatrici $\\sin^{-1}$ indica l'arcoseno.\n\n```strumento\n{\"tipo\":\"passi\",\"id\":\"anl1.trig.x22\",\"titolo\":\"sin x = √3/2: due punti, infinite soluzioni\",\"come_si_usa\":\"Premi **Passo successivo**. Si parte dal cerchio, si traccia la retta all'altezza giusta, si leggono i due angoli e si aggiungono i giri.\",\"cosa_osservare\":\"1. Un valore del seno tra $-1$ e $1$ (esclusi) corrisponde sempre a **due** punti del cerchio, simmetrici rispetto all'asse verticale.\\n2. Il secondo angolo è $\\\\pi$ meno il primo.\\n3. Fermarsi a $\\\\frac{\\\\pi}{3}$ vuol dire perdere una famiglia intera di soluzioni.\",\"passi\":[{\"nota\":\"Risolvo $\\\\sin x = \\\\frac{\\\\sqrt{3}}{2} \\\\approx 0{,}866$. Il seno è l'**altezza** del punto: disegno la retta orizzontale a quell'altezza.\",\"pannelli\":[{\"titolo\":\"cerchio e retta y = 0,866\",\"righe\":[\"       ···········\",\"----····---------····----\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]}]},{\"nota\":\"La retta taglia il cerchio in **due** punti: uno nel primo quadrante e il suo specchio rispetto all'asse verticale.\",\"pannelli\":[{\"titolo\":\"cerchio e retta y = 0,866\",\"righe\":[\"       ···········\",\"----··●·---------·●··----\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"i due angoli\",\"righe\":[\"a destra: π/3 (60°)\",\"a sinistra: π - π/3 = 2π/3 (120°)\"],\"cambiate\":[0,1]}]},{\"nota\":\"Ogni giro completo ($2\\\\pi$) riporta il punto allo stesso posto: si aggiunge $2k\\\\pi$ a **tutti e due** gli angoli.\",\"pannelli\":[{\"titolo\":\"cerchio e retta y = 0,866\",\"righe\":[\"       ···········\",\"----··●·---------·●··----\",\"  ···       │       ···\",\" ··         │         ··\",\"··          │          ··\",\"·           │           ·\",\"·───────────┼───────────·\",\"·           │           ·\",\"··          │          ··\",\" ··         │         ··\",\"  ···       │       ···\",\"    ····    │    ····\",\"       ···········\"]},{\"titolo\":\"le due famiglie\",\"righe\":[\"x = π/3  + 2kπ\",\"x = 2π/3 + 2kπ\",\"con k intero qualunque\"],\"cambiate\":[0,1]}]},{\"nota\":\"Con $k = -1, 0, 1$ ecco sei soluzioni. Sono **infinite**: una per ogni $k$ e per ogni famiglia.\",\"pannelli\":[{\"titolo\":\"le due famiglie\",\"righe\":[\"x = π/3  + 2kπ\",\"x = 2π/3 + 2kπ\"]},{\"titolo\":\"alcune soluzioni\",\"righe\":[\"k = -1: π/3 - 2π = -5π/3     ≈ -5,236\",\"k = -1: 2π/3 - 2π = -4π/3    ≈ -4,189\",\"k =  0: π/3                  ≈ 1,047\",\"k =  0: 2π/3                 ≈ 2,094\",\"k =  1: π/3 + 2π = 7π/3      ≈ 7,33\",\"k =  1: 2π/3 + 2π = 8π/3     ≈ 8,378\"],\"cambiate\":[2,3]}]}]}\n```\n\n```strumento\n{\"tipo\":\"domanda\",\"id\":\"anl1.trig.x23\",\"titolo\":\"arcsin non disfa sempre il seno\",\"domanda\":\"Quanto vale $\\\\arcsin\\\\left(\\\\sin \\\\frac{5\\\\pi}{6}\\\\right)$?\",\"opzioni\":[{\"testo\":\"5π/6\",\"giusta\":false,\"perche\":\"$\\\\arcsin$ dà **sempre** un angolo in $\\\\left[-\\\\frac{\\\\pi}{2}, \\\\frac{\\\\pi}{2}\\\\right]$, e $\\\\frac{5\\\\pi}{6}$ è fuori. $\\\\arcsin(\\\\sin x) = x$ vale solo dentro quell'intervallo.\"},{\"testo\":\"π/6\",\"giusta\":true,\"perche\":\"Sì. $\\\\sin \\\\frac{5\\\\pi}{6} = \\\\frac{1}{2}$, e l'unico angolo in $\\\\left[-\\\\frac{\\\\pi}{2}, \\\\frac{\\\\pi}{2}\\\\right]$ con seno $\\\\frac{1}{2}$ è $\\\\frac{\\\\pi}{6}$.\"},{\"testo\":\"−π/6\",\"giusta\":false,\"perche\":\"$\\\\sin\\\\left(-\\\\frac{\\\\pi}{6}\\\\right) = -\\\\frac{1}{2}$: il segno non torna. $\\\\sin \\\\frac{5\\\\pi}{6}$ è positivo, il punto sta in alto.\"},{\"testo\":\"1/2\",\"giusta\":false,\"perche\":\"$\\\\frac{1}{2}$ è $\\\\sin \\\\frac{5\\\\pi}{6}$, il passaggio intermedio: $\\\\arcsin$ restituisce un **angolo**, non un seno.\"}]}\n```"
+    },
+    {
+     "id": "anl1.trig.s6",
+     "livello": "riepilogo",
+     "titolo": "In cinque righe",
+     "testo": "- Cerchio di raggio $1$: punto $(\\cos x, \\sin x)$, angolo $x$ in radianti, $\\pi = 180°$.\n- $\\sin^2 x + \\cos^2 x = 1$ (Pitagora); periodo $2\\pi$ per seno e coseno, $\\pi$ per la tangente.\n- $\\sin 2a = 2\\sin a\\cos a$; $\\cos 2a = 1 - 2\\sin^2 a$: si ricavano dall'addizione.\n- Equazioni elementari: due famiglie di soluzioni, più $2k\\pi$.\n- $\\arcsin$ e $\\arccos$ su $[-1, 1]$, $\\arctan$ su $\\mathbb{R}$, con immagini ristrette."
+    }
+   ],
+   "tecniche": [
+    {
+     "id": "anl1.trig.t1",
+     "nome": "Risolvere sin x = k",
+     "quando": "Equazioni goniometriche elementari con il seno, con $-1 \\le k \\le 1$.",
+     "esempio": {
+      "testo": "Risolvi $\\sin x = \\frac{1}{2}$.",
+      "passi": [
+       "Cerco sul cerchio i punti alla **altezza** $\\frac{1}{2}$: sono due, simmetrici rispetto all'asse verticale.",
+       "Il primo è un angolo noto: $x = \\frac{\\pi}{6}$.",
+       "Il secondo è il suo simmetrico: $x = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$, perché $\\sin(\\pi - x) = \\sin x$.",
+       "Aggiungo la periodicità: $x = \\frac{\\pi}{6} + 2k\\pi$ oppure $x = \\frac{5\\pi}{6} + 2k\\pi$, con $k \\in \\mathbb{Z}$."
+      ]
+     }
+    },
+    {
+     "id": "anl1.trig.t2",
+     "nome": "Risolvere cos x = k",
+     "quando": "Equazioni goniometriche elementari con il coseno, con $-1 \\le k \\le 1$.",
+     "esempio": {
+      "testo": "Risolvi $\\cos x = -\\frac{1}{2}$.",
+      "passi": [
+       "Cerco sul cerchio i punti con **ascissa** $-\\frac{1}{2}$: sono due, simmetrici rispetto all'asse orizzontale.",
+       "$\\cos \\frac{\\pi}{3} = \\frac{1}{2}$, e $\\cos(\\pi - x) = -\\cos x$, quindi $\\cos \\frac{2\\pi}{3} = -\\frac{1}{2}$.",
+       "Il simmetrico rispetto all'asse orizzontale è $-\\frac{2\\pi}{3}$, perché il coseno è pari.",
+       "Soluzioni: $x = \\pm \\frac{2\\pi}{3} + 2k\\pi$, con $k \\in \\mathbb{Z}$."
+      ]
+     }
+    }
+   ],
+   "esercizi": [
+    {
+     "id": "anl1.trig.e01",
+     "livello": "base",
+     "testo": "Converti $135°$ in radianti e $\\frac{5\\pi}{6}$ in gradi.",
+     "suggerimento": "$180° = \\pi$.",
+     "passi": [
+      "$135 \\cdot \\frac{\\pi}{180} = \\frac{135}{180}\\pi = \\frac{3}{4}\\pi$.",
+      "$\\frac{5\\pi}{6} \\cdot \\frac{180}{\\pi} = \\frac{5 \\cdot 180}{6} = 150$."
+     ],
+     "soluzione": "$135° = \\frac{3\\pi}{4}$; $\\frac{5\\pi}{6} = 150°$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "135° in radianti",
+        "tipo": "testo",
+        "formato": "es. 2π/3",
+        "accettate": [
+         "3π/4",
+         "3/4π",
+         "(3/4)π",
+         "3*π/4",
+         "3/4*π",
+         "3pi/4",
+         "3/4pi",
+         "(3/4)pi",
+         "3*pi/4",
+         "3/4*pi",
+         "2.36",
+         "2,36",
+         "2.356",
+         "2,356",
+         "2.3562",
+         "2,3562",
+         "2.3561",
+         "2,3561",
+         "135π/180",
+         "135/180π"
+        ],
+        "errori": {
+         "4π/3": "Hai capovolto la frazione: 135/180 = 3/4.",
+         "135": "Serve in radianti: moltiplica per π/180."
+        }
+       },
+       {
+        "etichetta": "5π/6 in gradi",
+        "tipo": "testo",
+        "formato": "es. 120",
+        "accettate": [
+         "150",
+         "150°",
+         "150gradi"
+        ],
+        "errori": {
+         "300": "π corrisponde a 180°, non a 360°.",
+         "75": "π corrisponde a 180°, non a 90°."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.trig.e02",
+     "livello": "base",
+     "testo": "Calcola $\\sin \\frac{2\\pi}{3}$, $\\cos \\frac{2\\pi}{3}$ e $\\tan \\frac{\\pi}{4}$.",
+     "suggerimento": "$\\frac{2\\pi}{3} = \\pi - \\frac{\\pi}{3}$: usa gli archi associati.",
+     "passi": [
+      "$\\sin\\left(\\pi - \\frac{\\pi}{3}\\right) = \\sin \\frac{\\pi}{3} = \\frac{\\sqrt{3}}{2}$.",
+      "$\\cos\\left(\\pi - \\frac{\\pi}{3}\\right) = -\\cos \\frac{\\pi}{3} = -\\frac{1}{2}$.",
+      "$\\tan \\frac{\\pi}{4} = \\frac{\\sqrt{2}/2}{\\sqrt{2}/2} = 1$."
+     ],
+     "soluzione": "$\\frac{\\sqrt{3}}{2}$, $-\\frac{1}{2}$, $1$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "sin(2π/3)",
+        "tipo": "testo",
+        "formato": "es. √2/2",
+        "accettate": [
+         "√3/2",
+         "√(3)/2",
+         "sqrt(3)/2",
+         "sqrt3/2",
+         "radice3/2",
+         "radicedi3/2",
+         "3^(1/2)/2",
+         "3^0.5/2",
+         "(√3)/2",
+         "(√(3))/2",
+         "(sqrt(3))/2",
+         "1/2√3",
+         "(1/2)√3",
+         "0.87",
+         "0,87",
+         "0.866",
+         "0,866",
+         "0.8660",
+         "0,8660"
+        ],
+        "errori": {
+         "-√3/2": "Il punto di 2π/3 sta in alto (secondo quadrante): il seno è positivo.",
+         "1/2": "1/2 è il coseno di π/3: qui serve il seno."
+        }
+       },
+       {
+        "etichetta": "cos(2π/3)",
+        "tipo": "numero",
+        "formato": "es. -0,5",
+        "accettate": [
+         "-1/2"
+        ],
+        "errori": {
+         "1/2": "Il punto di 2π/3 sta a sinistra (secondo quadrante): il coseno è negativo."
+        }
+       },
+       {
+        "etichetta": "tan(π/4)",
+        "tipo": "numero",
+        "accettate": [
+         "1"
+        ],
+        "errori": {
+         "0": "tan = sin / cos, e a π/4 seno e coseno sono uguali."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.trig.e03",
+     "livello": "medio",
+     "testo": "Risolvi $2\\cos x - \\sqrt{2} = 0$.",
+     "suggerimento": "Isola il coseno e riconosci un valore notevole.",
+     "passi": [
+      "$\\cos x = \\frac{\\sqrt{2}}{2}$.",
+      "$\\cos \\frac{\\pi}{4} = \\frac{\\sqrt{2}}{2}$, e il coseno è pari, quindi va bene anche $-\\frac{\\pi}{4}$.",
+      "$x = \\pm \\frac{\\pi}{4} + 2k\\pi$."
+     ],
+     "soluzione": "$x = \\pm \\frac{\\pi}{4} + 2k\\pi$, $k \\in \\mathbb{Z}$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "In [0, 2π): la soluzione più piccola",
+        "tipo": "testo",
+        "formato": "es. π/6",
+        "accettate": [
+         "π/4",
+         "1π/4",
+         "1/4π",
+         "(1/4)π",
+         "1*π/4",
+         "1/4*π",
+         "pi/4",
+         "1pi/4",
+         "1/4pi",
+         "(1/4)pi",
+         "1*pi/4",
+         "1/4*pi",
+         "0.79",
+         "0,79",
+         "0.785",
+         "0,785",
+         "0.7854",
+         "0,7854",
+         "0.7853",
+         "0,7853"
+        ],
+        "errori": {
+         "45": "Serve in radianti: 180° = π.",
+         "√2/2": "Questo è il valore del coseno: serve l'angolo."
+        }
+       },
+       {
+        "etichetta": "In [0, 2π): la soluzione più grande",
+        "tipo": "testo",
+        "formato": "es. 5π/3",
+        "accettate": [
+         "7π/4",
+         "7/4π",
+         "(7/4)π",
+         "7*π/4",
+         "7/4*π",
+         "7pi/4",
+         "7/4pi",
+         "(7/4)pi",
+         "7*pi/4",
+         "7/4*pi",
+         "5.50",
+         "5,50",
+         "5.498",
+         "5,498",
+         "5.497",
+         "5,497",
+         "5.4978",
+         "5,4978",
+         "5.4977",
+         "5,4977"
+        ],
+        "errori": {
+         "3π/4": "A 3π/4 il coseno è negativo: il coseno è positivo a destra, nel primo e nel quarto quadrante.",
+         "-π/4": "−π/4 è giusto come famiglia, ma non sta in [0, 2π): aggiungi un giro."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.trig.e04",
+     "livello": "medio",
+     "testo": "Risolvi $\\sin 2x = \\sin x$ nell'intervallo $[0, 2\\pi]$.",
+     "suggerimento": "Usa la duplicazione e porta tutto a sinistra: compare un fattore comune. **Non** dividere per $\\sin x$, perché perderesti delle soluzioni.",
+     "passi": [
+      "$2 \\sin x \\cos x - \\sin x = 0$, cioè $\\sin x (2\\cos x - 1) = 0$.",
+      "Primo fattore: $\\sin x = 0$ in $[0, 2\\pi]$ dà $x = 0, \\pi, 2\\pi$.",
+      "Secondo fattore: $\\cos x = \\frac{1}{2}$ dà $x = \\frac{\\pi}{3}$ e $x = \\frac{5\\pi}{3}$.",
+      "Se avessi diviso per $\\sin x$ avrei perso $0$, $\\pi$ e $2\\pi$."
+     ],
+     "soluzione": "$x = 0,\\ \\frac{\\pi}{3},\\ \\pi,\\ \\frac{5\\pi}{3},\\ 2\\pi$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "Quante soluzioni in [0, 2π]?",
+        "tipo": "numero",
+        "accettate": [
+         "5"
+        ],
+        "errori": {
+         "2": "Se dividi per sin x perdi le soluzioni con sin x = 0.",
+         "3": "Ci sono anche le soluzioni del secondo fattore, 2cos x − 1 = 0.",
+         "4": "Anche 2π sta nell'intervallo chiuso [0, 2π]."
+        }
+       },
+       {
+        "etichetta": "Dal fattore 2cos x − 1 = 0: la soluzione più piccola",
+        "tipo": "testo",
+        "formato": "es. π/4",
+        "accettate": [
+         "π/3",
+         "1π/3",
+         "1/3π",
+         "(1/3)π",
+         "1*π/3",
+         "1/3*π",
+         "pi/3",
+         "1pi/3",
+         "1/3pi",
+         "(1/3)pi",
+         "1*pi/3",
+         "1/3*pi",
+         "1.05",
+         "1,05",
+         "1.047",
+         "1,047",
+         "1.0472",
+         "1,0472",
+         "1.0471",
+         "1,0471"
+        ],
+        "errori": {
+         "π/6": "π/6 ha il seno uguale a 1/2: qui serve il coseno.",
+         "60": "Serve in radianti: 180° = π."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.trig.e05",
+     "livello": "difficile",
+     "testo": "Risolvi $\\sin^2 x - \\cos^2 x = \\frac{1}{2}$.",
+     "suggerimento": "Riconosci $\\cos 2x$ con il segno cambiato.",
+     "passi": [
+      "$\\sin^2 x - \\cos^2 x = -(\\cos^2 x - \\sin^2 x) = -\\cos 2x$.",
+      "L'equazione diventa $\\cos 2x = -\\frac{1}{2}$.",
+      "Con la tecnica del coseno: $2x = \\pm \\frac{2\\pi}{3} + 2k\\pi$.",
+      "Divido per $2$, anche il termine periodico: $x = \\pm \\frac{\\pi}{3} + k\\pi$."
+     ],
+     "soluzione": "$x = \\pm \\frac{\\pi}{3} + k\\pi$, $k \\in \\mathbb{Z}$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "cos 2x = ?",
+        "tipo": "numero",
+        "formato": "es. 0,5",
+        "accettate": [
+         "-1/2"
+        ],
+        "errori": {
+         "1/2": "sin²x − cos²x è −cos 2x: il segno cambia."
+        }
+       },
+       {
+        "etichetta": "La soluzione in (0, π/2)",
+        "tipo": "testo",
+        "formato": "es. π/5",
+        "accettate": [
+         "π/3",
+         "1π/3",
+         "1/3π",
+         "(1/3)π",
+         "1*π/3",
+         "1/3*π",
+         "pi/3",
+         "1pi/3",
+         "1/3pi",
+         "(1/3)pi",
+         "1*pi/3",
+         "1/3*pi",
+         "1.05",
+         "1,05",
+         "1.047",
+         "1,047",
+         "1.0472",
+         "1,0472",
+         "1.0471",
+         "1,0471"
+        ],
+        "errori": {
+         "2π/3": "2π/3 è giusto per cos 2x, ma è il valore di 2x: dividi per 2.",
+         "π/6": "Prova a sostituire π/6: sin² − cos² fa −1/2, non 1/2."
+        }
+       },
+       {
+        "etichetta": "Le soluzioni si ripetono ogni…",
+        "tipo": "scelta",
+        "opzioni": [
+         "π",
+         "2π"
+        ],
+        "accettate": [
+         "π"
+        ],
+        "errori": {
+         "2π": "Hai diviso per 2 l'angolo ma non il termine periodico: anche 2kπ diventa kπ."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.trig.e06",
+     "livello": "difficile",
+     "testo": "Risolvi $2\\sin^2 x + 3\\sin x - 2 \\ge 0$.",
+     "suggerimento": "Poni $t = \\sin x$, con $-1 \\le t \\le 1$, e risolvi la disequazione di secondo grado in $t$.",
+     "passi": [
+      "$2t^2 + 3t - 2 = (2t - 1)(t + 2)$. Controllo: $2t^2 + 4t - t - 2$. Torna.",
+      "Radici $t = \\frac{1}{2}$ e $t = -2$; con $a = 2 > 0$, il trinomio è $\\ge 0$ per $t \\le -2$ oppure $t \\ge \\frac{1}{2}$.",
+      "$\\sin x \\le -2$ è impossibile, perché il seno non scende sotto $-1$.",
+      "$\\sin x \\ge \\frac{1}{2}$: sul cerchio, l'arco tra $\\frac{\\pi}{6}$ e $\\frac{5\\pi}{6}$.",
+      "Aggiungo la periodicità."
+     ],
+     "soluzione": "$\\frac{\\pi}{6} + 2k\\pi \\le x \\le \\frac{5\\pi}{6} + 2k\\pi$, $k \\in \\mathbb{Z}$",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "Con t = sin x: t ≥ …",
+        "tipo": "numero",
+        "formato": "es. 0,3",
+        "accettate": [
+         "1/2"
+        ],
+        "errori": {
+         "-2": "t ≤ −2 è l'altra parte, ma sin x non scende mai sotto −1."
+        }
+       },
+       {
+        "etichetta": "In [0, 2π): l'inizio dell'arco",
+        "tipo": "testo",
+        "formato": "es. π/4",
+        "accettate": [
+         "π/6",
+         "1π/6",
+         "1/6π",
+         "(1/6)π",
+         "1*π/6",
+         "1/6*π",
+         "pi/6",
+         "1pi/6",
+         "1/6pi",
+         "(1/6)pi",
+         "1*pi/6",
+         "1/6*pi",
+         "0.52",
+         "0,52",
+         "0.524",
+         "0,524",
+         "0.523",
+         "0,523",
+         "0.5236",
+         "0,5236",
+         "0.5235",
+         "0,5235"
+        ],
+        "errori": {
+         "π/3": "π/3 ha il coseno uguale a 1/2: qui serve il seno.",
+         "30": "Serve in radianti: 180° = π."
+        }
+       },
+       {
+        "etichetta": "In [0, 2π): la fine dell'arco",
+        "tipo": "testo",
+        "formato": "es. 3π/4",
+        "accettate": [
+         "5π/6",
+         "5/6π",
+         "(5/6)π",
+         "5*π/6",
+         "5/6*π",
+         "5pi/6",
+         "5/6pi",
+         "(5/6)pi",
+         "5*pi/6",
+         "5/6*pi",
+         "2.62",
+         "2,62",
+         "2.618",
+         "2,618",
+         "2.617",
+         "2,617",
+         "2.6180",
+         "2,6180",
+         "2.6179",
+         "2,6179"
+        ],
+        "errori": {
+         "7π/6": "A 7π/6 il seno vale −1/2: il punto sta in basso.",
+         "150": "Serve in radianti: 180° = π."
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "verifica": {
+    "spiegalo": [
+     "Spiega con il cerchio di raggio $1$ perché $\\sin^2 x + \\cos^2 x = 1$.",
+     "Perché per definire l'arcoseno bisogna restringere il seno a $\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$?"
+    ],
+    "quiz": [
+     {
+      "id": "anl1.trig.q1",
+      "domanda": "$\\frac{\\pi}{3}$ radianti sono:",
+      "opzioni": [
+       "$30°$",
+       "$60°$",
+       "$120°$"
+      ],
+      "corretta": 1,
+      "spiegazione": "$\\frac{180°}{3} = 60°$."
+     },
+     {
+      "id": "anl1.trig.q2",
+      "domanda": "$\\sin(\\pi - x)$ è uguale a:",
+      "opzioni": [
+       "$-\\sin x$",
+       "$\\cos x$",
+       "$\\sin x$"
+      ],
+      "corretta": 2,
+      "spiegazione": "Il punto viene specchiato rispetto all'asse verticale: l'altezza resta la stessa."
+     },
+     {
+      "id": "anl1.trig.q3",
+      "domanda": "Il dominio di $\\arcsin x$ è:",
+      "opzioni": [
+       "$[-1, 1]$",
+       "$\\mathbb{R}$",
+       "$\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$"
+      ],
+      "corretta": 0,
+      "spiegazione": "Gli input dell'arcoseno sono valori del seno, che stanno tra $-1$ e $1$. $\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$ è l'**immagine**."
+     },
+     {
+      "id": "anl1.trig.q4",
+      "domanda": "$\\cos 2x$ è uguale a:",
+      "opzioni": [
+       "$2\\cos x$",
+       "$1 - 2\\sin^2 x$",
+       "$1 - \\sin^2 x$"
+      ],
+      "corretta": 1,
+      "spiegazione": "$\\cos 2x = \\cos^2 x - \\sin^2 x$ e $\\cos^2 x = 1 - \\sin^2 x$."
+     },
+     {
+      "id": "anl1.trig.q5",
+      "domanda": "Il periodo di $\\tan x$ è:",
+      "opzioni": [
+       "$\\pi$",
+       "$2\\pi$",
+       "$\\frac{\\pi}{2}$"
+      ],
+      "corretta": 0,
+      "spiegazione": "Dopo mezzo giro seno e coseno cambiano entrambi segno, quindi il loro rapporto resta uguale."
+     }
+    ]
+   }
+  },
+  {
+   "id": "anl1.graf",
+   "titolo": "Grafici di funzioni composte",
+   "fonte": "Programma Mercatorum, videolezione 8",
+   "prossimo_passo": "Leggi la regola dello spostamento orizzontale (quella controintuitiva), poi fai l'esercizio e05.",
+   "sezioni": [
+    {
+     "id": "anl1.graf.s1",
+     "livello": "intuizione",
+     "titolo": "Spostare, stirare, specchiare",
+     "testo": "Non serve ricalcolare ogni grafico da zero. Se conosci il grafico di una funzione base come $x^2$, $e^x$, $\\ln x$ o $\\sin x$, puoi ottenere quello di molte funzioni composte **muovendolo**: lo sposti, lo allunghi, lo specchi.\n\nÈ come avere un timbro e decidere dove e come appoggiarlo sul foglio. Le mosse sono poche, e una sola è controintuitiva: lo spostamento orizzontale va nel verso **opposto** al segno che vedi."
+    },
+    {
+     "id": "anl1.graf.s2",
+     "livello": "definizione",
+     "titolo": "Le mosse, una per una",
+     "testo": "Parti dal grafico di $y = f(x)$ e prendi $k > 0$.\n\n- $f(x) + k$: **su** di $k$. $\\ f(x) - k$: **giù** di $k$.\n- $f(x - k)$: **a destra** di $k$. $\\ f(x + k)$: **a sinistra** di $k$.\n- $-f(x)$: specchio rispetto all'**asse $x$**, cioè sopra e sotto si scambiano.\n- $f(-x)$: specchio rispetto all'**asse $y$**, cioè destra e sinistra si scambiano.\n- $k \\cdot f(x)$: stiramento **verticale** di un fattore $k$ (se $k < 1$ è uno schiacciamento).\n- $f(kx)$: **compressione orizzontale** di un fattore $k$ (se $k < 1$ è un allungamento). Esempio: $\\sin 2x$ ha periodo $\\pi$ invece di $2\\pi$.\n- $|f(x)|$: le parti del grafico **sotto** l'asse $x$ vengono ribaltate sopra; le altre restano uguali.\n- $f(|x|)$: tieni la parte con $x \\ge 0$, butti quella con $x < 0$ e la sostituisci con lo specchio della parte destra. Il risultato è sempre una funzione **pari**.\n\n```strumento\n{\"tipo\":\"passi\",\"id\":\"anl1.graf.x20\",\"titolo\":\"Un grafico costruito con le mosse\",\"come_si_usa\":\"Premi **Passo successivo**. A ogni passo si fa **una sola mossa** sul grafico: il grafico nuovo è disegnato con ●, quello di prima con i puntini.\",\"cosa_osservare\":\"1. L'ordine delle mosse segue la formula **dall'interno verso l'esterno**: prima $x - 2$, poi $-1$, poi il valore assoluto.\\n2. Lo spostamento orizzontale va nel verso **opposto** al segno: $x - 2$ va a destra.\\n3. Il valore assoluto tocca solo il pezzo sotto l'asse $x$.\",\"passi\":[{\"nota\":\"Si parte dalla funzione base $y = x^2$: parabola con vertice nell'origine.\",\"pannelli\":[{\"titolo\":\"grafico (● adesso, · prima)\",\"righe\":[\" 5     │        ●\",\"       │       ●●\",\" 4     │       ●\",\"       │      ●●\",\" 3     │      ●\",\"       │     ●●\",\" 2     │    ●●\",\"       │   ●●\",\" 1 ●●  │  ●●\",\"    ●● │ ●●\",\" 0 ──●●●●●──────────────────\",\"       │\",\"-1     │\",\"       │\",\"-2     │\",\"  -1   0   1   2   3   4   5\"]},{\"titolo\":\"punti chiave\",\"righe\":[\"y = x^2\",\"vertice (0, 0)\"]}]},{\"nota\":\"**Mossa 1:** $(x - 2)^2$ è $f(x - 2)$: tutto il grafico va **a destra di 2** (verso opposto al segno). In grigio (·) il grafico di prima.\",\"pannelli\":[{\"titolo\":\"grafico (● adesso, · prima)\",\"righe\":[\" 5    ●│        ·       ●\",\"      ●●       ··      ●●\",\" 4     ●       ·       ●\",\"       ●●     ··      ●●\",\" 3     │●     ·       ●\",\"       │●●   ··      ●●\",\" 2     │ ●● ··      ●●\",\"       │  ●●·      ●●\",\" 1 ··  │  ·●●     ●●\",\"    ·· │ ·· ●●   ●●\",\" 0 ──·····───●●●●●──────────\",\"       │\",\"-1     │\",\"       │\",\"-2     │\",\"  -1   0   1   2   3   4   5\"]},{\"titolo\":\"punti chiave\",\"righe\":[\"y = (x - 2)^2\",\"vertice (2, 0)\",\"a destra di 2\"],\"cambiate\":[0,1,2]}]},{\"nota\":\"**Mossa 2:** $-1$ fuori dalla parentesi: tutto **giù di 1**. Ora la parabola taglia l'asse $x$ in due punti.\",\"pannelli\":[{\"titolo\":\"grafico (● adesso, · prima)\",\"righe\":[\" 5   ●·│                ·●\",\"     ●●·               ·●●\",\" 4    ●·               ·●\",\"      ●●·             ·●●\",\" 3     ●·             ·●\",\"       ●●·           ·●●\",\" 2     │●··         ··●\",\"       │●●··       ··●●\",\" 1     │ ●●··     ··●●\",\"       │  ●●··   ··●●\",\" 0 ────┼───●●·····●●────────\",\"       │    ●●   ●●\",\"-1     │     ●●●●●\",\"       │\",\"-2     │\",\"  -1   0   1   2   3   4   5\"]},{\"titolo\":\"punti chiave\",\"righe\":[\"y = (x - 2)^2 - 1\",\"vertice (2, -1)\",\"zeri: x = 1 e x = 3\"],\"cambiate\":[0,1,2]}]},{\"nota\":\"**Mossa 3:** il valore assoluto: il pezzo **sotto** l'asse $x$ (tra $1$ e $3$) si ribalta sopra. Il resto non cambia.\",\"pannelli\":[{\"titolo\":\"grafico (● adesso, · prima)\",\"righe\":[\" 5   ● │                 ●\",\"     ●●│                ●●\",\" 4    ●│                ●\",\"      ●●               ●●\",\" 3     ●               ●\",\"       ●●             ●●\",\" 2     │●             ●\",\"       │●●           ●●\",\" 1     │ ●●  ●●●●●  ●●\",\"       │  ●●●●   ●●●●\",\" 0 ────┼───●●─────●●────────\",\"       │    ··   ··\",\"-1     │     ·····\",\"       │\",\"-2     │\",\"  -1   0   1   2   3   4   5\"]},{\"titolo\":\"punti chiave\",\"righe\":[\"y = |(x - 2)^2 - 1|\",\"la punta in giù (2, -1)\",\"diventa una gobba (2, 1)\",\"zeri: x = 1 e x = 3\"],\"cambiate\":[0,1,2,3]}]},{\"nota\":\"**Fatto.** Il grafico finale: una «W» con due punte sull'asse in $x = 1$ e $x = 3$ e una gobba alta $1$ in mezzo. Vale $3$ in $x = 0$.\",\"pannelli\":[{\"titolo\":\"grafico (● adesso, · prima)\",\"righe\":[\" 5   ● │                 ●\",\"     ●●│                ●●\",\" 4    ●│                ●\",\"      ●●               ●●\",\" 3     ●               ●\",\"       ●●             ●●\",\" 2     │●             ●\",\"       │●●           ●●\",\" 1     │ ●●  ●●●●●  ●●\",\"       │  ●●●●   ●●●●\",\" 0 ────┼───●●─────●●────────\",\"       │\",\"-1     │\",\"       │\",\"-2     │\",\"  -1   0   1   2   3   4   5\"]},{\"titolo\":\"punti chiave\",\"righe\":[\"y = |(x - 2)^2 - 1|\",\"minimo 0 in x = 1 e x = 3\",\"gobba (2, 1)\",\"in x = 0 vale 3\"],\"cambiate\":[0,1,2,3]}]}]}\n```\n\n```strumento\n{\"tipo\":\"collega\",\"id\":\"anl1.graf.x22\",\"titolo\":\"Ogni formula con la sua mossa\",\"istruzioni\":\"Tocca una formula a sinistra, poi la mossa giusta a destra. Parti sempre dal grafico di y = f(x).\",\"coppie\":[{\"a\":\"f(x) + 3\",\"b\":\"su di 3\"},{\"a\":\"f(x + 3)\",\"b\":\"a sinistra di 3\"},{\"a\":\"f(x − 3)\",\"b\":\"a destra di 3\"},{\"a\":\"−f(x)\",\"b\":\"specchio sull'asse x\"},{\"a\":\"f(−x)\",\"b\":\"specchio sull'asse y\"},{\"a\":\"3 · f(x)\",\"b\":\"stiramento verticale di 3\"},{\"a\":\"f(3x)\",\"b\":\"compressione orizzontale di 3\"},{\"a\":\"|f(x)|\",\"b\":\"le parti sotto l'asse x vanno sopra\"},{\"a\":\"f(|x|)\",\"b\":\"la parte destra copiata a sinistra\"}]}\n```"
+    },
+    {
+     "id": "anl1.graf.s3",
+     "livello": "ragionamento",
+     "titolo": "Perché f(x − k) va a destra",
+     "testo": "Sia $g(x) = f(x - k)$ con $k > 0$, e prendi un punto qualunque del grafico di $f$, cioè $(x_0, f(x_0))$.\n\n**Passo 1.** Mi chiedo dove $g$ assume lo **stesso valore** $f(x_0)$. Mi serve un $x$ con $x - k = x_0$, cioè $x = x_0 + k$.\n\n**Passo 2.** Infatti $g(x_0 + k) = f(x_0 + k - k) = f(x_0)$.\n\n**Passo 3.** Quindi il punto che per $f$ stava in $x_0$, per $g$ sta in $x_0 + k$: alla **stessa altezza**, ma $k$ passi più a **destra**. Vale per ogni punto, quindi tutto il grafico trasla a destra. $\\blacksquare$\n\n**Il modo di pensarci:** $g$ «arriva in ritardo». Per ottenere lo stesso valore di $f$, a $g$ serve una $x$ più grande di $k$.\n\n**Perché $|f(x)|$ ribalta solo le parti negative.** Dove $f(x) \\ge 0$, $|f(x)| = f(x)$ e non cambia niente. Dove $f(x) < 0$, $|f(x)| = -f(x)$, cioè lo specchio rispetto all'asse $x$ applicato solo a quel tratto.\n\n```strumento\n{\"tipo\":\"passi\",\"id\":\"anl1.graf.x21\",\"titolo\":\"Perché f(x − 2) va a destra\",\"come_si_usa\":\"Premi **Passo successivo**. A sinistra la tabella di $f(x) = x^2$, a destra quella di $g(x) = (x - 2)^2$, con le stesse $x$. A ogni passo si colorano le righe dove le due funzioni danno **lo stesso valore**.\",\"cosa_osservare\":\"1. Ogni valore di $f$ ricompare in $g$ **2 righe più in basso**, cioè con una $x$ più grande di $2$.\\n2. Più grande vuol dire più a destra: il grafico si sposta a destra, anche se nella formula c'è un meno.\",\"colonne\":[\"f(x) = x^2\",\"g(x) = (x - 2)^2\"],\"passi\":[{\"note\":[\"La tabella di $f(x) = x^2$.\",\"La tabella di $g(x) = f(x - 2)$: si calcola $f$ in $x - 2$.\"],\"colonne\":[[{\"righe\":[\"x    f(x) = x^2\",\"-2   4\",\"-1   1\",\" 0   0\",\" 1   1\",\" 2   4\",\" 3   9\",\" 4   16\"]}],[{\"righe\":[\"x    g(x) = (x - 2)^2\",\"-2   16\",\"-1   9\",\" 0   4\",\" 1   1\",\" 2   0\",\" 3   1\",\" 4   4\"]}]]},{\"note\":[\"$f$ vale $0$ in $x = 0$.\",\"$g$ vale $0$ in $x = 2$: **2 più a destra**.\"],\"colonne\":[[{\"righe\":[\"x    f(x) = x^2\",\"-2   4\",\"-1   1\",\" 0   0\",\" 1   1\",\" 2   4\",\" 3   9\",\" 4   16\"],\"evidenzia\":[3]}],[{\"righe\":[\"x    g(x) = (x - 2)^2\",\"-2   16\",\"-1   9\",\" 0   4\",\" 1   1\",\" 2   0\",\" 3   1\",\" 4   4\"],\"evidenzia\":[5]}]]},{\"note\":[\"$f$ vale $1$ in $x = -1, 1$.\",\"$g$ vale $1$ in $x = 1, 3$: **2 più a destra**.\"],\"colonne\":[[{\"righe\":[\"x    f(x) = x^2\",\"-2   4\",\"-1   1\",\" 0   0\",\" 1   1\",\" 2   4\",\" 3   9\",\" 4   16\"],\"evidenzia\":[2,4]}],[{\"righe\":[\"x    g(x) = (x - 2)^2\",\"-2   16\",\"-1   9\",\" 0   4\",\" 1   1\",\" 2   0\",\" 3   1\",\" 4   4\"],\"evidenzia\":[4,6]}]]},{\"note\":[\"$f$ vale $4$ in $x = -2, 2$.\",\"$g$ vale $4$ in $x = 0, 4$: **2 più a destra**.\"],\"colonne\":[[{\"righe\":[\"x    f(x) = x^2\",\"-2   4\",\"-1   1\",\" 0   0\",\" 1   1\",\" 2   4\",\" 3   9\",\" 4   16\"],\"evidenzia\":[1,5]}],[{\"righe\":[\"x    g(x) = (x - 2)^2\",\"-2   16\",\"-1   9\",\" 0   4\",\" 1   1\",\" 2   0\",\" 3   1\",\" 4   4\"],\"evidenzia\":[3,7]}]]},{\"note\":[\"Il vertice di $f$ è in $x = 0$.\",\"Il vertice di $g$ è in $x = 2$. A $g$ serve una $x$ più grande di $2$ per ottenere lo stesso valore: «arriva in ritardo».\"],\"colonne\":[[{\"righe\":[\"x    f(x) = x^2\",\"-2   4\",\"-1   1\",\" 0   0\",\" 1   1\",\" 2   4\",\" 3   9\",\" 4   16\"],\"evidenzia\":[3]}],[{\"righe\":[\"x    g(x) = (x - 2)^2\",\"-2   16\",\"-1   9\",\" 0   4\",\" 1   1\",\" 2   0\",\" 3   1\",\" 4   4\"],\"evidenzia\":[5]}]]}]}\n```"
+    },
+    {
+     "id": "anl1.graf.s4",
+     "livello": "errori_comuni",
+     "titolo": "Dove si sbaglia di solito",
+     "testo": "- **Spostare $f(x + 2)$ a destra.** Va a **sinistra** di $2$.\n- **Sbagliare l'ordine delle mosse orizzontali.** $f(2x + 4) = f\\big(2(x + 2)\\big)$: prima comprimi di un fattore $2$, poi sposti a sinistra di $2$, **non di $4$**. Raccogliere il coefficiente di $x$ evita l'errore.\n- **Confondere $|f(x)|$ e $f(|x|)$.** Il primo agisce sui valori, cioè sopra e sotto; il secondo agisce sulle $x$, cioè destra e sinistra.\n- **Dimenticare di spostare anche asintoti e punti notevoli.** In $\\ln(x - 1)$ l'asintoto verticale passa da $x = 0$ a $x = 1$.\n- **Pensare che $-f(x)$ e $f(-x)$ siano la stessa cosa.** Lo sono solo per le funzioni dispari.\n\n```strumento\n{\"tipo\":\"domanda\",\"id\":\"anl1.graf.x23\",\"titolo\":\"f(2x + 4): quanto si sposta?\",\"domanda\":\"Partendo dal grafico di $f$, come ottieni quello di $f(2x + 4)$?\",\"opzioni\":[{\"testo\":\"Comprimi orizzontalmente di 2, poi sposti a sinistra di 2\",\"giusta\":true,\"perche\":\"Sì. $f(2x + 4) = f\\\\big(2(x + 2)\\\\big)$: raccogliendo il $2$ si vede che, dopo la compressione, lo spostamento è di $2$, non di $4$. (Funziona anche l'ordine opposto, «prima a sinistra di $4$, poi comprimi»: la compressione dimezza anche lo spostamento. Raccogliere è il modo più sicuro.)\"},{\"testo\":\"Comprimi di 2, poi sposti a sinistra di 4\",\"giusta\":false,\"perche\":\"Così ottieni $f\\\\big(2(x + 4)\\\\big) = f(2x + 8)$. Raccogli il coefficiente di $x$: $2x + 4 = 2(x + 2)$, quindi dopo la compressione lo spostamento è di $2$.\"},{\"testo\":\"Sposti a sinistra di 2, poi comprimi di 2\",\"giusta\":false,\"perche\":\"Così ottieni $f(2x + 2)$: se sposti **prima** di comprimere, la compressione dimezza lo spostamento, quindi dovresti spostare di $4$.\"},{\"testo\":\"Comprimi di 2, poi sposti a destra di 2\",\"giusta\":false,\"perche\":\"Così ottieni $f(2x - 4)$. Il $+$ dentro la parentesi sposta a **sinistra**, nel verso opposto al segno.\"}]}\n```"
+    },
+    {
+     "id": "anl1.graf.s5",
+     "livello": "riepilogo",
+     "titolo": "In cinque righe",
+     "testo": "- $f(x) \\pm k$: su o giù. $f(x \\mp k)$: a destra o a sinistra, nel verso opposto al segno.\n- $-f(x)$ specchia sull'asse $x$; $f(-x)$ specchia sull'asse $y$.\n- $f(kx)$ comprime orizzontalmente: il periodo di $\\sin kx$ è $\\frac{2\\pi}{k}$.\n- $|f(x)|$ ribalta sopra le parti negative; $f(|x|)$ copia a sinistra la parte destra.\n- Si sposta tutto: zeri, asintoti, massimi e minimi."
+    }
+   ],
+   "tecniche": [
+    {
+     "id": "anl1.graf.t1",
+     "nome": "Disegnare un grafico con le trasformazioni",
+     "quando": "Quando la funzione è una funzione base modificata con traslazioni, valori assoluti o cambi di segno.",
+     "esempio": {
+      "testo": "Disegna $y = |x^2 - 4|$.",
+      "passi": [
+       "Parto da $y = x^2$: parabola con vertice nell'origine.",
+       "$x^2 - 4$: la abbasso di $4$. Vertice in $(0, -4)$; taglia l'asse $x$ dove $x^2 = 4$, cioè in $x = \\pm 2$.",
+       "$|x^2 - 4|$: la parte negativa, tra $-2$ e $2$, si ribalta sopra. Il vertice $(0, -4)$ diventa $(0, 4)$.",
+       "Risultato: una «W» arrotondata, che tocca l'asse $x$ in $\\pm 2$ e ha una gobba di altezza $4$ in $x = 0$."
+      ]
+     }
+    },
+    {
+     "id": "anl1.graf.t2",
+     "nome": "Seguire asintoti e punti notevoli",
+     "quando": "Con esponenziali e logaritmi traslati, dove conta vedere dove si sposta l'asintoto.",
+     "esempio": {
+      "testo": "Disegna $y = 2 + \\ln(x - 1)$.",
+      "passi": [
+       "Parto da $\\ln x$: asintoto verticale $x = 0$, passa per $(1, 0)$, crescente.",
+       "$\\ln(x - 1)$: tutto a destra di $1$. Asintoto $x = 1$, passa per $(2, 0)$. Dominio $x > 1$.",
+       "$2 + \\ln(x - 1)$: tutto su di $2$. Il punto $(2, 0)$ diventa $(2, 2)$; l'asintoto verticale resta $x = 1$.",
+       "Zero della nuova funzione: $\\ln(x - 1) = -2$, cioè $x = 1 + e^{-2} \\approx 1{,}14$, molto vicino all'asintoto."
+      ]
+     }
+    }
+   ],
+   "esercizi": [
+    {
+     "id": "anl1.graf.e01",
+     "livello": "base",
+     "testo": "Descrivi il grafico di $y = (x - 3)^2 + 1$ partendo da $y = x^2$.",
+     "suggerimento": "Due mosse: una orizzontale e una verticale.",
+     "passi": [
+      "$(x - 3)^2$: la parabola va a destra di $3$.",
+      "$+1$: va su di $1$.",
+      "Il vertice passa da $(0, 0)$ a $(3, 1)$. La forma non cambia."
+     ],
+     "soluzione": "Parabola con vertice $(3, 1)$, rivolta verso l'alto; immagine $[1, +\\infty)$.",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "Vertice: x",
+        "tipo": "numero",
+        "accettate": [
+         "3"
+        ],
+        "errori": {
+         "-3": "f(x − 3) va a destra di 3, nel verso opposto al segno che vedi."
+        }
+       },
+       {
+        "etichetta": "Vertice: y (il valore più basso)",
+        "tipo": "numero",
+        "accettate": [
+         "1"
+        ],
+        "errori": {
+         "-1": "+1 fuori dalla parentesi sposta in su."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.graf.e02",
+     "livello": "base",
+     "testo": "Descrivi il grafico di $y = -e^x$ e trova la sua immagine.",
+     "suggerimento": "Il segno meno davanti specchia rispetto all'asse $x$.",
+     "passi": [
+      "$e^x$ sta tutta sopra l'asse $x$ e passa per $(0, 1)$.",
+      "$-e^x$ è lo specchio: sta tutta sotto l'asse e passa per $(0, -1)$.",
+      "L'immagine di $e^x$ è $(0, +\\infty)$, quindi quella di $-e^x$ è $(-\\infty, 0)$."
+     ],
+     "soluzione": "Grafico di $e^x$ ribaltato sotto l'asse $x$; immagine $(-\\infty, 0)$.",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "Dove taglia l'asse y: il valore in x = 0",
+        "tipo": "numero",
+        "accettate": [
+         "-1"
+        ],
+        "errori": {
+         "1": "Il meno davanti cambia segno a tutti i valori, anche a e⁰ = 1."
+        }
+       },
+       {
+        "etichetta": "L'immagine",
+        "tipo": "testo",
+        "formato": "es. (2,+∞)",
+        "accettate": [
+         "(-∞,0)",
+         "(-∞;0)",
+         "(-inf,0)",
+         "(-inf;0)",
+         "(-infinito,0)",
+         "(-infinito;0)",
+         "(-∞,0[",
+         "(-∞;0[",
+         "(-inf,0[",
+         "(-inf;0[",
+         "(-infinito,0[",
+         "(-infinito;0[",
+         "]-∞,0)",
+         "]-∞;0)",
+         "]-inf,0)",
+         "]-inf;0)",
+         "]-infinito,0)",
+         "]-infinito;0)",
+         "]-∞,0[",
+         "]-∞;0[",
+         "]-inf,0[",
+         "]-inf;0[",
+         "]-infinito,0[",
+         "]-infinito;0["
+        ],
+        "errori": {
+         "(-∞,0]": "−eˣ non vale mai 0, perché eˣ non vale mai 0.",
+         "(0,+∞)": "Questa è l'immagine di eˣ: con il meno davanti si ribalta sotto l'asse."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.graf.e03",
+     "livello": "medio",
+     "testo": "Descrivi il grafico di $y = |\\ln x|$ e trova il suo minimo.",
+     "suggerimento": "Dove $\\ln x$ è negativo?",
+     "passi": [
+      "$\\ln x < 0$ per $0 < x < 1$ e $\\ln x \\ge 0$ per $x \\ge 1$.",
+      "Il tratto su $(0, 1)$ si ribalta sopra; quello per $x \\ge 1$ resta com'è.",
+      "Il grafico tocca l'asse solo in $x = 1$, dove vale $0$: è il minimo."
+     ],
+     "soluzione": "Minimo $0$ in $x = 1$; tende a $+\\infty$ sia per $x \\to 0^+$ sia per $x \\to +\\infty$.",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "Il valore minimo",
+        "tipo": "numero",
+        "accettate": [
+         "0"
+        ],
+        "errori": {
+         "1": "1 è il punto x dove sta il minimo: qui serve il valore, |ln 1|."
+        }
+       },
+       {
+        "etichetta": "In quale x?",
+        "tipo": "numero",
+        "accettate": [
+         "1"
+        ],
+        "errori": {
+         "0": "In x = 0 il logaritmo non è definito."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.graf.e04",
+     "livello": "medio",
+     "testo": "Descrivi il grafico di $y = \\frac{1}{x + 1} - 2$.",
+     "suggerimento": "Parti dall'iperbole $y = \\frac{1}{x}$, che ha asintoti $x = 0$ e $y = 0$.",
+     "passi": [
+      "$\\frac{1}{x + 1}$: tutto a sinistra di $1$. Asintoto verticale $x = -1$.",
+      "$-2$: tutto giù di $2$. Asintoto orizzontale $y = -2$.",
+      "Dominio $x \\neq -1$; immagine $y \\neq -2$."
+     ],
+     "soluzione": "Iperbole con asintoti $x = -1$ e $y = -2$.",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "Asintoto verticale: x = …",
+        "tipo": "numero",
+        "accettate": [
+         "-1"
+        ],
+        "errori": {
+         "1": "f(x + 1) va a sinistra di 1, nel verso opposto al segno che vedi."
+        }
+       },
+       {
+        "etichetta": "Asintoto orizzontale: y = …",
+        "tipo": "numero",
+        "accettate": [
+         "-2"
+        ],
+        "errori": {
+         "2": "−2 fuori dalla frazione sposta in giù."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.graf.e05",
+     "livello": "difficile",
+     "testo": "Quante soluzioni ha $|x^2 - 4| = 3$? Rispondi prima con il grafico, poi verifica con i calcoli.",
+     "suggerimento": "Usa il grafico di $|x^2 - 4|$ dalla tecnica t1 e intersecalo con la retta orizzontale $y = 3$.",
+     "passi": [
+      "Il grafico ha una gobba centrale alta $4$ e due rami esterni che salgono all'infinito.",
+      "La retta $y = 3$ sta sotto la cima della gobba ($4$): taglia la gobba in 2 punti e i due rami esterni in 1 punto ciascuno. Totale 4.",
+      "Verifica: $x^2 - 4 = 3$ dà $x = \\pm\\sqrt{7}$; $x^2 - 4 = -3$ dà $x = \\pm 1$."
+     ],
+     "soluzione": "4 soluzioni: $x = \\pm 1$ e $x = \\pm \\sqrt{7}$.",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "Quante soluzioni?",
+        "tipo": "numero",
+        "accettate": [
+         "4"
+        ],
+        "errori": {
+         "2": "Hai guardato solo x² − 4 = 3: con il valore assoluto vale anche x² − 4 = −3.",
+         "3": "La retta y = 3 sta sotto la cima della gobba, che è alta 4: la taglia due volte."
+        }
+       },
+       {
+        "etichetta": "La soluzione positiva più piccola",
+        "tipo": "numero",
+        "accettate": [
+         "1"
+        ]
+       },
+       {
+        "etichetta": "La soluzione più grande",
+        "tipo": "testo",
+        "formato": "es. √5",
+        "accettate": [
+         "√7",
+         "√(7)",
+         "sqrt(7)",
+         "sqrt7",
+         "radice7",
+         "radicedi7",
+         "7^(1/2)",
+         "7^0.5",
+         "2.65",
+         "2,65",
+         "2.646",
+         "2,646",
+         "2.645",
+         "2,645",
+         "2.6458",
+         "2,6458",
+         "2.6457",
+         "2,6457"
+        ],
+        "errori": {
+         "7": "x² = 7: manca la radice.",
+         "√3": "Viene da x² − 4 = 3: x² = 4 + 3."
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "anl1.graf.e06",
+     "livello": "difficile",
+     "testo": "Descrivi il grafico di $y = e^{|x|}$: è pari? Qual è il minimo?",
+     "suggerimento": "$f(|x|)$: tieni la parte con $x \\ge 0$ e copiala a sinistra.",
+     "passi": [
+      "Per $x \\ge 0$: $e^{|x|} = e^x$, crescente, parte da $(0, 1)$.",
+      "Per $x < 0$: è lo specchio della parte destra.",
+      "È pari, perché $e^{|-x|} = e^{|x|}$. Il minimo è $1$, in $x = 0$, dove il grafico ha una punta."
+     ],
+     "soluzione": "Funzione pari a forma di «V» con i lati curvi, minimo $1$ in $x = 0$.",
+     "risposta": {
+      "caselle": [
+       {
+        "etichetta": "È pari?",
+        "tipo": "scelta",
+        "opzioni": [
+         "Sì",
+         "No"
+        ],
+        "accettate": [
+         "Sì"
+        ],
+        "errori": {
+         "no": "Calcola f(−x): |−x| = |x|."
+        }
+       },
+       {
+        "etichetta": "Il valore minimo",
+        "tipo": "numero",
+        "accettate": [
+         "1"
+        ],
+        "errori": {
+         "0": "e⁰ = 1, non 0: l'esponenziale non vale mai 0."
+        }
+       },
+       {
+        "etichetta": "In quale x?",
+        "tipo": "numero",
+        "accettate": [
+         "0"
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "verifica": {
+    "spiegalo": [
+     "Spiega perché $f(x - 3)$ sposta il grafico a destra e non a sinistra.",
+     "Che differenza c'è tra $|f(x)|$ e $f(|x|)$? Fai un esempio."
+    ],
+    "quiz": [
+     {
+      "id": "anl1.graf.q1",
+      "domanda": "Il grafico di $f(x - 2)$ si ottiene da quello di $f$ spostandolo:",
+      "opzioni": [
+       "a sinistra di $2$",
+       "in su di $2$",
+       "a destra di $2$"
+      ],
+      "corretta": 2,
+      "spiegazione": "Per ottenere lo stesso valore serve una $x$ più grande di $2$."
+     },
+     {
+      "id": "anl1.graf.q2",
+      "domanda": "Il grafico di $|f(x)|$:",
+      "opzioni": [
+       "ribalta sopra le parti che stanno sotto l'asse $x$",
+       "copia a sinistra la parte destra",
+       "è uguale a quello di $f$"
+      ],
+      "corretta": 0,
+      "spiegazione": "Il valore assoluto rende positivi i valori negativi, lasciando gli altri invariati."
+     },
+     {
+      "id": "anl1.graf.q3",
+      "domanda": "Il grafico di $f(-x)$ è il simmetrico di quello di $f$ rispetto:",
+      "opzioni": [
+       "all'asse $x$",
+       "all'asse $y$",
+       "all'origine"
+      ],
+      "corretta": 1,
+      "spiegazione": "Si scambiano destra e sinistra: il valore che $f$ aveva in $x$, ora c'è in $-x$."
+     },
+     {
+      "id": "anl1.graf.q4",
+      "domanda": "Il periodo di $\\sin 2x$ è:",
+      "opzioni": [
+       "$\\pi$",
+       "$2\\pi$",
+       "$4\\pi$"
+      ],
+      "corretta": 0,
+      "spiegazione": "$f(kx)$ comprime di un fattore $k$: $\\frac{2\\pi}{2} = \\pi$."
+     },
+     {
+      "id": "anl1.graf.q5",
+      "domanda": "Una funzione della forma $f(|x|)$ è sempre:",
+      "opzioni": [
+       "dispari",
+       "positiva",
+       "pari"
+      ],
+      "corretta": 2,
+      "spiegazione": "$f(|-x|) = f(|x|)$ per ogni $x$."
+     }
+    ]
+   }
+  }
+ ]
 }
