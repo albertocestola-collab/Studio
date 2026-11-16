@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generato_il": "2026-11-16",
+ "generato_il": "2026-11-17",
  "pacchetti": [
   {
    "file": "analisi-1/anl1-esame-v2.json",
@@ -63,7 +63,7 @@
    "id_pacchetto": "piano-v1",
    "tipo": "piano_studio",
    "esame_id": "",
-   "hash": "274415b3b6977d30",
+   "hash": "4baa86ab226d8acd",
    "kb": 26
   },
   {
@@ -119,7 +119,7 @@
    "id_pacchetto": "prg-cap2-2di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "9277be2cb3ef531d",
+   "hash": "425b777cbb1939ac",
    "kb": 160
   },
   {
@@ -177,6 +177,62 @@
    "esame_id": "prg",
    "hash": "ffc0e041863b8fb7",
    "kb": 101
+  },
+  {
+   "file": "programmazione/cap4/prg-cap4-1di4.json",
+   "id_pacchetto": "prg-cap4-1di4",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "13bb4ae50ac30892",
+   "kb": 98
+  },
+  {
+   "file": "programmazione/cap4/prg-cap4-2di4.json",
+   "id_pacchetto": "prg-cap4-2di4",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "cee03092bffc7f6c",
+   "kb": 96
+  },
+  {
+   "file": "programmazione/cap4/prg-cap4-3di4.json",
+   "id_pacchetto": "prg-cap4-3di4",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "c11a1890983223f7",
+   "kb": 137
+  },
+  {
+   "file": "programmazione/cap4/prg-cap4-4di4.json",
+   "id_pacchetto": "prg-cap4-4di4",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "5a6ee3cb85aecdb7",
+   "kb": 60
+  },
+  {
+   "file": "programmazione/cap5/prg-cap5-1di3.json",
+   "id_pacchetto": "prg-cap5-1di3",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "d6d1ff411b1e2c8e",
+   "kb": 94
+  },
+  {
+   "file": "programmazione/cap5/prg-cap5-2di3.json",
+   "id_pacchetto": "prg-cap5-2di3",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "32f5da88e7b12e67",
+   "kb": 121
+  },
+  {
+   "file": "programmazione/cap5/prg-cap5-3di3.json",
+   "id_pacchetto": "prg-cap5-3di3",
+   "tipo": "contenuti",
+   "esame_id": "prg",
+   "hash": "cb046d320bdc938e",
+   "kb": 163
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-10di10.json",

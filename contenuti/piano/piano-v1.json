@@ -2,7 +2,7 @@
  "schema_version": 1,
  "tipo": "piano_studio",
  "id_pacchetto": "piano-v1",
- "generato_il": "2026-11-16",
+ "generato_il": "2026-11-17",
  "piano": {
   "minuti_giorno": 90,
   "giorni_settimana": [
@@ -337,149 +337,149 @@
      {
       "id": "pa.prg.sd",
       "titolo": "Strutture dati e array",
-      "minuti": 75,
+      "minuti": 100,
       "rif": "prg.sd",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.pila",
       "titolo": "Stack e queue",
-      "minuti": 75,
+      "minuti": 95,
       "rif": "prg.pila",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.lista",
       "titolo": "Liste concatenate",
-      "minuti": 75,
+      "minuti": 105,
       "rif": "prg.lista",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.ord",
       "titolo": "Ordinamenti semplici: bubble, selection, insertion sort",
-      "minuti": 75,
+      "minuti": 85,
       "rif": "prg.ord",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.ordav",
       "titolo": "Ordinamenti avanzati: quicksort e mergesort",
-      "minuti": 75,
+      "minuti": 85,
       "rif": "prg.ordav",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.ric",
       "titolo": "Ricerca lineare e binaria",
-      "minuti": 75,
+      "minuti": 85,
       "rif": "prg.ric",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.graf",
       "titolo": "Grafi e alberi e la ricerca su di essi",
-      "minuti": 75,
+      "minuti": 95,
       "rif": "prg.graf",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.compl",
       "titolo": "Analisi della complessità computazionale",
-      "minuti": 75,
+      "minuti": 90,
       "rif": "prg.compl",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.cpp",
       "titolo": "Da C a C++ e introduzione alla programmazione a oggetti",
-      "minuti": 75,
+      "minuti": 90,
       "rif": "prg.cpp",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.cla",
       "titolo": "Classi, oggetti e incapsulamento",
-      "minuti": 75,
+      "minuti": 90,
       "rif": "prg.cla",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.costr",
       "titolo": "Costruttori e distruttori",
-      "minuti": 75,
+      "minuti": 90,
       "rif": "prg.costr",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.poli",
       "titolo": "Polimorfismo e overloading",
-      "minuti": 75,
+      "minuti": 90,
       "rif": "prg.poli",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.ered",
       "titolo": "Ereditarietà semplice e multipla",
-      "minuti": 75,
+      "minuti": 105,
       "rif": "prg.ered",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.thr",
       "titolo": "Multithreading e thread in C++",
-      "minuti": 75,
+      "minuti": 110,
       "rif": "prg.thr",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.link",
       "titolo": "Compilazione e linking",
-      "minuti": 75,
+      "minuti": 105,
       "rif": "prg.link",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.punt",
       "titolo": "Puntatori e funzioni con puntatori",
-      "minuti": 75,
+      "minuti": 90,
       "rif": "prg.punt",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.din",
       "titolo": "Memoria dinamica e allocazione in C++",
-      "minuti": 75,
+      "minuti": 85,
       "rif": "prg.din",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.smart",
       "titolo": "Gestione automatica della memoria",
-      "minuti": 75,
+      "minuti": 85,
       "rif": "prg.smart",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.tmpl",
       "titolo": "Template e programmazione generica",
-      "minuti": 75,
+      "minuti": 115,
       "rif": "prg.tmpl",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.ev",
       "titolo": "Programmazione e gestione degli eventi",
-      "minuti": 75,
+      "minuti": 120,
       "rif": "prg.ev",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.exc",
       "titolo": "Eccezioni in C++",
-      "minuti": 75,
+      "minuti": 120,
       "rif": "prg.exc",
-      "cosa": "I contenuti nell'app sono in preparazione. Se quando arrivi qui non ci sono ancora, studia la dispensa sul portale e poi spunta."
+      "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
      {
       "id": "pa.prg.rip1",

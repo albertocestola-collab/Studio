@@ -994,7 +994,7 @@ function validate(p,bytes){
           idOk(g.id,w,tid);need(g,'termine',w,'str');['inglese','docente','ufficiale','fonte','nota'].forEach(f=>opt(g,f,w,'str'));strArr(g,'accezioni',w);
           if(opt(g,'spiegato_in',w,'str')&&isStr(g.spiegato_in)&&!ID_RE.test(g.spiegato_in))E(`${w} spiegato_in non è un ID valido.`);
           if(g.tipo!==undefined&&!TERM_TIPI[g.tipo])W(`${w} il tipo «${esc(g.tipo)}» non lo conosco (ufficiale, uso_comune, semplificazione): lo ignoro.`);
-          if(!isStr(g.docente)&&!isStr(g.ufficiale))W(`${w} non c'è nessuna definizione (né del docente né ufficiale).`);
+          if(!isStr(g.docente)&&!isStr(g.ufficiale)&&!arr(g.accezioni).length)W(`${w} non c'è nessuna definizione (né del docente né ufficiale).`);
           if(isStr(g.ufficiale)&&!isStr(g.fonte))W(`${w} la definizione ufficiale non dice la fonte.`);
         });
         if(opt(a,'sezioni',wa,'arr'))arr(a.sezioni).forEach((s,j)=>{
@@ -1064,7 +1064,7 @@ function validate(p,bytes){
   });
   /* strumenti interattivi (blocchi ```strumento) e collegamenti [[id]] */
   if(!errs.length){
-    const known=id=>seen.has(id)||!!refFind(id);
+    const known=id=>seen.has(id)||!!refFind(id)||!!(S.batchIds&&S.batchIds.has(id));/* nell'import multiplo valgono anche gli id dei pacchetti che arrivano insieme */
     walkStrings(p,(s,where)=>{
       for(const m of String(s).replace(/\r\n?/g,'\n').matchAll(CODE_BLOCK))
         if(m[1].trim().toLowerCase()==='strumento'){const r=toolCheck(m[2]);if(r.err)E(`${where} uno strumento interattivo non va: ${esc(r.err)}.`)}
@@ -1880,6 +1880,8 @@ function batchCheck(files){
   const rk=f=>f.d.tipo==='nuovo_esame'?0:1,nm=f=>String(f.d.id_pacchetto||f.name);
   pre.sort((a,b)=>rk(a)-rk(b)||nm(a).localeCompare(nm(b),'it',{numeric:true}));
   const keepE=S.esami,keepA=S.arg,out=[];
+  /* tutti gli id dei pacchetti del gruppo: un collegamento a un argomento che arriva più avanti nello stesso «Aggiorna» non è un problema */
+  S.batchIds=new Set();const addIds=o=>{if(Array.isArray(o))o.forEach(addIds);else if(o&&typeof o==="object"){if(typeof o.id==="string")S.batchIds.add(o.id);Object.values(o).forEach(addIds)}};pre.forEach(f=>addIds(f.d.argomenti));
   try{
     for(const f of pre){
       const res=parsePackage(f.text);
@@ -1888,7 +1890,7 @@ function batchCheck(files){
       out.push({name:f.name,data:res.data,lines:plan.lines,warns:res.warns.concat(plan.warns),prev:plan.prev});
       S.esami=plan.esami;S.arg=plan.arg;
     }
-  }finally{S.esami=keepE;S.arg=keepA}
+  }finally{S.esami=keepE;S.arg=keepA;S.batchIds=null}
   return out;
 }
 function batchSheet(items,remote){
