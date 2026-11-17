@@ -1185,7 +1185,6 @@ function buildPlan(p){
     const names=bs.map(b=>{const e=esami.get(b.esame_id);return '<b>'+esc(e?e.nome:b.esame_id)+'</b>'});
     const na=bs.reduce((s,b)=>s+arr(b.attivita).length,0),min=bs.reduce((s,b)=>s+arr(b.attivita).reduce((x,a)=>x+(+a.minuti||0),0),0);
     lines.push(`${S.imp.piano_studio?'Sostituisco':'Aggiungo'} il piano di studio: ${listIt(names)}, ${pl(na,'attività','attività')} (circa ${fmtH(min/60)} ore), ${esc(P.minuti_giorno)} minuti al giorno. Quello che hai già fatto resta.`);
-    if(+S.imp.piano_minuti>=15)warns.push(`Hai scelto tu ${esc(S.imp.piano_minuti)} minuti al giorno: tengo i tuoi.`);
     piano={...P,id_pacchetto:p.id_pacchetto,generato_il:p.generato_il};
   }
   if(removed)lines.push(`Tolgo ${pl(removed,'elemento','elementi')} indicati da Claude.`);
@@ -1259,9 +1258,8 @@ function buildExport(all){
     quiz:recs.filter(r=>r.tipo==='quiz').map(r=>[r.rif,r.esito==='giusta'?1:0,r.data]),
     letture:recs.filter(r=>r.tipo==='lettura').map(r=>[r.rif,r.data]),
     attivita:recs.filter(r=>r.tipo==='attivita').map(r=>[r.rif,r.data]),
-    minuti_giorno:+S.imp.piano_minuti||null,
     scarico:[],jolly:[],minuti:{},note:recs.filter(r=>r.tipo==='spiegalo').map(r=>r.rif+': '+r.testo)};
-  const changed=Math.max(S.imp.scelte_ts||0,S.imp.piano_minuti_ts||0)>since?1:0;
+  const changed=(S.imp.scelte_ts||0)>since?1:0;
   return {text:`PROGRESSI STUDIO v1 · dal ${dal} al ${al}\n`+JSON.stringify(o),count:recs.length+changed};
 }
 async function markExported(){await setImp('ultimo_export',{ts:Date.now(),data:todayKey()});render()}
@@ -1332,14 +1330,13 @@ function calendarHTML(e){const prove=arr(e.prove),req=arr(e.requisiti);if(!prove
    Così il piano si ricalcola da solo: se fai di più si va avanti, se salti un giorno il resto scivola sui giorni dopo.
    Oggi si calcola da com'era stamattina: quello che fai oggi resta in lista, spuntato, invece di sparire. */
 const pianoS=()=>{const p=S.imp.piano_studio;return p&&arr(p.binari).length?p:null};
-const pianoMin=P=>{const m=+S.imp.piano_minuti;return m>=15?m:(+P.minuti_giorno||90)};
-/* minuti di un giorno (v22): vince la scelta dell'utente; poi il periodo del pacchetto che contiene quel giorno
-   (per esempio 180 minuti fino alla prova di Sicurezza); poi minuti_giorno */
+/* minuti di un giorno: il tempo CONSIGLIATO lo decide Claude nel pacchetto (dal 17/11/2026, v23, l'utente non lo imposta più nell'app:
+   le personalizzazioni le chiede a Claude). Vale il periodo che contiene quel giorno (per esempio 180 minuti fino alla prova
+   di Sicurezza), altrimenti minuti_giorno. Un vecchio valore scelto dall'utente (impostazioni.piano_minuti) si ignora. */
 const periodoDi=(P,k)=>arr(P.periodi).find(x=>x&&(!x.dal||k>=x.dal)&&isDate(x.al)&&k<=x.al&&+x.minuti_giorno>=15);
-function capFor(P,k){const m=+S.imp.piano_minuti;if(m>=15)return m;const p=periodoDi(P,k);return p?+p.minuti_giorno:(+P.minuti_giorno||90)}
+function capFor(P,k){const p=periodoDi(P,k);return p?+p.minuti_giorno:(+P.minuti_giorno||90)}
 /* il testo «quanto al giorno»: con i periodi dice fino a quando vale e cosa viene dopo */
 function minText(P,today){
-  if(+S.imp.piano_minuti>=15)return `<b>${fmtMin(+S.imp.piano_minuti)} al giorno</b> (scelti da te)`;
   const per=arr(P.periodi).filter(x=>x&&isDate(x.al)&&x.al>=today&&+x.minuti_giorno>=15).sort((a,b)=>a.al.localeCompare(b.al));
   if(!per.length)return `<b>${fmtMin(+P.minuti_giorno||90)} al giorno</b>`;
   return per.map(x=>`<b>${fmtMin(+x.minuti_giorno)} al giorno</b> ${x.dal&&x.dal>today?'dal '+esc(shortDate(x.dal))+' ':''}fino a ${esc(dayDate(x.al))}`).join(', ')+`, poi <b>${fmtMin(+P.minuti_giorno||90)}</b>`}
@@ -1497,21 +1494,13 @@ function renderPlanPage(v){
   v.innerHTML=`<div class="full"><button class="back" data-act="plan-close">${IC.left}Adesso</button></div>
   <h1 class="page-h">Piano di studio</h1>
   <section class="card stack-s"><div class="eyebrow">Come funziona</div>
-    <p style="margin:0">${minText(st.P,st.today)}, ${esc(gn)}. Si va avanti nell'ordine, prima l'esame più vicino.</p>
+    <p style="margin:0">Tempo consigliato: ${minText(st.P,st.today)}, ${esc(gn)}. Si va avanti nell'ordine, prima l'esame più vicino.</p>
     <p class="muted small" style="margin:0">Il piano si ricalcola da solo: le sezioni lette contano da sole, le altre attività le spunti tu. Se fai di più vai avanti, se salti un giorno il resto passa ai giorni dopo.</p>
-    <div class="btnrow"><button class="btn" data-act="plan-min">Cambia i minuti al giorno</button></div></section>
+    <p class="muted small" style="margin:0">Il tempo consigliato lo calcola Claude dalle date delle prove. Se vuoi cambiarlo, chiedilo a Claude.</p></section>
   <section class="card stack-s"><div class="eyebrow">Gli esami</div>${planSemHTML(st,true)}
     ${st.P.messaggio?`<div class="note">${esc(st.P.messaggio)}</div>`:''}</section>
   <h2 class="full sub-h">I prossimi giorni</h2>
   ${list||'<p class="muted full">Niente in programma.</p>'}`;
-}
-function planMinSheet(){
-  const P=pianoS();if(!P)return;
-  const mine=+S.imp.piano_minuti>=15;
-  openSheet(`<h2>Minuti al giorno</h2><div class="stack-s">
-    <label class="lbl">Quanti minuti studi in un giorno di studio<input class="field" type="text" id="pl-min" inputmode="numeric" autocomplete="off" value="${capFor(P,todayKey())}"></label>
-    <p class="note">Il piano si ricalcola subito. Il numero che scrivi qui vale per <b>tutti</b> i giorni. Claude aveva messo ${arr(P.periodi).length?arr(P.periodi).map(x=>esc(x.minuti_giorno)+' minuti fino al '+esc(shortDate(x.al))).join(', ')+', poi ':''}${esc(P.minuti_giorno)} minuti.${mine?` <button class="btn small ghost" data-act="plan-min-reset">Rimetti ${esc(P.minuti_giorno)}</button>`:''}</p>
-    <div class="foot"><button class="btn ghost" data-act="close">Annulla</button><button class="btn primary" data-act="plan-min-save">Salva</button></div></div>`);
 }
 
 function renderAdesso(){
@@ -1530,7 +1519,7 @@ function renderAdesso(){
   if(st){
     const tot=st.oggi.reduce((s,i)=>s+i.min,0),done=st.oggi.reduce((s,i)=>s+i.doneMin,0);
     v.innerHTML=`<h1 class="page-h">Adesso</h1>${upd}${planNowCard(st)}
-    ${st.oggi.length?`<section class="card stack-s"><div class="day-h"><span class="eyebrow">Il piano di oggi</span><span class="muted small num">${fmtMin(done)} di ${fmtMin(tot)}</span></div>
+    ${st.oggi.length?`<section class="card stack-s"><div class="day-h"><span class="eyebrow">Il piano di oggi</span><span class="muted small num">${fmtMin(done)} di ${fmtMin(tot)} consigliati</span></div>
       <span class="bar"><b style="width:${tot?Math.round(done/tot*100):0}%"></b></span>
       <div class="pl-list">${st.oggi.map(x=>planRow(x,st.sem.length>1,true)).join('')}</div>
       <button class="btn" data-act="plan-open">Tutto il piano</button></section>`
@@ -2049,12 +2038,6 @@ const ACT={
     render()},
   'plan-open':()=>{S.planPage=true;S.tab='adesso';lsSet(LS_TAB,'adesso');render();window.scrollTo(0,0)},
   'plan-close':()=>{S.planPage=false;render();window.scrollTo(0,0)},
-  'plan-min':()=>planMinSheet(),
-  'plan-min-save':async()=>{const raw=$('#pl-min').value.trim(),n=Number(raw);
-    if(!/^\d+$/.test(raw)||n<15||n>480){toast('Scrivi un numero di minuti tra 15 e 480, per esempio 90');return}
-    const P=pianoS();await setImp('piano_minuti',P&&!arr(P.periodi).length&&n===+P.minuti_giorno?null:n);await setImp('piano_minuti_ts',Date.now());
-    closeSheet();toast('Salvato: il piano si è ricalcolato');render()},
-  'plan-min-reset':async()=>{await setImp('piano_minuti',null);await setImp('piano_minuti_ts',Date.now());closeSheet();toast('Rimessi i minuti di Claude');render()},
   'req-toggle':async b=>{const k=reqKey(b.dataset.id,b.dataset.r),all={...spunte()};
     if(all[k])delete all[k];else all[k]=true;await setImp('requisiti_spunte',all);render()},
   'save-exam':async b=>{
