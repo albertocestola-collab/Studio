@@ -63,8 +63,8 @@
    "id_pacchetto": "piano-v1",
    "tipo": "piano_studio",
    "esame_id": "",
-   "hash": "7d2e2f925fc7e737",
-   "kb": 26
+   "hash": "c9536ca2609c9fd6",
+   "kb": 27
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-1di5.json",
@@ -239,120 +239,120 @@
    "id_pacchetto": "sic-cap1-10di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "98313ae38b263820",
-   "kb": 68
+   "hash": "9fa5a47c34935164",
+   "kb": 80
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-1di10.json",
    "id_pacchetto": "sic-cap1-1di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "f9d0d289be5750a9",
-   "kb": 105
+   "hash": "085de619f1469583",
+   "kb": 109
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-2di10.json",
    "id_pacchetto": "sic-cap1-2di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "3e104491eea68545",
-   "kb": 86
+   "hash": "50d28e385c15790e",
+   "kb": 97
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-3di10.json",
    "id_pacchetto": "sic-cap1-3di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "f876775416a9d5be",
-   "kb": 84
+   "hash": "2e77b12d88c799c6",
+   "kb": 89
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-4di10.json",
    "id_pacchetto": "sic-cap1-4di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "35e305af2663476c",
-   "kb": 89
+   "hash": "0df47b0a0c92cc5f",
+   "kb": 109
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-5di10.json",
    "id_pacchetto": "sic-cap1-5di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "925621be425731fa",
-   "kb": 86
+   "hash": "816576e423506233",
+   "kb": 105
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-6di10.json",
    "id_pacchetto": "sic-cap1-6di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "059796d9b88270ff",
-   "kb": 81
+   "hash": "17d7a612d2bdc2f8",
+   "kb": 85
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-7di10.json",
    "id_pacchetto": "sic-cap1-7di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "241b1416549abd20",
-   "kb": 106
+   "hash": "ff28b3b8eba0bf06",
+   "kb": 127
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-8di10.json",
    "id_pacchetto": "sic-cap1-8di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "58de30f7aad8735d",
-   "kb": 106
+   "hash": "58587d18173e1534",
+   "kb": 117
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-9di10.json",
    "id_pacchetto": "sic-cap1-9di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "58077a9551eac553",
-   "kb": 86
+   "hash": "01ec58d703538256",
+   "kb": 92
   },
   {
    "file": "sicurezza-informatica/cap2/sic-cap2-1di5.json",
    "id_pacchetto": "sic-cap2-1di5",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "812034aad26b98ec",
-   "kb": 66
+   "hash": "0ca68dec1134734a",
+   "kb": 80
   },
   {
    "file": "sicurezza-informatica/cap2/sic-cap2-2di5.json",
    "id_pacchetto": "sic-cap2-2di5",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "ccea85d994919cc5",
-   "kb": 64
+   "hash": "98654f636fd158b8",
+   "kb": 73
   },
   {
    "file": "sicurezza-informatica/cap2/sic-cap2-3di5.json",
    "id_pacchetto": "sic-cap2-3di5",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "aabb8189765aa3b6",
-   "kb": 101
+   "hash": "7cf2c86aca0dc0f8",
+   "kb": 119
   },
   {
    "file": "sicurezza-informatica/cap2/sic-cap2-4di5.json",
    "id_pacchetto": "sic-cap2-4di5",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "83b4d08355641175",
-   "kb": 91
+   "hash": "51eeec579ac672a5",
+   "kb": 107
   },
   {
    "file": "sicurezza-informatica/cap2/sic-cap2-5di5.json",
    "id_pacchetto": "sic-cap2-5di5",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "380d2a8806f3f81c",
-   "kb": 89
+   "hash": "998cbda62a9202b1",
+   "kb": 114
   }
  ]
 }

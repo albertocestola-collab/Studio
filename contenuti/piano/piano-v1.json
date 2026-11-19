@@ -2,9 +2,9 @@
  "schema_version": 1,
  "tipo": "piano_studio",
  "id_pacchetto": "piano-v1",
- "generato_il": "2026-11-17",
+ "generato_il": "2026-11-19",
  "piano": {
-  "minuti_giorno": 110,
+  "minuti_giorno": 120,
   "periodi": [
    {
     "al": "2026-12-02",
@@ -27,7 +27,7 @@
    "2027-01-06",
    "2027-03-29"
   ],
-  "messaggio": "Fino al 2 dicembre 3 ore al giorno: Sicurezza (circa 2 lezioni) più 20 minuti di Programmazione. Dal 4 dicembre 1 ora e 50: Programmazione fino a febbraio, poi Analisi. Il tempo è consigliato da Claude in base alle date delle prove: se vuoi cambiarlo, chiedilo a Claude.",
+  "messaggio": "Fino al 2 dicembre 3 ore al giorno, tutte per Sicurezza (lezioni 1–20: quelle «veloce» in mezz'ora). Dal 3 dicembre 2 ore: Programmazione fino a febbraio, poi Analisi. Il tempo è consigliato da Claude in base alle date delle prove: se vuoi cambiarlo, chiedilo a Claude.",
   "binari": [
    {
     "id": "pb.sic",
@@ -37,100 +37,16 @@
      {
       "id": "pa.sic.l01",
       "titolo": "Lezione 1: Introduzione alla sicurezza informatica",
-      "minuti": 90,
+      "minuti": 80,
       "rif": "sic.l01",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 1."
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 1."
      },
      {
       "id": "pa.sic.l02",
       "titolo": "Lezione 2: Minacce alla sicurezza",
-      "minuti": 85,
+      "minuti": 80,
       "rif": "sic.l02",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 2."
-     },
-     {
-      "id": "pa.sic.l03",
-      "titolo": "Lezione 3: Crimini informatici",
-      "minuti": 80,
-      "rif": "sic.l03",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 3."
-     },
-     {
-      "id": "pa.sic.l04",
-      "titolo": "Lezione 4: Cifratura simmetrica",
-      "minuti": 75,
-      "rif": "sic.l04",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 4."
-     },
-     {
-      "id": "pa.sic.l05",
-      "titolo": "Lezione 5: Autenticazione dei messaggi e funzioni hash",
-      "minuti": 80,
-      "rif": "sic.l05",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 5."
-     },
-     {
-      "id": "pa.sic.l06",
-      "titolo": "Lezione 6: Cifratura a chiave pubblica",
-      "minuti": 80,
-      "rif": "sic.l06",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 6."
-     },
-     {
-      "id": "pa.sic.l07",
-      "titolo": "Lezione 7: Firma digitale e gestione delle chiavi",
-      "minuti": 75,
-      "rif": "sic.l07",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 7."
-     },
-     {
-      "id": "pa.sic.l08",
-      "titolo": "Lezione 8: Principi di autenticazione",
-      "minuti": 80,
-      "rif": "sic.l08",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 8."
-     },
-     {
-      "id": "pa.sic.l09",
-      "titolo": "Lezione 9: Autenticazione con password",
-      "minuti": 75,
-      "rif": "sic.l09",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 9."
-     },
-     {
-      "id": "pa.sic.l10",
-      "titolo": "Lezione 10: Autenticazione con token, biometrica, remota",
-      "minuti": 75,
-      "rif": "sic.l10",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 10."
-     },
-     {
-      "id": "pa.sic.l11",
-      "titolo": "Lezione 11: Principi di controllo degli accessi",
-      "minuti": 70,
-      "rif": "sic.l11",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 11."
-     },
-     {
-      "id": "pa.sic.l12",
-      "titolo": "Lezione 12: Controllo degli accessi discrezionale",
-      "minuti": 80,
-      "rif": "sic.l12",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 12."
-     },
-     {
-      "id": "pa.sic.l13",
-      "titolo": "Lezione 13: Controllo degli accessi basato sui ruoli",
-      "minuti": 85,
-      "rif": "sic.l13",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 13."
-     },
-     {
-      "id": "pa.sic.l14",
-      "titolo": "Lezione 14: Malware",
-      "minuti": 85,
-      "rif": "sic.l14",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 14."
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 2."
      },
      {
       "id": "pa.sic.lockdown",
@@ -139,58 +55,148 @@
       "cosa": "Fai la simulazione con LockDown Browser sul portale: serve per fare la prova da casa. Va fatta entro il 30 novembre."
      },
      {
+      "id": "pa.sic.l03",
+      "titolo": "Lezione 3: Crimini informatici (veloce)",
+      "minuti": 35,
+      "rif": "sic.l03",
+      "cosa": "VELOCE (circa 30 minuti). Nell'app apri la lezione e leggi solo le tabelle, «Errori comuni» e «Riepilogo»; poi fai il quiz. Rileggi soltanto le sezioni delle domande sbagliate. Salta gli esercizi lunghi. Poi sul portale il test di fine lezione 3 e tocca «Segna fatto»."
+     },
+     {
+      "id": "pa.sic.l04",
+      "titolo": "Lezione 4: Cifratura simmetrica",
+      "minuti": 80,
+      "rif": "sic.l04",
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 4."
+     },
+     {
+      "id": "pa.sic.l05",
+      "titolo": "Lezione 5: Autenticazione dei messaggi e funzioni hash",
+      "minuti": 80,
+      "rif": "sic.l05",
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 5."
+     },
+     {
+      "id": "pa.sic.l06",
+      "titolo": "Lezione 6: Cifratura a chiave pubblica",
+      "minuti": 80,
+      "rif": "sic.l06",
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 6."
+     },
+     {
+      "id": "pa.sic.prenota",
+      "titolo": "Requisiti e prenotazione della prova del 3/12",
+      "minuti": 15,
+      "cosa": "Controlla sul portale i requisiti (videolezioni almeno all'80%, Scheda AVA) e prenota la prova intermedia del 3 dicembre: la prenotazione chiude il 1° dicembre. Se ti blocchi, chiedi a Claude di guardare il portale con te."
+     },
+     {
+      "id": "pa.sic.l07",
+      "titolo": "Lezione 7: Firma digitale e gestione delle chiavi",
+      "minuti": 80,
+      "rif": "sic.l07",
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 7."
+     },
+     {
+      "id": "pa.sic.l08",
+      "titolo": "Lezione 8: Principi di autenticazione (veloce)",
+      "minuti": 35,
+      "rif": "sic.l08",
+      "cosa": "VELOCE (circa 30 minuti). Nell'app apri la lezione e leggi solo le tabelle, «Errori comuni» e «Riepilogo»; poi fai il quiz. Rileggi soltanto le sezioni delle domande sbagliate. Salta gli esercizi lunghi. Poi sul portale il test di fine lezione 8 e tocca «Segna fatto»."
+     },
+     {
+      "id": "pa.sic.l09",
+      "titolo": "Lezione 9: Autenticazione con password",
+      "minuti": 80,
+      "rif": "sic.l09",
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 9."
+     },
+     {
+      "id": "pa.sic.l10",
+      "titolo": "Lezione 10: Autenticazione con token, biometrica, remota (veloce)",
+      "minuti": 35,
+      "rif": "sic.l10",
+      "cosa": "VELOCE (circa 30 minuti). Nell'app apri la lezione e leggi solo le tabelle, «Errori comuni» e «Riepilogo»; poi fai il quiz. Rileggi soltanto le sezioni delle domande sbagliate. Salta gli esercizi lunghi. Poi sul portale il test di fine lezione 10 e tocca «Segna fatto»."
+     },
+     {
+      "id": "pa.sic.l11",
+      "titolo": "Lezione 11: Principi di controllo degli accessi",
+      "minuti": 75,
+      "rif": "sic.l11",
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 11."
+     },
+     {
+      "id": "pa.sic.l12",
+      "titolo": "Lezione 12: Controllo degli accessi discrezionale",
+      "minuti": 80,
+      "rif": "sic.l12",
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 12."
+     },
+     {
+      "id": "pa.sic.l13",
+      "titolo": "Lezione 13: Controllo degli accessi basato sui ruoli",
+      "minuti": 80,
+      "rif": "sic.l13",
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 13."
+     },
+     {
+      "id": "pa.sic.l14",
+      "titolo": "Lezione 14: Malware",
+      "minuti": 80,
+      "rif": "sic.l14",
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 14."
+     },
+     {
       "id": "pa.sic.l15",
-      "titolo": "Lezione 15: Virus",
-      "minuti": 90,
+      "titolo": "Lezione 15: Virus (veloce)",
+      "minuti": 35,
       "rif": "sic.l15",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 15."
+      "cosa": "VELOCE (circa 30 minuti). Nell'app apri la lezione e leggi solo le tabelle, «Errori comuni» e «Riepilogo»; poi fai il quiz. Rileggi soltanto le sezioni delle domande sbagliate. Salta gli esercizi lunghi. Poi sul portale il test di fine lezione 15 e tocca «Segna fatto»."
      },
      {
       "id": "pa.sic.l16",
-      "titolo": "Lezione 16: Worm",
-      "minuti": 85,
+      "titolo": "Lezione 16: Worm (veloce)",
+      "minuti": 35,
       "rif": "sic.l16",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 16."
+      "cosa": "VELOCE (circa 30 minuti). Nell'app apri la lezione e leggi solo le tabelle, «Errori comuni» e «Riepilogo»; poi fai il quiz. Rileggi soltanto le sezioni delle domande sbagliate. Salta gli esercizi lunghi. Poi sul portale il test di fine lezione 16 e tocca «Segna fatto»."
      },
      {
       "id": "pa.sic.l17",
-      "titolo": "Lezione 17: Trojan, backdoor, rootkit",
-      "minuti": 75,
+      "titolo": "Lezione 17: Trojan, backdoor, rootkit (veloce)",
+      "minuti": 35,
       "rif": "sic.l17",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 17."
+      "cosa": "VELOCE (circa 30 minuti). Nell'app apri la lezione e leggi solo le tabelle, «Errori comuni» e «Riepilogo»; poi fai il quiz. Rileggi soltanto le sezioni delle domande sbagliate. Salta gli esercizi lunghi. Poi sul portale il test di fine lezione 17 e tocca «Segna fatto»."
      },
      {
       "id": "pa.sic.l18",
-      "titolo": "Lezione 18: Antivirus",
-      "minuti": 75,
+      "titolo": "Lezione 18: Antivirus (veloce)",
+      "minuti": 35,
       "rif": "sic.l18",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 18."
+      "cosa": "VELOCE (circa 30 minuti). Nell'app apri la lezione e leggi solo le tabelle, «Errori comuni» e «Riepilogo»; poi fai il quiz. Rileggi soltanto le sezioni delle domande sbagliate. Salta gli esercizi lunghi. Poi sul portale il test di fine lezione 18 e tocca «Segna fatto»."
      },
      {
       "id": "pa.sic.l19",
       "titolo": "Lezione 19: Buffer overflow",
-      "minuti": 65,
+      "minuti": 75,
       "rif": "sic.l19",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 19."
+      "cosa": "A FONDO. Nell'app: sezioni in ordine, strumenti, esercizi e quiz. Poi sul portale il test di fine lezione 19."
      },
      {
       "id": "pa.sic.l20",
-      "titolo": "Lezione 20: Sicurezza del software",
-      "minuti": 70,
+      "titolo": "Lezione 20: Sicurezza del software (veloce)",
+      "minuti": 35,
       "rif": "sic.l20",
-      "cosa": "Nell'app: leggi la lezione, svolgi gli esercizi e il quiz. Poi sul portale fai il test di fine lezione 20."
+      "cosa": "VELOCE (circa 30 minuti). Nell'app apri la lezione e leggi solo le tabelle, «Errori comuni» e «Riepilogo»; poi fai il quiz. Rileggi soltanto le sezioni delle domande sbagliate. Salta gli esercizi lunghi. Poi sul portale il test di fine lezione 20 e tocca «Segna fatto»."
      },
      {
       "id": "pa.sic.rip1",
       "titolo": "Ripasso: test di fine lezione 1–10",
       "minuti": 45,
-      "cosa": "Rifai i test di fine lezione delle lezioni 1–10 sul portale. Segnati le domande sbagliate e rileggi quel pezzo di dispensa."
+      "cosa": "Rifai i test di fine lezione 1–10 sul portale e, nell'app, i quiz delle lezioni A FONDO. Dove sbagli, rileggi solo quella sezione."
      },
      {
       "id": "pa.sic.rip2",
       "titolo": "Ripasso: test di fine lezione 11–20",
       "minuti": 45,
-      "cosa": "Rifai i test di fine lezione delle lezioni 11–20. Segnati le domande sbagliate e rileggi quel pezzo di dispensa."
+      "cosa": "Rifai i test di fine lezione 11–20 sul portale e i quiz nell'app. Dove sbagli, rileggi solo quella sezione."
      }
     ]
    },
@@ -198,7 +204,7 @@
     "id": "pb.prg",
     "esame_id": "prg",
     "titolo": "Prova intermedia: lezioni 1–50",
-    "minimo_giorno": 20,
+    "dal": "2026-12-03",
     "attivita": [
      {
       "id": "pa.prg.stor",
@@ -210,7 +216,7 @@
      {
       "id": "pa.prg.bin",
       "titolo": "Rappresentazione binaria dell'informazione e codifiche",
-      "minuti": 105,
+      "minuti": 110,
       "rif": "prg.bin",
       "cosa": "Nell'app: leggi le sezioni in ordine, svolgi gli esercizi di «Mettiti alla prova» e alla fine il quiz."
      },
@@ -505,6 +511,7 @@
     "id": "pb.anl1",
     "esame_id": "anl1",
     "titolo": "Prova intermedia: lezioni 1–50",
+    "dal": "2026-12-03",
     "attivita": [
      {
       "id": "pa.anl1.ins",
