@@ -439,6 +439,9 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
 .cls-why{margin:6px 0 0;padding-left:1.2em}
 .cls-why li{margin:.3em 0}
 @media (min-width:700px){.cls-bins.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.cls-bins.c3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* formule dentro gli strumenti (v26): un po' più grandi, la frazione in linea altrimenti si legge male */
+.cls-ct .katex{font-size:1.45em}
+.tool-opt .katex,.cls-chip .katex,.cls-fb .katex,.tool-tbl .katex,.cls-why .katex{font-size:1.18em}
 /* laboratori (v25): bit da accendere, ruota dei valori, letture, sfide */
 .lab-sf{margin-bottom:12px}
 .lab-sfh{display:flex;align-items:center;gap:10px;margin-bottom:6px}
@@ -732,7 +735,11 @@ function md(src){
   return html;
 }
 /* testo breve su una riga (opzioni delle domande): solo grassetto e codice in linea */
-const mdInline=t=>esc(t).replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+/* dalla v26 anche le formule $...$ (opzioni e celle degli strumenti di Analisi): il codice si toglie prima, la formula passa da KaTeX */
+const mdInline=t=>{const k=[];
+  return String(t==null?'':t).replace(/`([^`\n]+)`/g,(m,c)=>{k.push('<code>'+esc(c)+'</code>');return '\u0000'+(k.length-1)+'\u0000'})
+    .split(/(\$[^$\n]+?\$)/).map((p,i)=>i%2?tex(p.slice(1,-1),false):esc(p).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')).join('')
+    .replace(/\u0000(\d+)\u0000/g,(m,i)=>k[+i])};
 
 /* ---------- collegamenti interni e glossario ---------- */
 const TERM_TIPI={ufficiale:'Termine ufficiale',uso_comune:'Termine d\'uso comune',semplificazione:'Semplificazione didattica'};

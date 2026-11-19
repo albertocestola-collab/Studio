@@ -31,32 +31,32 @@
    "id_pacchetto": "anl1-cap1-v1",
    "tipo": "contenuti",
    "esame_id": "anl1",
-   "hash": "2340eb2399e6b1ec",
-   "kb": 68
+   "hash": "bac3df3371b945fe",
+   "kb": 63
   },
   {
    "file": "analisi-1/cap2/anl1-cap2-1di2.json",
    "id_pacchetto": "anl1-cap2-1di2",
    "tipo": "contenuti",
    "esame_id": "anl1",
-   "hash": "8deceb3391a459fb",
-   "kb": 56
+   "hash": "b630e363b10f3a29",
+   "kb": 54
   },
   {
    "file": "analisi-1/cap2/anl1-cap2-2di2.json",
    "id_pacchetto": "anl1-cap2-2di2",
    "tipo": "contenuti",
    "esame_id": "anl1",
-   "hash": "2aac143dd7181acc",
-   "kb": 91
+   "hash": "5b3be296a2135f21",
+   "kb": 79
   },
   {
    "file": "analisi-1/cap1/anl1-ins-v1.json",
    "id_pacchetto": "anl1-ins-v1",
    "tipo": "contenuti",
    "esame_id": "anl1",
-   "hash": "4bcddcf449c717e9",
-   "kb": 44
+   "hash": "2495c95bba1c5e02",
+   "kb": 38
   },
   {
    "file": "piano/piano-v1.json",
@@ -71,175 +71,175 @@
    "id_pacchetto": "prg-cap1-v2-1di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "6bb58a46fd750235",
-   "kb": 134
+   "hash": "7429c7a3aa85e714",
+   "kb": 151
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-2di5.json",
    "id_pacchetto": "prg-cap1-v2-2di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "3e7af7dc80a7fade",
-   "kb": 129
+   "hash": "a577f3195f9aff71",
+   "kb": 152
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-3di5.json",
    "id_pacchetto": "prg-cap1-v2-3di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "85262c597240ed9e",
-   "kb": 121
+   "hash": "22644d6ef68d2f36",
+   "kb": 134
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-4di5.json",
    "id_pacchetto": "prg-cap1-v2-4di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "d536931a2fd92cea",
-   "kb": 123
+   "hash": "a815be82d903cff1",
+   "kb": 146
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-5di5.json",
    "id_pacchetto": "prg-cap1-v2-5di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "2365213b6f4bf3ac",
-   "kb": 141
+   "hash": "e43e2b72dbbc69ea",
+   "kb": 161
   },
   {
    "file": "programmazione/cap2/prg-cap2-1di5.json",
    "id_pacchetto": "prg-cap2-1di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "84da17cd8eb42952",
-   "kb": 131
+   "hash": "2c24af155d014bdf",
+   "kb": 140
   },
   {
    "file": "programmazione/cap2/prg-cap2-2di5.json",
    "id_pacchetto": "prg-cap2-2di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "425b777cbb1939ac",
-   "kb": 160
+   "hash": "bfbf79ec3eea43f1",
+   "kb": 153
   },
   {
    "file": "programmazione/cap2/prg-cap2-3di5.json",
    "id_pacchetto": "prg-cap2-3di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "d1323422548b6f80",
-   "kb": 150
+   "hash": "89f27d4cf103d8b5",
+   "kb": 157
   },
   {
    "file": "programmazione/cap2/prg-cap2-4di5.json",
    "id_pacchetto": "prg-cap2-4di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "0cf0794cfdee463d",
-   "kb": 184
+   "hash": "94a8d4bb51c6d01c",
+   "kb": 155
   },
   {
    "file": "programmazione/cap2/prg-cap2-5di5.json",
    "id_pacchetto": "prg-cap2-5di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "0ad7b858189d4989",
-   "kb": 154
+   "hash": "9d31db2cfda11871",
+   "kb": 156
   },
   {
    "file": "programmazione/cap3/prg-cap3-1di4.json",
    "id_pacchetto": "prg-cap3-1di4",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "deca2e88fac9fdab",
-   "kb": 119
+   "hash": "5b0e196d299a81fe",
+   "kb": 146
   },
   {
    "file": "programmazione/cap3/prg-cap3-2di4.json",
    "id_pacchetto": "prg-cap3-2di4",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "f3980336365a6abb",
-   "kb": 112
+   "hash": "4e7d2cec18d18169",
+   "kb": 160
   },
   {
    "file": "programmazione/cap3/prg-cap3-3di4.json",
    "id_pacchetto": "prg-cap3-3di4",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "0cecd17a6a6f8f3c",
-   "kb": 90
+   "hash": "1e2b98fcfe252fbd",
+   "kb": 136
   },
   {
    "file": "programmazione/cap3/prg-cap3-4di4.json",
    "id_pacchetto": "prg-cap3-4di4",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "ffc0e041863b8fb7",
-   "kb": 101
+   "hash": "ab0835e003787597",
+   "kb": 119
   },
   {
    "file": "programmazione/cap4/prg-cap4-1di4.json",
    "id_pacchetto": "prg-cap4-1di4",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "13bb4ae50ac30892",
-   "kb": 98
+   "hash": "0288e7d2ff2d6539",
+   "kb": 117
   },
   {
    "file": "programmazione/cap4/prg-cap4-2di4.json",
    "id_pacchetto": "prg-cap4-2di4",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "cee03092bffc7f6c",
-   "kb": 96
+   "hash": "aaa23d850733d882",
+   "kb": 123
   },
   {
    "file": "programmazione/cap4/prg-cap4-3di4.json",
    "id_pacchetto": "prg-cap4-3di4",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "c11a1890983223f7",
-   "kb": 137
+   "hash": "57c3a7d7c32f5c12",
+   "kb": 159
   },
   {
    "file": "programmazione/cap4/prg-cap4-4di4.json",
    "id_pacchetto": "prg-cap4-4di4",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "5a6ee3cb85aecdb7",
-   "kb": 60
+   "hash": "b8491ce9d3e19b3b",
+   "kb": 64
   },
   {
    "file": "programmazione/cap5/prg-cap5-1di3.json",
    "id_pacchetto": "prg-cap5-1di3",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "d6d1ff411b1e2c8e",
-   "kb": 94
+   "hash": "e703df3942bd6340",
+   "kb": 111
   },
   {
    "file": "programmazione/cap5/prg-cap5-2di3.json",
    "id_pacchetto": "prg-cap5-2di3",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "32f5da88e7b12e67",
-   "kb": 121
+   "hash": "79e575891766dbec",
+   "kb": 149
   },
   {
    "file": "programmazione/cap5/prg-cap5-3di3.json",
    "id_pacchetto": "prg-cap5-3di3",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "cb046d320bdc938e",
-   "kb": 163
+   "hash": "619a39878a5e8d2a",
+   "kb": 188
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-10di10.json",
    "id_pacchetto": "sic-cap1-10di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "9fa5a47c34935164",
+   "hash": "fde433b535581217",
    "kb": 80
   },
   {
