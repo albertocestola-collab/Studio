@@ -2,7 +2,7 @@
  "schema_version": 1,
  "tipo": "nuovo_esame",
  "id_pacchetto": "anl1-esame-v2",
- "generato_il": "2026-11-12",
+ "generato_il": "2026-11-19",
  "esame_id": "anl1",
  "esame": {
   "nome": "Analisi Matematica I e geometria",
@@ -199,6 +199,10 @@
      "dal": "2027-04-23",
      "al": "2027-05-11"
     },
+    "lezioni": {
+     "dal": 1,
+     "al": 50
+    },
     "programma": "lezioni 1–50 (sul portale il corso ha 60 lezioni) · 24 domande in 35 minuti",
     "nota": "C'è anche lunedì 10 maggio (prenotazione dal 20 aprile all'8 maggio). Per venerdì 14 si chiude il 12 maggio."
    },
@@ -207,7 +211,21 @@
     "nome": "Prova finale (2ª metà)",
     "modalita": "a Roma",
     "quando": "luglio 2027 (15–17 o 22–24)",
-    "programma": "lezioni 51–60 (algebra lineare) · 7 domande in 15 minuti"
+    "programma": "lezioni 51–60 (algebra lineare) · 7 domande in 15 minuti",
+    "periodi": [
+     {
+      "dal": "2027-07-15",
+      "al": "2027-07-17"
+     },
+     {
+      "dal": "2027-07-22",
+      "al": "2027-07-24"
+     }
+    ],
+    "lezioni": {
+     "dal": 51,
+     "al": 60
+    }
    }
   ],
   "requisiti": [

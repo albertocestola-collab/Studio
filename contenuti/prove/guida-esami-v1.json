@@ -1,0 +1,156 @@
+{
+ "schema_version": 1,
+ "tipo": "guida_esami",
+ "id_pacchetto": "guida-esami-v1",
+ "generato_il": "2026-11-19",
+ "guida": {
+  "aggiornata_il": "2026-11-19",
+  "fonti": "FAQ del portale (3/11/2026), Appelli e scheda «Prove finali» (11/11/2026). Vale l'avviso più recente sul portale.",
+  "strade": [
+   {
+    "id": "g.s.due",
+    "nome": "Intermedia + finale",
+    "consigliata": true,
+    "sottotitolo": "L'esame in due metà: la tua strada",
+    "parti": [
+     {
+      "nome": "Prova intermedia",
+      "etichetta": "1ª metà",
+      "dove": "da casa, online, con LockDown Browser",
+      "domande": 24,
+      "minuti": 35,
+      "programma": "tutte le lezioni tranne le ultime 10",
+      "soglia": "almeno **15 giuste su 24** per andare alla finale",
+      "quando": "a Roma, un solo mese all'anno per ogni materia (2–3 giorni)"
+     },
+     {
+      "nome": "Prova finale",
+      "etichetta": "2ª metà",
+      "dove": "in presenza a Roma, su un tablet dell'ateneo",
+      "domande": 7,
+      "minuti": 15,
+      "programma": "le ultime 10 lezioni",
+      "soglia": "conta la **somma** con l'intermedia: almeno **18** in tutto",
+      "quando": "gennaio, aprile, luglio, ottobre 2027"
+     }
+    ],
+    "nota": "Tutte le domande sono a risposta multipla, con 4 opzioni e una sola giusta. Il risultato dell'intermedia vale **365 giorni**, anche se la finale va male."
+   },
+   {
+    "id": "g.s.unica",
+    "nome": "Prova unica",
+    "sottotitolo": "Tutto l'esame in una volta, in presenza",
+    "parti": [
+     {
+      "nome": "Prova unica",
+      "dove": "in presenza, in sede",
+      "domande": 31,
+      "minuti": 45,
+      "programma": "tutto il programma",
+      "soglia": "almeno 18",
+      "quando": "nelle stesse date delle prove finali (la prima: gennaio 2027)"
+     }
+    ],
+    "nota": "Con la Formula Base serve una **pre-iscrizione**, ed è vincolante: per quella materia non torni all'intermedia fino alla fine della sessione di finali successiva. Al massimo 2 prove uniche per sessione."
+   },
+   {
+    "id": "g.s.orale",
+    "nome": "Orale",
+    "sottotitolo": "Tutto l'esame a voce, in presenza",
+    "parti": [
+     {
+      "nome": "Esame orale",
+      "dove": "in presenza",
+      "programma": "tutto il programma",
+      "quando": "febbraio e settembre 2027"
+     }
+    ]
+   }
+  ],
+  "punteggio": {
+   "intermedia": 24,
+   "finale": 6,
+   "lode": 1,
+   "soglia": 15,
+   "minimo": 18
+  },
+  "sessioni_finali": [
+   {
+    "dal": "2027-01-21",
+    "al": "2027-01-23"
+   },
+   {
+    "dal": "2027-01-28",
+    "al": "2027-01-30"
+   },
+   {
+    "dal": "2027-04-15",
+    "al": "2027-04-17"
+   },
+   {
+    "dal": "2027-04-22",
+    "al": "2027-04-24"
+   },
+   {
+    "dal": "2027-07-15",
+    "al": "2027-07-17"
+   },
+   {
+    "dal": "2027-07-22",
+    "al": "2027-07-24"
+   },
+   {
+    "dal": "2027-10-21",
+    "al": "2027-10-23"
+   },
+   {
+    "dal": "2027-10-28",
+    "al": "2027-10-30"
+   }
+  ],
+  "regole": [
+   {
+    "gruppo": "Prenotare la prova intermedia",
+    "voci": [
+     "Si prenota da **20 a 2 giorni** prima della data: Appelli → Mostra tutti → Appelli prenotabili → «+» → Prenota.",
+     "Prima servono: **70% delle videolezioni** (a velocità 1x, senza salti), **Scheda AVA**, **retta in regola**.",
+     "Nello stesso mese puoi prenotare **una sola** data per materia. Al massimo 2 intermedie al giorno e 5 per sessione.",
+     "Puoi cancellare la prenotazione fino a quando le prenotazioni si chiudono."
+    ]
+   },
+   {
+    "gruppo": "Il giorno della prova da casa",
+    "voci": [
+     "Prima del giorno: installa **LockDown Browser** e fai la **simulazione** (5–10 minuti) da Prova online.",
+     "Serve un **PC** (niente tablet o telefono), **webcam**, un **mouse con rotellina** e la foto del **fronte del documento** (JPEG o PNG, massimo 2 MB).",
+     "Scrivania sgombra: niente libri, appunti o altri dispositivi.",
+     "Si avvia da **Prova online**, tra le **9:30 e le 21:00**: una volta iniziata, hai tutto il tempo pieno.",
+     "24 domande in 35 minuti: circa **un minuto e mezzo** a domanda.",
+     "Se la connessione cade: aspetta **30 minuti** e rientra. Hai **3 tentativi** in tutto."
+    ]
+   },
+   {
+    "gruppo": "Il giorno della finale a Roma",
+    "voci": [
+     "Si prenota **una sola giornata** per sessione, con tutte le materie insieme (al massimo 5).",
+     "Porta il **QR code** della prenotazione (sul telefono **e** stampato) e un **documento d'identità originale**.",
+     "La prova si fa su un tablet dell'ateneo: si entra con le **credenziali di ateneo**, una domanda alla volta, senza pause.",
+     "Se stai male quel giorno, si recupera nella stessa sessione **solo in caso di ricovero** (ticket con il certificato)."
+    ]
+   },
+   {
+    "gruppo": "Dopo la prova",
+    "voci": [
+     "L'intermedia viene verbalizzata di solito **entro 7 giorni**; poi la **accetti o la rifiuti** in «Conferma esami sostenuti».",
+     "Per andare alla finale l'intermedia deve risultare **verbalizzata e accettata**.",
+     "Un'intermedia rifiutata si può rifare dopo **almeno 10 giorni**. Una finale non superata si rifà nella sessione dopo.",
+     "La finale si verbalizza in 3–5 giorni lavorativi."
+    ]
+   }
+  ],
+  "da_verificare": [
+   "Se l'intermedia di Sicurezza di dicembre dà accesso alla finale di **gennaio** o si va ad **aprile**. Si saprà dall'avviso di apertura delle prenotazioni delle finali.",
+   "I giorni esatti delle finali a Roma: compaiono nella scheda «Prove finali» del portale solo dopo aver prenotato o fatto un'intermedia."
+  ]
+ }
+}

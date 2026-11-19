@@ -2,7 +2,7 @@
  "schema_version": 1,
  "tipo": "nuovo_esame",
  "id_pacchetto": "prg-esame-v3",
- "generato_il": "2026-11-12",
+ "generato_il": "2026-11-19",
  "esame_id": "prg",
  "esame": {
   "nome": "Programmazione",
@@ -319,6 +319,10 @@
      "dal": "2027-01-15",
      "al": "2027-02-02"
     },
+    "lezioni": {
+     "dal": 1,
+     "al": 50
+    },
     "programma": "lezioni 1–50 (moduli 1–5) · 24 domande in 35 minuti, ne servono 15 giuste",
     "nota": "C'è anche lunedì 1 febbraio (prenotazione dal 12 al 30 gennaio). Per venerdì 5: dal 16 gennaio al 3 febbraio."
    },
@@ -327,7 +331,21 @@
     "nome": "Prova finale (2ª metà)",
     "modalita": "a Roma",
     "quando": "aprile 2027 (15–17 o 22–24)",
-    "programma": "lezioni 51–60 (Java) · 7 domande in 15 minuti"
+    "programma": "lezioni 51–60 (Java) · 7 domande in 15 minuti",
+    "periodi": [
+     {
+      "dal": "2027-04-15",
+      "al": "2027-04-17"
+     },
+     {
+      "dal": "2027-04-22",
+      "al": "2027-04-24"
+     }
+    ],
+    "lezioni": {
+     "dal": 51,
+     "al": 60
+    }
    }
   ],
   "requisiti": [

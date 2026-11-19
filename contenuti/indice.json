@@ -7,7 +7,7 @@
    "id_pacchetto": "anl1-esame-v2",
    "tipo": "nuovo_esame",
    "esame_id": "anl1",
-   "hash": "b798621eb1c36772",
+   "hash": "3fefe2449c8ae63b",
    "kb": 6
   },
   {
@@ -15,7 +15,7 @@
    "id_pacchetto": "prg-esame-v3",
    "tipo": "nuovo_esame",
    "esame_id": "prg",
-   "hash": "67ae1847e6c45b6d",
+   "hash": "68f3e5dd306be462",
    "kb": 8
   },
   {
@@ -23,8 +23,8 @@
    "id_pacchetto": "sic-esame-v1",
    "tipo": "nuovo_esame",
    "esame_id": "sic",
-   "hash": "e95066c36c60781d",
-   "kb": 5
+   "hash": "c81d7cb32ce51cd7",
+   "kb": 6
   },
   {
    "file": "analisi-1/cap1/anl1-cap1-v1.json",
@@ -57,6 +57,14 @@
    "esame_id": "anl1",
    "hash": "2495c95bba1c5e02",
    "kb": 38
+  },
+  {
+   "file": "prove/guida-esami-v1.json",
+   "id_pacchetto": "guida-esami-v1",
+   "tipo": "guida_esami",
+   "esame_id": "",
+   "hash": "39344ebb97a7eb07",
+   "kb": 5
   },
   {
    "file": "piano/piano-v1.json",

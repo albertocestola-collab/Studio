@@ -2,7 +2,7 @@
  "schema_version": 1,
  "tipo": "nuovo_esame",
  "id_pacchetto": "sic-esame-v1",
- "generato_il": "2026-11-12",
+ "generato_il": "2026-11-19",
  "esame_id": "sic",
  "esame": {
   "nome": "Sicurezza informatica",
@@ -205,6 +205,10 @@
      "dal": "2026-11-13",
      "al": "2026-12-01"
     },
+    "lezioni": {
+     "dal": 1,
+     "al": 20
+    },
     "programma": "lezioni 1–20 · 24 domande in 35 minuti, ne servono 15 giuste",
     "nota": "Per venerdì 4 la prenotazione va dal 14 novembre al 2 dicembre."
    },
@@ -213,7 +217,22 @@
     "nome": "Prova finale (2ª metà)",
     "modalita": "a Roma",
     "quando": "gennaio 2027 (21–23 o 28–30) se l'intermedia lo permette, altrimenti aprile (15–17 o 22–24)",
-    "programma": "lezioni 21–30 · 7 domande in 15 minuti"
+    "periodi": [
+     {
+      "dal": "2027-01-21",
+      "al": "2027-01-23"
+     },
+     {
+      "dal": "2027-01-28",
+      "al": "2027-01-30"
+     }
+    ],
+    "lezioni": {
+     "dal": 21,
+     "al": 30
+    },
+    "programma": "lezioni 21–30 · 7 domande in 15 minuti",
+    "nota": "Da verificare: se l'intermedia di dicembre non vale già per gennaio, la finale è ad aprile (15–17 o 22–24)."
    }
   ],
   "requisiti": [

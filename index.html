@@ -75,6 +75,75 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 .banner{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;background:var(--warn-soft);border-radius:var(--r-s);padding:10px 12px 10px 14px;margin-bottom:12px;font-size:15px}
 .banner button{flex:none;font-weight:700;color:var(--warn);padding:2px 4px}
 
+/* pagina Prove (v27): com'è fatto un esame e quando sono le prove */
+.pv-hero{border-left:6px solid var(--accent);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:start}
+.pv-hero>*{grid-column:1}
+.pv-hero .eyebrow{color:var(--accent)}
+.pv-count{grid-column:2;grid-row:1/span 5;text-align:center;background:var(--accent-soft);color:var(--accent);border-radius:14px;padding:10px 12px;min-width:78px}
+.pv-count b{display:block;font-family:var(--f-display);font-size:34px;line-height:1.05}
+.pv-count span{font-size:13px;font-weight:700}
+.pv-big{font-family:var(--f-display);font-size:22px;font-weight:800;line-height:1.2}
+.pv-when{font-size:17px}
+.pv-parts{display:grid;gap:10px}
+@media (min-width:600px){.pv-parts{grid-template-columns:1fr 1fr}}
+.pv-part{border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;background:var(--surface-2);min-width:0}
+.pv-ph{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:17px}
+.pv-nums{display:flex;gap:18px;flex-wrap:wrap}
+.pv-nums span{color:var(--muted);font-size:14px;font-weight:700}
+.pv-nums b{font-family:var(--f-display);font-size:28px;color:var(--ink);margin-right:4px}
+.pv-dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 12px;margin:0;font-size:15px;line-height:1.4}
+.pv-dl dt{color:var(--muted);font-weight:700;font-size:13.5px;padding-top:1px}
+.pv-dl dd{margin:0}
+.pv-p{margin:0;font-size:15px}
+.tl{display:flex;flex-direction:column}
+.tl-m{font-weight:800;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:12px 0 4px;border-top:1px solid var(--line)}
+.tl>.tl-m:first-child{border-top:0;padding-top:2px}
+.tl-it{display:flex;gap:12px;padding:8px 0 12px}
+.tl-d{flex:none;width:62px;border-radius:12px;background:var(--surface-2);display:flex;flex-direction:column;align-items:center;padding:7px 4px;line-height:1.1;align-self:flex-start}
+.tl-d b{font-family:var(--f-display);font-size:25px}
+.tl-d.per b{font-size:17px;padding:4px 0 2px}
+.tl-d span{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.tl-d small{font-size:12px;color:var(--muted)}
+.tl-it.next .tl-d{background:var(--accent);color:var(--accent-ink)}
+.tl-it.next .tl-d span,.tl-it.next .tl-d small{color:var(--accent-ink)}
+.tl-it.past{opacity:.6}
+.tl-b{min-width:0;display:flex;flex-direction:column;gap:4px;font-size:15px}
+.tl-t{font-weight:800;font-size:17px;line-height:1.25}
+.tl-w{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.tl-nota{background:var(--surface-2);border-radius:8px;padding:5px 9px}
+.tl-nota.warn{background:var(--warn-soft)}
+.pv-calc{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;font-weight:700}
+.pv-step{display:flex;align-items:center;gap:8px}
+.pv-step b{font-family:var(--f-display);font-size:30px;min-width:1.5em;text-align:center}
+.pv-step .btn{min-width:48px;font-size:22px}
+.pv-qs{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pv-q{width:38px;height:38px;border-radius:10px;border:2px solid var(--line);display:grid;place-items:center;font-weight:800;color:var(--muted)}
+.pv-q.on{background:var(--ok);border-color:var(--ok);color:var(--accent-ink)}
+.pv-q.lode{border-style:dashed}
+.pv-msg{margin:0;padding:10px 12px;border-radius:10px;font-weight:600}
+.pv-msg.good{background:var(--ok-soft)}.pv-msg.bad{background:var(--urgent-soft)}
+.pv-ses{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.pv-se{border:1px solid var(--line);border-radius:12px;padding:8px 12px;display:flex;flex-direction:column;gap:3px}
+.pv-se>span{color:var(--muted);font-size:14.5px}
+.pv-se .chips{gap:4px}
+.pv-se .chip{white-space:normal}
+.pv-se.mine{border-color:var(--accent);border-width:2px}
+.pv-se.past{opacity:.55}
+.pv-det{border-top:1px solid var(--line)}
+.pv-det:first-of-type{border-top:0}
+.pv-det summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 0}
+.pv-det summary::-webkit-details-marker{display:none}
+.pv-det summary::before{content:"";flex:none;width:9px;height:9px;margin:0 5px 0 3px;border-right:2.5px solid var(--accent);border-bottom:2.5px solid var(--accent);transform:rotate(-45deg);transition:transform .15s}
+.pv-det[open] summary::before{transform:rotate(45deg)}
+.pv-det summary>.muted{margin-left:auto;text-align:right}
+.pv-st{display:flex;flex-direction:column;line-height:1.3}
+.pv-det>:not(summary){margin-left:24px}
+.pv-det[open]{padding-bottom:10px}
+.pv-ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;font-size:15px}
+.pv-dv{border-left:6px solid var(--warn)}
+.pv-dv .eyebrow{color:var(--warn)}
+@media (prefers-reduced-motion:reduce){.pv-det summary::before{transition:none}}
+
 /* card e testi */
 .card{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;min-width:0}
 .page-h{font-size:30px;font-weight:800;line-height:1.1}
@@ -544,6 +613,7 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
     <nav class="nav" role="tablist" aria-label="Sezioni">
       <button role="tab" data-tab="adesso" aria-selected="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/></svg>Adesso</button>
       <button role="tab" data-tab="esami" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M3 5.5C5.5 4.5 9 4.5 12 6.5v13c-3-2-6.5-2-9-1z"/><path d="M21 5.5c-2.5-1-6-1-9 1v13c3-2 6.5-2 9-1z"/></svg>Esami</button>
+      <button role="tab" data-tab="prove" aria-selected="false"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M7.5 14.5h3M13.5 14.5h3"/></svg>Prove</button>
       <button role="tab" data-tab="vittorie" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4"/></svg>Vittorie</button>
       <button role="tab" data-tab="dati" aria-selected="false"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg>Dati</button>
     </nav>
@@ -551,6 +621,7 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
   <div id="banner" class="banner" hidden></div>
   <main id="v-adesso" class="stack"></main>
   <main id="v-esami" class="stack" hidden></main>
+  <main id="v-prove" class="stack" hidden></main>
   <main id="v-vittorie" class="stack" hidden></main>
   <main id="v-dati" class="stack" hidden></main>
 </div>
@@ -562,13 +633,13 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
 <script>
 (function(){
 "use strict";
-const TABS=['adesso','esami','vittorie','dati'];
+const TABS=['adesso','esami','prove','vittorie','dati'];
 const DB_NAME='studio-db', DB_VER=1;
 const LS_TIP='st-tip-seen', LS_TAB='st-tab';
 const LEVELS={intuizione:'Intuizione',definizione:'Definizione',ragionamento:'Ragionamento',errori_comuni:'Errori comuni',riepilogo:'Riepilogo'};
 const LVL_ORDER=Object.keys(LEVELS);
 const EX_LEVELS={base:'Base',medio:'Medio',difficile:'Difficile'};
-const TIPI=['nuovo_esame','contenuti','piano_studio','aggiornamento_piano','ripasso'];
+const TIPI=['nuovo_esame','contenuti','piano_studio','guida_esami','aggiornamento_piano','ripasso'];
 const MAX_KB=250;/* sopra si avvisa soltanto; era 80 con i pacchetti incollati a mano, 120 fino alla v19: gli strumenti interattivi pesano */
 const MSH=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
 const GSH=['dom','lun','mar','mer','gio','ven','sab'];
@@ -584,6 +655,8 @@ const pad=n=>String(n).padStart(2,'0');
 const keyOf=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 const parseKey=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d)};
 const todayKey=()=>keyOf(new Date());
+/* un periodo di giorni { dal, al } (v27: le finestre delle prove finali) */
+const okPer=q=>!!q&&typeof q==='object'&&isDate(q.dal)&&isDate(q.al)&&q.dal<=q.al;
 const diffDays=(a,b)=>Math.round((parseKey(b)-parseKey(a))/86400000);
 const shortDate=k=>{const d=parseKey(k);return d.getDate()+' '+MSH[d.getMonth()]+(d.getFullYear()!==new Date().getFullYear()?' '+d.getFullYear():'')};
 const dayDate=k=>GSH[parseKey(k).getDay()]+' '+shortDate(k);
@@ -1302,8 +1375,8 @@ function validate(p,bytes){
   if(!isStr(p.id_pacchetto))E('Manca il campo id_pacchetto.');
   else if(!ID_RE.test(p.id_pacchetto))E(`L'id_pacchetto «${esc(p.id_pacchetto)}» non va bene: usa solo lettere minuscole, cifre, punto, trattino e trattino basso.`);
   if(!isDate(p.generato_il))E('Il campo generato_il deve essere una data scritta come AAAA-MM-GG.');
-  /* il piano di studio riguarda tutti gli esami insieme: lì esame_id non serve */
-  if(p.tipo==='piano_studio'&&p.esame_id===undefined){}
+  /* il piano di studio e la guida alle prove riguardano tutti gli esami insieme: lì esame_id non serve */
+  if((p.tipo==='piano_studio'||p.tipo==='guida_esami')&&(p.esame_id===undefined||p.esame_id==='')){}
   else if(!isStr(p.esame_id))E('Manca il campo esame_id.');
   else if(!ID_RE.test(p.esame_id))E(`L'esame_id «${esc(p.esame_id)}» non va bene: usa solo lettere minuscole, cifre, punto, trattino e trattino basso.`);
   if(p.rimuovi!==undefined){if(!Array.isArray(p.rimuovi))E('Il campo rimuovi dovrebbe essere un elenco di ID.');
@@ -1350,6 +1423,28 @@ function validate(p,bytes){
     }
   }
 
+  /* guida alle prove (v27): come sono fatti gli esami, punteggio, date delle finali, regole. Le date di ogni esame stanno in nuovo_esame. */
+  if(p.tipo==='guida_esami'&&need(p,'guida','Nel pacchetto','obj')){
+    const G=p.guida,w='Nella guida alle prove';
+    if(opt(G,'aggiornata_il',w,'str')&&G.aggiornata_il!==undefined&&!isDate(G.aggiornata_il))E(`${w} aggiornata_il deve essere una data scritta come AAAA-MM-GG.`);
+    opt(G,'fonti',w,'str');
+    if(need(G,'strade',w,'arr'))G.strade.forEach((x,i)=>{const ws=`${w}, nella strada ${i+1},`;
+      if(!x||typeof x!=='object'){E(`${ws} c'è qualcosa che non è un oggetto.`);return}
+      need(x,'nome',ws,'str');opt(x,'sottotitolo',ws,'str');opt(x,'nota',ws,'str');
+      if(x.consigliata!==undefined&&typeof x.consigliata!=='boolean')E(`${ws} consigliata deve valere true o false.`);
+      if(need(x,'parti',ws,'arr'))x.parti.forEach((q,j)=>{const wq=`${ws} nella parte ${j+1},`;
+        if(!q||typeof q!=='object'){E(`${wq} c'è qualcosa che non è un oggetto.`);return}
+        need(q,'nome',wq,'str');['etichetta','dove','programma','soglia','quando','nota'].forEach(f=>opt(q,f,wq,'str'));['domande','minuti'].forEach(f=>opt(q,f,wq,'num'))})});
+    if(G.punteggio!==undefined&&opt(G,'punteggio',w,'obj')){const P=G.punteggio,wp=`${w}, nel punteggio,`;
+      ['intermedia','finale','soglia','minimo'].forEach(f=>{if(need(P,f,wp,'num')&&!(Number.isInteger(P[f])&&P[f]>=0&&P[f]<=60))E(`${wp} ${f} deve essere un numero intero tra 0 e 60.`)});
+      if(P.lode!==undefined&&!(Number.isInteger(P.lode)&&P.lode>=0&&P.lode<=3))E(`${wp} lode deve essere un numero intero tra 0 e 3.`)}
+    if(opt(G,'sessioni_finali',w,'arr'))arr(G.sessioni_finali).forEach((q,i)=>{if(!okPer(q))E(`${w} la sessione ${i+1} deve avere dal e al scritti come AAAA-MM-GG.`)});
+    if(opt(G,'regole',w,'arr'))arr(G.regole).forEach((q,i)=>{const wr=`${w}, nel gruppo di regole ${i+1},`;
+      if(!q||typeof q!=='object'){E(`${wr} c'è qualcosa che non è un oggetto.`);return}
+      need(q,'gruppo',wr,'str');if(need(q,'voci',wr,'arr'))strArr(q,'voci',wr)});
+    strArr(G,'da_verificare',w);
+  }
+
   if(p.tipo==='nuovo_esame'){
     if(need(p,'esame','Nel pacchetto','obj')){
       const e=p.esame,w="Nell'esame";
@@ -1370,7 +1465,10 @@ function validate(p,bytes){
         const ww=isStr(x.id)?`Nella prova ${esc(x.id)},`:`Nella prova ${i+1},`;
         idOk(x.id,ww,eid);need(x,'nome',ww,'str');opt(x,'modalita',ww,'str');opt(x,'quando',ww,'str');opt(x,'programma',ww,'str');opt(x,'nota',ww,'str');
         if(opt(x,'date',ww,'arr'))arr(x.date).forEach(d=>{if(!isDate(d))E(`${ww} la data «${esc(d)}» deve essere scritta come AAAA-MM-GG.`)});
-        if(!arr(x.date).length&&!isStr(x.quando))E(`${ww} servono le date oppure il campo quando.`);
+        /* periodi (v27): le finestre di giorni di una prova (per esempio una sessione di finali); lezioni: { dal, al } */
+        if(opt(x,'periodi',ww,'arr'))arr(x.periodi).forEach((q,j)=>{if(!okPer(q))E(`${ww} il periodo ${j+1} deve avere dal e al scritti come AAAA-MM-GG.`)});
+        if(x.lezioni!==undefined&&opt(x,'lezioni',ww,'obj')){const L=x.lezioni;if(!(Number.isInteger(L.dal)&&Number.isInteger(L.al)&&L.dal>=1&&L.al>=L.dal))E(`${ww} lezioni deve avere dal e al, numeri interi con dal non più grande di al.`)}
+        if(!arr(x.date).length&&!arr(x.periodi).length&&!isStr(x.quando))E(`${ww} servono le date, i periodi oppure il campo quando.`);
         if(x.prenotazione!==undefined&&opt(x,'prenotazione',ww,'obj'))for(const f of ['dal','al'])if(!isDate(obj(x.prenotazione)[f]))E(`${ww} prenotazione.${f} deve essere una data scritta come AAAA-MM-GG.`);
       });
       if(opt(e,'requisiti',w,'arr'))arr(e.requisiti).forEach((x,i)=>{
@@ -1594,9 +1692,15 @@ function buildPlan(p){
     lines.push(`${S.imp.piano_studio?'Sostituisco':'Aggiungo'} il piano di studio: ${listIt(names)}, ${pl(na,'attività','attività')} (circa ${fmtH(min/60)} ore), ${esc(P.minuti_giorno)} minuti al giorno. Quello che hai già fatto resta.`);
     piano={...P,id_pacchetto:p.id_pacchetto,generato_il:p.generato_il};
   }
+  let guida=null;
+  if(p.tipo==='guida_esami'){
+    const G=p.guida;
+    lines.push(`${S.imp.guida_esami?'Aggiorno':'Aggiungo'} la guida alle prove: ${pl(arr(G.strade).length,'modo','modi')} di fare l'esame, ${pl(arr(G.regole).length,'gruppo','gruppi')} di regole e ${pl(arr(G.sessioni_finali).length,'periodo','periodi')} di prove finali. La trovi nella pagina <b>Prove</b>.`);
+    guida={...G,id_pacchetto:p.id_pacchetto,generato_il:p.generato_il};
+  }
   if(removed)lines.push(`Tolgo ${pl(removed,'elemento','elementi')} indicati da Claude.`);
   const prev=pacchetti()[p.id_pacchetto];
-  return {p,lines,warns,prev,piano,
+  return {p,lines,warns,prev,piano,guida,
     putE:[...tE].map(k=>esami.get(k)).filter(Boolean),putA:[...tA].map(k=>arg.get(k)).filter(Boolean),delE:[...dE],delA:[...dA],esami,arg};
 }
 async function applyPlan(plan){
@@ -1609,9 +1713,11 @@ async function applyPlan(plan){
     plan.putE.forEach(v=>se.put(v));plan.putA.forEach(v=>sa.put(v));
     t.objectStore('impostazioni').put({k:'pacchetti',v:pk});
     if(plan.piano)t.objectStore('impostazioni').put({k:'piano_studio',v:plan.piano});
+    if(plan.guida)t.objectStore('impostazioni').put({k:'guida_esami',v:plan.guida});
   });
   S.esami=plan.esami;S.arg=plan.arg;S.imp.pacchetti=pk;mdCache.clear();
   if(plan.piano)S.imp.piano_studio=plan.piano;
+  if(plan.guida)S.imp.guida_esami=plan.guida;
 }
 
 /* ---------- contenuti dal sito ----------
@@ -1649,7 +1755,7 @@ function updCard(){
     <button class="btn primary big" data-act="remote-update">Aggiorna</button></section>`;
 }
 /* dopo un controllo ridisegna solo le pagine che mostrano le novità */
-async function checkAndShow(){await checkRemote();if(S.tab==='adesso'||S.tab==='dati'||(S.tab==='esami'&&!S.esami.size))render()}
+async function checkAndShow(){await checkRemote();if(S.tab==='adesso'||S.tab==='dati'||(S.tab==='prove'&&!guidaS())||(S.tab==='esami'&&!S.esami.size))render()}
 
 /* ---------- export dei progressi ---------- */
 function buildExport(all){
@@ -1721,11 +1827,125 @@ function calendarHTML(e){const prove=arr(e.prove),req=arr(e.requisiti);if(!prove
       ${pr.nota?`<div class="muted small">${esc(pr.nota)}</div>`:''}</div>`};
   const done=req.filter(r=>reqDone(e.id,r)).length;
   return `<section class="card cal stack-s"><div class="eyebrow">Calendario</div>${prove.map(prova).join('')}
+    ${prove.length?'<button class="btn small" data-act="goto-prove" style="align-self:flex-start">Tutte le prove e le regole</button>':''}
     ${req.length?`<div class="cal-req"><div class="cal-h"><b>Cosa manca per prenotare</b><span class="muted small">${done} di ${req.length} fatte</span></div>
       ${req.map(r=>{const ok=reqDone(e.id,r),fromC=!!r.fatto;
         return `<button class="req${ok?' ok':''}" data-act="req-toggle" data-id="${esc(e.id)}" data-r="${esc(r.id)}"${fromC?' disabled':''} aria-pressed="${ok}">
           <span class="box-c" aria-hidden="true">${ok?'✓':''}</span><span class="req-t">${esc(r.testo)}</span>${r.valore?`<span class="muted small num">${esc(r.valore)}</span>`:''}</button>`}).join('')}
       <p class="note" style="margin:4px 0 0">Tocca una voce quando l'hai fatta.</p></div>`:''}</section>`}
+
+/* ---------- prove (dal 19 novembre 2026, v27) ----------
+   La pagina «Prove»: com'è fatto un esame e quando sono tutte le prove, in ordine di data.
+   Regole, punteggio e date delle finali arrivano con il pacchetto guida_esami (impostazioni.guida_esami);
+   le date di ogni esame stanno nei pacchetti nuovo_esame (prove: date, periodi, prenotazione, lezioni). L'app conta solo i giorni. */
+const MLONG=['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+const GLONG=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+const guidaS=()=>{const g=S.imp.guida_esami;return g&&typeof g==='object'&&!Array.isArray(g)?g:null};
+const longDate=k=>{const d=parseKey(k);return GLONG[d.getDay()]+' '+d.getDate()+' '+MLONG[d.getMonth()]+(d.getFullYear()!==new Date().getFullYear()?' '+d.getFullYear():'')};
+const perDays=ps=>ps.map(q=>parseKey(q.dal).getDate()+'–'+parseKey(q.al).getDate());
+const perText=ps=>{const d=parseKey(ps[0].dal);return perDays(ps).join(' o ')+' '+MLONG[d.getMonth()]+' '+d.getFullYear()};
+const isN=v=>typeof v==='number'&&isFinite(v);
+/* tutte le prove degli esami in corso, in ordine di data; per le finali conta il primo periodo non ancora passato */
+function proveList(){const t=todayKey(),out=[];
+  for(const e of activeExams())for(const pr of arr(e.prove)){
+    const ds=arr(pr.date).filter(isDate).sort(),ps=arr(pr.periodi).filter(okPer).sort((a,b)=>a.dal.localeCompare(b.dal));
+    if(ds.length){const fut=ds.filter(d=>d>=t);out.push({e,pr,k:fut[0]||ds[ds.length-1],riserve:fut.slice(1),past:!fut.length});continue}
+    if(ps.length){const fut=ps.filter(q=>q.al>=t),pp=fut.length?fut:ps.slice(-1),m=pp[0].dal.slice(0,7),same=pp.filter(q=>q.dal.slice(0,7)===m);
+      out.push({e,pr,k:same[0].dal,end:same[same.length-1].al,ps:same,past:!fut.length});continue}
+    out.push({e,pr,k:null,past:false});
+  }
+  return out.sort((a,b)=>(a.k||'9999').localeCompare(b.k||'9999'));
+}
+function tlBadge(x){
+  if(!x.k)return '<div class="tl-d"><b>?</b><span>data</span></div>';
+  const d=parseKey(x.k);
+  if(x.end)return `<div class="tl-d per"><b>${d.getDate()}–${parseKey(x.end).getDate()}</b><span>${MSH[d.getMonth()]}</span></div>`;
+  return `<div class="tl-d"><b>${d.getDate()}</b><span>${MSH[d.getMonth()]}</span><small>${GSH[d.getDay()]}</small></div>`}
+function whenText(x){const t=todayKey();if(!x.k||x.past)return '';if(x.end&&t>=x.k)return 'in corso';return untilText(x.k)}
+const modChip=m=>m?`<span class="chip${/casa/i.test(m)?' acc':''}">${esc(m)}</span>`:'';
+function tlItem(x,next){const pr=x.pr,b=x.past?null:bookText(pr),w=whenText(x);
+  return `<div class="tl-it${x.past?' past':''}${next?' next':''}">${tlBadge(x)}<div class="tl-b">
+    <div class="tl-t">${esc(x.e.nome)}</div>
+    <div class="tl-w"><b>${esc(pr.nome)}</b>${modChip(pr.modalita)}${w?`<span class="muted small">${esc(w)}</span>`:''}${x.past?'<span class="chip">passata</span>':''}</div>
+    ${x.ps?`<div>Giorni possibili: <b>${esc(perText(x.ps))}</b>. Il giorno lo scegli quando prenoti.</div>`:''}
+    ${!x.k&&pr.quando?`<div>${esc(pr.quando)}</div>`:''}
+    ${x.riserve&&x.riserve.length?`<div class="muted">Riserva: ${esc(x.riserve.map(dayDate).join(', '))}</div>`:''}
+    ${b?`<div class="dl-book ${b.cls}">${esc(cap1(b.txt))}</div>`:''}
+    ${pr.programma?`<div class="muted">${esc(cap1(pr.programma))}</div>`:''}
+    ${pr.nota?`<div class="tl-nota${/^da verificare/i.test(pr.nota)?' warn':''}">${esc(pr.nota)}</div>`:''}</div></div>`}
+function proveHero(list){const x=list.find(y=>!y.past&&y.k);if(!x)return '';
+  const pr=x.pr,b=bookText(pr),n=Math.max(0,diffDays(todayKey(),x.k)),inC=x.end&&todayKey()>=x.k;
+  return `<section class="card pv-hero"><div class="eyebrow">La prossima prova</div>
+    <div class="pv-count" aria-hidden="true">${inC?'<b>ora</b><span>in corso</span>':n===0?'<b>oggi</b><span>&nbsp;</span>':`<b class="num">${n}</b><span>${n===1?'giorno':'giorni'}</span>`}</div>
+    <div class="pv-big">${esc(x.e.nome)}</div>
+    <div class="pv-when"><b>${esc(x.ps?perText(x.ps):cap1(longDate(x.k)))}</b></div>
+    <div class="tl-w"><span class="chip">${esc(pr.nome)}</span>${modChip(pr.modalita)}</div>
+    ${b?`<div class="dl-book ${b.cls}">${esc(cap1(b.txt))}.</div>`:''}</section>`}
+function partDL(q){const rows=[['Dove',q.dove],['Programma',q.programma],['Per passare',q.soglia],['Quando',q.quando],['Nota',q.nota]].filter(r=>typeof r[1]==='string'&&r[1]);
+  return `${isN(q.domande)||isN(q.minuti)?`<div class="pv-nums">${isN(q.domande)?`<span><b class="num">${esc(q.domande)}</b>domande</span>`:''}${isN(q.minuti)?`<span><b class="num">${esc(q.minuti)}</b>minuti</span>`:''}</div>`:''}
+    ${rows.length?`<dl class="pv-dl">${rows.map(r=>`<dt>${r[0]}</dt><dd>${mdInline(r[1])}</dd>`).join('')}</dl>`:''}`}
+function proveHow(G){const ss=arr(G.strade).filter(x=>x&&typeof x==='object'),s=ss.find(x=>x.consigliata)||ss[0];if(!s)return '';
+  const parts=arr(s.parti).filter(q=>q&&typeof q==='object');
+  /* che lezioni porta ogni metà, esame per esame (dal campo lezioni delle prove) */
+  const rows=activeExams().map(e=>{const ls=arr(e.prove).filter(pr=>pr&&obj(pr.lezioni).dal).sort((a,b)=>a.lezioni.dal-b.lezioni.dal);
+    return ls.length?[e.nome,...ls.slice(0,parts.length||2).map(pr=>`lezioni ${pr.lezioni.dal}–${pr.lezioni.al}`)]:null}).filter(Boolean);
+  const head=['Esame',...(parts.length?parts:[{nome:'1ª parte'},{nome:'2ª parte'}]).map(q=>(q.etichetta?q.etichetta+' · ':'')+q.nome)];
+  return `<section class="card stack-s"><div class="eyebrow">Com'è fatto un esame</div>
+    <div><b>${esc(s.nome)}</b>${s.sottotitolo?` <span class="muted">· ${esc(s.sottotitolo)}</span>`:''}</div>
+    <div class="pv-parts">${parts.map(q=>`<div class="pv-part"><div class="pv-ph">${q.etichetta?`<span class="chip acc">${esc(q.etichetta)}</span>`:''}<b>${esc(q.nome)}</b></div>${partDL(q)}</div>`).join('')}</div>
+    ${s.nota?`<p class="pv-p">${mdInline(s.nota)}</p>`:''}
+    ${rows.length?`<div class="eyebrow" style="margin-top:6px">Che cosa porta ogni metà</div>${tableHTML(head,rows,[],c=>esc(c))}`:''}</section>`}
+function proveCalc(G){const P=obj(G&&G.punteggio);if(!['intermedia','finale','soglia','minimo'].every(f=>Number.isInteger(P[f])))return '';
+  const x=Math.max(0,Math.min(P.intermedia,S.pvX==null?P.soglia:S.pvX)),need=Math.max(0,P.minimo-x),lode=Number.isInteger(P.lode)?P.lode:0,tot=P.finale+lode,okI=x>=P.soglia;
+  const boxes=[...Array(tot).keys()].map(i=>`<span class="pv-q${i<need?' on':''}${i>=P.finale?' lode':''}">${i>=P.finale?'L':i+1}</span>`).join('');
+  const msg=!okI?`Con ${x} giuste su ${P.intermedia} non vai alla finale: ne servono almeno ${P.soglia}. L'intermedia si rifà dopo almeno 10 giorni.`
+    :need===0?`Con ${x} giuste arrivi già a ${P.minimo}. La finale va fatta comunque, per chiudere l'esame.`
+    :`Alla finale te ne servono almeno <b>${need} giuste</b> su ${P.finale+lode} domande.`;
+  const max=Math.min(30,x+P.finale);
+  return `<section class="card stack-s" id="pv-calc"><div class="eyebrow">Quante giuste ti servono alla finale?</div>
+    <p class="pv-p muted">Il voto è la somma delle risposte giuste: intermedia più finale. Ne servono ${P.minimo} in tutto. Cambia il numero e guarda.</p>
+    <div class="pv-calc"><span>Giuste all'intermedia</span><div class="pv-step">
+      <button class="btn small" data-act="pv-x" data-d="-1" aria-label="Una giusta in meno"${x<=0?' disabled':''}>−</button>
+      <b class="num" aria-live="polite">${x}</b><span class="muted">su ${P.intermedia}</span>
+      <button class="btn small" data-act="pv-x" data-d="1" aria-label="Una giusta in più"${x>=P.intermedia?' disabled':''}>+</button></div></div>
+    ${okI?`<div class="pv-qs" aria-hidden="true">${boxes}</div><div class="muted small">Le ${P.finale+lode} domande della finale: in verde quelle che ti servono${lode?'; L è la domanda della lode':''}.</div>`:''}
+    <p class="pv-msg ${okI?'good':'bad'}">${msg}</p>
+    ${okI?`<p class="pv-p muted">Voto più alto possibile: ${max}${max>=30&&lode?' e lode (la lode conta solo se tutte le altre sono giuste)':''}.</p>`:''}</section>`}
+function proveSessions(G,list){const ss=arr(G.sessioni_finali).filter(okPer).sort((a,b)=>a.dal.localeCompare(b.dal));if(!ss.length)return '';
+  const t=todayKey(),by=new Map(),mine=new Map();
+  for(const q of ss){const m=q.dal.slice(0,7);if(!by.has(m))by.set(m,[]);by.get(m).push(q)}
+  for(const x of list)for(const q of arr(x.pr.periodi).filter(okPer)){const m=q.dal.slice(0,7);if(!mine.has(m))mine.set(m,new Set());mine.get(m).add(x.e.nome)}
+  return `<section class="card stack-s"><div class="eyebrow">Le date delle prove finali</div>
+    <div class="pv-ses">${[...by.entries()].map(([m,g])=>{const d=parseKey(g[0].dal),past=g[g.length-1].al<t,my=[...(mine.get(m)||[])];
+      return `<div class="pv-se${past?' past':''}${my.length?' mine':''}"><b>${cap1(MLONG[d.getMonth()])} ${d.getFullYear()}</b><span>${esc(perDays(g).join(' e '))}</span>
+        ${my.length?`<div class="chips">${my.map(nm=>`<span class="chip acc">${esc(nm)}</span>`).join('')}</div>`:''}</div>`}).join('')}</div>
+    <p class="pv-p muted">Sono anche le date della prova unica. A Roma si prenota un giorno solo, con tutte le materie di quella sessione.</p></section>`}
+const detList=(title,items,side,under)=>`<details class="pv-det"><summary>${under?`<span class="pv-st"><b>${esc(title)}</b><span class="muted small">${esc(under)}</span></span>`:`<b>${esc(title)}</b>`}${side?`<span class="muted small">${esc(side)}</span>`:''}</summary>${items}</details>`;
+function proveRules(G){const rs=arr(G.regole).filter(r=>r&&typeof r.gruppo==='string');if(!rs.length)return '';
+  return `<section class="card"><div class="eyebrow" style="margin-bottom:4px">Regole da ricordare</div>${rs.map(r=>{const vs=arr(r.voci).filter(v=>typeof v==='string');
+    return detList(r.gruppo,`<ul class="pv-ul">${vs.map(v=>`<li>${mdInline(v)}</li>`).join('')}</ul>`,pl(vs.length,'punto','punti'))}).join('')}</section>`}
+function proveOther(G){const ss=arr(G.strade).filter(x=>x&&typeof x==='object'),main=ss.find(x=>x.consigliata)||ss[0],rest=ss.filter(x=>x!==main);if(!rest.length)return '';
+  return `<section class="card"><div class="eyebrow" style="margin-bottom:4px">Le altre strade</div>${rest.map(x=>
+    detList(x.nome,`<div class="stack-s">${arr(x.parti).filter(q=>q&&typeof q==='object').map(partDL).join('')}${x.nota?`<p class="pv-p">${mdInline(x.nota)}</p>`:''}</div>`,'',x.sottotitolo||'')).join('')}</section>`}
+function renderProve(){
+  const v=$('#v-prove'),G=guidaS(),list=proveList(),nextI=list.findIndex(x=>!x.past&&x.k);
+  let tl='',m=null;
+  list.forEach((x,i)=>{const mm=x.k?x.k.slice(0,7):'';
+    if(mm!==m){m=mm;const d=x.k?parseKey(x.k):null;tl+=`<div class="tl-m">${d?cap1(MLONG[d.getMonth()])+' '+d.getFullYear():'Senza data'}</div>`}
+    tl+=tlItem(x,i===nextI)});
+  const dv=G?arr(G.da_verificare).filter(x=>typeof x==='string'&&x.trim()):[];
+  v.innerHTML=`<div><h1 class="page-h">Prove</h1><p class="muted" style="margin:6px 0 0">Come sono fatti i tuoi esami e quando sono le prove.</p></div>
+    ${proveHero(list)}
+    ${G?proveHow(G):''}
+    ${list.length?`<section class="card stack-s"><div class="eyebrow">Il tuo calendario</div><div class="tl">${tl}</div>
+      <p class="pv-p muted">Sono le date della sede di Roma, per gli esami in corso. Per cambiarle, chiedilo a Claude.</p></section>`
+      :`<section class="card"><p style="margin:0">Non ci sono ancora prove con una data: arrivano con il pacchetto dell'esame.</p></section>`}
+    ${dv.length?`<section class="card pv-dv stack-s"><div class="eyebrow">Ancora da verificare</div><ul class="pv-ul">${dv.map(x=>`<li>${mdInline(x)}</li>`).join('')}</ul></section>`:''}
+    ${G?proveCalc(G)+proveSessions(G,list)+proveRules(G)+proveOther(G)
+      :`<section class="card stack-s"><div class="eyebrow">Regole d'esame</div><p style="margin:0">Come sono fatte le prove, il punteggio e le regole arrivano con il pacchetto «guida alle prove» di Claude.</p>
+        ${remotePending().length?'<button class="btn primary" data-act="remote-update" style="align-self:flex-start">Aggiorna</button>':''}</section>`}
+    ${G&&(G.aggiornata_il||G.fonti)?`<p class="note">${G.aggiornata_il&&isDate(G.aggiornata_il)?'Aggiornato il '+esc(shortDate(G.aggiornata_il))+'. ':''}${esc(G.fonti||'')}</p>`:''}`;
+}
 
 /* ---------- piano di studio (dal 12 novembre 2026, v16) ----------
    Claude decide COSA fare: per ogni esame un «binario» con le attività in ordine e i minuti stimati (pacchetto piano_studio).
@@ -2239,7 +2459,7 @@ async function fillStorage(){
 
 function render(){
   for(const t of TABS){$('#v-'+t).hidden=t!==S.tab;document.querySelector(`.nav [data-tab="${t}"]`).setAttribute('aria-selected',String(t===S.tab))}
-  ({adesso:renderAdesso,esami:renderEsami,vittorie:renderVittorie,dati:renderDati})[S.tab]();
+  ({adesso:renderAdesso,esami:renderEsami,prove:renderProve,vittorie:renderVittorie,dati:renderDati})[S.tab]();
 }
 function go(tab){S.tab=tab;lsSet(LS_TAB,tab);render();window.scrollTo(0,0)}
 
@@ -2354,6 +2574,7 @@ const ACT={
     try{await applyPlan(plan)}catch(e){toast('Non sono riuscito a salvare: '+(e&&e.message||e));b.disabled=false;return}
     S.draft='';closeSheet();toast('Importato');
     if(plan.piano){S.planPage=true;go('adesso');return}
+    if(plan.guida){go('prove');return}
     S.route={esame:plan.p.esame_id,arg:null};S.open=null;
     if(!S.esami.has(plan.p.esame_id))S.route={esame:null,arg:null};
     go('esami');
@@ -2365,6 +2586,7 @@ const ACT={
     catch(e){closeSheet();toast(`Mi sono fermato dopo ${pl(n,'pacchetto','pacchetti')}: ${e&&e.message||e}`);render();return}
     S.draft='';closeSheet();toast(`Importati ${pl(n,'pacchetto','pacchetti')}`);
     if(list.some(d=>d.tipo==='piano_studio')){S.planPage=true;go('adesso');return}
+    if(list.some(d=>d.tipo==='guida_esami')){go('prove');return}
     S.route={esame:S.esami.has(last)?last:null,arg:null};S.open=null;
     go('esami');
   },
@@ -2437,6 +2659,11 @@ const ACT={
   'dismiss-tip':()=>{lsSet(LS_TIP,'1');$('#banner').hidden=true},
   'reload-app':()=>location.reload(),
   'edit-exam':b=>editExamSheet(b.dataset.id),
+  'goto-prove':()=>{closeSheet();go('prove')},
+  /* quante giuste servono alla finale: ridisegna solo il suo riquadro, così le regole aperte restano aperte */
+  'pv-x':b=>{const P=obj(obj(guidaS()).punteggio),cur=S.pvX==null?P.soglia:S.pvX,d=+b.dataset.d;
+    S.pvX=Math.max(0,Math.min(P.intermedia,cur+d));const el=$('#pv-calc');if(el)el.outerHTML=proveCalc(guidaS());
+    const nb=document.querySelector(`#pv-calc [data-act="pv-x"][data-d="${d}"]`),ob=document.querySelector(`#pv-calc [data-act="pv-x"][data-d="${-d}"]`);if(nb&&!nb.disabled)nb.focus();else if(ob)ob.focus()},
   'goto-exam':b=>{S.route={esame:b.dataset.id,arg:null};S.tab='esami';lsSet(LS_TAB,'esami');render();window.scrollTo(0,0)},
   /* piano di studio: la spunta «Fatto» di un'attività (resta sul dispositivo, come le sezioni lette) */
   'att-toggle':async b=>{const id=b.dataset.id,k='att:'+id;
