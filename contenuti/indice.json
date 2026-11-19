@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generato_il": "2026-11-17",
+ "generato_il": "2026-11-19",
  "pacchetti": [
   {
    "file": "analisi-1/anl1-esame-v2.json",
@@ -247,8 +247,8 @@
    "id_pacchetto": "sic-cap1-1di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "18a2257201848f4c",
-   "kb": 101
+   "hash": "0a51ac3f21e48c70",
+   "kb": 105
   },
   {
    "file": "sicurezza-informatica/cap1/sic-cap1-2di10.json",
