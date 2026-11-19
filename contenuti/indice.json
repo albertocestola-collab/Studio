@@ -71,8 +71,8 @@
    "id_pacchetto": "prg-cap1-v2-1di5",
    "tipo": "contenuti",
    "esame_id": "prg",
-   "hash": "442abb97f618da40",
-   "kb": 130
+   "hash": "6bb58a46fd750235",
+   "kb": 134
   },
   {
    "file": "programmazione/cap1/prg-cap1-v2-2di5.json",
@@ -247,7 +247,7 @@
    "id_pacchetto": "sic-cap1-1di10",
    "tipo": "contenuti",
    "esame_id": "sic",
-   "hash": "0a51ac3f21e48c70",
+   "hash": "f9d0d289be5750a9",
    "kb": 105
   },
   {

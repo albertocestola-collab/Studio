@@ -439,6 +439,52 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
 .cls-why{margin:6px 0 0;padding-left:1.2em}
 .cls-why li{margin:.3em 0}
 @media (min-width:700px){.cls-bins.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.cls-bins.c3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* laboratori (v25): bit da accendere, ruota dei valori, letture, sfide */
+.lab-sf{margin-bottom:12px}
+.lab-sfh{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.lab-sfh .num{font-weight:800;color:var(--muted);font-size:14px}
+.lab-sfh .btn{margin-left:auto}
+.lab-goal{border:2px dashed var(--accent);border-radius:14px;padding:10px 14px;font-weight:700;font-size:1.04em}
+.lab-goal .eyebrow{display:block;font-weight:800}
+.lab-done{list-style:none;margin:8px 0 0;padding:0;font-size:14px;color:var(--ok)}
+.lab-done li{margin:2px 0}
+.lab-sf .cls-fb{margin:0 0 8px}
+.lab-bits{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px;max-width:calc(var(--n) * 86px)}
+.lab-bit{display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 2px 6px;border:2px solid var(--line);border-radius:14px;background:var(--surface-2);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:30px;font-weight:800;line-height:1.1;cursor:pointer;color:var(--muted);transition:background .15s,color .15s}
+.lab-bit.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.lab-bit small{font-family:var(--f-body);font-size:12px;font-weight:700;opacity:.8}
+.lab-bit small.neg{color:var(--urgent)}
+.lab-bit.on small.neg{color:inherit}
+.lab-wl{display:flex;gap:14px;font-size:12px;color:var(--muted);margin:4px 0 0}
+.lab-wl .neg{color:var(--urgent)}
+.lab-ops{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.lab-ops .btn{min-height:44px}
+.lab-ev{border-radius:10px;padding:8px 12px;margin:0 0 12px;font-weight:600;font-size:15px}
+.lab-ev.riporto{background:var(--accent-soft)}
+.lab-ev.overflow{background:var(--urgent-soft)}
+.lab-ev.info{background:var(--surface-2)}
+.lab-main{display:grid;gap:12px;align-items:start}
+.lab-read{display:grid;gap:8px}
+.lab-r{background:var(--surface-2);border-radius:12px;padding:8px 12px;min-width:0}
+.lab-r .eyebrow{display:block}
+.lab-r b{display:block;font-family:var(--f-display);font-size:28px;line-height:1.15}
+.lab-r small{display:block;color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.lab-wheel{width:100%;max-width:320px;justify-self:center}
+.lab-ring{fill:none;stroke:var(--line);stroke-width:2}
+.lab-neg{fill:none;stroke:var(--urgent-soft);stroke-width:16;stroke-linecap:round}
+.lab-dot{fill:var(--surface);stroke:var(--muted);stroke-width:1.5}
+.lab-dot.cur{fill:var(--accent);stroke:var(--accent)}
+.lab-u,.lab-s{font-size:12px;fill:var(--muted);font-weight:600}
+.lab-s.n{fill:var(--urgent)}
+.lab-u.cur,.lab-s.cur{fill:var(--accent);font-weight:800;font-size:14px}
+.lab-car{stroke:var(--accent);stroke-width:2.5;stroke-dasharray:4 3}
+.lab-ovf{stroke:var(--urgent);stroke-width:2.5;stroke-dasharray:4 3}
+.lab-seamt{display:none}
+.lab-cbits{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:26px;font-weight:800;fill:var(--ink)}
+.lab-ct{font-size:11px;font-weight:700;fill:var(--accent)}
+.lab-ct.ovf{fill:var(--urgent)}
+@media (min-width:700px){.lab-main{grid-template-columns:minmax(0,300px) minmax(0,1fr)}.lab-main>.lab-read:only-child{grid-column:1/-1;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}}
+.sheet .lab-main{grid-template-columns:1fr}
 /* nel riquadro di ripasso lo spazio è stretto: una colonna sola */
 .sheet .tool-cols,.sheet .tool-sch-wrap,.sheet .tool-help{grid-template-columns:1fr}
 .sheet .tool-detail{position:static}
@@ -741,7 +787,106 @@ function examTerms(eid){const out=[];
 /* icone dei pulsanti degli strumenti (i caratteri ◄ ► ▶ non ci sono nel font dell'app) */
 const TIC={l:'<svg class="tic" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',r:'<svg class="tic" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>',
   play:'<svg class="tic f" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',pause:'<svg class="tic f" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'};
-const TOOL_TIPI={passi:'Passo passo',schema:'Schema da esplorare',domanda:'Mettiti alla prova',collega:'Collega',classifica:'Classifica'};
+/* ---------- laboratori (v25) ----------
+   Un laboratorio è un piccolo mondo da manipolare: lo studente cambia le cose e vede subito le conseguenze.
+   Il codice sta qui, nell'app; il pacchetto sceglie il modulo e dà solo i parametri e le «sfide»
+   (obiettivi da raggiungere manipolando: quando lo stato li soddisfa si spuntano da soli e mostrano il perché). */
+const LAB_EV={riporto:'riporto oltre l\'ultimo bit',overflow:'overflow con segno',inverti:'bit invertiti',cambio_segno:'−x che non sta nei bit'};
+const LAB_VISTE=['senza_segno','con_segno','esadecimale','ottale','ascii'];
+const LAB_OPS={'+1':'+1','-1':'−1',not:'Inverti i bit',neg:'Cambia segno (−x)',zero:'Azzera'};
+const LAB={
+  byte:{
+    check(t){
+      if(![4,8].includes(t.bit))return '«bit» deve essere 4 oppure 8';
+      if(t.vista!==undefined&&!(Array.isArray(t.vista)&&t.vista.length&&t.vista.every(v=>LAB_VISTE.includes(v))))return `«vista» è un elenco tra: ${LAB_VISTE.join(', ')}`;
+      if(t.operazioni!==undefined&&!(Array.isArray(t.operazioni)&&t.operazioni.every(v=>LAB_OPS[v])))return `«operazioni» è un elenco tra: ${Object.keys(LAB_OPS).join(', ')}`;
+      if(t.ruota!==undefined&&(typeof t.ruota!=='boolean'||(t.ruota&&t.bit!==4)))return '«ruota» (true/false) si usa solo con 4 bit';
+      const M=2**t.bit;if(t.valore!==undefined&&!(Number.isInteger(t.valore)&&t.valore>=0&&t.valore<M))return `«valore» è un intero da 0 a ${M-1} (i bit letti senza segno)`;
+      const sf=t.sfide;if(sf!==undefined){if(!Array.isArray(sf)||sf.length>10)return '«sfide» è un elenco di al massimo 10 sfide';
+        for(let i=0;i<sf.length;i++){const s=sf[i],q=s&&s.quando;
+          if(!s||typeof s.testo!=='string'||!s.testo.trim()||(s.poi!==undefined&&typeof s.poi!=='string')||!q||typeof q!=='object'||!Object.keys(q).length)return `sfida ${i+1}: servono «testo», «quando» (e facoltativo «poi»)`;
+          for(const [k,v] of Object.entries(q)){
+            if(k==='senza_segno'&&!(Number.isInteger(v)&&v>=0&&v<M))return `sfida ${i+1}: senza_segno fuori da 0…${M-1}`;
+            else if(k==='con_segno'&&!(Number.isInteger(v)&&v>=-M/2&&v<M/2))return `sfida ${i+1}: con_segno fuori da ${-M/2}…${M/2-1}`;
+            else if(k==='bit'&&!(typeof v==='string'&&new RegExp(`^[01]{${t.bit}}$`).test(v)))return `sfida ${i+1}: «bit» è una stringa di ${t.bit} cifre 0/1`;
+            else if(k==='evento'&&!LAB_EV[v])return `sfida ${i+1}: «evento» è uno tra ${Object.keys(LAB_EV).join(', ')}`;
+            else if(!['senza_segno','con_segno','bit','evento'].includes(k))return `sfida ${i+1}: condizione «${k}» sconosciuta (senza_segno, con_segno, bit, evento)`}}}
+      return null},
+    html(t,key,st){
+      const n=t.bit,M=2**n,v=Number.isInteger(st.v)?st.v:(t.valore||0),sg=v>=M/2?v-M:v,bits=v.toString(2).padStart(n,'0');
+      const vista=new Set(t.vista||['senza_segno','con_segno','esadecimale']),signed=vista.has('con_segno');
+      const ops=t.operazioni||['+1','-1','not','neg','zero'];
+      const lb=(a,label,cls,extra)=>`<button class="btn${cls?' '+cls:''}" data-act="tool" data-key="${key}" data-op="lab" data-a="${a}"${extra||''}>${label}</button>`;
+      /* i bit da accendere, con il loro peso sotto: senza segno e, se serve, con segno (solo il primo cambia) */
+      const bitBtns=[...bits].map((b,i)=>{const w=2**(n-1-i);
+        return `<button class="lab-bit${b==='1'?' on':''}" data-act="tool" data-key="${key}" data-op="lab" data-a="b${n-1-i}" aria-pressed="${b==='1'}" aria-label="bit ${n-1-i}">${b}
+          <small>${w}</small>${signed?`<small class="neg">${i===0?'−'+w:'&nbsp;'}</small>`:''}</button>`}).join('');
+      const on=[...bits].map((b,i)=>b==='1'?i:-1).filter(i=>i>=0);
+      const sumU=on.length?on.map(i=>2**(n-1-i)).join(' + '):'0',sumS=on.length?on.map(i=>i===0?'−'+2**(n-1):String(2**(n-1-i))).join(' + ').replace('+ −','− '):'0';
+      const read=[];
+      if(vista.has('senza_segno'))read.push(['Senza segno',String(v),`${sumU} = ${v}`]);
+      if(signed)read.push(['Con segno (complemento a due)',String(sg).replace('-','−'),`${sumS} = ${String(sg).replace('-','−')}`]);
+      if(vista.has('esadecimale'))read.push(['Esadecimale','0x'+v.toString(16).toUpperCase().padStart(n/4,'0'),'ogni 4 bit una cifra: '+bits.match(/.{4}/g).map(q=>q+' → '+parseInt(q,2).toString(16).toUpperCase()).join(', ')]);
+      if(vista.has('ottale'))read.push(['Ottale','0'+v.toString(8),'gruppi di 3 bit da destra']);
+      if(vista.has('ascii')&&n===8)read.push(['Carattere ASCII',v>=32&&v<127?'«'+String.fromCharCode(v)+'»':'(non stampabile)',v>=128?'oltre 127: ASCII esteso':`codice ${v}`]);
+      const ev=st.ev?`<div class="lab-ev ${st.ev.k}">${esc(st.ev.t)}</div>`:'';
+      return `<div class="lab-byte">
+        <div class="lab-bits" style="--n:${n}">${bitBtns}</div>
+        ${signed?`<div class="lab-wl"><span>sotto ogni bit il suo peso; in rosso il peso del primo bit quando leggi <b>con segno</b>. Sulla ruota: fuori senza segno, dentro (in rosso) con segno</span></div>`:'<div class="lab-wl"><span>sotto ogni bit il suo peso</span></div>'}
+        <div class="lab-ops">${ops.map(o=>lb(o,LAB_OPS[o],o==='+1'||o==='-1'?'primary':'')).join('')}</div>
+        ${ev}
+        <div class="lab-main">${t.ruota?labWheel(n,v,signed):''}<div class="lab-read">${read.map(r=>`<div class="lab-r"><span class="eyebrow">${r[0]}</span><b class="num">${esc(r[1])}</b><small>${esc(r[2])}</small></div>`).join('')}</div></div>
+      </div>`},
+    state(t,st){const n=t.bit,M=2**n,v=Number.isInteger(st.v)?st.v:(t.valore||0);return {v,bits:v.toString(2).padStart(n,'0'),u:v,s:v>=M/2?v-M:v}},
+    act(t,st,a){
+      const n=t.bit,M=2**n,v=Number.isInteger(st.v)?st.v:(t.valore||0),S=x=>x>=M/2?x-M:x,f=x=>String(x).replace('-','−');let nv=v,ev=null;
+      if(/^b\d$/.test(a)){const k=+a.slice(1);if(k<n)nv=v^(1<<k)}
+      else if(a==='+1'){nv=(v+1)%M;if(v===M-1)ev={k:'riporto',t:`Riporto oltre l'ultimo bit: ${M-1} + 1 = 0 senza segno. Il ${n+1}° bit non c'è e si perde.`};
+        else if(S(v)===M/2-1)ev={k:'overflow',t:`Overflow con segno: ${f(S(v))} + 1 dà ${f(S(nv))}. Due positivi, risultato negativo: il valore giusto (${M/2}) non sta in ${n} bit.`}}
+      else if(a==='-1'){nv=(v+M-1)%M;if(v===0)ev={k:'riporto',t:`Prestito oltre l'ultimo bit: 0 − 1 = ${M-1} senza segno, cioè −1 con segno.`};
+        else if(S(v)===-M/2)ev={k:'overflow',t:`Overflow con segno: ${f(-M/2)} − 1 dà ${f(S(nv))}. Il valore giusto (${f(-M/2-1)}) non sta in ${n} bit.`}}
+      else if(a==='not'){nv=(M-1)^v;ev={k:'info',e:'inverti',t:`Ogni 0 diventa 1 e ogni 1 diventa 0. Con segno: ${f(S(v))} → ${f(S(nv))}, cioè −x − 1. Per avere −x manca il +1.`}}
+      else if(a==='neg'){nv=(M-v)%M;ev=S(v)===-M/2?{k:'overflow',e:'cambio_segno',t:`${f(-M/2)} non ha l'opposto in ${n} bit: inverti e aggiungi 1 e torni a ${f(-M/2)}. +${M/2} non ci sta.`}
+        :{k:'info',t:`Inverti i bit e aggiungi 1: ${f(S(v))} → ${f(S(nv))}.`}}
+      else if(a==='zero')nv=0;
+      st.v=nv;st.ev=ev;return ev}
+  }
+};
+/* la ruota dei valori (solo 4 bit): senza segno fuori, con segno dentro, il punto è il valore attuale.
+   In alto la cucitura del riporto (15 → 0), in basso quella dell'overflow con segno (7 → −8). */
+function labWheel(n,v,signed){
+  const M=2**n,cx=150,cy=150,R=104,pt=(i,r)=>{const a=(-90+i*360/M)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)]};
+  const seam=(i,cls,label,dy)=>{const [x1,y1]=pt(i-.5,R-30),[x2,y2]=pt(i-.5,R+30);return `<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><text class="lab-seamt ${cls}" x="${cx}" y="${cy+dy}" text-anchor="middle">${label}</text>`};
+  let g=`<circle class="lab-ring" cx="${cx}" cy="${cy}" r="${R}"/>`;
+  if(signed)g+=`<path class="lab-neg" d="M ${pt(M/2-.5,R)} A ${R} ${R} 0 0 1 ${pt(M-.5,R)}" />`;
+  for(let i=0;i<M;i++){const [x,y]=pt(i,R),[ox,oy]=pt(i,R+22),[ix,iy]=pt(i,R-22),cur=i===v,s=i>=M/2?i-M:i;
+    g+=`<circle class="lab-dot${cur?' cur':''}${signed&&s<0?' n':''}" cx="${x}" cy="${y}" r="${cur?11:6}"/>`+
+       `<text class="lab-u${cur?' cur':''}" x="${ox}" y="${oy+4}" text-anchor="middle">${i}</text>`+
+       (signed&&s<0?`<text class="lab-s${cur?' cur':''}${s<0?' n':''}" x="${ix}" y="${iy+4}" text-anchor="middle">${String(s).replace('-','−')}</text>`:'')}
+  g+=seam(0,'lab-car',' ',0);
+  if(signed)g+=seam(M/2,'lab-ovf',' ',0);
+  const bits=v.toString(2).padStart(n,'0');
+  g+=`<text class="lab-cbits" x="${cx}" y="${cy+2}" text-anchor="middle">${bits}</text>`+
+     `<text class="lab-ct" x="${cx}" y="${cy-30}" text-anchor="middle">riporto ↑</text>`+
+     (signed?`<text class="lab-ct ovf" x="${cx}" y="${cy+44}" text-anchor="middle">↓ overflow</text>`:'');
+  return `<svg class="lab-wheel" viewBox="0 0 300 300" role="img" aria-label="ruota dei ${M} valori di ${n} bit">${g}</svg>`;
+}
+/* una sfida è raggiunta quando lo stato (e l'ultimo evento) soddisfano tutte le sue condizioni */
+function labMet(q,s,ev){return Object.entries(q).every(([k,v])=>k==='senza_segno'?s.u===v:k==='con_segno'?s.s===v:k==='bit'?s.bits===v:k==='evento'?!!ev&&(ev.e||ev.k)===v:false)}
+function labHTML(t,key,st){
+  const L=LAB[t.modulo],sf=arr(t.sfide),done=new Set(arr(st.sdone)),cur=sf.findIndex((x,i)=>!done.has(i)),just=Number.isInteger(st.sjust)?sf[st.sjust]:null;
+  const sfHTML=sf.length?`<div class="lab-sf"><div class="lab-sfh"><span class="eyebrow">Sfide</span><span class="num">${done.size} di ${sf.length}</span>${done.size||Number.isInteger(st.v)?`<button class="btn small ghost" data-act="tool" data-key="${key}" data-op="reset">Ricomincia</button>`:''}</div>
+      ${just?`<div class="cls-fb ok"><b>✓ ${mdInline(just.testo)}</b>${just.poi?' '+mdInline(just.poi):''}</div>`:''}
+      ${cur>=0?`<div class="lab-goal"><span class="eyebrow">Adesso prova a…</span><div>${mdInline(sf[cur].testo)}</div></div>`:`<div class="box sol"><span class="eyebrow">Tutte fatte</span>Hai completato le sfide. Continua a giocare con i bit, se vuoi.</div>`}
+      ${done.size?`<ul class="lab-done">${sf.map((x,i)=>done.has(i)&&i!==st.sjust?`<li>✓ ${mdInline(x.testo)}</li>`:'').join('')}</ul>`:''}</div>`:'';
+  return sfHTML+L.html(t,key,st);
+}
+function labAct(t,st,a){
+  const L=LAB[t.modulo],ev=L.act(t,st,a),sf=arr(t.sfide),done=new Set(arr(st.sdone)),cur=sf.findIndex((x,i)=>!done.has(i));
+  st.sjust=null;
+  if(cur>=0&&labMet(sf[cur].quando,L.state(t,st),ev)){done.add(cur);st.sdone=[...done];st.sjust=cur}
+}
+const TOOL_TIPI={passi:'Passo passo',schema:'Schema da esplorare',domanda:'Mettiti alla prova',collega:'Collega',classifica:'Classifica',laboratorio:'Laboratorio'};
 /* colori che un pannello può dare alle celle con un certo testo (campo «toni»: {"alto":"rosso", ...}) */
 const TONI={verde:'ok',giallo:'warn',rosso:'urgent',blu:'acc',grigio:'mut'};
 const toolCache=new Map(),toolReg=new Map();
@@ -796,6 +941,10 @@ function toolCheck(raw){
   if(t.tipo==='collega'){
     if(!Array.isArray(t.coppie)||t.coppie.length<2||t.coppie.length>10)return {err:'«coppie» deve avere da 2 a 10 elementi'};
     if(t.coppie.some(c=>!c||!S_(c.a)||!S_(c.b)))return {err:'ogni coppia ha «a» e «b»'};
+  }
+  if(t.tipo==='laboratorio'){
+    if(!LAB[t.modulo])return {err:`modulo di laboratorio «${String(t.modulo)}» sconosciuto (possibili: ${Object.keys(LAB).join(', ')})`};
+    const e=LAB[t.modulo].check(t);if(e)return {err:e};
   }
   if(t.tipo==='classifica'){
     const G=t.griglia;
@@ -886,6 +1035,7 @@ function toolHTML(raw){
       <div>${perm.map(i=>`<button class="tool-opt${done.has(i)?' ok':st.bad===i?' no':''}" data-act="tool" data-key="${key}" data-op="right" data-n="${i}"${done.has(i)?' disabled':''}>${mdInline(t.coppie[i].b)}</button>`).join('')}</div></div>
       ${done.size===n?`<div class="box sol"><span class="eyebrow">Fatto</span>Hai collegato tutto. ${bt('reset','Ricomincia','small ghost')}</div>`:st.msg?`<p class="small ${st.bad!=null?'tool-no':'tool-ok'}" style="margin:8px 0 0">${esc(st.msg)}</p>`:''}`;
   }
+  if(t.tipo==='laboratorio'){body=labHTML(t,key,st);const sf=arr(t.sfide);end=sf.length>0&&arr(st.sdone).length===sf.length}
   if(t.tipo==='classifica'){
     const E=t.elementi,cats=clsCats(t),placed=obj(st.placed),errs=obj(st.err);
     const cur=E.findIndex((e,i)=>placed[i]==null),done=cur<0,first=E.filter((e,i)=>placed[i]!=null&&!errs[i]).length,nPl=Object.keys(placed).length;
@@ -923,6 +1073,7 @@ function toolAct(b){
   const st=S.tool[key]=S.tool[key]||{},n=+b.dataset.n;
   if(op==='obs'){st.obs=!st.obs;rerender();return}
   if(op==='why'){st.why=!st.why;rerender();return}
+  if(t.tipo==='laboratorio'){if(op==='lab')labAct(t,st,String(b.dataset.a||''));if(op==='reset')S.tool[key]={};rerender();return}
   if(t.tipo==='passi'){
     const last=t.passi.length-1;st.pred=obj(st.pred);
     if(op==='play'){if(S.play&&S.play.key===key){stopPlay();rerender();return}
