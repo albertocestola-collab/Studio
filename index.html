@@ -142,6 +142,28 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 .pv-ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;font-size:15px}
 .pv-dv{border-left:6px solid var(--warn)}
 .pv-dv .eyebrow{color:var(--warn)}
+/* simulazione d'esame (v28) */
+.sim-bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--bg);padding:10px 2px;border-bottom:1px solid var(--line)}
+.sim-bar .t{font-size:17px}
+.sim-clock{font-family:var(--f-display);font-size:24px;font-weight:800;padding:2px 12px;border-radius:10px;background:var(--accent-soft);color:var(--accent);min-width:84px;text-align:center}
+.sim-clock.warn{background:var(--warn-soft);color:var(--warn)}
+.sim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:6px}
+.sim-n{height:40px;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.sim-n.on{background:var(--accent-soft);border-color:var(--accent-soft);color:var(--accent)}
+.sim-n.cur{border:2.5px solid var(--accent);color:var(--ink)}
+.qz-op.sel{border-color:var(--accent);background:var(--accent-soft)}
+.qz-op.sel .qz-l{background:var(--accent);color:var(--accent-ink)}
+.sim-nav{display:flex;gap:10px}
+.sim-nav .btn{flex:1}
+.sim-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.sim-cf{border-left:6px solid var(--warn)}
+.sim-btn{margin-top:6px}
+/* al PC la simulazione non si allarga a tutto lo schermo: le righe lunghe si leggono male */
+.sim-page{width:100%;max-width:760px;margin:0 auto}
+.sim-score{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.sim-score b{font-family:var(--f-display);font-size:44px;line-height:1}
+.sim-score span{font-size:18px;color:var(--muted);font-weight:700}
+.sim-rq .btnrow{margin-top:10px}
 @media (prefers-reduced-motion:reduce){.pv-det summary::before{transition:none}}
 
 /* card e testi */
@@ -1468,6 +1490,12 @@ function validate(p,bytes){
         /* periodi (v27): le finestre di giorni di una prova (per esempio una sessione di finali); lezioni: { dal, al } */
         if(opt(x,'periodi',ww,'arr'))arr(x.periodi).forEach((q,j)=>{if(!okPer(q))E(`${ww} il periodo ${j+1} deve avere dal e al scritti come AAAA-MM-GG.`)});
         if(x.lezioni!==undefined&&opt(x,'lezioni',ww,'obj')){const L=x.lezioni;if(!(Number.isInteger(L.dal)&&Number.isInteger(L.al)&&L.dal>=1&&L.al>=L.dal))E(`${ww} lezioni deve avere dal e al, numeri interi con dal non più grande di al.`)}
+        /* simulazione (v28): la prova d'allenamento a tempo, con i quiz degli argomenti elencati */
+        if(x.simulazione!==undefined&&opt(x,'simulazione',ww,'obj')){const c=x.simulazione;
+          if(!(Number.isInteger(c.domande)&&c.domande>0))E(`${ww} simulazione.domande deve essere un numero intero maggiore di 0.`);
+          if(!(typeof c.minuti==='number'&&c.minuti>0))E(`${ww} simulazione.minuti deve essere un numero maggiore di 0.`);
+          if(c.soglia!==undefined&&!(Number.isInteger(c.soglia)&&c.soglia>=0&&c.soglia<=c.domande))E(`${ww} simulazione.soglia deve essere un numero intero tra 0 e il numero di domande.`);
+          if(!arr(c.argomenti).length||!arr(c.argomenti).every(isStr))E(`${ww} simulazione.argomenti deve essere un elenco di id di argomenti.`);}
         if(!arr(x.date).length&&!arr(x.periodi).length&&!isStr(x.quando))E(`${ww} servono le date, i periodi oppure il campo quando.`);
         if(x.prenotazione!==undefined&&opt(x,'prenotazione',ww,'obj'))for(const f of ['dal','al'])if(!isDate(obj(x.prenotazione)[f]))E(`${ww} prenotazione.${f} deve essere una data scritta come AAAA-MM-GG.`);
       });
@@ -1771,6 +1799,8 @@ function buildExport(all){
     quiz:recs.filter(r=>r.tipo==='quiz').map(r=>[r.rif,r.esito==='giusta'?1:0,r.data]),
     letture:recs.filter(r=>r.tipo==='lettura').map(r=>[r.rif,r.data]),
     attivita:recs.filter(r=>r.tipo==='attivita').map(r=>[r.rif,r.data]),
+    /* simulazioni (v28): [prova, giuste, domande, data, minuti usati, id delle domande sbagliate o senza risposta] */
+    simulazioni:recs.filter(r=>r.tipo==='simulazione').map(r=>[r.rif,r.giuste,r.n,r.data,Math.round((r.usati||0)/60),arr(r.sbagliate)]),
     scarico:[],jolly:[],minuti:{},note:recs.filter(r=>r.tipo==='spiegalo').map(r=>r.rif+': '+r.testo)};
   const changed=(S.imp.scelte_ts||0)>since?1:0;
   return {text:`PROGRESSI STUDIO v1 · dal ${dal} al ${al}\n`+JSON.stringify(o),count:recs.length+changed};
@@ -1824,7 +1854,7 @@ function calendarHTML(e){const prove=arr(e.prove),req=arr(e.requisiti);if(!prove
       ${pr.quando?`<div class="cal-d">${esc(pr.quando)}</div>`:''}
       ${b?`<div class="dl-book ${b.cls}">${esc(cap1(b.txt))}</div>`:''}
       ${pr.programma?`<div class="muted small">Programma: ${esc(pr.programma)}</div>`:''}
-      ${pr.nota?`<div class="muted small">${esc(pr.nota)}</div>`:''}</div>`};
+      ${pr.nota?`<div class="muted small">${esc(pr.nota)}</div>`:''}${simBtn(e,pr)}</div>`};
   const done=req.filter(r=>reqDone(e.id,r)).length;
   return `<section class="card cal stack-s"><div class="eyebrow">Calendario</div>${prove.map(prova).join('')}
     ${prove.length?'<button class="btn small" data-act="goto-prove" style="align-self:flex-start">Tutte le prove e le regole</button>':''}
@@ -1872,7 +1902,7 @@ function tlItem(x,next){const pr=x.pr,b=x.past?null:bookText(pr),w=whenText(x);
     ${x.riserve&&x.riserve.length?`<div class="muted">Riserva: ${esc(x.riserve.map(dayDate).join(', '))}</div>`:''}
     ${b?`<div class="dl-book ${b.cls}">${esc(cap1(b.txt))}</div>`:''}
     ${pr.programma?`<div class="muted">${esc(cap1(pr.programma))}</div>`:''}
-    ${pr.nota?`<div class="tl-nota${/^da verificare/i.test(pr.nota)?' warn':''}">${esc(pr.nota)}</div>`:''}</div></div>`}
+    ${pr.nota?`<div class="tl-nota${/^da verificare/i.test(pr.nota)?' warn':''}">${esc(pr.nota)}</div>`:''}${x.past?'':simBtn(x.e,pr)}</div></div>`}
 function proveHero(list){const x=list.find(y=>!y.past&&y.k);if(!x)return '';
   const pr=x.pr,b=bookText(pr),n=Math.max(0,diffDays(todayKey(),x.k)),inC=x.end&&todayKey()>=x.k;
   return `<section class="card pv-hero"><div class="eyebrow">La prossima prova</div>
@@ -1880,7 +1910,8 @@ function proveHero(list){const x=list.find(y=>!y.past&&y.k);if(!x)return '';
     <div class="pv-big">${esc(x.e.nome)}</div>
     <div class="pv-when"><b>${esc(x.ps?perText(x.ps):cap1(longDate(x.k)))}</b></div>
     <div class="tl-w"><span class="chip">${esc(pr.nome)}</span>${modChip(pr.modalita)}</div>
-    ${b?`<div class="dl-book ${b.cls}">${esc(cap1(b.txt))}.</div>`:''}</section>`}
+    ${b?`<div class="dl-book ${b.cls}">${esc(cap1(b.txt))}.</div>`:''}
+    ${simCfg(pr)?`<div><button class="btn primary sim-btn" data-act="sim-open" data-e="${esc(x.e.id)}" data-p="${esc(pr.id)}">Simula questa prova</button></div>`:''}</section>`}
 function partDL(q){const rows=[['Dove',q.dove],['Programma',q.programma],['Per passare',q.soglia],['Quando',q.quando],['Nota',q.nota]].filter(r=>typeof r[1]==='string'&&r[1]);
   return `${isN(q.domande)||isN(q.minuti)?`<div class="pv-nums">${isN(q.domande)?`<span><b class="num">${esc(q.domande)}</b>domande</span>`:''}${isN(q.minuti)?`<span><b class="num">${esc(q.minuti)}</b>minuti</span>`:''}</div>`:''}
     ${rows.length?`<dl class="pv-dl">${rows.map(r=>`<dt>${r[0]}</dt><dd>${mdInline(r[1])}</dd>`).join('')}</dl>`:''}`}
@@ -1928,6 +1959,9 @@ function proveOther(G){const ss=arr(G.strade).filter(x=>x&&typeof x==='object'),
   return `<section class="card"><div class="eyebrow" style="margin-bottom:4px">Le altre strade</div>${rest.map(x=>
     detList(x.nome,`<div class="stack-s">${arr(x.parti).filter(q=>q&&typeof q==='object').map(partDL).join('')}${x.nota?`<p class="pv-p">${mdInline(x.nota)}</p>`:''}</div>`,'',x.sottotitolo||'')).join('')}</section>`}
 function renderProve(){
+  if(simRun()){if(!S.sim||S.sim.view!=='run'){const r=simRun(),k=r.ids.findIndex(id=>!Number.isInteger(r.ans[id]));S.sim={view:'run',i:k<0?0:k,confirm:null}}return simRunView($('#v-prove'))}
+  if(S.sim&&S.sim.view==='start')return simStartView($('#v-prove'));
+  if(S.sim&&S.sim.view==='res')return simResView($('#v-prove'));
   const v=$('#v-prove'),G=guidaS(),list=proveList(),nextI=list.findIndex(x=>!x.past&&x.k);
   let tl='',m=null;
   list.forEach((x,i)=>{const mm=x.k?x.k.slice(0,7):'';
@@ -1946,6 +1980,131 @@ function renderProve(){
         ${remotePending().length?'<button class="btn primary" data-act="remote-update" style="align-self:flex-start">Aggiorna</button>':''}</section>`}
     ${G&&(G.aggiornata_il||G.fonti)?`<p class="note">${G.aggiornata_il&&isDate(G.aggiornata_il)?'Aggiornato il '+esc(shortDate(G.aggiornata_il))+'. ':''}${esc(G.fonti||'')}</p>`:''}`;
 }
+
+/* ---------- simulazione d'esame (dal 20 novembre 2026, v28) ----------
+   Come la prova vera: domande pescate a caso dai quiz degli argomenti della prova, cronometro, nessuna spiegazione durante.
+   Il pacchetto nuovo_esame dice per ogni prova: simulazione {domande, minuti, soglia (facoltativa), argomenti}.
+   La simulazione in corso sta in impostazioni.sim_corrente con l'ORA D'INIZIO (non un contatore): il tempo corre anche
+   se cambi pagina o chiudi l'app, come all'esame. Le domande già uscite stanno in impostazioni.sim_usate, così la volta dopo
+   escono prima quelle nuove. L'esito va nei progressi (sim:<esame>:<prova>:<ora>, tipo simulazione), in Vittorie e nell'export. */
+const SIM_K='sim_corrente';
+const simCfg=pr=>{const c=obj(pr&&pr.simulazione);return Number.isInteger(c.domande)&&c.domande>0&&isN(c.minuti)&&c.minuti>0&&arr(c.argomenti).length?c:null};
+function simFind(eid,pid){const e0=S.esami.get(eid),pr=e0&&arr(e0.prove).find(p=>p&&p.id===pid);return pr&&simCfg(pr)?{e:effExam(e0),pr,c:simCfg(pr)}:null}
+const simBtn=(e,pr)=>simCfg(pr)?`<div><button class="btn small sim-btn" data-act="sim-open" data-e="${esc(e.id)}" data-p="${esc(pr.id)}">Simula la prova</button></div>`:'';
+const simQuiz=a=>arr(obj(a.verifica).quiz).filter(q=>q&&typeof q.id==='string'&&typeof q.domanda==='string'&&arr(q.opzioni).length>1&&Number.isInteger(q.corretta));
+/* modo «iniziati»: solo gli argomenti con almeno una sezione letta */
+const simPool=(c,modo)=>arr(c.argomenti).map(id=>S.arg.get(id)).filter(a=>a&&(modo!=='iniziati'||topicStats(a).read>0)).map(a=>({a,qs:simQuiz(a)})).filter(x=>x.qs.length);
+const simCount=pool=>pool.reduce((t,x)=>t+x.qs.length,0);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+/* se le domande pronte sono meno di quelle della prova, la simulazione si accorcia allo stesso ritmo (stessi secondi a domanda) */
+function simSize(c,avail){const n=Math.max(1,Math.min(c.domande,avail)),f=n/c.domande;
+  return {n,sec:Math.max(1,Math.round(c.minuti*f))*60,soglia:Number.isInteger(c.soglia)?Math.ceil(c.soglia*f):null,ridotta:n<c.domande}}
+/* una domanda per argomento a giro, così ci sono tutte le lezioni; dentro ogni argomento prima quelle mai uscite; poi in ordine sparso */
+function simPick(pool,n,used){
+  const lists=shuf(pool).map(x=>{const q=shuf(x.qs);return q.filter(y=>!used.has(y.id)).concat(q.filter(y=>used.has(y.id)))});
+  const out=[];
+  for(let k=0;out.length<n&&lists.some(l=>l.length);k++){const l=lists[k%lists.length];if(l.length)out.push(l.shift())}
+  return shuf(out).map(q=>q.id)}
+const simRun=()=>{const r=S.imp[SIM_K];return r&&typeof r==='object'&&Array.isArray(r.ids)&&r.ids.length&&r.ans&&typeof r.ans==='object'?r:null};
+const simLeft=r=>Math.max(0,Math.ceil((r.start+r.sec*1000-Date.now())/1000));
+const mmss=t=>Math.floor(t/60)+':'+pad(t%60);
+const durText=t=>{const m=Math.floor(t/60),r=t%60;return m?m+' min'+(r?' '+r+' s':''):r+' s'};
+const simRecs=(eid,pid)=>[...S.prog.values()].filter(r=>r.tipo==='simulazione'&&r.esame===eid&&r.rif===pid).sort((a,b)=>b.ts-a.ts);
+const simAnswered=r=>r.ids.filter(id=>Number.isInteger(r.ans[id])).length;
+async function simStart(eid,pid,modo){const f=simFind(eid,pid);if(!f)return;
+  const pool=simPool(f.c,modo),avail=simCount(pool);if(!avail){toast('Non ci sono ancora domande per questa prova');return}
+  const z=simSize(f.c,avail),uk=eid+'|'+pid,usate=obj(S.imp.sim_usate),used=new Set(arr(usate[uk]));
+  const ids=simPick(pool,z.n,used);
+  /* quando sono uscite tutte le domande, si ricomincia da capo */
+  let nu=new Set([...used,...ids]);if(pool.every(x=>x.qs.every(q=>nu.has(q.id))))nu=new Set(ids);
+  await setImp('sim_usate',{...usate,[uk]:[...nu]});
+  await setImp(SIM_K,{eid,pid,esame:f.e.nome,prova:f.pr.nome,ids,ans:{},start:Date.now(),sec:z.sec,soglia:z.soglia,ridotta:z.ridotta,modo});
+  S.sim={view:'run',i:0,confirm:null};S.tab='prove';lsSet(LS_TAB,'prove');render();window.scrollTo(0,0)}
+async function simFinish(scaduto){const r=simRun();if(!r)return;
+  const ts=Date.now(),ans=r.ids.map(id=>Number.isInteger(r.ans[id])?r.ans[id]:-1),sbagliate=[];let giuste=0;
+  r.ids.forEach((id,i)=>{const f=refFindQuiz(id);if(f&&ans[i]===f.q.corretta)giuste++;else sbagliate.push(id)});
+  const rec={id:`sim:${r.eid}:${r.pid}:${ts}`,tipo:'simulazione',rif:r.pid,esame:r.eid,esame_nome:r.esame,prova:r.prova,data:todayKey(),ts,
+    n:r.ids.length,giuste,soglia:r.soglia,sec:r.sec,usati:Math.min(r.sec,Math.round((ts-r.start)/1000)),scaduto:!!scaduto,ridotta:!!r.ridotta,modo:r.modo||'tutto',ids:r.ids,ans,sbagliate};
+  S.prog.set(rec.id,rec);await put('progressi',rec);
+  delete S.imp[SIM_K];await del('impostazioni',SIM_K);
+  S.sim={view:'res',rec:rec.id}}
+/* ogni secondo: aggiorna l'orologio senza ridisegnare la pagina; a tempo scaduto consegna da sola */
+function simTick(){const r=simRun();if(!r)return;const left=simLeft(r);
+  const el=$('#sim-clock');if(el){el.textContent=mmss(left);el.classList.toggle('warn',left<=300)}
+  const el2=$('#sim-now-left');if(el2)el2.textContent=mmss(left);
+  if(left<=0&&!S.simEnding){S.simEnding=true;
+    simFinish(true).then(()=>{S.simEnding=false;toast('Tempo scaduto: la simulazione è consegnata');if(S.tab==='prove'||S.tab==='adesso'){render();if(S.tab==='prove')window.scrollTo(0,0)}},()=>{S.simEnding=false})}}
+function simNowCard(){const r=simRun();if(!r)return '';
+  return `<button class="card deadline" data-act="goto-prove"><span class="eyebrow">Simulazione in corso</span>
+    <span class="dl-what">${esc(r.esame)} · ${esc(r.prova.charAt(0).toLowerCase()+r.prova.slice(1))} · mancano <b id="sim-now-left" class="num">${mmss(simLeft(r))}</b></span>
+    <span class="muted small">Il tempo corre. Tocca per tornare alle domande.</span></button>`}
+function simStartView(v){const f=simFind(S.sim.eid,S.sim.pid);if(!f){S.sim=null;renderProve();return}
+  const c=f.c,modo=S.sim.modo==='iniziati'?'iniziati':'tutto',pT=simPool(c,'tutto'),pI=simPool(c,'iniziati'),nT=simCount(pT),nI=simCount(pI);
+  const avail=modo==='iniziati'?nI:nT,z=simSize(c,avail),L=obj(f.pr.lezioni),lez=L.dal?`delle lezioni ${L.dal}–${L.al}`:'del programma della prova';
+  const miss=arr(c.argomenti).filter(id=>!S.arg.has(id)||!simQuiz(S.arg.get(id)).length).length,past=simRecs(f.e.id,f.pr.id);
+  v.innerHTML=`<div class="stack sim-page"><div><button class="back" data-act="sim-close">${IC.left}Prove</button></div>
+  <div><h1 class="page-h">Simulazione</h1><p class="muted" style="margin:6px 0 0">${esc(f.e.nome)} · ${esc(f.pr.nome)}</p></div>
+  <section class="card stack-s">
+    <div class="pv-nums"><span><b class="num">${avail?z.n:0}</b>domande</span><span><b class="num">${z.sec/60}</b>minuti</span>${z.soglia!=null&&avail?`<span><b class="num">${z.soglia}</b>giuste per passare</span>`:''}</div>
+    <div class="eyebrow" style="margin-top:4px">Da dove pesco le domande</div>
+    <div class="seg" role="group" aria-label="Da dove pescare le domande"><button data-act="sim-mode" data-m="tutto" aria-pressed="${modo==='tutto'}">Tutte le lezioni</button><button data-act="sim-mode" data-m="iniziati" aria-pressed="${modo==='iniziati'}"${nI?'':' disabled'}>Solo quelle iniziate</button></div>
+    <p class="pv-p muted">${modo==='tutto'?`Dalle ${nT} domande dei quiz ${esc(lez)}, come all'esame.`:`Dalle ${nI} domande degli argomenti in cui hai letto almeno una sezione.`}${nI?'':' «Solo quelle iniziate» si sblocca quando leggi la prima sezione.'}</p>
+    ${z.ridotta&&avail?`<div class="tl-nota warn">Le domande pronte sono ${avail}: la simulazione è più corta, ma con lo stesso tempo a domanda dell'esame.</div>`:''}
+    ${miss&&modo==='tutto'?`<div class="tl-nota">Per ${pl(miss,'argomento','argomenti')} di questa prova non ci sono ancora i quiz nell'app.</div>`:''}
+    <button class="btn primary big" data-act="sim-start"${avail?'':' disabled'}>Inizia: parte il cronometro</button></section>
+  <section class="card stack-s"><div class="eyebrow">Come funziona</div><ul class="pv-ul">
+    <li>Una domanda alla volta, con 4 risposte. Puoi tornare indietro e cambiare finché non <b>consegni</b>.</li>
+    <li>Niente spiegazioni durante: le vedi tutte alla fine, con l'argomento da ripassare.</li>
+    <li>Il tempo corre anche se esci dall'app, come all'esame: scegli ${z.sec/60} minuti tranquilli.</li>
+    <li>Al PC: tasti <b>A B C D</b> per rispondere, frecce <b>← →</b> per spostarti.</li></ul></section>
+  ${past.length?`<section class="card stack-s"><div class="eyebrow">Le tue simulazioni</div><div class="stack-s">${limited('simp:'+f.pr.id,past,simPastRow,3)}</div></section>`:''}</div>`}
+function simPastRow(r){const ok=r.soglia!=null?r.giuste>=r.soglia:null;
+  return `<button class="row" data-act="sim-show" data-id="${esc(r.id)}"><span class="n">${esc(r.giuste)}</span><span class="txt"><span class="t">${esc(r.giuste)} giuste su ${esc(r.n)}${ok===true?' · superata':ok===false?' · non ancora':''}</span>
+    <span class="m">${esc(shortDate(r.data))} · ${r.scaduto?'tempo scaduto':esc(durText(r.usati))}${r.ridotta?' · più corta':''}${r.modo==='iniziati'?' · solo lezioni iniziate':''}</span></span>${IC.right}</button>`}
+function simRunView(v){const r=simRun(),n=r.ids.length,i=Math.max(0,Math.min(n-1,S.sim.i|0));S.sim.i=i;
+  const id=r.ids[i],f=refFindQuiz(id),q=f&&f.q,ch=r.ans[id],left=simLeft(r),done=simAnswered(r),miss=n-done,cf=S.sim.confirm;
+  const conf=cf==='end'?`<section class="card stack-s sim-cf" role="alert"><b>${miss===1?"C'è una domanda senza risposta: conta come sbagliata.":`Ci sono ${miss} domande senza risposta: contano come sbagliate.`}</b>
+      <div class="btnrow"><button class="btn primary" data-act="sim-cf-no">Torna alle domande</button><button class="btn" data-act="sim-end-ok">Consegna lo stesso</button></div></section>`
+    :cf==='quit'?`<section class="card stack-s sim-cf" role="alert"><b>Vuoi interrompere? Questa simulazione non viene salvata.</b>
+      <div class="btnrow"><button class="btn primary" data-act="sim-cf-no">Continua</button><button class="btn" data-act="sim-quit-ok">Interrompi</button></div></section>`:'';
+  v.innerHTML=`<div class="stack sim-page"><div class="sim-bar"><span class="t"><b>Domanda ${i+1}</b> di ${n}</span><span class="muted small">${done} ${done===1?'risposta':'risposte'}</span>
+      <b id="sim-clock" class="sim-clock num${left<=300?' warn':''}" role="timer" aria-label="Tempo rimasto">${mmss(left)}</b></div>
+    ${conf}
+    <section class="card qz">${q?`<div class="eyebrow" style="margin-bottom:6px">${esc(r.esame)}</div><div class="qz-d">${md(q.domanda)}</div>
+      <div class="qz-ops">${arr(q.opzioni).map((o,j)=>`<button class="qz-op${ch===j?' sel':''}" data-act="sim-pick" data-o="${j}" aria-pressed="${ch===j}"><span class="qz-l">${'ABCDEF'[j]||j+1}</span><span class="qz-t">${md(String(o))}</span></button>`).join('')}</div>`
+      :`<p class="muted" style="margin:0">Questa domanda non c'è più nei contenuti: passa alla prossima.</p>`}</section>
+    <div class="sim-nav"><button class="btn" data-act="sim-go" data-i="${i-1}"${i?'':' disabled'}>${IC.left}Indietro</button>
+      ${i<n-1?`<button class="btn primary" data-act="sim-go" data-i="${i+1}">Avanti${IC.right}</button>`:'<button class="btn primary" data-act="sim-end">Consegna</button>'}</div>
+    <div class="sim-grid" role="group" aria-label="Vai a una domanda">${r.ids.map((x,j)=>{const a=Number.isInteger(r.ans[x]);
+      return `<button class="sim-n${a?' on':''}${j===i?' cur':''}" data-act="sim-go" data-i="${j}" aria-label="Domanda ${j+1}${a?', con risposta':''}"${j===i?' aria-current="step"':''}>${j+1}</button>`}).join('')}</div>
+    <div class="sim-foot"><button class="btn ghost small" data-act="sim-end">Consegna adesso</button><button class="btn ghost small" data-act="sim-quit">Interrompi</button></div></div>`}
+function simResView(v){const rec=S.prog.get(S.sim.rec);if(!rec){S.sim=null;renderProve();return}
+  const ok=rec.soglia!=null?rec.giuste>=rec.soglia:null,ans=arr(rec.ans);
+  const items=arr(rec.ids).map((id,i)=>({id,i,f:refFindQuiz(id),s:Number.isInteger(ans[i])?ans[i]:-1}));
+  const right=items.filter(x=>x.f&&x.s===x.f.q.corretta),wrong=items.filter(x=>!right.includes(x)),blank=items.filter(x=>x.s<0).length;
+  const by=new Map();for(const x of wrong)if(x.f)by.set(x.f.a.id,(by.get(x.f.a.id)||0)+1);
+  const P=obj(obj(guidaS()).punteggio),need=Number.isInteger(P.minimo)?P.minimo-rec.giuste:null;
+  const msg=ok===true?`Superata: ne servivano ${rec.soglia}.`:ok===false?`Non ancora: ne servivano ${rec.soglia}, ne sono mancate ${rec.soglia-rec.giuste}. Qui sotto vedi dove ripassare.`:'';
+  const qCard=x=>{if(!x.f)return `<section class="card"><p class="muted" style="margin:0">Domanda ${x.i+1}: non c'è più nei contenuti.</p></section>`;
+    const q=x.f.q,g=x.s===q.corretta;
+    return `<section class="card qz sim-rq"><div class="qz-h"><span class="eyebrow">Domanda ${x.i+1} · ${esc(x.f.a.titolo)}</span>${g?'<span class="chip ok">✓ Giusta</span>':x.s<0?'<span class="chip warn">Senza risposta</span>':'<span class="chip red">Sbagliata</span>'}</div>
+      <div class="qz-d">${md(q.domanda)}</div>
+      <div class="qz-ops">${arr(q.opzioni).map((o,j)=>`<div class="qz-op${j===q.corretta?' ok':j===x.s?' bad':' off'}"><span class="qz-l">${'ABCDEF'[j]||j+1}</span><span class="qz-t">${md(String(o))}</span></div>`).join('')}</div>
+      ${q.spiegazione?`<div class="box${g?' sol':''}"><span class="eyebrow">${g?'Giusto':'La risposta giusta è la '+('ABCDEF'[q.corretta]||'')}</span>${md(q.spiegazione)}</div>`:''}
+      <div class="btnrow"><button class="btn small" data-act="open-topic" data-id="${esc(x.f.a.id)}">Apri l'argomento</button></div></section>`};
+  v.innerHTML=`<div class="stack sim-page"><div><button class="back" data-act="sim-close">${IC.left}Prove</button></div>
+  <div><h1 class="page-h">Com'è andata</h1><p class="muted" style="margin:6px 0 0">Simulazione · ${esc(rec.esame_nome)} · ${esc(rec.prova)} · ${esc(shortDate(rec.data))}</p></div>
+  <section class="card stack-s"><div class="sim-score"><b class="num">${esc(rec.giuste)}</b><span>giuste su ${esc(rec.n)}</span></div>
+    ${msg?`<p class="pv-msg ${ok?'good':'bad'}">${msg}</p>`:''}
+    <p class="pv-p muted">${rec.scaduto?`Tempo scaduto (${rec.sec/60} minuti).`:`Consegnata in ${esc(durText(rec.usati))}, su ${rec.sec/60} minuti.`}${blank?` ${blank===1?'Una domanda senza risposta.':blank+' domande senza risposta.'}`:''}${rec.ridotta?' Simulazione più corta: le domande pronte erano poche.':''}</p>
+    ${ok===true&&!rec.ridotta&&P.intermedia===rec.n&&need!=null?`<p class="pv-p">Se fosse l'esame vero, alla finale te ne servirebbero ${need>0?`almeno <b>${need}</b>`:`<b>zero</b>: arriveresti già a ${P.minimo}`}.</p>`:''}
+    ${ok==null?`<p class="pv-p muted">Alla finale conta la somma con le giuste dell'intermedia: almeno ${Number.isInteger(P.minimo)?P.minimo:18} in tutto.</p>`:''}
+    <p class="pv-p">È un allenamento: ogni errore che trovi qui è uno in meno all'esame.</p></section>
+  ${by.size?`<section class="card stack-s"><div class="eyebrow">Dove ripassare</div><div class="stack-s">${limited('simt:'+rec.id,[...by.entries()].sort((a,b)=>b[1]-a[1]),([k,c])=>{const a=S.arg.get(k);
+    return `<button class="row" data-act="open-topic" data-id="${esc(k)}"><span class="n">${c}</span><span class="txt"><span class="t">${esc(a?a.titolo:k)}</span><span class="m">${pl(c,'errore','errori')}</span></span>${IC.right}</button>`})}</div></section>`:''}
+  ${wrong.length?`<h2 class="sec-h">Da rivedere · ${wrong.length}</h2><div class="stack-s">${limited('simw:'+rec.id,wrong,qCard,5)}</div>`:'<section class="card"><p style="margin:0"><b>Tutte giuste.</b> Bravissimo.</p></section>'}
+  ${right.length?`<section class="card"><details class="pv-det"><summary><b>Le giuste</b><span class="muted small">${right.length}</span></summary><div class="stack-s">${right.map(qCard).join('')}</div></details></section>`:''}
+  <div class="btnrow"><button class="btn primary" data-act="sim-open" data-e="${esc(rec.esame)}" data-p="${esc(rec.rif)}">Fai un'altra simulazione</button><button class="btn" data-act="sim-close">Torna alle prove</button></div></div>`}
 
 /* ---------- piano di studio (dal 12 novembre 2026, v16) ----------
    Claude decide COSA fare: per ogni esame un «binario» con le attività in ordine e i minuti stimati (pacchetto piano_studio).
@@ -2145,7 +2304,7 @@ function renderAdesso(){
   const st=planState();
   if(st){
     const tot=st.oggi.reduce((s,i)=>s+i.min,0),done=st.oggi.reduce((s,i)=>s+i.doneMin,0);
-    v.innerHTML=`<h1 class="page-h">Adesso</h1>${upd}${planNowCard(st)}
+    v.innerHTML=`<h1 class="page-h">Adesso</h1>${upd}${simNowCard()}${planNowCard(st)}
     ${st.oggi.length?`<section class="card stack-s"><div class="day-h"><span class="eyebrow">Il piano di oggi</span><span class="muted small num">${fmtMin(done)} di ${fmtMin(tot)} consigliati</span></div>
       <span class="bar"><b style="width:${tot?Math.round(done/tot*100):0}%"></b></span>
       <div class="pl-list">${st.oggi.map(x=>planRow(x,st.sem.length>1,true)).join('')}</div>
@@ -2157,7 +2316,7 @@ function renderAdesso(){
     <p class="note">Il piano si ricalcola da solo ogni volta che leggi una sezione o spunti un'attività.</p>`;
     return;
   }
-  const a=resumeTopic();let h='<h1 class="page-h">Adesso</h1>'+upd+deadlineCard();
+  const a=resumeTopic();let h='<h1 class="page-h">Adesso</h1>'+upd+simNowCard()+deadlineCard();
   if(a){const e=S.esami.get(a.esame_id),st=topicStats(a);
     h+=`<section class="card now stack-s"><div class="eyebrow">Riprendi · ${esc(e?e.nome:'')}</div>
       <div class="what">${esc(a.titolo)}</div>
@@ -2414,13 +2573,14 @@ function renderVittorie(){
   reads.forEach(r=>{const t=secTitle[r.rif];if(t)started.add(t[1])});
   /* le attività del piano spuntate a mano (per esempio una lezione studiata sulla dispensa del portale) */
   const attT={};const P=pianoS();if(P)for(const b of arr(P.binari))for(const a of arr(b.attivita))attT[a.id]=a.titolo;
-  const acts=[...S.prog.values()].filter(r=>r.tipo==='attivita'||(r.tipo==='esercizio'&&r.esito==='fatto'));
+  const acts=[...S.prog.values()].filter(r=>r.tipo==='attivita'||r.tipo==='simulazione'||(r.tipo==='esercizio'&&r.esito==='fatto'));
   v.innerHTML=`<h1 class="page-h">Vittorie</h1>
   <div class="kpis"><div class="kpi"><b>${reads.filter(r=>r.data===today).length}</b><span>sezioni lette oggi</span></div>
     <div class="kpi"><b>${reads.length}</b><span>sezioni lette in tutto</span></div></div>
   <section class="card"><div class="eyebrow" style="margin-bottom:6px">Ultime cose fatte</div>
     ${reads.length||acts.length?limited('wins',reads.concat(acts).sort((a,b)=>b.ts-a.ts),r=>{
       if(r.tipo==='esercizio'){const f=refFind(r.rif);return `<div class="win"><span class="d num">${esc(shortDate(r.data))}</span><span class="w">Risolto l'esercizio <b>${esc(r.rif.split('.').pop())}</b>${f?' · '+esc(f.a.titolo):''}</span></div>`}
+      if(r.tipo==='simulazione')return `<div class="win"><span class="d num">${esc(shortDate(r.data))}</span><span class="w">Simulazione · ${esc(r.esame_nome)}: <b>${esc(r.giuste)} giuste su ${esc(r.n)}</b>${r.soglia!=null&&r.giuste>=r.soglia?' ✓':''}</span></div>`;
       if(r.tipo==='attivita')return `<div class="win"><span class="d num">${esc(shortDate(r.data))}</span><span class="w">Fatto <b>${esc(attT[r.rif]||r.rif)}</b></span></div>`;
       const t=secTitle[r.rif];
       return `<div class="win"><span class="d num">${esc(shortDate(r.data))}</span><span class="w">Letto <b>${esc(t?t[0]:r.rif)}</b>${t?' · '+esc(t[1]):''}</span></div>`})
@@ -2660,6 +2820,22 @@ const ACT={
   'reload-app':()=>location.reload(),
   'edit-exam':b=>editExamSheet(b.dataset.id),
   'goto-prove':()=>{closeSheet();go('prove')},
+  /* simulazione d'esame (v28) */
+  'sim-open':b=>{closeSheet();if(!simRun())S.sim={view:'start',eid:b.dataset.e,pid:b.dataset.p,modo:'tutto'};go('prove')},
+  'sim-mode':b=>{if(S.sim){S.sim.modo=b.dataset.m;render()}},
+  'sim-start':async b=>{if(!S.sim||simRun())return;b.disabled=true;await simStart(S.sim.eid,S.sim.pid,S.sim.modo)},
+  'sim-pick':async b=>{const r=simRun();if(!r||!S.sim)return;const id=r.ids[S.sim.i];r.ans={...r.ans,[id]:+b.dataset.o};await setImp(SIM_K,r);render()},
+  'sim-go':b=>{if(!S.sim)return;S.sim.i=+b.dataset.i;S.sim.confirm=null;render();window.scrollTo(0,0)},
+  'sim-end':async()=>{const r=simRun();if(!r)return;
+    if(simAnswered(r)<r.ids.length&&S.sim.confirm!=='end'){S.sim.confirm='end';render();window.scrollTo(0,0);return}
+    await simFinish(false);render();window.scrollTo(0,0)},
+  'sim-end-ok':async()=>{await simFinish(false);render();window.scrollTo(0,0)},
+  'sim-quit':()=>{if(!S.sim)return;S.sim.confirm='quit';render();window.scrollTo(0,0)},
+  'sim-quit-ok':async()=>{const r=simRun();if(r){delete S.imp[SIM_K];await del('impostazioni',SIM_K);S.sim={view:'start',eid:r.eid,pid:r.pid,modo:r.modo}}
+    toast('Simulazione interrotta');render();window.scrollTo(0,0)},
+  'sim-cf-no':()=>{if(S.sim){S.sim.confirm=null;render()}},
+  'sim-show':b=>{S.sim={view:'res',rec:b.dataset.id};go('prove')},
+  'sim-close':()=>{S.sim=null;render();window.scrollTo(0,0)},
   /* quante giuste servono alla finale: ridisegna solo il suo riquadro, così le regole aperte restano aperte */
   'pv-x':b=>{const P=obj(obj(guidaS()).punteggio),cur=S.pvX==null?P.soglia:S.pvX,d=+b.dataset.d;
     S.pvX=Math.max(0,Math.min(P.intermedia,cur+d));const el=$('#pv-calc');if(el)el.outerHTML=proveCalc(guidaS());
@@ -2696,7 +2872,8 @@ const ACT={
 };
 document.addEventListener('click',e=>{
   const tab=e.target.closest('.nav [data-tab]');
-  if(tab){const t=tab.dataset.tab;if(t==='esami'&&S.tab==='esami'){S.route={esame:null,arg:null}}if(t==='adesso')S.planPage=false;go(t);return}
+  if(tab){const t=tab.dataset.tab;if(t==='esami'&&S.tab==='esami'){S.route={esame:null,arg:null}}
+    if(S.tab==='prove'&&S.sim&&S.sim.view!=='run')S.sim=null;if(t==='adesso')S.planPage=false;go(t);return}
   const b=e.target.closest('[data-act]');
   if(b&&ACT[b.dataset.act]){e.preventDefault();ACT[b.dataset.act](b);return}
   if(e.target.id==='backdrop')closeSheet();
@@ -2708,6 +2885,12 @@ document.addEventListener('input',e=>{if(e.target.id==='gl-q'){S.glq=e.target.va
   if(t.classList&&t.classList.contains('ans-in')){const id=t.dataset.id,st=S.exAns[id]||(S.exAns[id]={v:[],res:null,msg:[],tries:0});st.v[+t.dataset.i]=t.value}});
 document.addEventListener('keydown',e=>{const t=e.target;
   if(e.key==='Enter'&&t.classList&&t.classList.contains('ans-in')){e.preventDefault();const b=t.closest('.card').querySelector('[data-act="ans-check"]');if(b)b.click()}});
+/* simulazione al PC: A–D (o 1–4) per rispondere, frecce per spostarsi */
+document.addEventListener('keydown',e=>{if(S.tab!=='prove'||!simRun()||!S.sim||!$('#backdrop').hidden||e.ctrlKey||e.metaKey||e.altKey)return;
+  const t=e.target;if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;
+  const k=e.key.toLowerCase(),o=k.length===1?Math.max('abcdef'.indexOf(k),'123456'.indexOf(k)):-1;
+  if(o>=0){const b=document.querySelector(`[data-act="sim-pick"][data-o="${o}"]`);if(b){e.preventDefault();b.click()}return}
+  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const b=document.querySelector(`.sim-grid [data-i="${S.sim.i+(e.key==='ArrowRight'?1:-1)}"]`);if(b){e.preventDefault();b.click()}}});
 $('#file-in').addEventListener('change',async e=>{
   const fs=[...(e.target.files||[])];if(!fs.length)return;
   if(fs.length===1){
@@ -2736,6 +2919,8 @@ async function start(){
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
   const t=lsGet(LS_TAB);if(TABS.includes(t))S.tab=t;
   render();
+  /* simulazione d'esame: l'orologio (e la consegna a tempo scaduto, anche se l'app era chiusa) */
+  simTick();setInterval(simTick,1000);
   /* novità da Claude: all'apertura, quando torni sull'app (al massimo ogni 15 minuti) e quando torna internet */
   checkAndShow();
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()-S.remote.ts>15*60*1000)checkAndShow()});

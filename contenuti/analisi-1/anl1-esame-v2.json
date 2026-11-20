@@ -2,7 +2,7 @@
  "schema_version": 1,
  "tipo": "nuovo_esame",
  "id_pacchetto": "anl1-esame-v2",
- "generato_il": "2026-11-19",
+ "generato_il": "2026-11-20",
  "esame_id": "anl1",
  "esame": {
   "nome": "Analisi Matematica I e geometria",
@@ -202,6 +202,37 @@
     "lezioni": {
      "dal": 1,
      "al": 50
+    },
+    "simulazione": {
+     "domande": 24,
+     "minuti": 35,
+     "soglia": 15,
+     "argomenti": [
+      "anl1.ins",
+      "anl1.sup",
+      "anl1.top",
+      "anl1.fun",
+      "anl1.pol",
+      "anl1.exp",
+      "anl1.trig",
+      "anl1.graf",
+      "anl1.suc",
+      "anl1.nep",
+      "anl1.lim",
+      "anl1.limn",
+      "anl1.ser",
+      "anl1.cont",
+      "anl1.der",
+      "anl1.teo",
+      "anl1.mon",
+      "anl1.hop",
+      "anl1.tay",
+      "anl1.stu",
+      "anl1.int",
+      "anl1.tfc",
+      "anl1.tecint",
+      "anl1.imp"
+     ]
     },
     "programma": "lezioni 1–50 (sul portale il corso ha 60 lezioni) · 24 domande in 35 minuti",
     "nota": "C'è anche lunedì 10 maggio (prenotazione dal 20 aprile all'8 maggio). Per venerdì 14 si chiude il 12 maggio."

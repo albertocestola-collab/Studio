@@ -2,7 +2,7 @@
  "schema_version": 1,
  "tipo": "nuovo_esame",
  "id_pacchetto": "sic-esame-v1",
- "generato_il": "2026-11-19",
+ "generato_il": "2026-11-20",
  "esame_id": "sic",
  "esame": {
   "nome": "Sicurezza informatica",
@@ -209,6 +209,33 @@
      "dal": 1,
      "al": 20
     },
+    "simulazione": {
+     "domande": 24,
+     "minuti": 35,
+     "soglia": 15,
+     "argomenti": [
+      "sic.l01",
+      "sic.l02",
+      "sic.l03",
+      "sic.l04",
+      "sic.l05",
+      "sic.l06",
+      "sic.l07",
+      "sic.l08",
+      "sic.l09",
+      "sic.l10",
+      "sic.l11",
+      "sic.l12",
+      "sic.l13",
+      "sic.l14",
+      "sic.l15",
+      "sic.l16",
+      "sic.l17",
+      "sic.l18",
+      "sic.l19",
+      "sic.l20"
+     ]
+    },
     "programma": "lezioni 1–20 · 24 domande in 35 minuti, ne servono 15 giuste",
     "nota": "Per venerdì 4 la prenotazione va dal 14 novembre al 2 dicembre."
    },
@@ -230,6 +257,22 @@
     "lezioni": {
      "dal": 21,
      "al": 30
+    },
+    "simulazione": {
+     "domande": 7,
+     "minuti": 15,
+     "argomenti": [
+      "sic.l21",
+      "sic.l22",
+      "sic.l23",
+      "sic.l24",
+      "sic.l25",
+      "sic.l26",
+      "sic.l27",
+      "sic.l28",
+      "sic.l29",
+      "sic.l30"
+     ]
     },
     "programma": "lezioni 21–30 · 7 domande in 15 minuti",
     "nota": "Da verificare: se l'intermedia di dicembre non vale già per gennaio, la finale è ad aprile (15–17 o 22–24)."
