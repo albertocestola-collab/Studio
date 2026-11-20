@@ -160,6 +160,15 @@ h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spaci
 .sim-btn{margin-top:6px}
 /* al PC la simulazione non si allarga a tutto lo schermo: le righe lunghe si leggono male */
 .sim-page{width:100%;max-width:760px;margin:0 auto}
+@media (min-width:900px){.sim-bar{top:calc(env(safe-area-inset-top,0px) + var(--topbar-h,70px))}}
+/* segno di lettura (v29): la riga dove sei arrivato, con il fondo giallo e una linea sotto */
+#segno{position:absolute;z-index:4;pointer-events:none;border-radius:6px;background:rgba(255,196,0,.28);box-shadow:inset 0 -3px 0 var(--warn)}
+@media (prefers-color-scheme: dark){#segno{background:rgba(255,196,60,.17)}}
+#segno-ctl{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:19;display:flex;align-items:center;gap:4px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:14px;padding:4px 4px 4px 12px}
+#segno-ctl span{font-size:13px;font-weight:700;color:var(--muted);margin-right:4px}
+#segno-ctl button{width:42px;height:42px;border-radius:10px;font-size:18px;font-weight:800;background:var(--surface-2);color:var(--ink)}
+@media (min-width:900px){#segno-ctl{bottom:24px}}
+.seg-hint{margin:-4px 0 0}
 .sim-score{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .sim-score b{font-family:var(--f-display);font-size:44px;line-height:1}
 .sim-score span{font-size:18px;color:var(--muted);font-weight:700}
@@ -1981,6 +1990,61 @@ function renderProve(){
     ${G&&(G.aggiornata_il||G.fonti)?`<p class="note">${G.aggiornata_il&&isDate(G.aggiornata_il)?'Aggiornato il '+esc(shortDate(G.aggiornata_il))+'. ':''}${esc(G.fonti||'')}</p>`:''}`;
 }
 
+/* ---------- segno di lettura (dal 20 novembre 2026, v29) ----------
+   Alberto passa spesso dal PC al quaderno e perde il punto. Nella pagina di un argomento tocca una riga del testo:
+   resta evidenziata (fondo giallo e linea sotto) finché non la sposti (frecce ↑ ↓ al PC, o i pulsanti in basso)
+   o la togli (✕, Esc, oppure tocchi di nuovo la stessa riga).
+   Il segno è legato al blocco di testo (paragrafo, voce di elenco, riga di tabella…) e al numero di riga dentro il blocco:
+   dopo ogni ridisegno della pagina, o se la finestra cambia larghezza, si ricalcola. Resta anche se chiudi l'app (localStorage st-segno). */
+const LS_SEGNO='st-segno';
+const SEG_SKIP='button,a,input,textarea,select,label,summary,svg,.toc,.seg';
+const segKey=el=>el.textContent.replace(/\s+/g,' ').trim().slice(0,80);
+const segRoot=()=>S.tab==='esami'&&S.route.arg?document.querySelector('#v-esami .topic > .stack'):null;
+/* le righe del testo: per ogni blocco (il primo antenato che non è «inline») i rettangoli dei suoi pezzi di testo, uniti per riga */
+function segScan(root){const cache=new Map(),blocks=[],idx=new Map(),r=document.createRange();
+  const blockOf=n=>{let el=n.parentElement;while(el&&el!==root){let d=cache.get(el);if(d===undefined){d=getComputedStyle(el).display;cache.set(el,d)}
+    if(!d.startsWith('inline')&&d!=='contents')return el;el=el.parentElement}return root};
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>!n.nodeValue.trim()||!n.parentElement||n.parentElement.closest(SEG_SKIP)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
+  for(let n=w.nextNode();n;n=w.nextNode()){const b=blockOf(n);let B=idx.get(b);if(!B){B={el:b,rects:[]};idx.set(b,B);blocks.push(B)}
+    r.selectNodeContents(n);for(const q of r.getClientRects())if(q.width>0&&q.height>0)B.rects.push(q)}
+  for(const B of blocks){const L=[];
+    for(const q of B.rects.sort((a,b)=>a.top-b.top)){const l=L.find(x=>Math.min(x.bottom,q.bottom)-Math.max(x.top,q.top)>Math.min(x.bottom-x.top,q.height)*0.5);
+      if(l){l.top=Math.min(l.top,q.top);l.bottom=Math.max(l.bottom,q.bottom);l.left=Math.min(l.left,q.left);l.right=Math.max(l.right,q.right)}
+      else L.push({top:q.top,bottom:q.bottom,left:q.left,right:q.right})}
+    B.lines=L.sort((a,b)=>a.top-b.top);delete B.rects}
+  return blocks.filter(B=>B.lines.length)}
+function segEls(){let m=$('#segno'),c=$('#segno-ctl');
+  if(!m){m=document.createElement('div');m.id='segno';m.setAttribute('aria-hidden','true');m.hidden=true;document.body.appendChild(m)}
+  if(!c){c=document.createElement('div');c.id='segno-ctl';c.setAttribute('role','group');c.setAttribute('aria-label','Segno di lettura');c.hidden=true;
+    c.innerHTML='<span>Segno</span><button data-act="segno-move" data-d="-1" aria-label="Riga sopra">↑</button><button data-act="segno-move" data-d="1" aria-label="Riga sotto">↓</button><button data-act="segno-off" aria-label="Togli il segno">✕</button>';
+    document.body.appendChild(c)}
+  return [m,c]}
+/* ridisegna il segno dov'era; se il blocco non c'è più (sezione chiusa, altro argomento) lo nasconde ma lo ricorda */
+function segApply(){const g=S.segno,root=segRoot();
+  if(!g||!root||S.route.arg!==g.arg){const m=$('#segno'),c=$('#segno-ctl');if(m)m.hidden=true;if(c)c.hidden=true;return null}
+  const bs=segScan(root);let i=bs[g.i]&&segKey(bs[g.i].el)===g.t?g.i:bs.findIndex(B=>segKey(B.el)===g.t);
+  const [m,c]=segEls();if(i<0){m.hidden=true;c.hidden=true;return null}
+  const B=bs[i],l=Math.max(0,Math.min(g.l,B.lines.length-1)),L=B.lines[l],br=B.el.getBoundingClientRect(),x0=Math.min(br.left,L.left),x1=Math.max(br.right,L.right);
+  g.i=i;g.l=l;
+  Object.assign(m.style,{top:(L.top+scrollY-3)+'px',height:(L.bottom-L.top+6)+'px',left:(x0+scrollX-6)+'px',width:(x1-x0+12)+'px'});
+  m.hidden=false;c.hidden=false;return {bs,i,l}}
+function segSet(g){S.segno=g;try{if(g)localStorage.setItem(LS_SEGNO,JSON.stringify(g));else localStorage.removeItem(LS_SEGNO)}catch(e){}segApply()}
+function segMove(d){const st=segApply();if(!st)return;let {bs,i,l}=st;l+=d;
+  if(l<0){if(!i)return;i--;l=bs[i].lines.length-1}else if(l>=bs[i].lines.length){if(i>=bs.length-1)return;i++;l=0}
+  segSet({...S.segno,i,t:segKey(bs[i].el),l});
+  /* se la riga esce dallo schermo, la pagina scorre e la riporta in vista */
+  const L=bs[i].lines[l],wide=innerWidth>=900,top=wide?100:24,bot=innerHeight-(wide?40:160);
+  if(L.top<top||L.bottom>bot)window.scrollBy({top:L.top-innerHeight*0.4,behavior:'smooth'})}
+/* un tocco sul testo mette il segno su quella riga (non sui pulsanti, i campi, i collegamenti; non se stai selezionando del testo) */
+function segClick(e){const root=segRoot();if(!root||!root.contains(e.target)||e.target.closest(SEG_SKIP))return;
+  const sel=getSelection();if(sel&&!sel.isCollapsed)return;
+  const bs=segScan(root),x=e.clientX,y=e.clientY;let best=null;
+  bs.forEach((B,i)=>{const br=B.el.getBoundingClientRect();if(x<br.left-8||x>br.right+8)return;
+    B.lines.forEach((L,l)=>{if(y<L.top-4||y>L.bottom+4)return;const d=Math.abs((L.top+L.bottom)/2-y);if(!best||d<best.d)best={i,l,d}})});
+  if(!best)return;
+  const g=S.segno;if(g&&g.arg===S.route.arg&&g.i===best.i&&g.l===best.l){segSet(null);return}
+  segSet({arg:S.route.arg,i:best.i,t:segKey(bs[best.i].el),l:best.l})}
+
 /* ---------- simulazione d'esame (dal 20 novembre 2026, v28) ----------
    Come la prova vera: domande pescate a caso dai quiz degli argomenti della prova, cronometro, nessuna spiegazione durante.
    Il pacchetto nuovo_esame dice per ogni prova: simulazione {domande, minuti, soglia (facoltativa), argomenti}.
@@ -2523,7 +2587,7 @@ function renderTopic(v,a){
   /* esercizi da fare subito dopo una sezione: teoria e pratica si alternano */
   const after={};for(const x of exs)if(x.dopo_sezione&&secIds.has(x.dopo_sezione))(after[x.dopo_sezione]=after[x.dopo_sezione]||[]).push(x);
   if(secs.length){
-    h+=`<h2 class="sec-h">Spiegazione</h2><div class="stack-s">`+limited('sez:'+a.id,secs,(s,i)=>{
+    h+=`<h2 class="sec-h">Spiegazione</h2><p class="note seg-hint">Tocca una riga per tenere il segno: resta evidenziata finché non la sposti.</p><div class="stack-s">`+limited('sez:'+a.id,secs,(s,i)=>{
       const open=S.open===s.id,read=isRead(s.id),mine=after[s.id]||[];
       return `<div class="acc${open?' open':''}"><button class="acc-h" data-act="toggle-sec" data-id="${esc(s.id)}" aria-expanded="${open}">
         <span class="dot${read?' on':''}">${IC.check}</span><span class="txt"><span class="eyebrow">Sezione ${i+1} di ${secs.length} · ${esc(LEVELS[s.livello]||s.livello)}</span><span class="t">${esc(s.titolo)}</span>
@@ -2620,6 +2684,7 @@ async function fillStorage(){
 function render(){
   for(const t of TABS){$('#v-'+t).hidden=t!==S.tab;document.querySelector(`.nav [data-tab="${t}"]`).setAttribute('aria-selected',String(t===S.tab))}
   ({adesso:renderAdesso,esami:renderEsami,prove:renderProve,vittorie:renderVittorie,dati:renderDati})[S.tab]();
+  segApply();
 }
 function go(tab){S.tab=tab;lsSet(LS_TAB,tab);render();window.scrollTo(0,0)}
 
@@ -2820,6 +2885,9 @@ const ACT={
   'reload-app':()=>location.reload(),
   'edit-exam':b=>editExamSheet(b.dataset.id),
   'goto-prove':()=>{closeSheet();go('prove')},
+  /* segno di lettura (v29) */
+  'segno-move':b=>segMove(+b.dataset.d),
+  'segno-off':()=>{segSet(null);toast('Segno tolto')},
   /* simulazione d'esame (v28) */
   'sim-open':b=>{closeSheet();if(!simRun())S.sim={view:'start',eid:b.dataset.e,pid:b.dataset.p,modo:'tutto'};go('prove')},
   'sim-mode':b=>{if(S.sim){S.sim.modo=b.dataset.m;render()}},
@@ -2885,6 +2953,15 @@ document.addEventListener('input',e=>{if(e.target.id==='gl-q'){S.glq=e.target.va
   if(t.classList&&t.classList.contains('ans-in')){const id=t.dataset.id,st=S.exAns[id]||(S.exAns[id]={v:[],res:null,msg:[],tries:0});st.v[+t.dataset.i]=t.value}});
 document.addEventListener('keydown',e=>{const t=e.target;
   if(e.key==='Enter'&&t.classList&&t.classList.contains('ans-in')){e.preventDefault();const b=t.closest('.card').querySelector('[data-act="ans-check"]');if(b)b.click()}});
+/* segno di lettura: tocco sul testo; ↑ ↓ per spostarlo e Esc per toglierlo; si ricalcola quando la pagina cambia misura */
+document.addEventListener('click',segClick);
+document.addEventListener('keydown',e=>{if(!S.segno||!$('#backdrop').hidden||e.ctrlKey||e.metaKey||e.altKey||e.shiftKey)return;
+  const t=e.target;if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;
+  if((e.key==='ArrowDown'||e.key==='ArrowUp')&&$('#segno')&&!$('#segno').hidden){e.preventDefault();segMove(e.key==='ArrowDown'?1:-1)}
+  else if(e.key==='Escape'&&$('#segno')&&!$('#segno').hidden)segSet(null)});
+{let raf=0;const again=()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;if(S.segno)segApply()})};
+  window.addEventListener('resize',again);try{new ResizeObserver(again).observe($('#v-esami'))}catch(e){}
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(again)}
 /* simulazione al PC: A–D (o 1–4) per rispondere, frecce per spostarsi */
 document.addEventListener('keydown',e=>{if(S.tab!=='prove'||!simRun()||!S.sim||!$('#backdrop').hidden||e.ctrlKey||e.metaKey||e.altKey)return;
   const t=e.target;if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;
@@ -2918,6 +2995,7 @@ async function start(){
   catch(e){$('#v-adesso').innerHTML='<div class="card"><h2>Non riesco a salvare i dati</h2><p class="muted">Questo browser non mi lascia usare la memoria (succede nelle finestre private). Apri l\'app normalmente.</p></div>';return}
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
   const t=lsGet(LS_TAB);if(TABS.includes(t))S.tab=t;
+  try{const g=JSON.parse(lsGet(LS_SEGNO)||'null');if(g&&typeof g.arg==='string'&&Number.isInteger(g.i)&&Number.isInteger(g.l)&&typeof g.t==='string')S.segno=g}catch(e){}
   render();
   /* simulazione d'esame: l'orologio (e la consegna a tempo scaduto, anche se l'app era chiusa) */
   simTick();setInterval(simTick,1000);
