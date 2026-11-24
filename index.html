@@ -33,6 +33,7 @@
   --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
   --f-body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --r:16px; --r-s:10px;
+  --tr0:#2F5BD3; --tr1:#13836B; --tr2:#B4520F; --tr3:#7B3FC4; --tr4:#B0306A;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root{
@@ -41,6 +42,7 @@
   --ok:#5CCB8E; --ok-soft:#173527; --warn:#F0AB45; --warn-soft:#3A2B12; --urgent:#F07D6D; --urgent-soft:#3F201C;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);
   --backdrop:rgba(0,0,0,.6);
+  --tr0:#86A6F4; --tr1:#4FC9A8; --tr2:#F2A057; --tr3:#B892F2; --tr4:#F08DB8;
   color-scheme:dark;
 }}
 *{box-sizing:border-box}
@@ -317,6 +319,73 @@ button.pl-t .t{color:var(--accent)}
 .tryit{margin-top:14px;padding:12px;border-radius:14px;background:var(--ok-soft)}
 .tryit>.eyebrow{color:var(--ok);margin-bottom:8px}
 .tryit .card.ex{box-shadow:none}
+/* alberi (v31): schede colorate, un colore per ramo principale */
+.tr-fig{margin:14px 0;background:var(--surface-2);border-radius:14px;padding:12px 12px 14px}
+.tr-h{font-family:var(--f-display);font-weight:800;font-size:17px;margin-bottom:2px}
+.tr-help{font-size:13px;color:var(--muted);margin-bottom:8px}
+.tr-help .tr-ao{margin:0 2px}
+.tr-scroll{overflow-x:auto;padding-bottom:2px}
+.tr{list-style:none;margin:0;padding:0}
+.tr-top{--bc:var(--accent)}
+.tr li{margin:0}
+.tr .tr{margin-left:18px}
+.tr .tr>li{position:relative;padding:7px 0 0 24px}
+.tr .tr>li::before{content:"";position:absolute;left:0;top:0;width:20px;height:28px;border-left:3px solid var(--bc);border-bottom:3px solid var(--bc);border-bottom-left-radius:12px}
+.tr .tr>li:not(:last-child)::after{content:"";position:absolute;left:0;top:0;bottom:0;border-left:3px solid var(--bc)}
+.tr-d>summary{list-style:none;cursor:pointer}
+.tr-d>summary::-webkit-details-marker{display:none}
+.tr-n{display:inline-flex;flex-direction:column;gap:2px;max-width:100%;min-width:0;padding:8px 12px;border-radius:12px;background:color-mix(in srgb,var(--bc) 13%,var(--surface));border:1.5px solid color-mix(in srgb,var(--bc) 40%,transparent);border-left:6px solid var(--bc);line-height:1.3}
+.tr-n.root{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);padding:10px 14px}
+.tr-n.root .tr-t{font-size:16px;font-weight:800}
+.tr-n.leaf{background:var(--surface);border-style:dashed;border-left-style:solid}
+.tr-c{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.tr-t{font-weight:700;font-size:15px}
+.tr-sig{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:800;font-size:12.5px;padding:1px 7px;border-radius:7px;background:var(--bc);color:#fff}
+.tr-n.root .tr-sig{background:var(--accent-ink);color:var(--accent)}
+.tr-note{font-size:13.5px;color:var(--muted);font-weight:400}
+.tr-n.root .tr-note{color:inherit;opacity:.85}
+.tr-ao{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.03em;padding:2px 8px;border-radius:99px}
+.tr-ao.and{background:#FFE08A;color:#4A3500}.tr-ao.or{background:#BDEBD7;color:#073D2A}
+.tr-cost{font-size:12.5px;font-weight:700;padding:1px 8px;border-radius:99px;background:var(--surface-2);color:var(--ink)}
+.tr-st{font-size:12px;font-weight:800;padding:1px 8px;border-radius:99px}
+.tr-st.ok{background:var(--ok-soft);color:var(--ok)}.tr-st.no{background:var(--urgent-soft);color:var(--urgent)}.tr-st.sel{background:#FFE08A;color:#4A3500}
+.tr-n.s-no{opacity:.6}.tr-n.s-no .tr-t{text-decoration:line-through}
+.tr-n.s-sel{box-shadow:0 0 0 3px #FFD24A}
+.tr-tg{display:inline-flex;align-items:center;gap:1px;margin-left:auto;font-size:12px;font-weight:800;color:var(--muted);background:var(--surface);border-radius:99px;padding:1px 4px 1px 8px}
+.tr-n.root .tr-tg{background:var(--accent-ink);color:var(--accent)}
+.tr-tg svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+.tr-d:not([open])>summary .tr-tg svg{transform:rotate(-90deg)}
+.tr-d:not([open])>summary.tr-n{box-shadow:0 3px 0 -1px color-mix(in srgb,var(--bc) 45%,transparent)}
+@media (hover:hover) and (pointer:fine){.tr-d>summary.tr-n:hover{filter:brightness(1.04);border-color:var(--bc)}}
+.tr-foot{font-size:14px;color:var(--muted);margin-top:8px}
+@media (max-width:560px){.tr .tr{margin-left:8px}.tr .tr>li{padding-left:18px}.tr .tr>li::before{width:14px}.tr-n{padding:7px 10px}}
+/* barra dell'argomento (v31): resta in vista scorrendo */
+.tbar{position:sticky;top:var(--tb-top,0px);z-index:14;display:flex;align-items:center;gap:6px;background:var(--surface);border-radius:14px;box-shadow:var(--shadow);padding:6px;margin:0 -2px}
+.tbar::before{content:"";position:absolute;left:-12px;right:-12px;bottom:100%;height:calc(var(--tb-top,0px) + 2px);background:var(--bg);pointer-events:none}
+.tb-back{display:inline-flex;align-items:center;gap:2px;color:var(--accent);font-weight:700;min-height:40px;padding:0 8px 0 2px;border-radius:10px;max-width:34%;flex:none}
+.tb-back span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-back svg,.tb-ic svg,.tb-i svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.tb-mid{flex:1;min-width:0;padding:0 4px 0 8px;border-left:1px solid var(--line)}
+.tb-t{font-weight:800;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-s{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-go{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 12px;border-radius:10px;background:var(--accent);color:var(--accent-ink);font-weight:800;flex:none}
+.tb-go svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.tb-go[aria-expanded="true"] svg{transform:rotate(180deg)}
+.tb-ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--ink);background:var(--surface-2);flex:none}
+.tb-ic:disabled{opacity:.35}
+.tb-pop{position:absolute;top:calc(100% + 6px);right:0;left:0;max-height:min(70vh,560px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:8px;z-index:16;animation:up .15s ease}
+.tb-g{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:10px 8px 4px;border-top:1px solid var(--line);margin-top:4px}
+.tb-g:first-child{border-top:0;margin-top:0;padding-top:4px}
+.tb-i{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:7px 8px;border-radius:9px;font-size:14.5px;line-height:1.3;min-height:40px}
+.tb-i.cur{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.tb-i .dot{width:18px;height:18px;border-width:2px;margin:0}.tb-i .dot svg{width:11px;height:11px}
+.tb-n{color:var(--muted);font-variant-numeric:tabular-nums;width:20px;text-align:right;flex:none;font-size:13px}
+.tb-l{flex:1;min-width:0}
+.tb-st{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-weight:800;font-size:13px;background:var(--surface-2);color:var(--muted);flex:none}
+.tb-st.ok{background:var(--ok-soft);color:var(--ok)}.tb-st.rev{background:var(--warn-soft);color:var(--warn)}
+@media (hover:hover) and (pointer:fine){.tb-i:hover,.tb-back:hover,.tb-ic:not(:disabled):hover{background:var(--surface-2)}.tb-i.cur:hover{background:var(--accent-soft)}}
+@media (max-width:560px){.tb-back span{display:none}.tb-back{padding:0 2px}.tb-go{padding:0 10px}.tb-ic{width:36px}}
+.acc-h,.sec-h,.exz{scroll-margin-top:calc(var(--tb-top,0px) + 70px)}
 /* sezione Esercizi di fine lezione (v30) */
 .exz{display:flex;flex-direction:column;gap:12px;background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;border-top:4px solid var(--accent);scroll-margin-top:80px}
 .exz-h{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;justify-content:space-between}
@@ -635,6 +704,8 @@ textarea.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;f
   .md pre.codeblock code{font-size:14px}
   /* il menu in alto resta fisso: i titoli raggiunti con lo scorrimento non ci finiscono sotto */
   .acc-h,.sec-h{scroll-margin-top:84px}
+  :root{--tb-top:68px}
+  .acc-h,.sec-h,.exz{scroll-margin-top:150px}
 }
 @media (min-width:1200px){
   .app{max-width:1180px}
@@ -816,6 +887,65 @@ function asciiTable(src){
   if(rows.some(r=>r.some(open)))return null;
   return tableHTML(head,rows,[],c=>CODE_CELL.test(c)?'<code>'+esc(c)+'</code>':esc(c))+(rest?'<pre class="codeblock diagram"><code>'+esc(rest)+'</code></pre>':'');
 }
+/* ---------- alberi (v31, 24/11/2026) ----------
+   Alberto: gli alberi «non solo con linee ma qualcosa di più appariscente per la mia attenzione bassa». L'app li disegna da sola:
+   ogni nodo è una scheda, ogni ramo principale ha il suo colore, AND/OR si leggono («servono tutti» / «ne basta uno»),
+   i rami si chiudono e si aprono con un tocco (details/summary: niente stato, va bene anche con la cache di md).
+   Due strade: il blocco ```albero (JSON: {titolo, nota, radice:{t, sigla, tipo:and|or, nota, costo, stato, figli:[...]}})
+   e asciiTree, che trasforma i vecchi disegni ├─ └─ solo quando la lettura è sicura (altrimenti resta il disegno). */
+const TREE_ST={possibile:['ok','possibile'],impossibile:['no','impossibile'],scelto:['sel','percorso scelto']};
+function treeCheck(src){let d;try{d=JSON.parse(src)}catch(e){return {err:'il JSON dell\'albero non si legge'}}
+  if(!d||typeof d!=='object'||!d.radice||typeof d.radice!=='object')return {err:'manca la radice'};
+  let n=0,bad='';const walk=(x,dep)=>{if(bad)return;if(!x||typeof x!=='object'||typeof x.t!=='string'||!x.t.trim()){bad='un nodo non ha il testo (t)';return}
+    if(x.tipo!=null&&!['and','or'].includes(x.tipo)){bad=`tipo «${x.tipo}» non esiste (and oppure or)`;return}
+    if(x.stato!=null&&!TREE_ST[x.stato]){bad=`stato «${x.stato}» non esiste`;return}
+    if(++n>200||dep>12){bad='albero troppo grande';return}arr(x.figli).forEach(y=>walk(y,dep+1))};
+  walk(d.radice,0);return bad?{err:bad}:{d}}
+function treeHTML(d,inl){
+  const fx=inl||mdInline,ao=new Set();
+  const node=(x,dep,br)=>{const kids=arr(x.figli),st=TREE_ST[x.stato];if(x.tipo&&kids.length)ao.add(x.tipo);
+    const card=`<span class="tr-c">${x.sigla?`<span class="tr-sig">${esc(x.sigla)}</span>`:''}<span class="tr-t">${fx(String(x.t))}</span>
+      ${x.tipo&&kids.length?`<span class="tr-ao ${x.tipo}">${x.tipo==='and'?'AND · servono tutti':'OR · ne basta uno'}</span>`:''}
+      ${x.costo!=null&&x.costo!==''?`<span class="tr-cost">costo ${esc(String(x.costo))}</span>`:''}
+      ${st?`<span class="tr-st ${st[0]}">${st[0]==='no'?'✕ ':st[0]==='ok'?'✓ ':'★ '}${st[1]}</span>`:''}
+      ${kids.length?`<span class="tr-tg" aria-hidden="true">${kids.length}<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>`:''}</span>
+      ${x.nota?`<span class="tr-note">${fx(String(x.nota))}</span>`:''}`;
+    const cls=`tr-n${dep?'':' root'}${kids.length?'':' leaf'}${st?' s-'+st[0]:''}`;
+    const sty=dep===1?` style="--bc:var(--tr${br%5})"`:'';
+    return `<li${sty}>${kids.length?`<details open class="tr-d"><summary class="${cls}">${card}</summary><ul class="tr">${kids.map((y,i)=>node(y,dep+1,dep?br:i)).join('')}</ul></details>`
+      :`<div class="${cls}">${card}</div>`}</li>`};
+  const body=`<ul class="tr tr-top">${node(d.radice,0,0)}</ul>`;
+  return `<figure class="tr-fig">${d.titolo?`<figcaption class="tr-h">${fx(String(d.titolo))}</figcaption>`:''}
+    <div class="tr-help">${ao.size?`${ao.has('and')?'<span class="tr-ao and">AND</span> servono tutti i rami':''}${ao.size>1?' · ':''}${ao.has('or')?'<span class="tr-ao or">OR</span> ne basta uno':''} · `:''}tocca un nodo per chiudere o aprire i suoi rami</div>
+    <div class="tr-scroll">${body}</div>${d.nota?`<div class="tr-foot">${fx(String(d.nota))}</div>`:''}</figure>`}
+function treeBlock(src){const r=treeCheck(src);if(r.err)return `<div class="box bad"><span class="eyebrow">Albero non disegnabile</span>${esc(r.err)}</div>`;return treeHTML(r.d)}
+/* i vecchi disegni: una radice in prima riga, poi solo righe ├─/└─ (con │ davanti) o righe che continuano la precedente */
+function asciiTree(src){
+  const L=String(src).replace(/\s+$/,'').split('\n');let i=0;while(i<L.length&&!L[i].trim())i++;
+  const first=L[i]||'';if(!first.trim()||/[├└│┌┐┘┬┴┼─◄►▲▼]/.test(first.replace(/◄.*$/,'')))return null;
+  const BR=/^([ │]*)([├└])─+ ?(.*)$/;
+  const lab=(raw,col)=>{let t=raw.replace(/\s+$/,''),nota='',nc=-1,tipo=null;
+    const ao0=/^(.*\S)\s+(AND|OR)$/.exec(t);if(ao0&&!/◄/.test(t)){t=ao0[1];tipo=ao0[2].toLowerCase()}
+    const k=t.indexOf('◄');if(k>=0){nota=t.slice(k+1).trim();nc=col+k+1+(t.slice(k+1).length-t.slice(k+1).trimStart().length);t=t.slice(0,k)}
+    else{const g=/\S(\s{3,})(\S)/.exec(t);if(g){nc=col+g.index+1+g[1].length;nota=t.slice(g.index+1).trim();t=t.slice(0,g.index+1)}}
+    t=t.trim();const ao=/^(.*\S)\s+(AND|OR)$/.exec(t);if(ao){t=ao[1];tipo=ao[2].toLowerCase()}
+    return {t,nota,nc,tipo,figli:[]}};
+  const c0=first.search(/\S/),root=lab(first.slice(c0),c0);root.col=-1;
+  const stack=[root],all=[root];let last=root;
+  for(i++;i<L.length;i++){const ln=L[i];if(!ln.trim()||/^[ │]+$/.test(ln))continue;
+    const m=BR.exec(ln);
+    if(m){const col=m[1].length;while(stack.length>1&&stack[stack.length-1].col>=col)stack.pop();
+      const par=stack[stack.length-1];if(col-Math.max(par.col,0)>8)return null;
+      const n=lab(m[3],col+ln.slice(col).indexOf(m[3]));if(!/[\p{L}\p{N}]/u.test(n.t))return null;
+      n.col=col;par.figli.push(n);stack.push(n);all.push(n);last=n;continue}
+    /* riga che continua la precedente (testo o nota), più a destra del suo ramo */
+    const c=ln.search(/[^ │]/);if(last===root||c<=Math.max(last.col,0)||/[├└┌┐┘┬┴┼─]/.test(ln.slice(c)))return null;
+    const tx=ln.slice(c).trim();if(last.nc>=0&&Math.abs(c-last.nc)<=1)last.nota+=' '+tx;else if(c>=last.nc&&last.nota&&last.nc>=0)last.nota+=' '+tx;else last.t+=' '+tx}
+  if(all.length<3||all.some(n=>!n.t||n.t.length>140))return null;
+  /* sigle (A, A1, B2…) solo se ce le hanno tutti i nodi */
+  const SG=/^([A-Z][0-9]{0,2})\s+(\S.*)$/;if(all.every(n=>SG.test(n.t)))all.forEach(n=>{const g=SG.exec(n.t);n.sigla=g[1];n.t=g[2]});
+  const clean=n=>({t:n.t,sigla:n.sigla,tipo:n.tipo&&n.figli.length?n.tipo:undefined,nota:n.nota||undefined,figli:n.figli.map(clean)});
+  return treeHTML({radice:clean(root)},t=>esc(t))}
 function md(src){
   src=String(src==null?'':src);
   if(mdCache.has(src))return mdCache.get(src);
@@ -848,7 +978,7 @@ function md(src){
       for(li+=2;li<lines.length&&TBL_ROW.test(lines[li].trimEnd());li++)rows.push(tblCells(lines[li]));
       li--;out.push(tableHTML(head,rows,al,inline));continue}
     if((m=/^\s*\u0000C(\d+)\u0000$/.exec(line))){flushP();flushL();const c=code[+m[1]],lg=lang[+m[1]];
-      out.push(lg==='strumento'?toolHTML(c):lg==='text'&&asciiTable(c)||'<pre class="codeblock'+(lg==='text'?' diagram':'')+'"><code>'+esc(c)+'</code></pre>');continue}
+      out.push(lg==='strumento'?toolHTML(c):lg==='albero'?treeBlock(c):lg==='text'&&(asciiTable(c)||asciiTree(c))||'<pre class="codeblock'+(lg==='text'?' diagram':'')+'"><code>'+esc(c)+'</code></pre>');continue}
     if((m=/^\s*#{1,6}\s+(.*)$/.exec(line))){flushP();flushL();out.push('<div class="mh">'+inline(m[1])+'</div>');continue}
     if((m=/^\s*[-*]\s+(.*)$/.exec(line))){flushP();if(!list||list.tag!=='ul'){flushL();list={tag:'ul',items:[]}}list.items.push(m[1]);continue}
     if((m=/^\s*\d+[.)]\s+(.*)$/.exec(line))){flushP();if(!list||list.tag!=='ol'){flushL();list={tag:'ol',items:[]}}list.items.push(m[1]);continue}
@@ -1639,6 +1769,7 @@ function validate(p,bytes){
     walkStrings(p,(s,where)=>{
       for(const m of String(s).replace(/\r\n?/g,'\n').matchAll(CODE_BLOCK))
         if(m[1].trim().toLowerCase()==='strumento'){const r=toolCheck(m[2]);if(r.err)E(`${where} uno strumento interattivo non va: ${esc(r.err)}.`)}
+        else if(m[1].trim().toLowerCase()==='albero'){const r=treeCheck(m[2]);if(r.err)E(`${where} un albero non va: ${esc(r.err)}.`)}
       for(const m of stripCode(s).matchAll(XREF))
         if(!known(m[1]))W(`${where} c'è un collegamento a ${esc(m[1])}, che non trovo: lo mostro lo stesso, e funzionerà quando importerai quel contenuto.`);
     });
@@ -2622,10 +2753,41 @@ function exFineHTML(a,fine){
         :all?'<span class="exz-end">Hai finito gli esercizi di questa lezione.</span>':''}
     </div></div>`;
 }
+/* ---------- barra dell'argomento (v31, 24/11/2026) ----------
+   Alberto: per cambiare lezione o tornare indietro bisognava risalire in cima; «alcuni tasti non seguono lo scorrere dello schermo
+   anche se servono sempre»; gli esercizi non avevano un menu per muoversi. La barra resta in vista scorrendo: indietro all'esame,
+   titolo e sezione aperta, «Vai a» (sezioni, esercizi uno per uno, quiz) e lezione precedente/successiva dell'esame. */
+function topicNeighbours(a,e){if(!e)return [null,null];
+  const list=examTopics(e).map(p=>S.arg.get(p.id)).filter(x=>x&&arr(x.sezioni).length),i=list.findIndex(x=>x.id===a.id);
+  return i<0?[null,null]:[list[i-1]||null,list[i+1]||null]}
+function topicBar(a,e,secs){
+  const [pv,nx]=topicNeighbours(a,e),oi=secs.findIndex(s=>s.id===S.open),rd=secs.filter(s=>isRead(s.id)).length;
+  const exs=arr(a.esercizi),secIds=new Set(secs.map(s=>s.id)),fine=exs.filter(x=>!(x.dopo_sezione&&secIds.has(x.dopo_sezione)));
+  const quiz=arr(obj(a.verifica).quiz);
+  const nav=(x,dir)=>x?`<button class="tb-ic" data-act="open-topic" data-id="${esc(x.id)}" title="${dir<0?'Lezione precedente':'Lezione successiva'}: ${esc(x.titolo)}" aria-label="${dir<0?'Lezione precedente':'Lezione successiva'}: ${esc(x.titolo)}">${dir<0?IC.left:IC.right}</button>`
+    :`<button class="tb-ic" disabled aria-label="${dir<0?'Nessuna lezione prima':'Nessuna lezione dopo'}">${dir<0?IC.left:IC.right}</button>`;
+  const pop=`<div class="tb-pop" id="tb-pop" hidden>
+    <div class="tb-g"><span class="eyebrow">Spiegazione</span><span class="muted small">${rd} di ${secs.length} lette</span></div>
+    ${secs.map((s,i)=>`<button class="tb-i${S.open===s.id?' cur':''}" data-act="goto-sec" data-id="${esc(s.id)}"><span class="dot${isRead(s.id)?' on':''}">${IC.check}</span><span class="tb-n">${i+1}</span><span class="tb-l">${esc(s.titolo)}</span></button>`).join('')}
+    ${fine.length?`<div class="tb-g"><span class="eyebrow">Esercizi di fine lezione</span><span class="muted small">${fine.filter(x=>exDone(x)==='fatto').length} di ${fine.length} risolti</span></div>
+      ${fine.map((x,i)=>{const d=exDone(x);return `<button class="tb-i" data-act="ex-go" data-id="${esc(a.id)}" data-i="${i}" data-scroll="1"><span class="tb-st ${d==='fatto'?'ok':d?'rev':''}">${d==='fatto'?'✓':i+1}</span><span class="tb-l">${esc(x.titolo||'Esercizio '+(i+1))}</span><span class="chip ${x.livello==='difficile'?'red':x.livello==='medio'?'warn':'ok'}">${esc(EX_LEVELS[x.livello]||x.livello)}</span></button>`}).join('')}`
+      :exs.length?`<button class="tb-i" data-act="goto" data-to="h-ese"><span class="tb-l"><b>Esercizi</b></span></button>`:''}
+    ${quiz.length?`<button class="tb-i" data-act="goto" data-to="h-quiz"><span class="tb-l"><b>Quiz</b> · ${pl(quiz.length,'domanda','domande')}</span></button>`:''}
+    ${pv||nx?`<div class="tb-g"><span class="eyebrow">Altre lezioni</span></div>
+      ${pv?`<button class="tb-i" data-act="open-topic" data-id="${esc(pv.id)}">${IC.left}<span class="tb-l">${esc(pv.titolo)}</span></button>`:''}
+      ${nx?`<button class="tb-i" data-act="open-topic" data-id="${esc(nx.id)}"><span class="tb-l">${esc(nx.titolo)}</span>${IC.right}</button>`:''}`:''}
+  </div>`;
+  return `<div class="tbar" id="tbar">
+    <button class="tb-back" data-act="back" title="Torna a ${esc(e?e.nome:'Esame')}" aria-label="Torna a ${esc(e?e.nome:'Esame')}">${IC.left}<span>${esc(e?e.nome:'Esame')}</span></button>
+    <div class="tb-mid"><div class="tb-t">${esc(a.titolo)}</div><div class="tb-s">${oi>=0?`Sezione ${oi+1} di ${secs.length}`:`${secs.length} sezioni`} · ${rd} lette</div></div>
+    <button class="tb-go" data-act="tb-menu" aria-expanded="false" aria-controls="tb-pop">Vai a<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    ${nav(pv,-1)}${nav(nx,1)}${pop}</div>`;
+}
+function tbClose(){const p=$('#tb-pop');if(p&&!p.hidden){p.hidden=true;const b=document.querySelector('[data-act="tb-menu"]');if(b)b.setAttribute('aria-expanded','false')}}
 function renderTopic(v,a){
   const e=S.esami.get(a.esame_id),secs=sortedSections(a);
   if(S.open===null||!secs.some(s=>s.id===S.open)){const u=secs.find(s=>!isRead(s.id));S.open=u?u.id:'';}
-  let h=`<div><button class="back" data-act="back">${IC.left}${esc(e?e.nome:'Esame')}</button></div>
+  let h=topicBar(a,e,secs)+`
   <div><h1 class="page-h">${esc(a.titolo)}</h1>${a.fonte?`<div class="muted small" style="margin-top:4px">Fonte: ${esc(a.fonte)}</div>`:''}</div>`;
   /* la mappa (chiusa finché non la apri) e «Prima di iniziare ti servono»: le basi si indicano, non si rispiegano */
   if(a.mappa){const op=S.maps.has(a.id);
@@ -2915,8 +3077,10 @@ const ACT={
   'tech-step':b=>{S.tech[b.dataset.id]=(S.tech[b.dataset.id]||0)+1;render()},
   'ex-try':b=>{S.ex[b.dataset.id]=1;render()},
   /* sezione Esercizi (v30): cambia esercizio e tiene la scheda in vista; apre o chiude gli esercizi della spiegazione */
-  'ex-go':b=>{S.exPos[b.dataset.id]=Math.max(0,+b.dataset.i);render();
-    const el=$('#exz');if(el&&el.getBoundingClientRect().top<0)el.scrollIntoView({block:'start',behavior:'smooth'})},
+  'ex-go':b=>{S.exPos[b.dataset.id]=Math.max(0,+b.dataset.i);const far=b.dataset.scroll==='1';render();
+    const el=$('#exz');if(el&&(far||el.getBoundingClientRect().top<90))el.scrollIntoView({block:'start',behavior:'smooth'})},
+  'tb-menu':b=>{const p=$('#tb-pop');if(!p)return;p.hidden=!p.hidden;b.setAttribute('aria-expanded',String(!p.hidden));
+    if(!p.hidden){const c=p.querySelector('.cur');if(c)c.scrollIntoView({block:'center'})}},
   'ex-old':b=>{const id=b.dataset.id;S.exOld.has(id)?S.exOld.delete(id):S.exOld.add(id);render()},
   'ex-step':async b=>{S.ex[b.dataset.id]=(S.ex[b.dataset.id]||0)+1;await exSolSeen(b.dataset.id);render()},
   'ex-sol':async b=>{S.ex[b.dataset.id]=+b.dataset.n;await exSolSeen(b.dataset.id);render()},
@@ -3005,7 +3169,8 @@ document.addEventListener('click',e=>{
   if(b&&ACT[b.dataset.act]){e.preventDefault();ACT[b.dataset.act](b);return}
   if(e.target.id==='backdrop')closeSheet();
 });
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#backdrop').hidden)closeSheet()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#backdrop').hidden)closeSheet();if(e.key==='Escape')tbClose()});
+document.addEventListener('click',e=>{if(!e.target.closest('#tbar'))tbClose()},true);
 document.addEventListener('input',e=>{if(e.target.id==='gl-q'){S.glq=e.target.value;filterGloss();return}
   /* le caselle degli esercizi: il testo si tiene in memoria, così non si perde quando la pagina si ridisegna */
   const t=e.target;if(t.classList&&t.classList.contains('sp-in')){S.spDraft[t.dataset.k]=t.value;return}
