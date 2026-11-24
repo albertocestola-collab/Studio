@@ -317,6 +317,29 @@ button.pl-t .t{color:var(--accent)}
 .tryit{margin-top:14px;padding:12px;border-radius:14px;background:var(--ok-soft)}
 .tryit>.eyebrow{color:var(--ok);margin-bottom:8px}
 .tryit .card.ex{box-shadow:none}
+/* sezione Esercizi di fine lezione (v30) */
+.exz{display:flex;flex-direction:column;gap:12px;background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;border-top:4px solid var(--accent);scroll-margin-top:80px}
+.exz-h{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;justify-content:space-between}
+.exz-h>div:first-child{flex:1 1 200px;min-width:0}
+.exz-k{font-size:15px;color:var(--muted);margin-bottom:6px}.exz-k b{font-family:var(--f-display);font-size:22px;color:var(--ink)}
+.exz-bar{display:flex;gap:4px;height:8px}
+.exz-bar span{flex:1;border-radius:99px;background:var(--surface-2)}
+.exz-bar span.ok{background:var(--ok)}.exz-bar span.rev{background:var(--warn)}
+.exz-bar span.cur:not(.ok):not(.rev){background:var(--accent-soft);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.exz-nums{display:flex;flex-wrap:wrap;gap:6px}
+.exz-n{width:40px;height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+.exz-n.ok{background:var(--ok-soft);border-color:var(--ok-soft);color:var(--ok)}
+.exz-n.rev{background:var(--warn-soft);border-color:var(--warn-soft);color:var(--warn)}
+.exz-n.cur{border:2.5px solid var(--accent);color:var(--ink)}
+.exz .card.ex{box-shadow:none;padding:0;background:none;animation:up .2s ease}
+.ex-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2px}
+.ex-t{font-family:var(--f-display);font-size:21px;font-weight:800;margin:2px 0 8px;line-height:1.25}
+.exz-nav{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
+.exz-nav .btn svg{width:17px;height:17px}
+.exz-end{color:var(--ok);font-weight:700}
+.exz-old{margin-top:4px}
+@media (max-width:560px){.exz{padding:14px;gap:10px}.exz-n{width:33px;height:36px;border-radius:9px}.exz-nums{gap:5px}
+  .exz-nav .btn{flex:1 1 auto;padding:0 10px}.ex-t{font-size:19px}}
 .toc .tx{font-weight:400;color:var(--muted);font-size:12.5px}
 /* sul telefono il riquadro dentro il riquadro ruba spazio al codice: margini più stretti */
 @media (max-width:420px){.tryit{padding:8px;margin-left:-8px;margin-right:-8px}.tryit .card.ex{padding:12px 10px}}
@@ -1252,7 +1275,7 @@ const del=(store,key)=>tx([store],t=>t.objectStore(store).delete(key));
 
 /* ---------- stato ---------- */
 const S={esami:new Map(),arg:new Map(),prog:new Map(),imp:{},
-  tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},exAns:{},qzRedo:new Set(),spDraft:{},more:new Set(),planPage:false,
+  tab:'adesso',route:{esame:null,arg:null},open:null,tech:{},ex:{},exAns:{},exPos:{},exOld:new Set(),qzRedo:new Set(),spDraft:{},more:new Set(),planPage:false,
   draft:'',checked:null,exportAll:false,
   /* collegamenti (pila del riquadro di ripasso), mappe aperte, ricerca nel glossario, stato degli strumenti interattivi */
   refStack:[],maps:new Set(),glq:'',tool:{},play:null,
@@ -1560,7 +1583,7 @@ function validate(p,bytes){
         if(opt(a,'esercizi',wa,'arr'))arr(a.esercizi).forEach((x,j)=>{
           if(!x||typeof x!=='object'){E(`${wa}, l'esercizio ${j+1} non è un oggetto.`);return}
           const w=isStr(x.id)?`Nell'esercizio ${esc(x.id)}`:`${wa}, nell'esercizio ${j+1},`;
-          idOk(x.id,w,tid);need(x,'testo',w,'str');need(x,'soluzione',w,'str');opt(x,'suggerimento',w,'str');strArr(x,'passi',w);
+          idOk(x.id,w,tid);need(x,'testo',w,'str');need(x,'soluzione',w,'str');opt(x,'suggerimento',w,'str');opt(x,'titolo',w,'str');strArr(x,'passi',w);
           if(need(x,'livello',w,'str')&&!EX_LEVELS[x.livello])E(`${w} il livello «${esc(x.livello)}» non esiste. Quelli possibili: base, medio, difficile.`);
           /* risposta: le caselle che l'app controlla (v17) */
           if(opt(x,'risposta',w,'obj')&&x.risposta&&need(x.risposta,'caselle',w+', nella risposta,','arr')){
@@ -2544,7 +2567,7 @@ function spiegaloHTML(a,spg){
         <textarea class="sp-in" data-k="${esc(k)}" placeholder="Scrivi qui…" rows="3">${esc(S.spDraft[k]!=null?S.spDraft[k]:(r?r.testo:''))}</textarea>
         <div class="btnrow"><button class="btn" data-act="sp-save" data-k="${esc(k)}">Salva</button>${r?`<span class="muted small" style="align-self:center">Salvato ${esc(shortDate(r.data))}</span>`:''}</div></section>`}).join('')}</div>`;
 }
-function exCard(x){
+function exCard(x,o){
   const items=[];
   if(x.suggerimento)items.push(['Suggerimento',x.suggerimento,'']);
   arr(x.passi).forEach((p,i)=>items.push(['Passo '+(i+1),p,'']));
@@ -2567,8 +2590,37 @@ function exCard(x){
       b+=`<div class="btnrow" style="margin-top:10px"><button class="btn primary" data-act="ex-step" data-id="${esc(x.id)}">Mostra ${nx==='Soluzione'?'la soluzione':nx.toLowerCase()}</button>
         ${nx!=='Soluzione'?`<button class="btn ghost" data-act="ex-sol" data-id="${esc(x.id)}" data-n="${items.length}">Soluzione subito</button>`:''}</div>`}
   }
-  return `<section class="card ex"><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;align-items:center"><span class="chips"><span class="chip ${x.livello==='difficile'?'red':x.livello==='medio'?'warn':'ok'}">${esc(EX_LEVELS[x.livello]||x.livello)}</span>${rec?(rec.esito==='fatto'?'<span class="chip ok">✓ Risolto</span>':'<span class="chip warn">Da rivedere</span>'):''}</span><span class="muted small">${esc(x.id.split('.').pop())}</span></div>
-    ${md(x.testo)}${R?ansHTML(x):''}<div style="margin-top:${R?6:10}px">${b}</div></section>`;
+  const chips=`<span class="chips"><span class="chip ${x.livello==='difficile'?'red':x.livello==='medio'?'warn':'ok'}">${esc(EX_LEVELS[x.livello]||x.livello)}</span>${rec?(rec.esito==='fatto'?'<span class="chip ok">✓ Risolto</span>':'<span class="chip warn">Da rivedere</span>'):''}</span>`;
+  /* o.n: esercizio di fine lezione, uno alla volta (v30): numero e titolo in testa */
+  const head=o&&o.n?`<div class="ex-top"><span class="eyebrow">Esercizio ${o.n} di ${o.tot}</span>${chips}</div>${x.titolo?`<h3 class="ex-t">${esc(x.titolo)}</h3>`:''}`
+    :`<div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;align-items:center">${chips}<span class="muted small">${esc(x.id.split('.').pop())}</span></div>${x.titolo?`<h3 class="ex-t">${esc(x.titolo)}</h3>`:''}`;
+  return `<section class="card ex${o&&o.n?' ex-one':''}">${head}
+    <div class="ex-body">${md(x.testo)}</div>${R?ansHTML(x):''}<div style="margin-top:${R?6:10}px">${b}</div></section>`;
+}
+/* ---------- la sezione «Esercizi» in fondo all'argomento (v30, 24/11/2026) ----------
+   Alberto: gli esercizi dentro le sezioni sono facili; quelli difficili vanno solo qui, da fare a fine lezione, e la sezione
+   deve essere più piacevole. Gli esercizi senza dopo_sezione si fanno uno alla volta: numeri per saltare (verde = risolto,
+   giallo = da rivedere), barra dei progressi, «Prossimo» quando è risolto. Quelli della spiegazione restano sotto, chiusi. */
+const exDone=x=>{const r=exRec(x.id);return r?r.esito:''};
+function exPos(a,fine){let p=S.exPos[a.id];
+  if(p==null||p>=fine.length){p=fine.findIndex(x=>exDone(x)!=='fatto');if(p<0)p=0}
+  S.exPos[a.id]=p;/* resta qui finché non cambi tu: dopo «Giusto!» non salta da solo */
+  return p}
+function exFineHTML(a,fine){
+  const p=exPos(a,fine),x=fine[p],st=fine.map(exDone),ok=st.filter(s=>s==='fatto').length,
+    xs=x.risposta?exState(x):null,solved=x.risposta?!!xs.res&&xs.res.every(Boolean):!!exDone(x);
+  const nums=fine.map((y,i)=>`<button class="exz-n${st[i]==='fatto'?' ok':st[i]?' rev':''}${i===p?' cur':''}" data-act="ex-go" data-id="${esc(a.id)}" data-i="${i}" title="${esc(y.titolo||'Esercizio '+(i+1))}" aria-label="Esercizio ${i+1}${y.titolo?': '+esc(y.titolo):''}${st[i]==='fatto'?', risolto':st[i]?', da rivedere':''}"${i===p?' aria-current="true"':''}>${st[i]==='fatto'?'✓':i+1}</button>`).join('');
+  const all=ok===fine.length;
+  return `<div class="exz" id="exz">
+    <div class="exz-h"><div><div class="exz-k">${all?'Tutti risolti':`<b>${ok}</b> di ${fine.length} risolti`}</div>
+      <div class="exz-bar" aria-hidden="true">${st.map((s,i)=>`<span class="${s==='fatto'?'ok':s?'rev':''}${i===p?' cur':''}"></span>`).join('')}</div></div>
+      <div class="exz-nums" role="group" aria-label="Scegli l'esercizio">${nums}</div></div>
+    ${exCard(x,{n:p+1,tot:fine.length})}
+    <div class="exz-nav">
+      <button class="btn ghost" data-act="ex-go" data-id="${esc(a.id)}" data-i="${p-1}"${p?'':' disabled'}>${IC.left}Precedente</button>
+      ${p<fine.length-1?`<button class="btn${solved?' primary':' ghost'}" data-act="ex-go" data-id="${esc(a.id)}" data-i="${p+1}">${solved?'Prossimo esercizio':'Salta'} <span aria-hidden="true">→</span></button>`
+        :all?'<span class="exz-end">Hai finito gli esercizi di questa lezione.</span>':''}
+    </div></div>`;
 }
 function renderTopic(v,a){
   const e=S.esami.get(a.esame_id),secs=sortedSections(a);
@@ -2608,10 +2660,13 @@ function renderTopic(v,a){
       </section>`})+`</div>`;
   }
   if(exs.length){
-    const placed=exs.some(x=>after[x.dopo_sezione]);
-    h+=`<h2 class="sec-h" id="h-ese">${placed?'Tutti gli esercizi':'Esercizi'}</h2>
-      ${placed?'<p class="note" style="margin:0">Li trovi anche dentro la spiegazione, subito dopo la sezione che serve per farli. Qui sono tutti insieme, per ripassare.</p>':''}
-      <div class="stack-s">`+limited('ese:'+a.id,exs,x=>exCard(x))+`</div>`;
+    /* fine lezione = gli esercizi che non stanno dentro una sezione; gli altri si ripassano qui sotto, chiusi */
+    const fine=exs.filter(x=>!(x.dopo_sezione&&secIds.has(x.dopo_sezione))),dentro=exs.filter(x=>x.dopo_sezione&&secIds.has(x.dopo_sezione));
+    h+=`<h2 class="sec-h" id="h-ese">Esercizi</h2>`;
+    if(fine.length)h+=`<p class="note" style="margin:0">${dentro.length?'Da fare a fine lezione: mettono insieme più sezioni.':'Uno alla volta: tocca un numero per saltare.'}</p>`+exFineHTML(a,fine);
+    if(dentro.length){const op=S.exOld.has(a.id),ok=dentro.filter(x=>exDone(x)==='fatto').length;
+      h+=`<div class="acc exz-old${op?' open':''}"><button class="acc-h" data-act="ex-old" data-id="${esc(a.id)}" aria-expanded="${op}"><span class="txt"><span class="eyebrow">Ripasso</span><span class="t">Gli esercizi della spiegazione</span><span class="m">${pl(dentro.length,'esercizio','esercizi')}${ok?` · ${ok} risolti`:''} · sono anche dentro le sezioni</span></span>${IC.chev}</button>
+        ${op?`<div class="acc-b"><div class="stack-s">${limited('ese:'+a.id,dentro,x=>exCard(x))}</div></div>`:''}</div>`}
   }
   const quiz=arr(obj(a.verifica).quiz),spg=arr(obj(a.verifica).spiegalo);
   if(quiz.length)h+=quizHTML(a,quiz);
@@ -2621,7 +2676,7 @@ function renderTopic(v,a){
   if(secs.length>1||techs.length||exs.length){
     toc=`<aside class="toc" aria-label="Indice dell'argomento"><div class="eyebrow">Indice</div><ol>${secs.map(s=>
       `<li><button data-act="goto-sec" data-id="${esc(s.id)}"${S.open===s.id?' aria-current="true"':''}><span class="dot${isRead(s.id)?' on':''}">${IC.check}</span><span>${esc(s.titolo)}${after[s.id]?` <span class="tx">· ${pl(after[s.id].length,'esercizio','esercizi')}</span>`:''}</span></button></li>`).join('')}</ol>
-      ${techs.length||exs.length?`<div class="jump">${techs.length?'<button data-act="goto" data-to="h-tec">Tecniche</button>':''}${exs.length?'<button data-act="goto" data-to="h-ese">Esercizi</button>':''}${arr(obj(a.verifica).quiz).length?'<button data-act="goto" data-to="h-quiz">Quiz</button>':''}</div>`:''}</aside>`;
+      ${techs.length||exs.length?`<div class="jump">${techs.length?'<button data-act="goto" data-to="h-tec">Tecniche</button>':''}${exs.length?`<button data-act="goto" data-to="h-ese">Esercizi${(()=>{const f=exs.filter(x=>!(x.dopo_sezione&&after[x.dopo_sezione]));return f.length?` <span class="tx">${f.filter(x=>exDone(x)==='fatto').length}/${f.length}</span>`:''})()}</button>`:''}${arr(obj(a.verifica).quiz).length?'<button data-act="goto" data-to="h-quiz">Quiz</button>':''}</div>`:''}</aside>`;
   }
   /* l'indice viene ridisegnato: resta dove l'avevi fatto scorrere */
   const old=v.querySelector('.toc'),keep=old?old.scrollTop:0;
@@ -2859,6 +2914,10 @@ const ACT={
     if(S.open){const el=document.querySelector(`[data-act="toggle-sec"][data-id="${CSS.escape(S.open)}"]`);if(el)el.scrollIntoView({block:'start',behavior:'smooth'})}},
   'tech-step':b=>{S.tech[b.dataset.id]=(S.tech[b.dataset.id]||0)+1;render()},
   'ex-try':b=>{S.ex[b.dataset.id]=1;render()},
+  /* sezione Esercizi (v30): cambia esercizio e tiene la scheda in vista; apre o chiude gli esercizi della spiegazione */
+  'ex-go':b=>{S.exPos[b.dataset.id]=Math.max(0,+b.dataset.i);render();
+    const el=$('#exz');if(el&&el.getBoundingClientRect().top<0)el.scrollIntoView({block:'start',behavior:'smooth'})},
+  'ex-old':b=>{const id=b.dataset.id;S.exOld.has(id)?S.exOld.delete(id):S.exOld.add(id);render()},
   'ex-step':async b=>{S.ex[b.dataset.id]=(S.ex[b.dataset.id]||0)+1;await exSolSeen(b.dataset.id);render()},
   'ex-sol':async b=>{S.ex[b.dataset.id]=+b.dataset.n;await exSolSeen(b.dataset.id);render()},
   /* esercizi con le caselle (v17) */
